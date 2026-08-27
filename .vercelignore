@@ -1,0 +1,5 @@
+src/
+obfuscate.js
+deploy.ps1
+server.py
+node_modules/
