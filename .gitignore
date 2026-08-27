@@ -1,0 +1,16 @@
+.vercel
+node_modules
+assets/js/app.js
+archive/
+backup_*/
+backup_circle_*/
+*.bak_*
+__pycache__/
+.agents/
+.claude/
+.opencode/
+opencode.json
+tmp-*.js
+tmp*.js
+
+.env*

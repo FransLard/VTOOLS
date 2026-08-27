@@ -1,0 +1,15 @@
+{
+  "name": "velard-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VelardTools - obfuscation build untuk script.js",
+  "scripts": {
+    "obfuscate": "node tools/build/obfuscate.js",
+    "check": "node tools/checks/check-v4.js"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.1",
+    "jsdom": "^30.0.1",
+    "terser": "^5.51.2"
+  }
+}
