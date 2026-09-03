@@ -510,11 +510,17 @@ body:not([data-view="beranda"]) .toggle-row{ gap:8px !important; }
 body:not([data-view="beranda"]) .tools-grid-new{ gap:8px !important; }
 body:not([data-view="beranda"]) .tool-card-new{ padding:10px 11px !important; }
 body:not([data-view="beranda"]) .tutorial-grid{ gap:10px !important; display:grid !important; grid-template-columns:1fr 1fr !important; align-items:start !important; }
-body:not([data-view="beranda"]) .tutorial-card{ padding:12px 11px !important; }
-body:not([data-view="beranda"]) .tutorial-card h3{ font-size:12.5px !important; }
-body:not([data-view="beranda"]) .tutorial-card p{ font-size:11.4px !important; line-height:1.55 !important; }
-body:not([data-view="beranda"]) .tutorial-step{ padding:6px 0 !important; gap:8px !important; }
-body:not([data-view="beranda"]) .tutorial-step .step-num{ width:26px !important; height:26px !important; font-size:11px !important; }
+body:not([data-view="beranda"]) .tutorial-card{ padding:9px 9px !important; }
+body:not([data-view="beranda"]) .tutorial-card h3{ font-size:11.5px !important; }
+body:not([data-view="beranda"]) .tutorial-card p{ font-size:10.5px !important; line-height:1.45 !important; }
+body:not([data-view="beranda"]) .tutorial-step{ padding:4px 0 !important; gap:6px !important; }
+body:not([data-view="beranda"]) .tutorial-step .step-num{ width:22px !important; height:22px !important; font-size:10px !important; }
+body[data-view="tutorial"] .tutorial-card{ padding:8px 9px !important; }
+body[data-view="tutorial"] .tutorial-grid{ gap:8px !important; }
+body[data-view="tutorial"] .tut-section-title{ font-size:10px !important; margin-bottom:6px !important; padding-bottom:6px !important; }
+body[data-view="tutorial"] .help-card-wide{ padding:8px 10px !important; min-height:0 !important; }
+body[data-view="tutorial"] .app-container{ padding-bottom:90px !important; }
+body[data-view="tutorial"] .slide-panel.cube-face{ padding-bottom:16px !important; }
 body:not([data-view="beranda"]) .help-card-wide{ padding:10px 12px !important; gap:8px !important; }
 body:not([data-view="beranda"]) .donate-card{ gap:10px !important; padding:12px !important; }
 body:not([data-view="beranda"]) .qris-image{ width:164px !important; height:164px !important; }
@@ -1658,6 +1664,15 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   .floating-nav-item.active{ background:#f2f4f6; color:#0b0e14; }
   .comets, .edge-flashes{ display:none !important; }
   .card, .upload-card, .tool-card-new{ backdrop-filter:none !important; }
+}
+/* Mobile lag fix - keep only hi saya & velard-frans, hide heavy */
+@media(max-width:640px){
+  #panel-beranda .hero-bio-text,
+  #panel-beranda .hero-action-row{ display:none !important; }
+  #panel-beranda .tiktok-section{ display:none !important; }
+  .streak-bg, .streak-bg .bumi-img, .streak-bg .blackhole-img, .streak-bg .bumi-glow, .streak-bg .blackhole-glow, .bg-glow{ display:none !important; }
+  .streak-bg svg{ display:none !important; }
+  .card, .qm-card, .about-card, .tutorial-card{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
 }
 /* PC/laptop — tutorial biar bisa scroll sampai laporan */
 @media(min-width:1025px){
