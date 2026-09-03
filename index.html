@@ -1486,16 +1486,29 @@
           slideTo(idx, true);
         });
       });
-      // swipe
-      let touchStartX=0, touchEndX=0;
+      // swipe - anti sensitif saat scroll vertikal (mobile)
+      let touchStartX=0, touchStartY=0, touchStartTime=0;
       const container = document.querySelector(".slide-container");
       if (container) {
-        container.addEventListener("touchstart", e=>{ touchStartX = e.changedTouches[0].screenX; }, {passive:true});
+        container.addEventListener("touchstart", e=>{
+          const t = e.changedTouches[0];
+          touchStartX = t.screenX; touchStartY = t.screenY; touchStartTime = Date.now();
+        }, {passive:true});
         container.addEventListener("touchend", e=>{
-          touchEndX = e.changedTouches[0].screenX;
-          const diff = touchStartX - touchEndX;
-          if (diff > 50) slideTo(Math.min(currentIndex+1, panelOrder.length-1), true);
-          else if (diff < -50) slideTo(Math.max(currentIndex-1, 0), true);
+          const t = e.changedTouches[0];
+          const diffX = touchStartX - t.screenX;
+          const diffY = touchStartY - t.screenY;
+          const elapsed = Date.now() - touchStartTime;
+          const absX = Math.abs(diffX), absY = Math.abs(diffY);
+          // abaikan jika target adalah input/select/textarea atau sedang scroll vertikal dominan
+          const target = e.target;
+          if(target && target.closest && target.closest('input, textarea, select, [contenteditable="true"]')) return;
+          if(elapsed > 600) return;
+          if(absY > 70 && absY > absX * 1.2) return; // scroll vertikal, jangan swipe
+          if(absX < 85) return; // butuh geser horizontal cukup jauh
+          if(absX < absY * 1.6) return; // harus lebih horizontal dari vertikal
+          if (diffX > 0) slideTo(Math.min(currentIndex+1, panelOrder.length-1), true);
+          else slideTo(Math.max(currentIndex-1, 0), true);
         }, {passive:true});
       }
       // initial - masuk awal ke Home, refresh tetap stay di menu (session-based)
@@ -1998,6 +2011,6 @@
     });
   })();
   </script>
-  <script src="script.js?v=30"></script>
+  <script src="script.js?v=31"></script>
 </body>
 </html>
