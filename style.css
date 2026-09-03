@@ -1122,9 +1122,14 @@ body[data-view="beranda"] .slide-panel.cube-face{
 
 
 
-/* Tutorial scroll tidak agresif */
-#panel-tutorial{ scroll-behavior:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:auto; }
-#panel-tutorial *{ scroll-behavior:auto !important; }
+/* Tutorial scroll fix PC - biar bisa scroll dimanapun, tidak ketahan */
+#panel-tutorial{ scroll-behavior:auto; overscroll-behavior:auto !important; overflow:visible !important; -webkit-overflow-scrolling:auto; pointer-events:auto !important; }
+#panel-tutorial *{ scroll-behavior:auto !important; overscroll-behavior:auto !important; pointer-events:auto !important; }
+body[data-view="tutorial"]{ overflow-y:auto !important; }
+body[data-view="tutorial"] .app-container,
+body[data-view="tutorial"] .app-main,
+body[data-view="tutorial"] .slide-container.cube-viewport,
+body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 
 /* ---------- 8. Tutorial / Donate / About ---------- */
 .tutorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
