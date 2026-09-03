@@ -7,6 +7,7 @@
     "obfuscate": "node obfuscate.js"
   },
   "devDependencies": {
-    "javascript-obfuscator": "^4.1.1"
+    "javascript-obfuscator": "^4.1.1",
+    "jsdom": "^30.0.1"
   }
 }
