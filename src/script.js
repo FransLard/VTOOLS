@@ -33,6 +33,7 @@
   let ffmpegLoading = null;
   let isProcessing = false;
   let toolProcessingCount = 0;
+  const toolProgressDisplayed = {};
 
   const els = {
     uploadArea: document.getElementById("uploadArea"),
@@ -93,18 +94,17 @@
     toolCutEnd: document.getElementById("toolCutEnd"),
     toolCutRun: document.getElementById("toolCutRun"),
     toolCutStatus: document.getElementById("toolCutStatus"),
-    toolMergeFile: document.getElementById("toolMergeFile"),
-    toolMergePick: document.getElementById("toolMergePick"),
-    toolMergeList: document.getElementById("toolMergeList"),
-    toolMergeDetected: document.getElementById("toolMergeDetected"),
-    toolMergeRun: document.getElementById("toolMergeRun"),
-    toolMergeStatus: document.getElementById("toolMergeStatus"),
-    mergeLimitModal: document.getElementById("mergeLimitModal"),
-    mergeLimitList: document.getElementById("mergeLimitList"),
-    mergeLimitText: document.getElementById("mergeLimitText"),
-    mergeLimitStatus: document.getElementById("mergeLimitStatus"),
-    mergeLimitCancel: document.getElementById("mergeLimitCancel"),
-    mergeLimitConfirm: document.getElementById("mergeLimitConfirm"),
+    toolRescaleFile: document.getElementById("toolRescaleFile"),
+    toolRescaleDrop: document.getElementById("toolRescaleDrop"),
+    toolRescaleSelected: document.getElementById("toolRescaleSelected"),
+    toolRescaleDetected: document.getElementById("toolRescaleDetected"),
+    toolRescaleLabel: document.getElementById("toolRescaleLabel"),
+    toolRescaleSelect: document.getElementById("toolRescaleSelect"),
+    toolRescaleRun: document.getElementById("toolRescaleRun"),
+    toolRescaleStatus: document.getElementById("toolRescaleStatus"),
+    toolRescaleProgress: document.getElementById("toolRescaleProgress"),
+    toolRescaleProgressFill: document.getElementById("toolRescaleProgressFill"),
+    toolRescaleProgressPct: document.getElementById("toolRescaleProgressPct"),
     qrisImg: document.getElementById("qris-img"),
   };
 
@@ -384,160 +384,30 @@
     return data;
   }
 
-  let mergeFiles = [];
-  let pendingMergeCombined = null;
-
-  function openMergeLimitModal(combined) {
-    pendingMergeCombined = combined.slice();
-    renderMergeLimitList();
-    els.mergeLimitModal.hidden = false;
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeMergeLimitModal() {
-    if (els.mergeLimitModal) els.mergeLimitModal.hidden = true;
-    document.body.style.overflow = "";
-    pendingMergeCombined = null;
-  }
-
-  function renderMergeLimitList() {
-    if (!els.mergeLimitList || !pendingMergeCombined) return;
-    els.mergeLimitList.innerHTML = "";
-    const n = pendingMergeCombined.length;
-    if (els.mergeLimitText) {
-      const tmpl = tr("mergeLimitText", "Kamu memilih {n} video, maksimal 7. Hapus video yang tidak perlu (tap ✕).");
-      els.mergeLimitText.textContent = tmpl.replace("{n}", String(n));
-    }
-    pendingMergeCombined.forEach(function (f, idx) {
-      const row = document.createElement("div");
-      row.className = "tool-merge-item";
-      const safeName = escapeHtml(f.name);
-      row.innerHTML = '<span class="num">' + (idx + 1) + '</span><span class="name" title="' + safeName + '">' + safeName + '</span><span class="size">' + formatBytes(f.size) + '</span><button class="remove" type="button" aria-label="Hapus"><span class="material-symbols-rounded" style="font-size:16px;line-height:1">close</span></button>';
-      row.querySelector(".remove").addEventListener("click", function () {
-        pendingMergeCombined.splice(idx, 1);
-        renderMergeLimitList();
-        updateMergeLimitState();
-      });
-      els.mergeLimitList.appendChild(row);
-    });
-    updateMergeLimitState();
-  }
-
-  function updateMergeLimitState() {
-    if (!pendingMergeCombined) return;
-    const n = pendingMergeCombined.length;
-    const over = Math.max(0, n - 7);
-    const need = n > 7 ? n - 7 : 0;
-    if (els.mergeLimitStatus) {
-      if (over > 0) {
-        const tmpl = tr("mergeLimitNeed", "Hapus {k} lagi biar pas 7.");
-        els.mergeLimitStatus.textContent = tmpl.replace("{k}", String(need));
-        els.mergeLimitStatus.className = "tool-status err";
-      } else if (n < 2) {
-        els.mergeLimitStatus.textContent = tr("toolMergeNeed", "Pilih minimal 2 video (maks 7).");
-        els.mergeLimitStatus.className = "tool-status err";
-      } else {
-        els.mergeLimitStatus.textContent = n + " video dipilih";
-        els.mergeLimitStatus.className = "tool-status ok";
-      }
-    }
-    if (els.mergeLimitConfirm) {
-      els.mergeLimitConfirm.disabled = n < 2 || n > 7;
-      els.mergeLimitConfirm.textContent = n > 7 ? tr("mergeLimitConfirm", "Simpan") + " (" + n + "/7)" : tr("mergeLimitConfirm", "Simpan");
-    }
-  }
-
-  function renderMergeList() {
-    if (!els.toolMergeList) return;
-    els.toolMergeList.innerHTML = "";
-    mergeFiles.forEach(function (f, idx) {
-      const row = document.createElement("div");
-      row.className = "tool-merge-item";
-      const safeName = escapeHtml(f.name);
-      row.innerHTML = '<span class="num">' + (idx + 1) + '</span><span class="name" title="' + safeName + '">' + safeName + '</span><span class="size">' + formatBytes(f.size) + '</span><button class="remove" type="button" aria-label="Hapus" title="Hapus"><span class="material-symbols-rounded" style="font-size:16px;line-height:1">close</span></button>';
-      row.querySelector(".remove").addEventListener("click", function () {
-        mergeFiles.splice(idx, 1);
-        els.toolMergeFile.value = "";
-        renderMergeList();
-        updateMergeState();
-      });
-      els.toolMergeList.appendChild(row);
-    });
-  }
-
-  function updateMergeState() {
-    if (mergeFiles.length === 0) {
-      els.toolMergeList.hidden = true;
-      els.toolMergeDetected.hidden = true;
-      els.toolMergeRun.hidden = true;
-      els.toolMergeRun.disabled = true;
-      toolStatus(els.toolMergeStatus, "", "");
-      return;
-    }
-    if (mergeFiles.length < 2) {
-      els.toolMergeList.hidden = false;
-      els.toolMergeDetected.textContent = mergeFiles.length + " file • butuh " + (2 - mergeFiles.length) + " lagi";
-      els.toolMergeDetected.hidden = false;
-      els.toolMergeRun.hidden = false;
-      els.toolMergeRun.disabled = true;
-      toolStatus(els.toolMergeStatus, "err", tr("toolMergeNeed", "Pilih minimal 2 video (maks 7)."));
-      return;
-    }
-    if (mergeFiles.length > 7) {
-      toolStatus(els.toolMergeStatus, "err", tr("toolMergeTooMany", "Maksimal 7 video."));
-      els.toolMergeRun.disabled = true;
-      return;
-    }
-    for (let i = 0; i < mergeFiles.length; i++) {
-      if (mergeFiles[i].size > MAX_FILE_BYTES) {
-        toolStatus(els.toolMergeStatus, "err", tr("logTooBig", "Error: File terlalu besar (") + formatBytes(mergeFiles[i].size) + tr("logTooBig2", "). Maksimal 1500 MB."));
-        els.toolMergeRun.disabled = true;
-        return;
-      }
-    }
-    els.toolMergeList.hidden = false;
-    const total = mergeFiles.reduce(function (a, b) { return a + b.size; }, 0);
-    els.toolMergeDetected.textContent = mergeFiles.length + " video • " + formatBytes(total);
-    els.toolMergeDetected.hidden = false;
-    els.toolMergeRun.hidden = false;
-    els.toolMergeRun.disabled = false;
-    toolStatus(els.toolMergeStatus, "", "");
-  }
-
-  async function mergeVideos(files) {
-    if (!files || files.length < 2 || files.length > 7) throw new Error(tr("toolMergeNeed", "Pilih minimal 2 video (maks 7)."));
-    for (let i = 0; i < files.length; i++) if (files[i].size > MAX_FILE_BYTES) throw new Error(tr("logTooBig", "Error: File terlalu besar (") + formatBytes(files[i].size) + tr("logTooBig2", "). Maksimal 1500 MB."));
+  async function rescaleVideo(file, targetHeight) {
+    if (!file) throw new Error(tr("toolRescaleNeed", "Pilih video terlebih dahulu."));
+    if (file.size > MAX_FILE_BYTES) throw new Error(tr("logTooBig", "Error: File terlalu besar (") + formatBytes(file.size) + tr("logTooBig2", "). Maksimal 1500 MB."));
+    const tgt = parseInt(targetHeight,10);
+    if (![360,480,720].includes(tgt)) throw new Error("Target tidak valid.");
     const ffmpeg = await loadFfmpeg();
-    const exts = files.map(function (f) { return detectVideoFormat(f); });
-    const inputNames = [];
-    for (let i = 0; i < files.length; i++) {
-      const name = "merge_in_" + Date.now() + "_" + i + "." + exts[i];
-      inputNames.push(name);
-      await ffmpeg.writeFile(name, new Uint8Array(await files[i].arrayBuffer()));
-    }
-    const listName = "merge_list_" + Date.now() + ".txt";
-    const listContent = inputNames.map(function (n) { return "file '" + n + "'"; }).join("\n");
-    await ffmpeg.writeFile(listName, new TextEncoder().encode(listContent));
-    const outputName = "merge_out_" + Date.now() + ".mp4";
-    const threads = String(Math.min(4, navigator.hardwareConcurrency || 2));
-    addLog("[1/3] " + tr("logStep1", "Memuat data video...") + " (" + files.length + " file)");
+    const srcExt = detectVideoFormat(file);
+    const inputName = "rescale_in_" + Date.now() + "." + srcExt;
+    const outputName = "rescale_out_" + Date.now() + ".mp4";
+    const vf = "scale=-2:" + tgt + ":flags=lanczos:force_original_aspect_ratio=decrease,setsar=1,format=yuv420p";
+    addLog("[1/3] " + tr("logStep1", "Memuat data video...") + " (" + tgt + "p)");
+    await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
     addLog("[2/3] " + tr("logStep2", "Optimasi kualitas..."));
-    // Try concat copy fast, fallback re-encode
-    let usedCopy = false;
+    addLog(tr("logFilters", "FFmpeg filters: ") + vf + " (no upscale)");
+    const threads = String(Math.min(4, navigator.hardwareConcurrency || 2));
     try {
-      addLog(tr("logFilters", "FFmpeg filters: ") + "concat copy (fast)");
-      await ffmpeg.exec(["-y", "-f", "concat", "-safe", "0", "-i", listName, "-c", "copy", outputName]);
-      usedCopy = true;
+      await ffmpeg.exec(["-y","-i",inputName,"-threads",threads,"-vf",vf,"-c:v","libx264","-preset","veryfast","-crf","22","-pix_fmt","yuv420p","-c:a","aac","-b:a","128k","-movflags","+faststart",outputName]);
     } catch (e) {
-      addLog("[Merge] copy gagal, fallback re-encode: " + getErrorMessage(e));
-    }
-    if (!usedCopy) {
-      addLog(tr("logFilters", "FFmpeg filters: ") + "concat re-encode ultrafast");
-      await ffmpeg.exec(["-y", "-f", "concat", "-safe", "0", "-i", listName, "-threads", threads, "-c:v", "libx264", "-preset", "ultrafast", "-crf", "23", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", outputName]);
+      addLog("[Rescale] fallback copy audio: " + getErrorMessage(e));
+      await ffmpeg.exec(["-y","-i",inputName,"-threads",threads,"-vf",vf,"-c:v","libx264","-preset","veryfast","-crf","22","-pix_fmt","yuv420p","-c:a","copy","-movflags","+faststart",outputName]);
     }
     addLog("[3/3] " + tr("logStep3", "Encoding & menyimpan..."));
     const data = await ffmpeg.readFile(outputName);
-    await removeFfmpegFiles(ffmpeg, inputNames.concat([listName, outputName]));
+    await removeFfmpegFiles(ffmpeg, [inputName, outputName]);
     return data;
   }
 
@@ -545,15 +415,29 @@
     return { icon: ok ? "\u2705" : warn ? "\u26A0\uFE0F" : "\u274C", ok: ok, warn: warn };
   }
 
+  function showTopNotif(msg){
+    const el=document.getElementById("topNotif");
+    if(!el) return;
+    try{ document.body.appendChild(el); }catch(e){ console.warn(e); }
+    el.textContent=msg;
+    el.hidden=false;
+    void el.offsetHeight;
+    el.classList.add("show");
+    clearTimeout(showTopNotif._t);
+    showTopNotif._t=setTimeout(function(){ el.classList.remove("show"); setTimeout(function(){ el.hidden=true; },260); }, 4000);
+  }
   function showToast(msg) {
     const toast = document.getElementById("appToast");
     if (!toast) return;
+    try{ document.body.appendChild(toast); }catch(e){ console.warn(e); }
     toast.textContent = msg;
+    toast.style.zIndex = "2147483647";
+    toast.style.top = "calc(10px + env(safe-area-inset-top, 0px))";
     toast.classList.add("show");
     clearTimeout(showToast._t);
     showToast._t = setTimeout(function () {
       toast.classList.remove("show");
-    }, 2500);
+    }, 3500);
   }
 
   function setProcessingFlag(on) {
@@ -570,7 +454,7 @@
     if (!isProcessing) return false;
     // cek apakah memang ada proses terlihat (progress bar atau status tools)
     const hasMain = els.progressWrap && !els.progressWrap.hidden;
-    const statuses = [els.toolMp3Status, els.toolConvertStatus, els.toolCutStatus, els.toolMergeStatus];
+    const statuses = [els.toolMp3Status, els.toolConvertStatus, els.toolCutStatus, els.toolRescaleStatus];
     const hasTool = statuses.some(function(el){ return el && el.textContent.indexOf("Memproses") !== -1; });
     if (hasMain || hasTool) return true;
     // stale flag (mis. setelah sukses tapi flag belum reset) → auto-reset
@@ -585,8 +469,7 @@
       const mp3Busy = els.toolMp3Run && !els.toolMp3Run.hidden && els.toolMp3Status && els.toolMp3Status.textContent === tr("processing", "Memproses...");
       const convBusy = els.toolConvertRun && !els.toolConvertRun.hidden && els.toolConvertStatus && els.toolConvertStatus.textContent === tr("processing", "Memproses...");
       const cutBusy = els.toolCutRun && !els.toolCutRun.hidden && els.toolCutStatus && els.toolCutStatus.textContent === tr("processing", "Memproses...");
-      const mergeBusy = els.toolMergeRun && !els.toolMergeRun.hidden && els.toolMergeStatus && els.toolMergeStatus.textContent === tr("processing", "Memproses...");
-      busy = mp3Busy || convBusy || cutBusy || mergeBusy;
+      busy = mp3Busy || convBusy || cutBusy;
     }
     if (busy) {
       const msg = lang === "en" ? "Process is still running. Are you sure you want to leave? Progress will be lost." : "Proses masih berjalan. Yakin mau keluar? Progress akan hilang.";
@@ -605,7 +488,7 @@
     // delegate + direct fallback for robustness (fix "gamau pilih")
     function activate(btn){
       if (!btn) return;
-      if (isProcessing) { try{ showToast(tr("processing","Memproses...")); }catch(e){} return; }
+      if (isProcessing) { try{ showToast(tr("processing","Memproses...")); }catch(e){ console.warn(e); } return; }
       container.querySelectorAll(".qm-seg-btn,.seg-btn").forEach(function (b) {
         b.classList.toggle("active", b === btn);
       });
@@ -631,21 +514,20 @@
   }
 
   const METHOD_DESCRIPTIONS = {
-    wmv: "WMV dirancang untuk kualitas maksimal (WMV qscale 1, paksa 60fps). Ukuran file biasanya LEBIH BESAR. Untuk arsip / PowerPoint, bukan untuk TikTok.",
-    "wmv-off": "WMV OFF: Re-encode WMV2 tanpa resize (tetap lossy).",
-    "wmv-720p": "WMV 720P: Re-encode WMV2 cap 720p & paksa 60fps, qscale 1.",
-    "wmv-1080p": "WMV 1080P: Re-encode WMV2 cap 1080p & paksa 60fps, qscale 1.",
-    "binary-off": "BINARY OFF: Patch MP4 murni tanpa re-encode, mempertahankan kualitas asli.",
-    "binary-720p": "BINARY 720P: Kompresi H.264 720p bitrate tinggi, lanjut patch HD. Rekomendasi hemat kuota.",
-    "binary-1080p": "Mengompresi video pada resolusi Full HD 1080p dengan batas bitrate tinggi untuk menjaga ketajaman gerak, dilanjutkan patch HD. <span class=\"tiktok-rec\">Sangat direkomendasikan untuk TikTok.</span>",
-    "fps-off": "FPS OFF: Patch FPS tanpa resize, hanya normalisasi frame rate.",
-    "fps-720p": "FPS 720P: Normalisasi FPS + scale 720p.",
-    "fps-1080p": "FPS 1080P: Normalisasi FPS ke 60/30/24 + cap 1080p.",
-    // legacy fallback
-    v1: "v1 dirancang untuk kualitas maksimal (WMV qscale 1, paksa 60fps).",
-    "v1-on": "Re-encode ke format WMV cap 1080p & paksa 60fps, kualitas qscale 1.",
-    "v3-on": "Mengompresi video ke kualitas HD dengan ukuran file kecil.",
-    "v3-off": "V3 + Compress OFF: Patch MP4 murni.",
+    wmv: "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
+    "wmv-off": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
+    "wmv-720p": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
+    "wmv-1080p": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
+    "binary-off": "Melakukan patch MP4 murni tanpa proses encode ulang sehingga kualitas asli tetap terjaga sepenuhnya. Tidak terjadi kompresi dan tidak ada penurunan kualitas.",
+    "binary-720p": "Mengompresi video ke codec H.264 pada resolusi HD 720p dengan pengaturan bitrate yang dioptimalkan untuk keseimbangan kualitas dan ukuran file. Dilanjutkan dengan patch HD agar tetap tajam saat diunggah. Direkomendasikan untuk menghemat kuota.",
+    "binary-1080p": "Mengompresi video ke codec H.264 pada resolusi Full HD 1080p dengan batas bitrate tinggi untuk menjaga ketajaman detail dan pergerakan. Dilanjutkan dengan patch HD untuk menjaga kualitas tetap optimal. <span class=\"tiktok-rec\">Sangat direkomendasikan untuk TikTok.</span>",
+    "fps-off": "Melakukan patch frame rate tanpa mengubah resolusi. Hanya melakukan normalisasi frame rate agar pemutaran video lebih stabil.",
+    "fps-720p": "Melakukan normalisasi frame rate dan penyesuaian resolusi ke 720p untuk menghasilkan pemutaran yang stabil dengan ukuran file yang lebih efisien.",
+    "fps-1080p": "Melakukan normalisasi frame rate ke 60, 30 atau 24 fps dengan batas resolusi 1080p untuk menjaga kehalusan gerakan dan kompatibilitas pemutaran.",
+    v1: "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
+    "v1-on": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
+    "v3-on": "Mengompresi video ke codec H.264 pada resolusi Full HD 1080p dengan pengaturan yang dioptimalkan untuk kualitas HD dan ukuran file yang lebih kecil.",
+    "v3-off": "Melakukan patch MP4 murni tanpa proses encode ulang sehingga kualitas asli tetap terjaga sepenuhnya.",
   };
 
   function updateMethodDescription() {
@@ -782,6 +664,14 @@
     if (trak.timescale > 0) {
       trak.durationSec = trak.duration / trak.timescale;
     }
+    // fallback untuk video panjang: jika stts gagal, hitung dari sampleCount/duration (akurat untuk VFR/long)
+    if ((!trak.fps || trak.fps === 0) && trak.sampleCount > 0 && trak.durationSec > 0) {
+      trak.fps = trak.sampleCount / trak.durationSec;
+    }
+    // fallback tambahan: jika masih 0, coba dari chunkCount/sampleCount
+    if ((!trak.fps || trak.fps === 0) && trak.sampleCount > 0 && trak.timescale > 0 && trak.duration > 0) {
+      trak.fps = (trak.sampleCount * trak.timescale) / trak.duration;
+    }
     return trak;
   }
 
@@ -833,7 +723,17 @@
     const video = info.tracks.find(function (t) {
       return t.handler === "vide";
     }) || info.tracks[0];
-    const fps = video ? video.fps : 0;
+    let fps = video ? video.fps : 0;
+    // fallback akurat untuk video panjang: jika stts gagal, hitung dari sampleCount/durationSec
+    if ((!fps || fps === 0) && video && video.sampleCount > 0) {
+      const durTmp = video.durationSec || (info.timescale > 0 ? info.duration / info.timescale : 0);
+      if (durTmp > 0) fps = video.sampleCount / durTmp;
+    }
+    if (!fps || fps === 0) {
+      // last resort: anggap 30fps biar tidak "Tidak terdeteksi" untuk video panjang
+      const durTmp2 = video && video.durationSec ? video.durationSec : (info.timescale > 0 ? info.duration / info.timescale : 0);
+      if (durTmp2 > 5) fps = 30;
+    }
     const duration =
       video && video.durationSec
         ? video.durationSec
@@ -881,7 +781,7 @@
       if(tb){ tb.hidden=true; tb.classList.remove("active"); }
       if(tc && !tc.hidden){ tc.hidden=true; tc.classList.remove("expanded","is-morphing"); document.body.classList.remove("tool-modal-open"); }
       document.body.style.overflow="";
-    }catch(e){}
+    }catch(e){ console.warn(e); }
     if (window.velardActivatePanel) {
       window.velardActivatePanel('donate', true);
       return;
@@ -977,6 +877,7 @@
     els.progressWrap.hidden = true;
     els.logHead.hidden = true;
     els.logArea.hidden = true;
+    try { if (ffmpegInstance && typeof ffmpegInstance._resetProgress === 'function') ffmpegInstance._resetProgress(); } catch(e){ console.warn(e); }
     setProgress(0);
     setCompressGuard();
   }
@@ -997,10 +898,11 @@
     els.fileMeta.textContent = formatBytes(file.size);
     els.fileInfo.hidden = false;
     els.processBtn.disabled = true;
-    // fix: jangan tampilkan processing/log sebelum tombol proses ditekan
+    // fix: jangan tampilkan processing/log sebelum tombol proses ditekan + reset progress 99% stuck
     els.progressWrap.hidden = true;
     els.logHead.hidden = true;
     els.logArea.hidden = true;
+    try { if (ffmpegInstance && typeof ffmpegInstance._resetProgress === 'function') ffmpegInstance._resetProgress(); } catch(e){ console.warn(e); }
     setProgress(0);
     const dev = getDeviceInfo();
     addLog(
@@ -1025,6 +927,13 @@
   }
 
   function setProcessing(on) {
+    if (on) {
+      // reset progress state tanpa merubah logika quality method
+      try { if (ffmpegInstance && typeof ffmpegInstance._resetProgress === 'function') ffmpegInstance._resetProgress(); } catch(e){ console.warn(e); }
+      setProgress(0);
+      // juga reset fake progress polling state
+      try { window._velardLastBusy = false; } catch(e){ console.warn(e); }
+    }
     els.processBtn.disabled = on || !selectedFile;
     els.processBtnLabel.textContent = on ? tr("processing", "Memproses...") : tr("processBtn", "Proses Video");
     els.progressWrap.hidden = !on;
@@ -1043,8 +952,7 @@
         els.processBtn.style.pointerEvents = '';
         if(els.progressWrap) els.progressWrap.style.pointerEvents = 'auto';
       }
-    }catch(e){}
-    if (on) setProgress(0);
+    }catch(e){ console.warn(e); }
     if (on) {
       els.logHead.hidden = false;
       els.logArea.hidden = false;
@@ -1057,6 +965,9 @@
 
   async function onProcessClick() {
     if (!selectedFile || els.processBtn.disabled) return;
+    // pastikan progress 0 di awal proses baru (fix 99% stuck)
+    try { if (ffmpegInstance && typeof ffmpegInstance._resetProgress === 'function') ffmpegInstance._resetProgress(); } catch(e){ console.warn(e); }
+    setProgress(0);
     setProcessing(true);
     let ok = false;
     try {
@@ -1077,15 +988,15 @@
   }
   function canShareSABWithWorker(){
     return new Promise(function(resolve){
-      let w=null; const timer=setTimeout(function(){ if(w){try{w.terminate();}catch(e){}} resolve(false); },2000);
+      let w=null; const timer=setTimeout(function(){ if(w){try{w.terminate();}catch(e){ console.warn(e); }} resolve(false); },2000);
       try{
         if(typeof SharedArrayBuffer==='undefined' || typeof Worker==='undefined'){ clearTimeout(timer); return resolve(false); }
         const blob=new Blob(['self.onmessage=function(e){self.postMessage(1)}'],{type:'text/javascript'});
         w=new Worker(URL.createObjectURL(blob));
-        w.onmessage=function(){ clearTimeout(timer); try{w.terminate();}catch(e){} resolve(true); };
-        w.onerror=function(){ clearTimeout(timer); try{w.terminate();}catch(e){} resolve(false); };
+        w.onmessage=function(){ clearTimeout(timer); try{w.terminate();}catch(e){ console.warn(e); } resolve(true); };
+        w.onerror=function(){ clearTimeout(timer); try{w.terminate();}catch(e){ console.warn(e); } resolve(false); };
         w.postMessage([new SharedArrayBuffer(8)]);
-      }catch(e){ clearTimeout(timer); if(w){try{w.terminate();}catch(e){}} resolve(false); }
+      }catch(e){ clearTimeout(timer); if(w){try{w.terminate();}catch(e){ console.warn(e); }} resolve(false); }
     });
   }
   async function supportsMultiThread(){
@@ -1145,22 +1056,48 @@
           const config={ coreURL, wasmURL, classWorkerURL };
           if(attempt.mt) config.workerURL = await withTimeout(toBlobURL(attempt.base+'/ffmpeg-core.worker.js','text/javascript'), attempt.timeout, attempt.label+' worker download');
           instance=new FFmpeg();
-          let ffProgress=-1;
+          instance._ffProgress=-1;
+          instance._resetProgress=function(){ instance._ffProgress=-1; try{ setProgress(0);}catch(e){ console.warn(e); } };
           instance.on("progress", function(event){
             const pct=Math.round(event.progress*100);
             if(!isFinite(pct)||pct<=0) return;
-            if(pct>=95 && ffProgress<50) return;
-            if(pct>ffProgress) ffProgress=pct;
-            setProgress(Math.min(ffProgress,99));
+            if(pct>=95 && instance._ffProgress<50) return;
+            if(pct>instance._ffProgress) instance._ffProgress=pct;
+            const capped=Math.min(instance._ffProgress,99);
+            setProgress(capped);
+            // realtime tools progress - monotonic, tidak turun (fix 10->7)
+            try{
+              const active = window.velardToolModal && typeof window.velardToolModal.getActive === 'function' ? window.velardToolModal.getActive() : null;
+              if(active){
+                const map={mp3:'Mp3', convert:'Convert', cut:'Cut', rescale:'Rescale'};
+                const Cap=map[active];
+                if(Cap){
+                  const prev = toolProgressDisplayed[active] || 0;
+                  if(capped > prev){
+                    toolProgressDisplayed[active]=capped;
+                    const fill=document.getElementById('tool'+Cap+'ProgressFill');
+                    const pctEl=document.getElementById('tool'+Cap+'ProgressPct');
+                    const sec=document.getElementById('tool'+Cap+'Progress');
+                    const arrow=document.getElementById('toolArrow-'+active);
+                    const closeB=document.getElementById('toolModalClose');
+                    if(fill) fill.style.width=capped+'%';
+                    if(pctEl) pctEl.textContent=capped+'%';
+                    if(sec && sec.hidden) sec.hidden=false;
+                    if(arrow) arrow.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>';
+                    if(closeB && active===window.velardToolModal.getActive()) closeB.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>';
+                  }
+                }
+              }
+            }catch(e){ console.warn(e); }
           });
           await withTimeout(instance.load(config), attempt.timeout, attempt.label+' engine init');
-          try{ URL.revokeObjectURL(classWorkerURL); }catch(e){}
+          try{ URL.revokeObjectURL(classWorkerURL); }catch(e){ console.warn(e); }
           addLog("  FFmpeg Core WASM loaded from "+attempt.label+".");
           ffmpegInstance=instance;
           return instance;
         }catch(err){
           lastErr=err;
-          if(instance){ try{instance.terminate();}catch(e){} }
+          if(instance){ try{instance.terminate();}catch(e){ console.warn(e); } }
           addLog("  "+attempt.label+" failed: "+getErrorMessage(err));
           // continue
         }
@@ -1169,8 +1106,35 @@
       try{
         const classWorkerURL = await buildInlineWorkerURL();
         const instance=new FFmpeg();
-        let ffProgress=-1;
-        instance.on("progress", function(event){ const pct=Math.round(event.progress*100); if(!isFinite(pct)||pct<=0) return; if(pct>=95&&ffProgress<50) return; if(pct>ffProgress) ffProgress=pct; setProgress(Math.min(ffProgress,99)); });
+        instance._ffProgress=-1;
+        instance._resetProgress=function(){ instance._ffProgress=-1; try{ setProgress(0);}catch(e){ console.warn(e); } };
+        instance.on("progress", function(event){
+          const pct=Math.round(event.progress*100); if(!isFinite(pct)||pct<=0) return; if(pct>=95&&instance._ffProgress<50) return; if(pct>instance._ffProgress) instance._ffProgress=pct;
+          const capped=Math.min(instance._ffProgress,99); setProgress(capped);
+          try{
+            const active = window.velardToolModal && typeof window.velardToolModal.getActive === 'function' ? window.velardToolModal.getActive() : null;
+            if(active){
+              const map={mp3:'Mp3', convert:'Convert', cut:'Cut', rescale:'Rescale'};
+              const Cap=map[active];
+              if(Cap){
+                const prev = toolProgressDisplayed[active] || 0;
+                if(capped > prev){
+                  toolProgressDisplayed[active]=capped;
+                  const fill=document.getElementById('tool'+Cap+'ProgressFill');
+                  const pctEl=document.getElementById('tool'+Cap+'ProgressPct');
+                  const sec=document.getElementById('tool'+Cap+'Progress');
+                  const arrow=document.getElementById('toolArrow-'+active);
+                  const closeB=document.getElementById('toolModalClose');
+                  if(fill) fill.style.width=capped+'%';
+                  if(pctEl) pctEl.textContent=capped+'%';
+                  if(sec && sec.hidden) sec.hidden=false;
+                  if(arrow) arrow.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>';
+                  if(closeB && active===window.velardToolModal.getActive()) closeB.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>';
+                }
+              }
+            }
+          }catch(e){ console.warn(e); }
+        });
         const canUseMT = window.crossOriginIsolated===true;
         if(canUseMT){
           await instance.load({ classWorkerURL, coreURL: await toBlobURL(CORE_MT_URL,'text/javascript'), wasmURL: await toBlobURL(CORE_MT_WASM_URL,'application/wasm'), workerURL: await toBlobURL(CORE_MT_WORKER_URL,'text/javascript') });
@@ -1179,7 +1143,7 @@
           await instance.load({ classWorkerURL, coreURL: await toBlobURL(CORE_ST_URL,'text/javascript'), wasmURL: await toBlobURL(CORE_ST_WASM_URL,'application/wasm') });
           addLog(tr("logFfmpegLoaded","FFmpeg (")+tr("logST","single-thread")+tr("logFfmpegFromCdn",") dimuat dari CDN: ")+"SUCCESS");
         }
-        try{ URL.revokeObjectURL(classWorkerURL);}catch(e){}
+        try{ URL.revokeObjectURL(classWorkerURL);}catch(e){ console.warn(e); }
         ffmpegInstance=instance;
         return instance;
       }catch(e){ /* fallthrough */ }
@@ -2500,78 +2464,65 @@
           setProcessingFlag(false);
         }
       });
-    }
-
-    if (els.toolMergeFile) {
-      if (els.toolMergePick) els.toolMergePick.addEventListener("click", function () {
-        els.toolMergeFile.click();
-      });
-      els.toolMergeFile.addEventListener("change", function () {
-        const files = Array.from(els.toolMergeFile.files || []);
-        if (files.length === 0) return;
-        // append, bukan replace: jika sudah ada 1 file, pilih lagi → jadi nomor 2 dst
-        const combined = mergeFiles.concat(files);
-        // reset input biar bisa pilih file yang sama lagi
-        els.toolMergeFile.value = "";
-        if (combined.length > 7) {
-          // popup tengah biar user pilih sendiri yang dihapus
-          openMergeLimitModal(combined);
-          return;
-        }
-        mergeFiles = combined;
-        if (files.length > 0) toolStatus(els.toolMergeStatus, "", "");
-        if (mergeFiles.length === 0) {
-          els.toolMergeList.hidden = true;
-          els.toolMergeDetected.hidden = true;
-          els.toolMergeRun.hidden = true;
-          toolStatus(els.toolMergeStatus, "", "");
-          return;
-        }
-        renderMergeList();
-        updateMergeState();
-      });
-      els.toolMergeRun.addEventListener("click", async function () {
-        if (!mergeFiles || mergeFiles.length < 2) {
-          toolStatus(els.toolMergeStatus, "err", tr("toolMergeNeed", "Pilih minimal 2 video (maks 7)."));
-          return;
-        }
-        els.toolMergeRun.disabled = true;
-        setProcessingFlag(true);
-        toolStatus(els.toolMergeStatus, "", tr("processing", "Memproses..."));
-        try {
-          const data = await mergeVideos(mergeFiles);
-          toolStatus(els.toolMergeStatus, "ok", tr("toolMergeDone", "Video gabungan siap diunduh."));
-          downloadFile(data, "merged_" + Date.now() + ".mp4");
-          openDonateModal();
-        } catch (err) {
-          toolStatus(els.toolMergeStatus, "err", tr("logError", "Error: ") + getErrorMessage(err));
-          addLog(tr("logError", "Error: ") + getErrorMessage(err));
-        } finally {
-          els.toolMergeRun.disabled = false;
-          setProcessingFlag(false);
-        }
-      });
-      if (els.mergeLimitCancel) {
-        els.mergeLimitCancel.addEventListener("click", closeMergeLimitModal);
-      }
-      if (els.mergeLimitConfirm) {
-        els.mergeLimitConfirm.addEventListener("click", function () {
-          if (!pendingMergeCombined || pendingMergeCombined.length < 2 || pendingMergeCombined.length > 7) return;
-          mergeFiles = pendingMergeCombined.slice();
-          closeMergeLimitModal();
-          renderMergeList();
-          updateMergeState();
-        });
-      }
-      if (els.mergeLimitModal) {
-        els.mergeLimitModal.addEventListener("click", function (e) {
-          if (e.target === els.mergeLimitModal) closeMergeLimitModal();
+      // Rescale (Resize) - downscale without upscale
+      if (els.toolRescaleFile) {
+        const updRescaleState = async function(){
+          const f = els.toolRescaleFile.files[0] || null;
+          if (!f) {
+            if (els.toolRescaleSelected) els.toolRescaleSelected.textContent = "";
+            if (els.toolRescaleDetected) els.toolRescaleDetected.hidden = true;
+            if (els.toolRescaleLabel) els.toolRescaleLabel.hidden = true;
+            if (els.toolRescaleSelect) els.toolRescaleSelect.hidden = true;
+            if (els.toolRescaleRun) { els.toolRescaleRun.hidden = true; els.toolRescaleRun.disabled = true; }
+            toolStatus(els.toolRescaleStatus, "", "");
+            return;
+          }
+          if (f.size > MAX_FILE_BYTES) {
+            toolStatus(els.toolRescaleStatus, "err", tr("logTooBig", "Error: File terlalu besar (") + formatBytes(f.size) + tr("logTooBig2", "). Maksimal 1500 MB."));
+            if (els.toolRescaleRun) els.toolRescaleRun.disabled = true;
+            return;
+          }
+          if (els.toolRescaleSelected) els.toolRescaleSelected.textContent = f.name + " (" + formatBytes(f.size) + ")";
+          const fmt = detectVideoFormat(f).toUpperCase();
+          const dur = await getVideoDuration(f);
+          const durTxt = dur>0 ? formatCutTime(dur) + " ("+dur.toFixed(1)+"s)" : "";
+          if (els.toolRescaleDetected){ els.toolRescaleDetected.textContent = tr("toolDetected","Terdeteksi:")+" "+fmt+(durTxt?" • "+durTxt:""); els.toolRescaleDetected.hidden=false; els.toolRescaleDetected.dataset.dur=String(dur); }
+          if (els.toolRescaleLabel) els.toolRescaleLabel.hidden=false;
+          if (els.toolRescaleSelect) els.toolRescaleSelect.hidden=false;
+          if (els.toolRescaleRun){ els.toolRescaleRun.hidden=false; els.toolRescaleRun.disabled=false; }
+          toolStatus(els.toolRescaleStatus, "", "");
+        };
+        els.toolRescaleFile.addEventListener("change", updRescaleState);
+        if (els.toolRescaleSelect) els.toolRescaleSelect.addEventListener("change", function(){ toolStatus(els.toolRescaleStatus,"",""); });
+        if (els.toolRescaleRun) els.toolRescaleRun.addEventListener("click", async function(){
+          const f = els.toolRescaleFile.files[0];
+          if (!f){ toolStatus(els.toolRescaleStatus,"err", tr("toolRescaleNeed","Pilih video terlebih dahulu.")); try{ showToast(tr("toolRescaleNeed","Pilih video terlebih dahulu.")); }catch(e){ console.warn(e); } return; }
+          const tgt = els.toolRescaleSelect ? els.toolRescaleSelect.value : "720";
+          els.toolRescaleRun.disabled=true;
+          setProcessingFlag(true);
+          toolStatus(els.toolRescaleStatus,"", tr("processing","Memproses..."));
+          try{
+            const data = await rescaleVideo(f, tgt);
+            toolStatus(els.toolRescaleStatus,"ok", tr("toolRescaleDone","Video resolusi baru siap diunduh."));
+            try{ showToast(tr("toolRescaleDone","Video resolusi baru siap diunduh.")); }catch(e){ console.warn(e); }
+            const base = f.name.replace(/\.[^.]+$/,"");
+            downloadFile(data, base + "_"+tgt+"p.mp4");
+            openDonateModal();
+          }catch(err){
+            const emsg = tr("logError","Error: ") + getErrorMessage(err);
+            toolStatus(els.toolRescaleStatus,"err", emsg);
+            try{ showToast(emsg); }catch(e){ console.warn(e); }
+            addLog(emsg);
+          }finally{
+            els.toolRescaleRun.disabled=false;
+            setProcessingFlag(false);
+          }
         });
       }
     }
   }
 
-  function initQris() {
+      function initQris() {
     const img = els.qrisImg;
     if (!img) return;
     try {
@@ -2588,7 +2539,7 @@
     }
   }
 
-  // ===== Kinetic Hero (halo, saya + Velard/Frans) =====
+  // ===== Kinetic Hero (halo, saya + Velard/Frans) perf: mobile static ===
   function initKineticHero() {
     const greetingBox = document.getElementById("greetingBox");
     const nameBox = document.getElementById("nameBox");
@@ -2598,6 +2549,7 @@
       nameBox.textContent = "Velard";
       return;
     }
+    // mobile tetap animasi pink (sesuai request)
     const greetings = ["hi, saya","hi, i'm","hola, soy","bonjour, je suis","ciao, sono","hallo, ich bin","olá, eu sou","привет, я","مرحبا، أنا","こんにちは、私は","안녕하세요, 저는","你好，我是","สวัสดี, ฉันคือ","xin chào, tôi là","cześć, jestem","merhaba, ben"];
     const names = ["Velard","Frans"];
     const greetingSuffix = "";
@@ -2712,24 +2664,49 @@
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           toolBackdropEl.classList.add("active");
-          // compact browser-friendly kecil premium
+          // quality perlu lebih tinggi biar tombol Proses kelihatan, deteksi notif di paling depan
           const vw = window.innerWidth, vh = window.innerHeight;
           const isMobile = vw <= 640;
+          const isQuality = tool === "quality";
           const targetW = isMobile ? Math.min(420, vw - 16) : Math.min(420, vw - 32);
-          const targetH = isMobile ? Math.min(520, vh * 0.74) : Math.min(520, vh * 0.72);
+          const targetH = isQuality ? (isMobile ? Math.min(560, vh * 0.82) : Math.min(560, vh * 0.80)) : (isMobile ? Math.min(520, vh * 0.74) : Math.min(520, vh * 0.72));
+          toolModalEl.classList.toggle("is-quality", isQuality);
           const left = (vw - targetW) / 2;
-          const top = isMobile ? Math.max(8, vh - targetH - 12) : Math.max(16, (vh - targetH) / 2);
-          toolModalEl.style.transition = "left 0.42s cubic-bezier(0.34,1.24,0.5,1), top 0.42s cubic-bezier(0.34,1.24,0.5,1), width 0.42s cubic-bezier(0.34,1.24,0.5,1), height 0.42s cubic-bezier(0.34,1.24,0.5,1), border-radius 0.32s ease";
-          toolModalEl.style.left = left + "px";
-          toolModalEl.style.top = top + "px";
-          toolModalEl.style.width = targetW + "px";
-          toolModalEl.style.height = targetH + "px";
+          const topVal = isMobile ? Math.max(8, vh - targetH - 12) : Math.max(16, (vh - targetH) / 2);
+          toolModalEl.style.transition = isMobile ? "left 0.14s ease, top 0.14s ease, bottom 0.14s ease, width 0.14s ease, height 0.14s ease, border-radius 0.14s ease, transform 0.14s ease, opacity 0.14s ease" : "none";
+          if(isQuality){
+            toolModalEl.style.left = "50%";
+            toolModalEl.style.top = "auto";
+            toolModalEl.style.bottom = "12px";
+            toolModalEl.style.transform = "translateX(-50%)";
+            toolModalEl.style.width = targetW + "px";
+            toolModalEl.style.height = 'auto';
+            toolModalEl.style.maxHeight = '82vh';
+            toolModalEl.style.overflow = 'hidden';
+            toolModalEl.style.overflowY = 'hidden';
+            toolModalEl.style.overscrollBehavior = 'contain';
+          } else {
+            toolModalEl.style.left = left + "px";
+            toolModalEl.style.top = topVal + "px";
+            toolModalEl.style.bottom = "";
+            toolModalEl.style.transform = "";
+            toolModalEl.style.width = targetW + "px";
+            toolModalEl.style.height = targetH + "px";
+            toolModalEl.style.maxHeight = '';
+            toolModalEl.style.overflow = '';
+            toolModalEl.style.overflowY = '';
+          }
           toolModalEl.style.borderRadius = "20px";
           setTimeout(function(){
             toolModalEl.classList.remove("is-morphing");
             toolModalEl.classList.add("expanded");
-            toolModalEl.style.overflow = "hidden";
-          }, 420);
+            if(activeTool === "quality"){
+              toolModalEl.style.overflow = "auto";
+              toolModalEl.style.overflowY = "auto";
+            } else {
+              toolModalEl.style.overflow = "hidden";
+            }
+          }, isMobile ? 140 : 20);
         });
       });
       document.body.style.overflow = "hidden";
@@ -2749,8 +2726,12 @@
         const rect = card.getBoundingClientRect();
         toolModalEl.style.left = rect.left + "px";
         toolModalEl.style.top = rect.top + "px";
+        toolModalEl.style.bottom = "";
+        toolModalEl.style.transform = "";
         toolModalEl.style.width = rect.width + "px";
         toolModalEl.style.height = rect.height + "px";
+        toolModalEl.style.maxHeight = "";
+        toolModalEl.style.overflowY = "";
         toolModalEl.style.borderRadius = "16px";
         toolModalEl.style.opacity = "0.2";
       } else {
@@ -2761,11 +2742,14 @@
         toolBackdropEl.hidden = true;
         toolModalEl.style.transition = "";
         toolModalEl.style.opacity = "";
+        toolModalEl.style.maxHeight = "";
+        toolModalEl.style.overflowY = "";
         toolModalEl.classList.remove("is-morphing");
+        toolModalEl.classList.remove("is-quality");
         document.body.style.overflow = "";
         document.body.classList.remove("tool-modal-open");
         activeTool = null;
-      }, 360);
+      }, window.innerWidth <= 640 ? 120 : 20);
     }
 
     // card click + keyboard
@@ -2778,10 +2762,10 @@
     document.addEventListener("keydown", function(e){ if(e.key==="Escape" && !toolModalEl.hidden) closeToolModal(); });
 
     // drop zones
-    const dropMap = { mp3: "toolMp3Drop", convert: "toolConvertDrop", cut: "toolCutDrop", merge: "toolMergeDrop" };
+    const dropMap = { mp3: "toolMp3Drop", convert: "toolConvertDrop", cut: "toolCutDrop", rescale: "toolRescaleDrop" };
     Object.keys(dropMap).forEach(function (tool) {
       const drop = document.getElementById(dropMap[tool]);
-      const input = document.getElementById(tool === "mp3" ? "toolMp3File" : tool === "convert" ? "toolConvertFile" : tool === "cut" ? "toolCutFile" : "toolMergeFile");
+      const input = document.getElementById(tool === "mp3" ? "toolMp3File" : tool === "convert" ? "toolConvertFile" : tool === "cut" ? "toolCutFile" : "toolRescaleFile");
       if (!drop || !input) return;
       drop.addEventListener("click", function(){ input.click(); });
       drop.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); input.click(); }});
@@ -2789,19 +2773,9 @@
       drop.addEventListener("dragleave", function(){ drop.classList.remove("dragover"); });
       drop.addEventListener("drop", function(e){
         e.preventDefault(); drop.classList.remove("dragover");
-        if (tool === "merge") {
-          const files = Array.from(e.dataTransfer.files || []);
-          if (files.length) {
-            const combined = mergeFiles.concat(files);
-            if (combined.length > 7) { openMergeLimitModal(combined); return; }
-            mergeFiles = combined;
-            renderMergeList(); updateMergeState();
-          }
-        } else {
-          const f = e.dataTransfer.files[0];
-          if (f) {
-            const dt = new DataTransfer(); dt.items.add(f); input.files = dt.files; input.dispatchEvent(new Event("change", {bubbles:true}));
-          }
+        const f = e.dataTransfer.files[0];
+        if (f) {
+          const dt = new DataTransfer(); dt.items.add(f); input.files = dt.files; input.dispatchEvent(new Event("change", {bubbles:true}));
         }
       });
     });
@@ -2843,26 +2817,49 @@
         if (closeB && activeTool===tool) closeB.innerHTML = '<span class="tool-card-progress-text">' + Math.round(pct) + '%</span>';
       }
     }
-    // intercept ffmpeg progress for tool modal (ffmpeg progress -> update active tool)
+    // realtime tools progress 4 tools (mp3/convert/cut/rescale) - smoothed realtime
     let toolProgressTimer = null;
+    let fakeBase = 6;
     function startFakeProgress(tool) {
-      let p = 6;
-      syncToolProgress(tool, p, true, false);
+      if(toolProgressTimer){ clearInterval(toolProgressTimer); toolProgressTimer=null; }
+      try{ if(ffmpegInstance && typeof ffmpegInstance._resetProgress==='function'){ ffmpegInstance._ffProgress=-1; } }catch(e){ console.warn(e); }
+      fakeBase = 6;
+      toolProgressDisplayed[tool]=6;
+      syncToolProgress(tool, 0, true, false);
+      // smoothed realtime: gerak pelan 6%->88% sambil tunggu FFmpeg, realtime FFmpeg akan menyalip tanpa turun
       toolProgressTimer = setInterval(function(){
-        p = Math.min(92, p + Math.random()*6 + 2);
-        syncToolProgress(tool, p, false, false);
-      }, 420);
+        try{
+          const active = window.velardToolModal && typeof window.velardToolModal.getActive === 'function' ? window.velardToolModal.getActive() : null;
+          if(active !== tool) return;
+          const real = ffmpegInstance ? ffmpegInstance._ffProgress : -1;
+          const cur = toolProgressDisplayed[tool] || fakeBase;
+          if(real > fakeBase) fakeBase = real;
+          if(fakeBase < cur) fakeBase = cur;
+          // jika real belum emit, gerak pelan biar tidak stuck di 6%
+          if(fakeBase < 88){
+            fakeBase = Math.min(88, fakeBase + 0.35);
+            if(fakeBase > cur){
+              toolProgressDisplayed[tool]=fakeBase;
+              syncToolProgress(tool, fakeBase, false, false);
+            }
+          } else if(real > cur){
+            toolProgressDisplayed[tool]=real;
+            syncToolProgress(tool, real, false, false);
+          }
+        }catch(e){ console.warn(e); }
+      }, 600);
     }
     function stopFakeProgress(tool, done){
       if (toolProgressTimer) { clearInterval(toolProgressTimer); toolProgressTimer=null; }
+      toolProgressDisplayed[tool]=100;
       syncToolProgress(tool, 100, false, true);
     }
     // wrap tool run handlers to inject fake progress
-    ["toolMp3Run","toolConvertRun","toolCutRun","toolMergeRun"].forEach(function(id){
+    ["toolMp3Run","toolConvertRun","toolCutRun","toolRescaleRun"].forEach(function(id){
       const btn = document.getElementById(id);
       if (!btn) return;
       const tool = id.replace("tool","").replace("Run","").toLowerCase();
-      const mapped = tool==="mp3"?"mp3":tool==="convert"?"convert":tool==="cut"?"cut":"merge";
+      const mapped = tool;
       // we add mousedown to start? Actually progress should start on click, stop on finally.
       // We'll patch the existing click handlers by wrapping addEventListener? Simpler poll setProcessingFlag via interval.
     });
@@ -2878,15 +2875,57 @@
     }, 200);
   }
 
+  function initToolsSearch(){
+    const input = document.getElementById('toolsSearch');
+    const clearBtn = document.getElementById('toolsSearchClear');
+    const emptyEl = document.getElementById('toolsSearchEmpty');
+    const grid = document.getElementById('toolsGridNew');
+    const catWrap = document.getElementById('toolsCatWrap');
+    if(!input || !grid) return;
+    const cards = Array.from(grid.querySelectorAll('.tool-card-new'));
+    let activeCat = '*';
+    function applyFilter(){
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(function(card){
+        const title = (card.querySelector('.tool-title-new') ? card.querySelector('.tool-title-new').textContent : '') + ' ' + (card.querySelector('.tool-desc-new') ? card.querySelector('.tool-desc-new').textContent : '') + ' ' + (card.getAttribute('data-tool')||'');
+        const cat = card.getAttribute('data-category')||'';
+        const matchSearch = !q || title.toLowerCase().indexOf(q) !== -1;
+        const matchCat = activeCat==='*' || cat===activeCat;
+        const show = matchSearch && matchCat;
+        card.style.display = show ? '' : 'none';
+        if(show) visible++;
+      });
+      if(clearBtn) clearBtn.hidden = !q;
+      if(emptyEl) emptyEl.hidden = visible !== 0;
+    }
+    input.addEventListener('input', applyFilter);
+    if(clearBtn) clearBtn.addEventListener('click', function(){ input.value=''; applyFilter(); input.focus(); });
+    if(catWrap){
+      catWrap.querySelectorAll('.tools-cat-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          catWrap.querySelectorAll('.tools-cat-btn').forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          activeCat = btn.getAttribute('data-cat') || '*';
+          applyFilter();
+        });
+      });
+    }
+    // reset on panel hide
+    const toolsPanel = document.getElementById('panel-tools');
+    if(toolsPanel){
+      const obs = new MutationObserver(function(){ if(!toolsPanel.classList.contains('active-panel')){ input.value=''; activeCat='*'; if(catWrap) catWrap.querySelectorAll('.tools-cat-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-cat')==='*'); }); applyFilter(); }});
+      try{ obs.observe(toolsPanel, {attributes:true, attributeFilter:['class']}); }catch(e){ console.warn(e); }
+    }
+  }
+
   function boot() {
     window.addEventListener("qm:langchange", function () {
       updateMethodDescription();
       if (els.progressWrap.hidden) {
         els.processBtnLabel.textContent = tr("processBtn", "Proses Video");
       }
-      if (pendingMergeCombined && els.mergeLimitModal && !els.mergeLimitModal.hidden) {
-        renderMergeLimitList();
-      }
+
       const cf = els.toolConvertFile && els.toolConvertFile.files[0];
       if (cf && els.toolConvertDetected && !els.toolConvertDetected.hidden) {
         els.toolConvertDetected.textContent = tr("toolDetected", "Terdeteksi:") + " " + detectVideoFormat(cf).toUpperCase();
@@ -2928,6 +2967,7 @@
     // delay floating nav to ensure inline panel script ready
     setTimeout(initFloatingNav, 120);
     initToolModal();
+    initToolsSearch();
   }
 
   boot();

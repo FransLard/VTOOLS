@@ -1,5 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "velard-tools.vercel.app" }],
+      "destination": "https://velardtools.my.id/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "velard-tools-.*\\.vercel\\.app" }],
+      "destination": "https://velardtools.my.id/$1",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
