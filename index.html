@@ -68,19 +68,19 @@
     (function(){
       try{
         var order=["beranda","tools","donate","others"];
-        try{ ["quality","tutorial","tentang"].forEach(function(k){ try{ if(localStorage.getItem("velardPanel")===k) localStorage.removeItem("velardPanel"); }catch(e){} if((location.hash||"")==="#"+k) try{ history.replaceState(null,"",location.pathname); }catch(e){} }); }catch(e){}
-        var isRefresh=false; try{ if(sessionStorage.getItem("velardSession")) isRefresh=true; }catch(e){}
+        try{ ["quality","tutorial","tentang"].forEach(function(k){ try{ if(localStorage.getItem("velardPanel")===k) localStorage.removeItem("velardPanel"); }catch(e){ console.warn('handled', e && e.message); } if((location.hash||"")==="#"+k) try{ history.replaceState(null,"",location.pathname); }catch(e){ console.warn('handled', e && e.message); } }); }catch(e){ console.warn('handled', e && e.message); }
+        var isRefresh=false; try{ if(sessionStorage.getItem("velardSession")) isRefresh=true; }catch(e){ console.warn('handled', e && e.message); }
         var v="beranda";
         if(isRefresh){
           var h=(location.hash||"").replace(/^#/,"");
-          var s=null; try{ s=localStorage.getItem("velardPanel"); }catch(e){}
+          var s=null; try{ s=localStorage.getItem("velardPanel"); }catch(e){ console.warn('handled', e && e.message); }
           if(h&&order.indexOf(h)!==-1) v=h;
           else if(s&&order.indexOf(s)!==-1) v=s;
         }
         document.documentElement.setAttribute("data-preload", v);
         var css=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+v+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}";
         var st=document.createElement("style"); st.id="preload-fix"; st.textContent=css; document.head.appendChild(st);
-      }catch(e){}
+      }catch(e){ console.warn('handled', e && e.message); }
     })();
   </script>
 
@@ -180,7 +180,7 @@
                   var t2=document.querySelector('#tiktokConfirmModal .donate-text');
                   if(t1) t1.textContent=window.i18n.t('tiktokConfirmTitle');
                   if(t2) t2.textContent=window.i18n.t('tiktokConfirmText');
-                }catch(e){}
+                }catch(e){ console.warn('handled', e && e.message); }
               }
             }
             function closeModal(){
@@ -419,9 +419,9 @@
             <div style="background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px;">
               <div style="font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);" data-i18n="helpCardListTitle">Sertakan info ini:</div>
               <ul style="list-style:none;display:grid;gap:6px;margin:0;padding:0;">
-                <li style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--text-3);"><span style="color:var(--md-sys-color-primary);margin-top:1px;">•</span><span data-i18n="helpCardLi1">Deskripsi bug — apa yang terjadi vs yang diharapkan</span></li>
-                <li style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--text-3);"><span style="color:var(--md-sys-color-primary);margin-top:1px;">•</span><span data-i18n="helpCardLi2">Langkah reproduksi — urutan klik sampai error muncul</span></li>
-                <li style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--text-3);"><span style="color:var(--md-sys-color-primary);margin-top:1px;">•</span><span data-i18n="helpCardLi3">Info file & perangkat — format, ukuran, browser, HP/PC</span></li>
+                <li style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--text-3);"><span style="color:var(--md-sys-color-primary);margin-top:1px;">•</span><span data-i18n="helpCardLi1">Deskripsi bug : apa yang terjadi vs yang diharapkan</span></li>
+                <li style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--text-3);"><span style="color:var(--md-sys-color-primary);margin-top:1px;">•</span><span data-i18n="helpCardLi2">Langkah reproduksi : urutan klik sampai error muncul</span></li>
+                <li style="display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--text-3);"><span style="color:var(--md-sys-color-primary);margin-top:1px;">•</span><span data-i18n="helpCardLi3">Info file & perangkat : format, ukuran, browser, HP/PC</span></li>
               </ul>
             </div>
             <div style="display:flex;gap:8px;align-items:flex-start;background:linear-gradient(135deg,rgba(224,242,140,0.08),rgba(224,242,140,0.02));border:1px solid rgba(224,242,140,0.18);border-radius:10px;padding:10px 11px;">
@@ -477,7 +477,7 @@
             detail.hidden=false; grid.hidden=true;
             const back=document.getElementById('othersBack');
             if(back) back.addEventListener('click', function(){ detail.hidden=true; detail.innerHTML=''; grid.hidden=false; });
-            if(window.i18n&&window.i18n.t) try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){}
+            if(window.i18n&&window.i18n.t) try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ console.warn('handled', e && e.message); }
           }
           grid.querySelectorAll('[data-others]').forEach(function(card){
             card.addEventListener('click', function(){ showDetail(card.dataset.others); });
@@ -499,10 +499,10 @@
           // update bahasa detail saat ganti ID/EN
           window.addEventListener('qm:langchange', function(){
             if(!detail.hidden && detail.innerHTML){
-              try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){}
+              try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ console.warn('handled', e && e.message); }
             }
             // juga update grid titles
-            try{ document.querySelectorAll('#othersGrid [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); }catch(e){}
+            try{ document.querySelectorAll('#othersGrid [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); }catch(e){ console.warn('handled', e && e.message); }
           });
         })();
       </script>
@@ -821,7 +821,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
-  <script>try{ if(window.emailjs) emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"});}catch(e){}</script>
+  <script>try{ if(window.emailjs) emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"});}catch(e){ console.warn('handled', e && e.message); }</script>
   <script>
     var I18N = {
       id: {
@@ -1520,7 +1520,7 @@
         }, 660);
         // update floating nav + body attr for cube
         var name = panelOrder[index];
-        try{ document.body.setAttribute('data-view', name); }catch(e){}
+        try{ document.body.setAttribute('data-view', name); }catch(e){ console.warn('handled', e && e.message); }
         document.querySelectorAll(".floating-nav-item").forEach(x=>{
           var isActive = x.dataset.panel === name;
           x.classList.toggle("active", isActive);
@@ -1535,10 +1535,10 @@
         currentIndex = index;
         var activeFloat = document.querySelector('.floating-nav-item[data-panel="' + name + '"]');
         if (activeFloat) requestAnimationFrame(()=>{ requestAnimationFrame(()=> positionFloating(activeFloat)); setTimeout(()=> positionFloating(activeFloat), 380); });
-        try { window.scrollTo({top:0,behavior:'auto'}); document.documentElement.scrollTo({top:0,behavior:'auto'}); var sc=document.querySelector('.app-main'); if(sc) sc.scrollTo({top:0,behavior:'auto'}); } catch(e){}
+        try { window.scrollTo({top:0,behavior:'auto'}); document.documentElement.scrollTo({top:0,behavior:'auto'}); var sc=document.querySelector('.app-main'); if(sc) sc.scrollTo({top:0,behavior:'auto'}); } catch(e){ console.warn('handled', e && e.message); }
         if (save) {
-          try { localStorage.setItem(PANEL_KEY, name); } catch(e){}
-          try { history.replaceState(null, "", "#" + name); } catch(e){}
+          try { localStorage.setItem(PANEL_KEY, name); } catch(e){ console.warn('handled', e && e.message); }
+          try { history.replaceState(null, "", "#" + name); } catch(e){ console.warn('handled', e && e.message); }
         }
       }
       function activatePanel(name, save) {
@@ -1591,11 +1591,11 @@
       }
       // initial - masuk awal ke Home, refresh tetap stay di menu (session-based)
       var _isRefresh = false;
-      try{ if(sessionStorage.getItem("velardSession")) _isRefresh=true; }catch(e){}
-      try{ sessionStorage.setItem("velardSession","1"); }catch(e){}
+      try{ if(sessionStorage.getItem("velardSession")) _isRefresh=true; }catch(e){ console.warn('handled', e && e.message); }
+      try{ sessionStorage.setItem("velardSession","1"); }catch(e){ console.warn('handled', e && e.message); }
       if(_isRefresh){
         var initial = null;
-        try { initial = localStorage.getItem(PANEL_KEY); } catch(e){}
+        try { initial = localStorage.getItem(PANEL_KEY); } catch(e){ console.warn('handled', e && e.message); }
         var hash = (location.hash||"").replace(/^#/,"");
         if (hash && panelOrder.indexOf(hash)!==-1) initial = hash;
         if (initial) {
@@ -1606,12 +1606,12 @@
           slideTo(0,false);
         }
       } else {
-        try{ history.replaceState(null,"", location.pathname); }catch(e){}
+        try{ history.replaceState(null,"", location.pathname); }catch(e){ console.warn('handled', e && e.message); }
         slideTo(0,false);
       }
       // reveal after preload - hilangkan flash MY VIDEOS
       setTimeout(function(){
-        try{ document.documentElement.removeAttribute("data-preload"); }catch(e){}
+        try{ document.documentElement.removeAttribute("data-preload"); }catch(e){ console.warn('handled', e && e.message); }
         var pf=document.getElementById("preload-fix"); if(pf) pf.remove();
         var vp=document.querySelector(".cube-viewport");
         if(vp){ vp.style.opacity="1"; vp.style.transition="opacity 180ms ease"; }
@@ -1699,9 +1699,9 @@
       rl.count = (rl.count || 0) + 1;
       try {
         localStorage.setItem("qmHelpRl", JSON.stringify(rl));
-      } catch (e) {}
+      } catch(e){ console.warn('handled', e && e.message); }
       // pastikan EmailJS siap - init jika belum
-      try{ if(window.emailjs && !window._emailJsInited){ emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"}); window._emailJsInited=true; } }catch(e){}
+      try{ if(window.emailjs && !window._emailJsInited){ emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"}); window._emailJsInited=true; } }catch(e){ console.warn('handled', e && e.message); }
       if (typeof emailjs === "undefined" || !emailjs.send) {
         console.error("EmailJS belum load", typeof emailjs);
         setHelpStatus(t("helpFail")+" (EmailJS belum siap, refresh halaman)");
@@ -1727,13 +1727,13 @@
           // 403/1010 = EmailJS belum dikonfigurasi / domain belum whitelist
           if(detail && detail.indexOf("1010")!==-1){ detail = "EmailJS 403 (service/template belum aktif atau domain belum whitelist di dashboard EmailJS)"; }
           // Fallback: salin pesan + buka TikTok DM biar user tetap bisa hubungi
-          try{ navigator.clipboard.writeText(msg); }catch(e){}
+          try{ navigator.clipboard.writeText(msg); }catch(e){ console.warn('handled', e && e.message); }
           var fallback = " | Pesan sudah disalin, silakan DM TikTok @ve1ard";
           if(detail) fallback = " ("+detail.slice(0,90)+")"+fallback;
           setHelpStatus(t("helpFail") + fallback);
           // buka TikTok sebagai fallback setelah 1 detik
           setTimeout(function(){
-            try{ window.open("https://www.tiktok.com/@ve1ard", "_blank"); }catch(e){}
+            try{ window.open("https://www.tiktok.com/@ve1ard", "_blank"); }catch(e){ console.warn('handled', e && e.message); }
           }, 800);
         })
         .finally(function () {
@@ -1838,7 +1838,7 @@
           var len = spine.getTotalLength();
           spine.style.strokeDasharray = len;
           if(!spine.dataset.init){ spine.style.strokeDashoffset = len; spine.dataset.init='1'; }
-        }catch(e){}
+        }catch(e){ console.warn('handled', e && e.message); }
         // branches
         var allCards = cards();
         allCards.forEach(function(card, idx){
@@ -1867,7 +1867,7 @@
           if(ec){ ec.setAttribute('cx', tx); ec.setAttribute('cy', ty); }
           if(eci){ eci.setAttribute('cx', tx); eci.setAttribute('cy', ty); }
         });
-      }catch(e){}
+      }catch(e){ console.warn('handled', e && e.message); }
     }
     function bindHover(){
       var allCards = cards();
@@ -1898,7 +1898,7 @@
           var len = spine.getTotalLength ? spine.getTotalLength() : 3000;
           spine.style.strokeDashoffset = len * (1 - prog);
           // branches gradual opacity based on card visibility (handled by IntersectionObserver, tapi spine tetap progress)
-        }catch(e){}
+        }catch(e){ console.warn('handled', e && e.message); }
         ticking=false;
       });
     }
@@ -1994,7 +1994,7 @@
             epG.appendChild(c); epG.appendChild(ci);
           }
         });
-      }catch(e){}
+      }catch(e){ console.warn('handled', e && e.message); }
     }
     // hover sync
     var allCards = document.querySelectorAll('.funnel-card, .funnel-base');
@@ -2016,7 +2016,7 @@
   </script>
   <script src="script.js?v=39"></script>
   <script>
-  // Tools lock ringan — samakan konsep QM: saat proses gabisa upload/atur lagi, tanpa observer berat
+  // Tools lock ringan - samakan konsep QM: saat proses gabisa upload/atur lagi, tanpa observer berat
   (function(){
     var TOOL_RUNS = ['toolMp3Run','toolConvertRun','toolCutRun','toolRescaleRun','processBtn'];
     var PROGS = ['toolMp3Progress','toolConvertProgress','toolCutProgress','toolRescaleProgress','progressWrap'];
@@ -2039,14 +2039,14 @@
       var el=document.getElementById(id);
       if(!el) return;
       var mo=new MutationObserver(function(){ if(el.hidden || el.style.display==='none' || el.offsetParent===null) setLock(false); else setLock(true); });
-      try{ mo.observe(el, {attributes:true, attributeFilter:['hidden','style','class']}); }catch(e){}
+      try{ mo.observe(el, {attributes:true, attributeFilter:['hidden','style','class']}); }catch(e){ console.warn('handled', e && e.message); }
     });
     // fallback: kalau ada .is-processing hilang -> unlock
     var mo2=new MutationObserver(function(){
       var any = document.querySelector('.tool-card-new.is-processing') || PROGS.some(function(id){ var e=document.getElementById(id); return e && !e.hidden && e.offsetParent!==null; });
       if(!any) setLock(false);
     });
-    try{ mo2.observe(document.body, {childList:true, subtree:false, attributes:true, attributeFilter:['class']}); }catch(e){}
+    try{ mo2.observe(document.body, {childList:true, subtree:false, attributes:true, attributeFilter:['class']}); }catch(e){ console.warn('handled', e && e.message); }
   })();
   </script>
 </body>
