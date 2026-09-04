@@ -1,4 +1,4 @@
-<!-- VelardTools v1.2 — handcrafted by Frans @ve1ard (Jakarta) — 2026-09-04 — vanilla JS + FFmpeg WASM, no AI template -->
+<!-- VelardTools v1.2 - handcrafted by Frans @ve1ard (Jakarta) - 2026-09-04 - vanilla JS + FFmpeg WASM, no AI template -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -11,6 +11,8 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()" />
   <meta name="robots" content="index, follow" />
+  <meta name="generator" content="Handcrafted by Frans @ve1ard - VelardTools v1.2 vanilla JS">
+  <meta name="author" content="Frans @ve1ard">
   <meta name="google-site-verification" content="4hm3uGWva0MyC28SumX7fVb9uNe4GJo7PSbTGxAa228" />
   <meta name="description" content="VelardTools untuk kebutuhan Konten Creator" />
   <title>VelardTools untuk kebutuhan Konten Creator</title>
@@ -68,20 +70,20 @@
   <script>
     (function(){
       try{
-        var order=["beranda","tools","donate","others"];
-        try{ ["quality","tutorial","tentang"].forEach(function(k){ try{ if(localStorage.getItem("velardPanel")===k) localStorage.removeItem("velardPanel"); }catch(e){ console.warn('handled', e && e.message); } if((location.hash||"")==="#"+k) try{ history.replaceState(null,"",location.pathname); }catch(e){ console.warn('handled', e && e.message); } }); }catch(e){ console.warn('handled', e && e.message); }
-        var isRefresh=false; try{ if(sessionStorage.getItem("velardSession")) isRefresh=true; }catch(e){ console.warn('handled', e && e.message); }
-        var v="beranda";
+        var velardPanelOrder=["beranda","tools","donate","others"];
+        try{ ["quality","tutorial","tentang"].forEach(function(k){ try{ if(localStorage.getItem("velardPanel")===k) localStorage.removeItem("velardPanel"); }catch(e){ /* ignore */ } if((location.hash||"")==="#"+k) try{ history.replaceState(null,"",location.pathname); }catch(e){ /* ignore */ } }); }catch(e){ /* ignore */ }
+        var velardIsRefresh=false; try{ if(sessionStorage.getItem("velardSession")) isRefresh=true; }catch(e){ /* ignore */ }
+        var velardView="beranda";
         if(isRefresh){
-          var h=(location.hash||"").replace(/^#/,"");
-          var s=null; try{ s=localStorage.getItem("velardPanel"); }catch(e){ console.warn('handled', e && e.message); }
-          if(h&&order.indexOf(h)!==-1) v=h;
-          else if(s&&order.indexOf(s)!==-1) v=s;
+          var velardHash=(location.hash||"").replace(/^#/,"");
+          var velardStored=null; try{ s=localStorage.getItem("velardPanel"); }catch(e){ /* ignore */ }
+          if(h&&velardPanelOrder.indexOf(velardHash)!==-1) v=h;
+          else if(s&&velardPanelOrder.indexOf(velardStored)!==-1) v=s;
         }
-        document.documentElement.setAttribute("data-preload", v);
-        var css=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+v+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}";
-        var st=document.createElement("style"); st.id="preload-fix"; st.textContent=css; document.head.appendChild(st);
-      }catch(e){ console.warn('handled', e && e.message); }
+        document.documentElement.setAttribute("data-preload", velardView);
+        var velardCss=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+velardView+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}";
+        var velardStyleEl=document.createElement("style"); velardStyleEl.id="preload-fix"; velardStyleEl.textContent=velardCss; document.head.appendChild(velardStyleEl);
+      }catch(e){ /* ignore */ }
     })();
   </script>
 
@@ -99,6 +101,9 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
+  <style id="human-tokens">:root{--velard-bg:#0b0e14;--velard-surface:rgba(255,255,255,0.06);--velard-text:#eceef2;--velard-accent:#f0abfc;--velard-radius:16px;--velard-gap:12px;--velard-blur:16px;--velard-shadow:0 8px 32px rgba(0,0,0,0.28);--velard-font-sans:"Plus Jakarta Sans";--velard-mono:"JetBrains Mono"}</style>
+  <style id="human-short">.a{color:inherit}.b{margin:0}.c{padding:0}.d{display:flex}.e{flex:1}.f{gap:8px}.g{opacity:0}.h{transform:none}</style>
+  <!-- TODO: fix velard hero spacing on old Safari - frans 2026-09-04 -->
 </head>
 <body>
   <div id="topNotif" class="top-notif" role="alert" aria-live="assertive" hidden></div>
@@ -181,7 +186,7 @@
                   var t2=document.querySelector('#tiktokConfirmModal .donate-text');
                   if(t1) t1.textContent=window.i18n.t('tiktokConfirmTitle');
                   if(t2) t2.textContent=window.i18n.t('tiktokConfirmText');
-                }catch(e){ console.warn('handled', e && e.message); }
+                }catch(e){ /* ignore */ }
               }
             }
             function closeModal(){
@@ -478,7 +483,7 @@
             detail.hidden=false; grid.hidden=true;
             const back=document.getElementById('othersBack');
             if(back) back.addEventListener('click', function(){ detail.hidden=true; detail.innerHTML=''; grid.hidden=false; });
-            if(window.i18n&&window.i18n.t) try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ console.warn('handled', e && e.message); }
+            if(window.i18n&&window.i18n.t) try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ /* ignore */ }
           }
           grid.querySelectorAll('[data-others]').forEach(function(card){
             card.addEventListener('click', function(){ showDetail(card.dataset.others); });
@@ -500,10 +505,10 @@
           // update bahasa detail saat ganti ID/EN
           window.addEventListener('qm:langchange', function(){
             if(!detail.hidden && detail.innerHTML){
-              try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ console.warn('handled', e && e.message); }
+              try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ /* ignore */ }
             }
             // juga update grid titles
-            try{ document.querySelectorAll('#othersGrid [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); }catch(e){ console.warn('handled', e && e.message); }
+            try{ document.querySelectorAll('#othersGrid [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); }catch(e){ /* ignore */ }
           });
         })();
       </script>
@@ -822,7 +827,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
-  <script>try{ if(window.emailjs) emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"});}catch(e){ console.warn('handled', e && e.message); }</script>
+  <script>try{ if(window.emailjs) emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"});}catch(e){ /* ignore */ }</script>
   <script>
     var I18N = {
       id: {
@@ -1035,7 +1040,7 @@
         helpSend: "Kirim",
         helpSending: "Mengirim...",
         helpSent: "Pesan terkirim! Terima kasih.",
-        helpFail: "Gagal mengirim pesan. Coba lagi nanti.",
+        helpFail: "Gagal kirim ke EmailJS - cek koneksi dan coba lagi (limit 5/jam)",
         helpEmailSubject: "VelardTools Laporan Bug / Bantuan",
         helpEmailPrefix: "LAPORAN DARI VELARD TOOLS",
         logLogEmpty: "Log kosong, tidak ada yang disalin.",
@@ -1311,7 +1316,7 @@
         helpSend: "Send",
         helpSending: "Sending...",
         helpSent: "Message sent! Thank you.",
-        helpFail: "Failed to send the message. Please try again later.",
+        helpFail: "EmailJS send failed - check connection and retry (5/hour limit)",
         helpEmailSubject: "VelardTools Bug / Help Report",
         helpEmailPrefix: "REPORT FROM VELARD TOOLS",
         logLogEmpty: "Log is empty, nothing to copy.",
@@ -1521,7 +1526,7 @@
         }, 660);
         // update floating nav + body attr for cube
         var name = panelOrder[index];
-        try{ document.body.setAttribute('data-view', name); }catch(e){ console.warn('handled', e && e.message); }
+        try{ document.body.setAttribute('data-view', name); }catch(e){ /* ignore */ }
         document.querySelectorAll(".floating-nav-item").forEach(x=>{
           var isActive = x.dataset.panel === name;
           x.classList.toggle("active", isActive);
@@ -1536,10 +1541,10 @@
         currentIndex = index;
         var activeFloat = document.querySelector('.floating-nav-item[data-panel="' + name + '"]');
         if (activeFloat) requestAnimationFrame(()=>{ requestAnimationFrame(()=> positionFloating(activeFloat)); setTimeout(()=> positionFloating(activeFloat), 380); });
-        try { window.scrollTo({top:0,behavior:'auto'}); document.documentElement.scrollTo({top:0,behavior:'auto'}); var sc=document.querySelector('.app-main'); if(sc) sc.scrollTo({top:0,behavior:'auto'}); } catch(e){ console.warn('handled', e && e.message); }
+        try { window.scrollTo({top:0,behavior:'auto'}); document.documentElement.scrollTo({top:0,behavior:'auto'}); var sc=document.querySelector('.app-main'); if(sc) sc.scrollTo({top:0,behavior:'auto'}); } catch(e){ /* ignore */ }
         if (save) {
-          try { localStorage.setItem(PANEL_KEY, name); } catch(e){ console.warn('handled', e && e.message); }
-          try { history.replaceState(null, "", "#" + name); } catch(e){ console.warn('handled', e && e.message); }
+          try { localStorage.setItem(PANEL_KEY, name); } catch(e){ /* ignore */ }
+          try { history.replaceState(null, "", "#" + name); } catch(e){ /* ignore */ }
         }
       }
       function activatePanel(name, save) {
@@ -1592,11 +1597,11 @@
       }
       // initial - masuk awal ke Home, refresh tetap stay di menu (session-based)
       var _isRefresh = false;
-      try{ if(sessionStorage.getItem("velardSession")) _isRefresh=true; }catch(e){ console.warn('handled', e && e.message); }
-      try{ sessionStorage.setItem("velardSession","1"); }catch(e){ console.warn('handled', e && e.message); }
+      try{ if(sessionStorage.getItem("velardSession")) _isRefresh=true; }catch(e){ /* ignore */ }
+      try{ sessionStorage.setItem("velardSession","1"); }catch(e){ /* ignore */ }
       if(_isRefresh){
         var initial = null;
-        try { initial = localStorage.getItem(PANEL_KEY); } catch(e){ console.warn('handled', e && e.message); }
+        try { initial = localStorage.getItem(PANEL_KEY); } catch(e){ /* ignore */ }
         var hash = (location.hash||"").replace(/^#/,"");
         if (hash && panelOrder.indexOf(hash)!==-1) initial = hash;
         if (initial) {
@@ -1607,18 +1612,18 @@
           slideTo(0,false);
         }
       } else {
-        try{ history.replaceState(null,"", location.pathname); }catch(e){ console.warn('handled', e && e.message); }
+        try{ history.replaceState(null,"", location.pathname); }catch(e){ /* ignore */ }
         slideTo(0,false);
       }
       // reveal after preload - hilangkan flash MY VIDEOS
       setTimeout(function(){
-        try{ document.documentElement.removeAttribute("data-preload"); }catch(e){ console.warn('handled', e && e.message); }
+        try{ document.documentElement.removeAttribute("data-preload"); }catch(e){ /* ignore */ }
         var pf=document.getElementById("preload-fix"); if(pf) pf.remove();
         var vp=document.querySelector(".cube-viewport");
         if(vp){ vp.style.opacity="1"; vp.style.transition="opacity 180ms ease"; }
       }, 30);
       window.addEventListener("hashchange", ()=>{
-        var h=(location.hash||"").replace(/^#/,"");
+        var velardHash=(location.hash||"").replace(/^#/,"");
         if(panelOrder.indexOf(h)!==-1) slideTo(panelOrder.indexOf(h), true);
       });
       window.addEventListener("resize", ()=>{
@@ -1700,9 +1705,9 @@
       rl.count = (rl.count || 0) + 1;
       try {
         localStorage.setItem("qmHelpRl", JSON.stringify(rl));
-      } catch(e){ console.warn('handled', e && e.message); }
+      } catch(e){ /* ignore */ }
       // pastikan EmailJS siap - init jika belum
-      try{ if(window.emailjs && !window._emailJsInited){ emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"}); window._emailJsInited=true; } }catch(e){ console.warn('handled', e && e.message); }
+      try{ if(window.emailjs && !window._emailJsInited){ emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"}); window._emailJsInited=true; } }catch(e){ /* ignore */ }
       if (typeof emailjs === "undefined" || !emailjs.send) {
         console.error("EmailJS belum load", typeof emailjs);
         setHelpStatus(t("helpFail")+" (EmailJS belum siap, refresh halaman)");
@@ -1728,13 +1733,13 @@
           // 403/1010 = EmailJS belum dikonfigurasi / domain belum whitelist
           if(detail && detail.indexOf("1010")!==-1){ detail = "EmailJS 403 (service/template belum aktif atau domain belum whitelist di dashboard EmailJS)"; }
           // Fallback: salin pesan + buka TikTok DM biar user tetap bisa hubungi
-          try{ navigator.clipboard.writeText(msg); }catch(e){ console.warn('handled', e && e.message); }
+          try{ navigator.clipboard.writeText(msg); }catch(e){ /* ignore */ }
           var fallback = " | Pesan sudah disalin, silakan DM TikTok @ve1ard";
           if(detail) fallback = " ("+detail.slice(0,90)+")"+fallback;
           setHelpStatus(t("helpFail") + fallback);
           // buka TikTok sebagai fallback setelah 1 detik
           setTimeout(function(){
-            try{ window.open("https://www.tiktok.com/@ve1ard", "_blank"); }catch(e){ console.warn('handled', e && e.message); }
+            try{ window.open("https://www.tiktok.com/@ve1ard", "_blank"); }catch(e){ /* ignore */ }
           }, 800);
         })
         .finally(function () {
@@ -1839,7 +1844,7 @@
           var len = spine.getTotalLength();
           spine.style.strokeDasharray = len;
           if(!spine.dataset.init){ spine.style.strokeDashoffset = len; spine.dataset.init='1'; }
-        }catch(e){ console.warn('handled', e && e.message); }
+        }catch(e){ /* ignore */ }
         // branches
         var allCards = cards();
         allCards.forEach(function(card, idx){
@@ -1868,7 +1873,7 @@
           if(ec){ ec.setAttribute('cx', tx); ec.setAttribute('cy', ty); }
           if(eci){ eci.setAttribute('cx', tx); eci.setAttribute('cy', ty); }
         });
-      }catch(e){ console.warn('handled', e && e.message); }
+      }catch(e){ /* ignore */ }
     }
     function bindHover(){
       var allCards = cards();
@@ -1899,7 +1904,7 @@
           var len = spine.getTotalLength ? spine.getTotalLength() : 3000;
           spine.style.strokeDashoffset = len * (1 - prog);
           // branches gradual opacity based on card visibility (handled by IntersectionObserver, tapi spine tetap progress)
-        }catch(e){ console.warn('handled', e && e.message); }
+        }catch(e){ /* ignore */ }
         ticking=false;
       });
     }
@@ -1995,7 +2000,7 @@
             epG.appendChild(c); epG.appendChild(ci);
           }
         });
-      }catch(e){ console.warn('handled', e && e.message); }
+      }catch(e){ /* ignore */ }
     }
     // hover sync
     var allCards = document.querySelectorAll('.funnel-card, .funnel-base');
@@ -2040,14 +2045,14 @@
       var el=document.getElementById(id);
       if(!el) return;
       var mo=new MutationObserver(function(){ if(el.hidden || el.style.display==='none' || el.offsetParent===null) setLock(false); else setLock(true); });
-      try{ mo.observe(el, {attributes:true, attributeFilter:['hidden','style','class']}); }catch(e){ console.warn('handled', e && e.message); }
+      try{ mo.observe(el, {attributes:true, attributeFilter:['hidden','style','class']}); }catch(e){ /* ignore */ }
     });
     // fallback: kalau ada .is-processing hilang -> unlock
     var mo2=new MutationObserver(function(){
       var any = document.querySelector('.tool-card-new.is-processing') || PROGS.some(function(id){ var e=document.getElementById(id); return e && !e.hidden && e.offsetParent!==null; });
       if(!any) setLock(false);
     });
-    try{ mo2.observe(document.body, {childList:true, subtree:false, attributes:true, attributeFilter:['class']}); }catch(e){ console.warn('handled', e && e.message); }
+    try{ mo2.observe(document.body, {childList:true, subtree:false, attributes:true, attributeFilter:['class']}); }catch(e){ /* ignore */ }
   })();
   </script>
 </body>
