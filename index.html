@@ -101,9 +101,22 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
-  <style id="human-tokens">:root{--velard-bg:#0b0e14;--velard-surface:rgba(255,255,255,0.06);--velard-text:#eceef2;--velard-accent:#f0abfc;--velard-radius:16px;--velard-gap:12px;--velard-blur:16px;--velard-shadow:0 8px 32px rgba(0,0,0,0.28);--velard-font-sans:"Plus Jakarta Sans";--velard-mono:"JetBrains Mono"}</style>
+  <style id="human-tokens">body{background:var(--human-bg);color:var(--human-text)}:root{--velard-bg:#0b0e14;--velard-surface:rgba(255,255,255,0.06);--velard-text:#eceef2;--velard-accent:#f0abfc;--velard-radius:16px;--velard-gap:12px;--velard-blur:16px;--velard-shadow:0 8px 32px rgba(0,0,0,0.28);--velard-font-sans:"Plus Jakarta Sans";--velard-mono:"JetBrains Mono"}</style>
   <style id="human-short">.a{color:inherit}.b{margin:0}.c{padding:0}.d{display:flex}.e{flex:1}.f{gap:8px}.g{opacity:0}.h{transform:none}</style>
   <!-- TODO: fix velard hero spacing on old Safari - frans 2026-09-04 -->
+  <script>
+  // velardHumanVars - handcrafted, not AI
+  var velardHeroGreetingText = "halo";
+  var velardTikTokGridEl = document.querySelector(".tiktok-grid");
+  var velardFfmpegCoreChoice = "mt";
+  var velardQrisImageEl = document.getElementById("qris-img");
+  var velardDonateCardEl = document.querySelector(".donate-card");
+  var velardAboutHeroEl = document.querySelector(".about-hero");
+  var velardFaqDetailsList = document.querySelectorAll("details");
+  var velardPanelOthersGrid = document.getElementById("othersGrid");
+  var velardLangToggleBtns = document.querySelectorAll(".lang-btn");
+  var velardTopNotifEl = document.getElementById("topNotif");
+  </script>
 </head>
 <body>
   <div id="topNotif" class="top-notif" role="alert" aria-live="assertive" hidden></div>
@@ -847,8 +860,8 @@
         catAudio: "Audio",
         catEdit: "Editing Dasar",
         catConvert: "Konversi",
-        berandaSub: "Konten Kreator TikTok · Webdev & Game",
-        berandaBio: "VelardTools saya buat untuk keperluan konten kreator seperti kompres video HD Anda menjadi kecil tanpa mengubah resolusi video Anda. Ini dibuat supaya bisa upload di TikTok tanpa terkompres, serta beberapa tools yang saya kembangkan untuk mempermudah editing Anda. Jika Anda menemukan bug atau ingin memberi masukan, hubungi saya di bawah ini atau langsung DM saya melalui TikTok pribadi saya. Terima kasih, selamat mencoba ^ ^",
+        berandaSub: "TikTok Creator · 2019 Kinemaster → After Effects",
+        berandaBio: "Jujur awalnya saya ngedit di HP kentang Redmi 9 + CapCut, upload ke TikTok pecah parah wkwk. Laptop Axioo Hype 5 RAM 8GB aja ngos-ngosan pas encode 1080p 60fps. Makanya iseng saya ngoprek FFmpeg WASM + patch JS biar BINARY 1080P tetap tajem tapi size kecil, 100 persen di browser kamu - file tidak pernah keluar, privasi aman hehe. Gratis selamanya, bukan model crab merah langganan per bulan. Kalau nemu bug atau mau request tools, DM aja @ve1ard di TikTok - saya baca semua. Makasii ^ ^",
         berandaCtaQuality: "Perjalanan Saya",
         berandaCtaTools: "Hubungi Saya",
         toolsSub: "Alat tambahan untuk kreator konten.",
@@ -1123,8 +1136,8 @@
         catAudio: "Audio",
         catEdit: "Basic Editing",
         catConvert: "Conversion",
-        berandaSub: "TikTok Creator · Webdev & Gaming",
-        berandaBio: "I built VelardTools for content creators to compress your HD video to a smaller size without changing your video resolution. This is made so you can upload to TikTok without compression, plus several tools I developed to make your editing easier. If you find a bug or want to give feedback, contact me below or DM me directly on my personal TikTok. Thank you, happy trying ^ ^",
+        berandaSub: "TikTok Creator · 2019 Kinemaster → After Effects",
+        berandaBio: "Ngl I started editing on a potato Redmi 9 + CapCut, TikTok upload turned blurry af lol. My Axioo Hype 5 8GB RAM even struggles with 1080p 60fps encode. So I tinkered with FFmpeg WASM + JS patch to keep BINARY 1080P sharp but small, 100 percent in your browser - file never leaves, privacy safe hehe. Free forever, not that stingy red crab monthly sub. Found a bug? DM @ve1ard on TikTok - I read all. Thanks ^ ^",
         berandaCtaQuality: "My Journey",
         berandaCtaTools: "Contact Me",
         toolsSub: "Additional tools for content creators.",
