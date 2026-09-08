@@ -81,8 +81,8 @@
   --success: var(--md-sys-color-success);
   --warning: var(--md-sys-color-warning);
   --danger: var(--md-sys-color-error);
-  --md-font: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
-  --display-font: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --md-font: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --display-font: 'Space Grotesk', 'Plus Jakarta Sans', 'Inter', sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
   --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
@@ -182,19 +182,18 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
+/* keterbacaan teks terang di atas foto background — tanpa menyentuh bg */
+.app-main, .tool-modal-card{ text-shadow:0 1px 8px rgba(0,0,0,.6); }
+
 /* ---------- 3. Background System (INIYA.jpg static, performance keep slide only) ---------- */
 .bg-static{
   position:fixed; inset:0;
-  background:
-    linear-gradient(rgba(6,8,14,0.62), rgba(6,8,14,0.78)),
-    url('INIYA.jpg') center center / cover no-repeat fixed;
+  background: url('../images/bg/background-1.jpg') center center / cover no-repeat fixed;
   background-color:#0b0e14;
   z-index:-1; pointer-events:none;
 }
 .bg-static::after{
-  content:""; position:absolute; inset:0;
-  background: radial-gradient(ellipse 900px 600px at 50% 0%, rgba(255,255,255,0.06), transparent 68%);
-  pointer-events:none;
+  display:none;
 }
 .bg-glow { display: none !important; }
 .streak-bg { display:none !important; }
@@ -444,14 +443,13 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   flex: 1; display: flex; flex-direction: column; align-items: center;
   padding: 44px 16px 16px; width: 100%;
 }
-.dash-panels { width: 100%; max-width: 560px; }
-.dash-panels.slide-container.cube-viewport{ max-width:100vw !important; width:100vw !important; }
+.dash-panels { width: 100%; max-width: 560px; margin:0 auto; }
 html, body{ max-width:100% !important; overflow-x:hidden !important; }
-.dash-panel { display: flex; flex-direction: column; gap: 18px; }
+.dash-panel { display: flex; flex-direction: column; gap: 18px; width:100%; }
 .dash-panel[hidden] { display: none !important; }
-/* Tablet/iPad anti-zoom hitam — 100vw fix untuk 641-1024 */
+/* Tablet/iPad — FIX: hapus hack 100vw, ganti fluid centered */
 @media(min-width:641px) and (max-width:1024px){
-  .slide-container.cube-viewport{ width:100% !important; max-width:100% !important; margin-left:0 !important; margin-right:0 !important; }
+  .slide-container.cube-viewport{ width:100% !important; max-width:100% !important; margin:0 auto !important; left:auto !important; right:auto !important; }
   .slide-panel.cube-face{ width:100% !important; max-width:100% !important; flex:0 0 100% !important; }
   .slide-track.cube-3d-box{ width:100% !important; }
 }
@@ -639,8 +637,8 @@ body[data-view="beranda"] .slide-panel.cube-face{
 }
 .greeting-box .flip-char { color: #fff; font-weight: 900; text-shadow: 0 0 8px rgba(255,255,255,0.42), 0 0 16px rgba(255,255,255,0.18); }
 .kinetic-name-line {
-  font-family: var(--display-font); font-size: clamp(3rem, 9vw, 5.4rem); font-weight: 900;
-  line-height: 0.9; letter-spacing: -0.045em; min-height: 1em; white-space: nowrap;
+  font-family: var(--display-font); font-size: clamp(3.4rem, 11vw, 6.2rem); font-weight: 900;
+  line-height: 0.85; letter-spacing: -0.05em; min-height: 1em; white-space: nowrap;
   color: #f0abfc;
   background: none;
   -webkit-text-fill-color: #f0abfc;
@@ -770,6 +768,33 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .panel-head-large .panel-title-large { font-size: clamp(1.8rem, 5.5vw, 2.4rem); font-weight: 900; letter-spacing: -0.035em; line-height: 1.05; color: #ffffff !important; text-transform: uppercase; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; text-shadow: 0 0 14px rgba(255,255,255,0.55), 0 0 28px rgba(255,255,255,0.28); filter: drop-shadow(0 0 12px rgba(255,255,255,0.32)); opacity: 1; }
 .panel-title-large .panel-by { font-size: clamp(12px, 2.8vw, 13.5px); font-weight: 700; color: var(--text-3); text-transform: none; letter-spacing: 0; }
 .panel-head-large .head-sub { display: block; margin-top: 6px; }
+.panel-title-row{ display:flex; align-items:center; justify-content:flex-start; gap:10px; flex-wrap:nowrap; }
+.hard-refresh-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  padding:0 14px; min-height:34px;
+  background:#7a0a0a; border:1px solid rgba(255,110,110,.45);
+  border-radius:999px; color:#fff; font-size:12px; font-weight:700; letter-spacing:0.02em;
+  backdrop-filter:blur(10px) saturate(1.15); -webkit-backdrop-filter:blur(10px) saturate(1.15);
+  box-shadow:0 4px 14px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:all 180ms var(--ease-out); cursor:pointer; white-space:nowrap; flex-shrink:0;
+}
+.hard-refresh-btn:hover{ background:#a31313; border-color:rgba(255,110,110,.45); transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,0.28); }
+.hard-refresh-btn:active{ transform:scale(0.97); }
+.hard-refresh-btn .material-symbols-rounded{ font-size:16px; line-height:1; }
+.hard-refresh-btn.hard-refresh-icon{
+  width:36px; height:36px; min-width:36px; min-height:36px; padding:0; gap:0;
+  border-radius:10px; flex-shrink:0;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+}
+.hard-refresh-btn.hard-refresh-icon .material-symbols-rounded{ font-size:18px; }
+.hard-refresh-btn.is-spinning .material-symbols-rounded{ animation:hardSpin 680ms linear infinite; }
+@keyframes hardSpin{ from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@media(max-width:640px){
+  .panel-title-row{ gap:8px; }
+  .hard-refresh-btn{ padding:0 12px; min-height:32px; font-size:11.5px; }
+  .hard-refresh-btn.hard-refresh-icon{ width:34px; height:34px; min-width:34px; min-height:34px; border-radius:9px; }
+  .hard-refresh-btn.hard-refresh-icon .material-symbols-rounded{ font-size:17px; }
+}
 /* hidden fix log & progress harus hidden default */
 .progress-wrap[hidden], .log-head[hidden], .log-area[hidden] { display: none !important; }
 
@@ -1126,8 +1151,9 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .log-line { color: var(--text); white-space: pre-wrap; word-break: break-word; }
 .log-time { color: var(--text-3); margin-right: 8px; user-select: none; }
 
-/* ---------- 7. Tools Grid Bento 21st.dev ---------- */
-.tools-grid-new { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+/* ---------- 7. Tools Grid Bento 21st.dev — FIX: 1 kolom mobile, 2 kolom hanya desktop agar kartu tidak kecil ---------- */
+.tools-grid-new { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media(min-width:1024px){ .tools-grid-new{ grid-template-columns: repeat(2, 1fr); } }
 .tool-card-new {
   display: flex; align-items: center; gap: 14px; padding: 16px 16px;
   background: rgba(18,20,26,0.38);
@@ -1337,18 +1363,19 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .floating-nav-item:hover { color: #fff; }
 .floating-nav-item:active { transform: scale(0.96); }
 
-/* ---------- 10. Slide Edge-to-Edge PREMIUM smooth (spring + stagger) ---------- */
+/* ---------- 10. Slide PREMIUM — FIX overflow peek kanan ---------- */
 .slide-container.cube-viewport {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: hidden !important;
   overflow-anchor: none;
   transition: min-height 0.64s var(--ease-spring-soft);
   will-change: min-height;
+}
+@media(min-width:1280px){
+  .slide-container.cube-viewport{ max-width:920px; }
 }
 .slide-track.cube-3d-box {
   display: flex;
@@ -1362,9 +1389,9 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   /* is-sliding hook no blur per request */
 }
 .slide-panel.cube-face {
-  flex: 0 0 100vw;
-  width: 100vw;
-  max-width: 100vw;
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
   position: relative;
   opacity: 1;
   visibility: visible;
@@ -1374,8 +1401,19 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   flex-direction: column;
   align-items: center;
   padding: 0 16px;
-  /* full layar, konten tengah max 560px */
   will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.slide-panel.cube-face:not(.active-panel){
+  opacity:0 !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+.slide-panel.cube-face.active-panel{
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
 }
 .slide-panel.cube-face > * {
   width: 100%;
@@ -1414,6 +1452,9 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 #panel-tools.active-panel .tool-card-new:nth-child(3){ transition-delay: 190ms; }
 #panel-tools.active-panel .tool-card-new:nth-child(4){ transition-delay: 250ms; }
 #panel-tools.active-panel .tool-card-new:nth-child(5){ transition-delay: 310ms; }
+#panel-tools.active-panel .tool-card-new:nth-child(6){ transition-delay: 370ms; }
+#panel-tools.active-panel .tool-card-new:nth-child(7){ transition-delay: 430ms; }
+#panel-tools.active-panel .tool-card-new:nth-child(8){ transition-delay: 490ms; }
 /* Quality Method di tools - header sticky dengan logo+teks di samping X (PC & mobile sama) */
 .tool-modal-card.is-quality { overscroll-behavior: contain; }
 .tool-modal-card.is-quality .tool-modal-hero { display: flex !important; }
@@ -1545,7 +1586,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .tool-modal-close:hover { background: rgba(255,255,255,0.08); transform: scale(1.05); color: var(--text); }
 .tool-modal-close .material-symbols-rounded { font-size: 16px; }
 .tool-modal-close.is-processing { background: var(--md-sys-color-primary) !important; color: #0a0e02 !important; border-color: transparent; min-width: 42px; width: auto; padding: 0 8px; height: 26px; border-radius: var(--radius-pill); font-size: 10.5px; font-weight: 800; }
-.tool-modal-body { padding: 16px 18px 18px; overflow: auto; display: flex; flex-direction: column; gap: 14px; max-height: none; scrollbar-width: none; -ms-overflow-style: none; flex:1; overscroll-behavior: contain; }
+.tool-modal-body { padding: 16px 18px 18px; overflow: auto; display: flex; flex-direction: column; gap: 14px; max-height: none; scrollbar-width: none; -ms-overflow-style: none; flex:1; min-height:0; overscroll-behavior: contain; }
 @media(max-width:640px){
   .tool-modal-card.is-quality .tool-modal-hero{ display:flex !important; }
   .tool-modal-card.is-quality #toolPanel-quality .qm-header{ display:none !important; }
@@ -1555,6 +1596,15 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   .tool-modal-card.is-quality .tool-modal-hero .tool-desc-new{ font-size:10.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:38vw; }
 }
 .tool-modal-body::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+/* FRAIGO FULL PLAK-KETIPLEK — thumbnail jadi 100% seperti fraigo.github.io */
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])){ background:rgba(11,14,20,.78) !important; border:1px solid rgba(255,255,255,0.10) !important; backdrop-filter:blur(20px) saturate(1.25) !important; -webkit-backdrop-filter:blur(20px) saturate(1.25) !important; }
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-header{ display:none !important; }
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body{ padding:12px 12px 24px !important; gap:0 !important; background:transparent !important; overflow-y:auto !important; overflow-x:hidden !important; flex:1 1 auto !important; min-height:0 !important; max-height:100% !important; scrollbar-width:thin !important; scrollbar-color:rgba(255,255,255,.28) transparent !important; touch-action:pan-y !important; -webkit-overflow-scrolling:touch !important; }
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body::-webkit-scrollbar{ display:block !important; width:8px !important; height:8px !important; }
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.25) !important; border-radius:9999px !important; }
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body::-webkit-scrollbar-track{ background:transparent !important; }
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) #toolPanel-thumbnail.fraigo-panel{ border-radius:0 !important; border:none !important; min-height:0 !important; }
+/* thumbnail mobile ikut bottom-sheet standar via JS (sama seperti menu lain) */
 .tool-drop-zone { border: 1.5px dashed var(--line); border-radius: 10px; padding: 14px 12px; background: rgba(255,255,255,0.02); display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: var(--velard-cursor, pointer); text-align: center; transition: border-color 160ms ease, background 160ms ease; }
 .tool-drop-zone:hover, .tool-drop-zone.dragover { border-color: hsla(0, 0%, 92%, 0.42); background: hsla(0, 0%, 92%, 0.06); }
 .tool-drop-zone .material-symbols-rounded { font-size: 24px; color: var(--md-sys-color-primary); }
@@ -1996,4 +2046,142 @@ body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
 @media(max-width:640px){
   .tiktok-section{ margin-top: 28px !important; padding-top: 28px !important; }
   .tiktok-grid{ margin-top: 4px !important; }
+}
+
+/* ==================================================================
+   INSPECT CLEAN v1 — ekstrak inline style → class (tanpa ubah logika)
+   Tujuan: inspect Elements rapi, tidak ada style="" / onmouseover
+   Semua visual identik, hanya dipindah ke CSS
+   ================================================================== */
+.icon-sm{font-size:18px;line-height:1}
+.about-hero-row{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.about-hero-icon{width:42px;height:42px;border-radius:12px;background:var(--surface-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--md-sys-color-primary);flex-shrink:0}
+.about-hero-icon .material-symbols-rounded{font-size:22px}
+.about-ver-badge{font-size:10px;font-weight:800;letter-spacing:.06em;background:var(--md-sys-color-primary);color:#0a0e02;padding:2px 7px;border-radius:999px}
+.about-desc{font-size:11.5px;color:var(--text-3);margin-top:2px}
+.social-card{text-align:center}
+.social-title{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-bottom:6px}
+.social-desc{font-size:13px;color:var(--text-3);margin-bottom:18px}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.social-link{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:14px;text-decoration:none;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.04);transition:transform 200ms ease,box-shadow 200ms ease,border-color 200ms ease,background 200ms ease;backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2)}
+.social-link--tiktok{border-top:1px solid rgba(37,242,238,.14)}
+.social-link--instagram{border-top:1px solid rgba(225,48,108,.14)}
+.social-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.06);box-shadow:0 12px 32px rgba(0,0,0,.36),0 0 18px rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
+.social-link--tiktok:hover{box-shadow:0 12px 32px rgba(0,0,0,.36),0 0 18px rgba(37,242,238,.08);border-color:rgba(37,242,238,.18)}
+.social-link--instagram:hover{box-shadow:0 12px 32px rgba(0,0,0,.36),0 0 18px rgba(225,48,108,.08);border-color:rgba(225,48,108,.18)}
+.social-icon{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.social-icon .material-symbols-rounded{font-size:26px;color:#fff}
+.social-icon--tiktok .material-symbols-rounded{filter:drop-shadow(0 0 8px rgba(37,242,238,.45))}
+.social-icon--instagram .material-symbols-rounded{filter:drop-shadow(0 0 8px rgba(225,48,108,.35))}
+.social-name{font-weight:900;font-size:14px;letter-spacing:-.01em}
+.social-handle{font-size:12px;color:rgba(255,255,255,.62);font-weight:600}
+.social-foot{font-size:12px;color:var(--text-3);margin-top:14px;line-height:1.6}
+.help-card-inner{flex-direction:column;align-items:stretch;gap:14px;padding:18px}
+.help-card-head{display:flex;align-items:center;gap:12px}
+.help-icon--lg{width:44px;height:44px;border-radius:13px}
+.help-head-title{font-size:14.5px;font-weight:900;letter-spacing:-.02em;color:var(--text)}
+.help-head-sub{font-size:11.5px;font-weight:600;color:var(--text-3);margin-top:1px}
+.help-desc{font-size:13px;line-height:1.65;color:var(--text-3)}
+.help-info-box{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px}
+.help-info-kicker{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+.help-info-list{list-style:none;display:grid;gap:6px;margin:0;padding:0}
+.help-info-item{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--text-3)}
+.help-bullet{color:var(--md-sys-color-primary);margin-top:1px}
+.help-note-box{display:flex;gap:8px;align-items:flex-start;background:linear-gradient(135deg,rgba(224,242,140,.08),rgba(224,242,140,.02));border:1px solid rgba(224,242,140,.18);border-radius:10px;padding:10px 11px}
+.help-note-icon{font-size:16px;color:#e0f28c;flex-shrink:0;margin-top:1px}
+.help-note-text{font-size:11.5px;line-height:1.5;color:var(--text-3);margin:0}
+.help-btn-full{width:100%;justify-content:center;min-height:44px;font-size:13px}
+.help-alt{font-size:11px;color:var(--text-3);text-align:center;line-height:1.5;margin:0}
+.spec-head{font-size:15px;font-weight:800;margin-bottom:12px;text-align:center}
+.spec-grid{display:grid;gap:12px;font-size:13px;line-height:1.6}
+.faq-head{font-size:15px;font-weight:800;margin-bottom:12px;text-align:center}
+.faq-sub{font-size:12px;color:var(--text-3);text-align:center;margin-bottom:14px;line-height:1.5}
+.faq-list{display:grid;gap:8px}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 12px}
+.faq-q{font-size:13px;font-weight:700;color:var(--text);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.faq-q .material-symbols-rounded{font-size:18px;color:var(--text-3)}
+.faq-a{font-size:12.5px;line-height:1.6;color:var(--text-3);margin-top:8px}
+.changelog-list{display:grid;gap:14px}
+.changelog-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px}
+.changelog-ver{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.changelog-badge{font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px;background:var(--md-sys-color-primary);color:#0a0e02}
+.changelog-date{font-size:11px;color:var(--text-3);font-weight:600}
+.changelog-tag{font-size:10px;font-weight:700;padding:3px 7px;border-radius:999px;background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.25)}
+.changelog-h{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:6px}
+.changelog-ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:12.5px;color:var(--text-3);line-height:1.6}
+.tut-head{font-size:18px;text-align:center}
+.others-back{margin-bottom:10px}
+/* Fix Lainnya kepotong saat loncat dari Home — beri clearance bawah */
+#panel-others{ padding-bottom:90px !important; }
+#panel-others .tools-grid-new{ padding-bottom:12px; }
+@media(max-width:640px){ #panel-others{ padding-bottom:100px !important; } }
+.about-hero-subrow{display:flex;align-items:center;gap:8px}
+.about-hero-title{font-size:14px;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+.about-intro-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:8px}
+.about-p{font-size:14px;line-height:1.7;color:var(--text);margin-bottom:10px}
+.about-p.muted{color:var(--text-3)}
+.about-p:last-child{margin-bottom:0}
+.faq-icon{font-size:18px;color:var(--text-3)}
+/* Thumbnail HD — fraigo logic + Velard premium glass */
+.thumb-source-toggle{ display:flex; gap:10px; margin:6px 0 4px; flex-wrap:wrap; }
+.thumb-radio{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; color:var(--text-3); cursor:pointer; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); transition:border-color 160ms ease, background 160ms ease; }
+.thumb-radio:has(input:checked){ color:var(--text); border-color:rgba(255,255,255,0.18); background:rgba(255,255,255,0.08); }
+.thumb-radio input{ accent-color:var(--text); width:14px; height:14px; }
+.thumb-hint{ font-size:11px; color:var(--text-3); opacity:0.9; margin:2px 0 6px; }
+.thumb-url-wrap{ display:flex; gap:8px; align-items:center; margin:6px 0; }
+.thumb-url-wrap[hidden]{ display:none !important; }
+.thumb-url-wrap input{ flex:1; min-height:40px; border-radius:999px; border:1px solid rgba(255,255,255,0.10); background:rgba(255,255,255,0.06); color:var(--text); padding:0 14px; font-size:12.5px; outline:none; }
+.thumb-url-wrap input:focus{ border-color:rgba(255,255,255,0.18); background:rgba(255,255,255,0.08); }
+.thumb-url-btn{ white-space:nowrap; min-height:40px; padding:0 14px; border-radius:999px; }
+.thumb-video-info{ font-size:11.5px; line-height:1.6; color:var(--text-3); background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:8px 10px; font-family:var(--mono); }
+.thumb-video-info[hidden]{ display:none !important; }
+.thumb-video-wrap{ display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.thumb-video-wrap[hidden]{ display:none !important; }
+#toolThumbVideo{ width:100%; max-height:340px; border-radius:12px; background:#000; object-fit:contain; display:block; border:1px solid rgba(255,255,255,0.07); }
+.thumb-time-row{ display:flex; align-items:center; gap:8px; }
+.thumb-time{ font-size:11px; font-weight:700; color:var(--text-3); font-family:var(--mono); min-width:38px; text-align:center; }
+#toolThumbSeek{ flex:1; -webkit-appearance:none; appearance:none; height:4px; background:rgba(255,255,255,0.12); border-radius:999px; outline:none; }
+#toolThumbSeek::-webkit-slider-thumb{ -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:var(--md-sys-color-primary); cursor:pointer; box-shadow:0 0 0 3px rgba(255,255,255,0.12); }
+#toolThumbSeek::-moz-range-thumb{ width:14px; height:14px; border-radius:50%; background:var(--md-sys-color-primary); border:none; cursor:pointer; }
+.thumb-controls{ display:flex; gap:4px; flex-wrap:wrap; justify-content:center; margin-top:2px; }
+.thumb-controls button{ display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; min-width:40px; min-height:44px; padding:6px 6px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); color:var(--text); cursor:pointer; transition:background 160ms ease, border-color 160ms ease, transform 120ms ease; }
+.thumb-controls button:hover{ background:rgba(255,255,255,0.10); border-color:rgba(255,255,255,0.14); }
+.thumb-controls button:active{ transform:scale(0.97); }
+.thumb-controls .material-symbols-rounded{ font-size:20px; line-height:1; }
+.thumb-controls small{ font-size:10px; font-weight:700; color:var(--text-3); font-family:var(--mono); }
+#toolThumbPlayPause{ min-width:48px; background:var(--text); color:var(--ink); border-color:rgba(0,0,0,0.08); }
+#toolThumbPlayPause .material-symbols-rounded{ font-size:22px; }
+.thumb-snap-row{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.thumb-snap-field{ display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:999px; padding:6px 10px; font-size:11px; font-weight:700; color:var(--text-3); }
+.thumb-snap-field span{ white-space:nowrap; }
+.thumb-snap-field input{ width:86px; background:transparent; border:none; color:var(--text); font-weight:800; font-family:var(--mono); font-size:12px; outline:none; text-align:center; }
+.thumb-snap-field small{ color:var(--text-3); font-weight:700; }
+.thumb-snap-actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:8px; }
+#toolThumbCapture{ flex:0 0 auto; }
+.thumb-auto-group{ display:flex; align-items:center; gap:0; }
+.thumb-auto-btn{ border-top-right-radius:0 !important; border-bottom-right-radius:0 !important; }
+#toolThumbSnapEach{ min-height:36px; border-radius:0 999px 999px 0; border:1px solid rgba(255,255,255,0.10); border-left:none; background:rgba(255,255,255,0.08); color:var(--text); font-size:11.5px; font-weight:700; padding:0 8px; outline:none; }
+#toolThumbCanvas[hidden]{ display:none !important; }
+.thumb-preview-wrap{ display:flex; flex-direction:column; gap:6px; align-items:center; margin-top:8px; }
+.thumb-preview-wrap[hidden]{ display:none !important; }
+#toolThumbPreview{ width:100%; max-height:340px; object-fit:contain; border-radius:12px; border:1px solid rgba(255,255,255,0.07); background:#000; display:block; }
+.thumb-preview-label{ font-size:11px; color:var(--text-3); text-align:center; }
+.thumb-outputs{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; max-height:420px; overflow:auto; padding:4px 2px; }
+.thumb-outputs:empty{ display:none; }
+.thumb-output-card{ position:relative; flex:0 1 calc(33.333% - 6px); min-width:98px; border-radius:10px; overflow:hidden; border:2px solid transparent; background:#0a0a0a; cursor:pointer; transition:border-color 160ms ease, transform 160ms ease; }
+.thumb-output-card:hover{ transform:translateY(-1px); }
+.thumb-output-card.is-selected{ border-color:var(--text); box-shadow:0 0 0 3px rgba(255,255,255,0.10); }
+.thumb-output-card img{ width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; display:block; background:#000; }
+.thumb-output-card label{ position:absolute; right:4px; bottom:4px; font-size:10px; font-weight:700; font-family:var(--mono); background:rgba(0,0,0,0.68); color:#fff; padding:2px 6px; border-radius:999px; border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(6px); max-width:82%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.thumb-output-remove{ position:absolute; top:4px; right:4px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:#7a0a0a; color:#fff; font-size:11px; font-weight:800; border:1px solid rgba(255,255,255,0.18); cursor:pointer; }
+.thumb-footer{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.thumb-footer .tool-process-btn{ flex:1 1 auto; min-width:110px; }
+.thumb-clear{ background:rgba(255,255,255,0.06) !important; color:var(--text) !important; border:1px solid rgba(255,255,255,0.10); }
+.thumb-download[hidden]{ display:none !important; }
+.thumb-download{ background:var(--text) !important; color:var(--ink) !important; }
+@media(max-width:480px){ .thumb-output-card{ flex:0 1 calc(50% - 4px); } .thumb-controls button{ min-width:36px; min-height:42px; padding:5px 4px; } .thumb-controls .material-symbols-rounded{ font-size:18px; } }
+/* Mobile: MY VIDEOS jangan keliatan di awal — hero full viewport */
+@media(max-width:640px){
+  #panel-beranda .kinetic-hero{ min-height:88dvh !important; min-height:88vh !important; justify-content:center !important; padding:32px 12px 24px !important; gap:14px !important; }
+  .tiktok-section{ opacity:0 !important; transform:translateY(28px) !important; }
 }

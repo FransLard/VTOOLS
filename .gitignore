@@ -1,9 +1,8 @@
 .vercel
 node_modules
-script.js
+assets/js/app.js
+archive/
 backup_*/
+backup_circle_*/
 *.bak_*
 __pycache__/
-backup_circle_*/
-
-backup_*

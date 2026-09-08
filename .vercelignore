@@ -1,7 +1,6 @@
 src/
-obfuscate.js
-deploy.ps1
-server.py
+tools/
+archive/
 node_modules/
 backup_*/
 backup_circle_*/
@@ -10,5 +9,4 @@ __pycache__/
 .agents/
 .claude/
 .opencode/
-
 backup_*

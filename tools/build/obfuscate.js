@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const JavaScriptObfuscator = require("javascript-obfuscator");
 
-const srcFile = path.join(__dirname, "src", "script.js");
-const outFile = path.join(__dirname, "script.js");
+const srcFile = path.join(__dirname, "..", "..", "src", "script.js");
+const outFile = path.join(__dirname, "..", "..", "assets", "js", "app.js");
 
 const source = fs.readFileSync(srcFile, "utf8");
 

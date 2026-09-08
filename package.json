@@ -4,7 +4,8 @@
   "private": true,
   "description": "VelardTools - obfuscation build untuk script.js",
   "scripts": {
-    "obfuscate": "node obfuscate.js"
+    "obfuscate": "node tools/build/obfuscate.js",
+    "check": "node tools/checks/check-v4.js"
   },
   "devDependencies": {
     "javascript-obfuscator": "^4.1.1",

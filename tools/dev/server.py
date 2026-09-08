@@ -7,8 +7,12 @@ Lalu buka: http://127.0.0.1:8000
 """
 
 import http.server
+import os
 import socketserver
 import sys
+
+# Selalu serve dari project root walau dijalankan via tools/dev/server.py
+os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
 MIME = {
@@ -26,7 +30,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def end_headers(self):
         self.send_header("Cross-Origin-Opener-Policy", "same-origin")
-        self.send_header("Cross-Origin-Embedder-Policy", "require-corp")
+        self.send_header("Cross-Origin-Embedder-Policy", "credentialless")
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
@@ -42,6 +46,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
             "font-src 'self' data: https://fonts.gstatic.com; "
             "img-src 'self' data: blob:; "
+            "media-src 'self' blob: data:; "
             "connect-src 'self' blob: https://cdn.jsdelivr.net https://api.emailjs.com "
             "https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://va.vercel-scripts.com; "
             "worker-src 'self' blob: https://cdn.jsdelivr.net; "
