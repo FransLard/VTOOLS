@@ -1,8 +1,8 @@
-<!-- VelardTools v1.2 - handcrafted by Frans @ve1ard (Jakarta) - 2026-09-04 - vanilla JS + FFmpeg WASM, no AI template -->
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <!-- Primary -->
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover" />
   <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
@@ -20,7 +20,7 @@
   <link rel="canonical" href="https://velardtools.my.id/" />
   <meta name="theme-color" content="#0b0e14" />
 
-  <!-- Open Graph / Twitter -->
+  
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="VelardTools" />
   <meta property="og:title" content="VelardTools untuk kebutuhan Konten Creator" />
@@ -54,7 +54,7 @@
     "image": "https://velardtools.my.id/og-image.jpg"
   }
   </script>
-  <!-- Icons -->
+  
   <link rel="icon" href="/assets/icons/favicon.ico?v=167" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png?v=167" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png?v=167" />
@@ -62,69 +62,25 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=167" />
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/icons/logo.png?v=167" />
 
-  <!-- Fonts -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/css/style.css?v=180" />
-  <script>
-    (function(){
-      try{
-        var velardPanelOrder=["beranda","tools","donate","others"];
-        try{ ["quality","tutorial","tentang"].forEach(function(k){ try{ if(localStorage.getItem("velardPanel")===k) localStorage.removeItem("velardPanel"); }catch(e){ /* ignore */ } if((location.hash||"")==="#"+k) try{ history.replaceState(null,"",location.pathname); }catch(e){ /* ignore */ } }); }catch(e){ /* ignore */ }
-        var velardIsRefresh=false; try{ if(sessionStorage.getItem("velardSession")) isRefresh=true; }catch(e){ /* ignore */ }
-        var velardView="beranda";
-        if(isRefresh){
-          var velardHash=(location.hash||"").replace(/^#/,"");
-          var velardStored=null; try{ s=localStorage.getItem("velardPanel"); }catch(e){ /* ignore */ }
-          if(h&&velardPanelOrder.indexOf(velardHash)!==-1) v=h;
-          else if(s&&velardPanelOrder.indexOf(velardStored)!==-1) v=s;
-        }
-        document.documentElement.setAttribute("data-preload", velardView);
-        var velardCss=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+velardView+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}";
-        var velardStyleEl=document.createElement("style"); velardStyleEl.id="preload-fix"; velardStyleEl.textContent=velardCss; document.head.appendChild(velardStyleEl);
-      }catch(e){ /* ignore */ }
-    })();
-  </script>
-  <script>
-    /* refresh selalu kembali ke tampilan awal (atas) — matikan restore posisi scroll browser */
-    try{ if("scrollRestoration" in history) history.scrollRestoration="manual"; }catch(e){ /* ignore */ }
-    window.addEventListener("beforeunload", function(){
-      try{ window.scrollTo(0,0); document.documentElement.scrollTop=0; document.body.scrollTop=0; }catch(e){ /* ignore */ }
-    });
-    window.addEventListener("load", function(){
-      function toTop(){
-        try{
-          window.scrollTo(0,0);
-          document.documentElement.scrollTop=0; document.body.scrollTop=0;
-          var sc=document.querySelector(".app-main"); if(sc) sc.scrollTop=0;
-          var vp=document.querySelector(".cube-viewport"); if(vp) vp.scrollTop=0;
-        }catch(e){ /* ignore */ }
-      }
-      toTop();
-      setTimeout(toTop, 60);
-      setTimeout(toTop, 400);
-    });
-  </script>
+  
+  <link rel="stylesheet" href="assets/css/style.css?v=181" />
+  <script>!function(){try{var t=["beranda","tools","donate","others"];try{["quality","tutorial","tentang"].forEach(function(t){try{localStorage.getItem("velardPanel")===t&&localStorage.removeItem("velardPanel")}catch(t){}if((location.hash||"")==="#"+t)try{history.replaceState(null,"",location.pathname)}catch(t){}})}catch(t){}try{sessionStorage.getItem("velardSession")&&(isRefresh=!0)}catch(t){}var e="beranda";if(isRefresh){var a=(location.hash||"").replace(/^#/,"");try{s=localStorage.getItem("velardPanel")}catch(t){}h&&-1!==t.indexOf(a)?v=h:s&&-1!==t.indexOf(null)&&(v=s)}document.documentElement.setAttribute("data-preload",e);var n=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+e+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}",o=document.createElement("style");o.id="preload-fix",o.textContent=n,document.head.appendChild(o)}catch(t){}}();</script>
+  <script>try{"scrollRestoration"in history&&(history.scrollRestoration="manual")}catch(o){}window.addEventListener("beforeunload",function(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0}catch(o){}}),window.addEventListener("load",function(){function o(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0;var o=document.querySelector(".app-main");o&&(o.scrollTop=0);var t=document.querySelector(".cube-viewport");t&&(t.scrollTop=0)}catch(o){}}o(),setTimeout(o,60),setTimeout(o,400)});</script>
 
-  <!-- Google tag (gtag.js) -->
+  
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQYGSY0NED"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-GQYGSY0NED');
-  </script>
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-GQYGSY0NED");</script>
 
-  <!-- Vercel Web Analytics -->
-  <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  </script>
+  
+  <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
   <script defer src="/_vercel/insights/script.js"></script>
-  <!-- design tokens moved to style.css (inspect clean) -->
+  
 </head>
 <body>
   <div id="topNotif" class="top-notif" role="alert" aria-live="assertive" hidden></div>
@@ -176,64 +132,8 @@
             </button>
           </div>
         </section>
-        <script>
-          (function(){
-            var sec=document.querySelector('.tiktok-section');
-            if(!sec) return;
-            if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ sec.classList.add('is-visible'); return; }
-            var io=new IntersectionObserver(function(entries){
-              entries.forEach(function(e){
-                if(e.isIntersecting) sec.classList.add('is-visible');
-                else sec.classList.remove('is-visible');
-              });
-            }, {threshold:0.15, rootMargin:'-8% 0px -12% 0px'});
-            io.observe(sec);
-          })();
-        </script>
-        <script>
-          (function(){
-            var pendingHref=null;
-            function getModal(){ return document.getElementById('tiktokConfirmModal'); }
-            function getOpenBtn(){ return document.getElementById('tiktokOpenBtn'); }
-            function getCancelBtn(){ return document.getElementById('tiktokCancelBtn'); }
-            function openModal(href){
-              pendingHref=href;
-              var m=getModal();
-              if(m){ m.hidden=false; }
-              // update i18n teks jika perlu
-              if(window.i18n && window.i18n.t){
-                try{
-                  var t1=document.getElementById('tiktokConfirmTitle');
-                  var t2=document.querySelector('#tiktokConfirmModal .donate-text');
-                  if(t1) t1.textContent=window.i18n.t('tiktokConfirmTitle');
-                  if(t2) t2.textContent=window.i18n.t('tiktokConfirmText');
-                }catch(e){ /* ignore */ }
-              }
-            }
-            function closeModal(){
-              var m=getModal();
-              if(m) m.hidden=true;
-              pendingHref=null;
-            }
-            document.addEventListener('click', function(e){
-              var card=e.target.closest && e.target.closest('.tiktok-card[data-href]');
-              if(card){
-                e.preventDefault();
-                openModal(card.getAttribute('data-href'));
-              }
-            });
-            document.addEventListener('click', function(e){
-              if(e.target && e.target.id==='tiktokCancelBtn') closeModal();
-              if(e.target && e.target.id==='tiktokOpenBtn'){
-                if(pendingHref) window.open(pendingHref,'_blank','noopener');
-                closeModal();
-              }
-              var m=getModal();
-              if(m && e.target===m) closeModal();
-            });
-            document.addEventListener('keydown', function(e){ var m=getModal(); if(e.key==='Escape' && m && !m.hidden) closeModal(); });
-          })();
-        </script>
+        <script src="assets/js/tiktok-reveal.js?v=186"></script>
+        <script src="assets/js/tiktok-modal.js?v=186"></script>
       </section>
 
       <section id="panel-tools" class="slide-panel dash-panel cube-face" data-cube="1">
@@ -263,7 +163,7 @@
             <div class="tool-icon-wrap"><span class="material-symbols-rounded" aria-hidden="true">workspace_premium</span></div>
             <div class="tool-info-new">
               <div class="tool-title-new">Quality Method</div>
-              <div class="tool-desc-new">TikTok HQ Upload v1.2</div>
+              <div class="tool-desc-new">HQ Upload v1.2</div>
             </div>
             <div class="tool-arrow" id="toolArrow-quality"><span class="material-symbols-rounded" aria-hidden="true">arrow_outward</span></div>
           </div>
@@ -295,7 +195,7 @@
             <div class="tool-icon-wrap"><span class="material-symbols-rounded" aria-hidden="true">aspect_ratio</span></div>
             <div class="tool-info-new">
               <div class="tool-title-new" data-i18n="toolRescaleTitle">Resize Video</div>
-              <div class="tool-desc-new" data-i18n="toolRescaleDesc">Downscale without upscale</div>
+              <div class="tool-desc-new" data-i18n="toolRescaleDesc">Downscale to 720-360p</div>
             </div>
             <div class="tool-arrow" id="toolArrow-rescale"><span class="material-symbols-rounded" aria-hidden="true">arrow_outward</span></div>
           </div>
@@ -436,7 +336,7 @@
           <div class="card tutorial-card">
             <h2 class="tut-section-title tut-head" data-i18n="tutUseTitle">Panduan Penggunaan Quality Method</h2>
             <div class="tutorial-step"><span class="step-num">1</span><div><h3 data-i18n="tutStep1Title">Pilih Video</h3><p data-i18n="tutStep1Desc">Seret dan lepas file video ke area unggah atau klik untuk memilih file dari perangkat. Mendukung MP4, MOV, MKV, dan WebM.</p></div></div>
-            <div class="tutorial-step"><span class="step-num">2</span><div><h3 data-i18n="tutStep2Title">Pilih Metode dan Kompresi</h3><p data-i18n-html="tutStep2Desc">Pilih <b>WMV</b> untuk arsip, <b>BINARY</b> untuk TikTok, atau <b>FPS</b> untuk perbaikan frame rate. Pada mode BINARY, pilih <b>OFF</b> untuk tanpa kompresi, <b>720P</b> untuk ukuran hemat, atau <b>1080P</b> untuk kualitas Full HD.</p></div></div>
+            <div class="tutorial-step"><span class="step-num">2</span><div><h3 data-i18n="tutStep2Title">Pilih Metode dan Kompresi</h3><p data-i18n-html="tutStep2Desc">Pilih <b>VMV</b> untuk arsip, <b>V-SHARP</b> untuk TikTok, atau <b>PATCH FPS</b> untuk perbaikan frame rate. Pada mode V-SHARP, pilih <b>OFF</b> untuk tanpa kompresi, <b>720P</b> untuk ukuran hemat, atau <b>1080P</b> untuk kualitas Full HD.</p></div></div>
             <div class="tutorial-step"><span class="step-num">3</span><div><h3 data-i18n="tutStep3Title">Proses Video</h3><p data-i18n="tutStep3Desc">Klik tombol Proses Video, periksa informasi FPS dan resolusi pada jendela analisis, kemudian klik Lanjut. Tunggu hingga proses encoding selesai.</p></div></div>
             <div class="tutorial-step"><span class="step-num">4</span><div><h3 data-i18n="tutStep4Title">Unduh Hasil</h3><p data-i18n="tutStep4Desc">File hasil akan terunduh otomatis. Ukuran file lebih kecil dengan kualitas HD yang tetap tajam dan siap diunggah.</p></div></div>
           </div>
@@ -444,7 +344,7 @@
         <template id="tpl-tut-upload">
           <div class="card tutorial-card">
             <h2 class="tut-section-title tut-head" data-i18n="tutUploadTitle">Panduan Unggah ke TikTok dan Media Sosial</h2>
-            <div class="tutorial-step"><span class="step-num">1</span><div><h3 data-i18n="tutUp1Title">Gunakan BINARY 1080P</h3><p data-i18n-html="tutUp1Desc">Pilih metode <b>BINARY</b> dengan kompresi <b>1080P</b> untuk hasil paling tajam dan ukuran optimal. Mode ini sangat direkomendasikan untuk TikTok.</p></div></div>
+            <div class="tutorial-step"><span class="step-num">1</span><div><h3 data-i18n="tutUp1Title">Gunakan V-SHARP 1080P</h3><p data-i18n-html="tutUp1Desc">Pilih metode <b>V-SHARP</b> dengan kompresi <b>1080P</b> untuk hasil paling tajam dan ukuran optimal. Mode ini sangat direkomendasikan untuk TikTok.</p></div></div>
             <div class="tutorial-step"><span class="step-num">2</span><div><h3 data-i18n="tutUp2Title">Periksa Analisis Video</h3><p data-i18n="tutUp2Desc">Pastikan nilai FPS valid yaitu tidak lebih dari 120 dan merupakan bilangan bulat, serta resolusi sesuai. Klik Lanjut jika sudah sesuai.</p></div></div>
             <div class="tutorial-step"><span class="step-num">3</span><div><h3 data-i18n="tutUp3Title">Unggah Melalui Aplikasi</h3><p data-i18n="tutUp3Desc">Buka aplikasi TikTok, pilih menu Unggah, lalu pilih file MP4 hasil kompresi dari galeri. Hindari pengiriman melalui WhatsApp agar tidak terkompresi ulang.</p></div></div>
             <div class="tutorial-step"><span class="step-num">4</span><div><h3 data-i18n="tutUp4Title">Kesesuaian Platform Lain</h3><p data-i18n="tutUp4Desc">File dengan resolusi maksimal 1080p dan 60fps dapat digunakan juga untuk Instagram Reels, YouTube Shorts, dan Facebook.</p></div></div>
@@ -531,12 +431,11 @@
             <p class="faq-sub" data-i18n="changelogSub">Catatan versi VelardTools yang baru, perbaikan, dan peningkatan.</p>
             <div class="changelog-list">
               <div class="changelog-item">
-                <div class="changelog-ver"><span class="changelog-badge">v1.5</span><span class="changelog-date">2026-09-08</span><span class="changelog-tag" data-i18n="changelogTagLatest">Terbaru</span></div>
-                <h4 class="changelog-h" data-i18n="changelogV15Title">Gabung Video & Perbaikan</h4>
+                <div class="changelog-ver"><span class="changelog-badge">v1.6</span><span class="changelog-date">2026-09-08</span><span class="changelog-tag" data-i18n="changelogTagLatest">Terbaru</span></div>
+                <h4 class="changelog-h" data-i18n="changelogV16Title">Menu Merge & Audit Keamanan</h4>
                 <ul class="changelog-ul">
-                  <li data-i18n="changelogV15a">Tools Gabung Video baru ala CapCut: timeline, pratinjau, maks 3 file, mute per klip.</li>
-                  <li data-i18n="changelogV15b">Fix QM: setting kompresi BINARY & FPS kini ingat sendiri-sendiri; hasil gabungan mulus tanpa patah.</li>
-                  <li data-i18n="changelogV15c">Audit keamanan: CSP diselaraskan, dependensi ditambal, struktur file dirapikan.</li>
+                  <li data-i18n="changelogV16a">Penambahan menu Merge: gabung hingga 3 video dengan timeline, pratinjau, dan mute per klip.</li>
+                  <li data-i18n="changelogV16b">Audit keamanan: CSP diselaraskan dan dependensi ditambal.</li>
                 </ul>
               </div>
               <div class="changelog-item">
@@ -569,66 +468,24 @@
           </div>
         </template>
       </section>
-      <script>
-        (function(){
-          const grid=document.getElementById('othersGrid');
-          const detail=document.getElementById('othersDetail');
-          const panel=document.getElementById('panel-others');
-          if(!grid||!detail||!panel) return;
-          function showDetail(key){
-            const tpl=document.getElementById('tpl-'+key);
-            if(!tpl) return;
-            const backTxt = (window.i18n && window.i18n.t ? window.i18n.t('backBtn') : 'Kembali');
-            detail.innerHTML='<button class="btn-ghost" id="othersBack"><span class="material-symbols-rounded">arrow_back</span> <span data-i18n="backBtn">'+backTxt+'</span></button>'+tpl.innerHTML;
-            detail.hidden=false; grid.hidden=true;
-            const back=document.getElementById('othersBack');
-            if(back) back.addEventListener('click', function(){ detail.hidden=true; detail.innerHTML=''; grid.hidden=false; });
-            if(window.i18n&&window.i18n.t) try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ /* ignore */ }
-          }
-          grid.querySelectorAll('[data-others]').forEach(function(card){
-            card.addEventListener('click', function(){ showDetail(card.dataset.others); });
-            card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); showDetail(card.dataset.others); }});
-          });
-          // reset ke grid saat kembali ke Others dari menu lain (tanpa scroll menjengkelkan)
-          let wasActive = panel.classList.contains('active-panel');
-          const obs=new MutationObserver(function(){
-            const isActive=panel.classList.contains('active-panel');
-            if(isActive && !wasActive){
-              detail.hidden=true; detail.innerHTML=''; grid.hidden=false;
-            }
-            wasActive=isActive;
-          });
-          obs.observe(panel, {attributes:true, attributeFilter:['class']});
-          // juga reset saat klik nav Others langsung
-          const navOthers=document.querySelector('.floating-nav-item[data-panel="others"]');
-          if(navOthers) navOthers.addEventListener('click', function(){ setTimeout(function(){ detail.hidden=true; detail.innerHTML=''; grid.hidden=false; }, 50); });
-          // update bahasa detail saat ganti ID/EN
-          window.addEventListener('qm:langchange', function(){
-            if(!detail.hidden && detail.innerHTML){
-              try{ document.querySelectorAll('#othersDetail [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); document.querySelectorAll('#othersDetail [data-i18n-html]').forEach(function(el){ const k=el.getAttribute('data-i18n-html'); const v=window.i18n.t(k); if(v&&v!==k) el.innerHTML=v; }); }catch(e){ /* ignore */ }
-            }
-            // juga update grid titles
-            try{ document.querySelectorAll('#othersGrid [data-i18n]').forEach(function(el){ const k=el.getAttribute('data-i18n'); const v=window.i18n.t(k); if(v&&v!==k) el.textContent=v; }); }catch(e){ /* ignore */ }
-          });
-        })();
-      </script>
+      <script src="assets/js/others.js?v=186"></script>
         </div>
       </div>
 
 
-<!-- Tool Modal (morph dari card ala referensi) -->
+
       <div class="tool-modal-backdrop" id="toolModalBackdrop" hidden></div>
       <div class="tool-modal-card" id="toolModalCard" hidden aria-modal="true" role="dialog">
         <div class="tool-modal-header">
           <div class="tool-modal-hero" id="toolModalHero">
-            <!-- injected via JS -->
+            
           </div>
           <button class="tool-modal-close" id="toolModalClose" type="button" aria-label="Close">
             <span class="material-symbols-rounded tool-close-icon-x" aria-hidden="true">close</span>
           </button>
         </div>
         <div class="tool-modal-body" id="toolModalBody">
-          <!-- Quality Method panel (pindahan dari nav) -->
+          
           <div class="tool-panel" id="toolPanel-quality" hidden>
             <div class="qm-card" id="qmCard">
               <div class="qm-header">
@@ -636,7 +493,7 @@
                   <span class="qm-icon-badge"><span class="material-symbols-rounded" aria-hidden="true">workspace_premium</span><span class="qm-badge-ver">1.2</span></span>
                   <div>
                     <h1 class="qm-title">Quality Method</h1>
-                    <p class="qm-subtitle">TikTok HQ Upload v1.2</p>
+                    <p class="qm-subtitle">HQ Upload v1.2</p>
                   </div>
                 </div>
               </div>
@@ -657,9 +514,9 @@
               <div class="qm-group">
                 <span class="qm-label" data-i18n="versionLabel">PILIH METODE:</span>
                 <div class="qm-segmented" id="versionToggle" role="group" aria-label="Metode">
-                  <button class="qm-seg-btn" data-value="wmv" type="button">WMV</button>
-                  <button class="qm-seg-btn active" data-value="binary" type="button">BINARY</button>
-                  <button class="qm-seg-btn" data-value="fps" type="button">FPS</button>
+<button class="qm-seg-btn" data-value="wmv" type="button">VMV</button>
+            <button class="qm-seg-btn active" data-value="binary" type="button">V-SHARP</button>
+            <button class="qm-seg-btn" data-value="fps" type="button">PATCH FPS</button>
                 </div>
               </div>
               <div class="qm-group" id="compressRow">
@@ -699,7 +556,7 @@
               <div class="qm-log-area" id="logArea" aria-live="polite" hidden></div>
             </div>
           </div>
-          <!-- MP3 panel -->
+          
           <div class="tool-panel" id="toolPanel-mp3" hidden>
             <p class="tool-tip" data-i18n="toolMp3Tip">Extract high-quality audio. Private.</p>
             <div class="tool-fill-table" aria-label="MP3">
@@ -722,7 +579,7 @@
               <button class="tool-process-btn" id="toolMp3Run" type="button" disabled data-i18n="toolMp3Btn">Ekstrak MP3</button>
             </div>
           </div>
-          <!-- Convert panel -->
+          
           <div class="tool-panel" id="toolPanel-convert" hidden>
             <p class="tool-tip" data-i18n="toolConvertTip">Convert to any format. Clean output.</p>
             <div class="tool-fill-table" aria-label="Convert">
@@ -755,7 +612,7 @@
               <button class="tool-process-btn" id="toolConvertRun" type="button" disabled hidden data-i18n="toolConvertBtn">Konversi</button>
             </div>
           </div>
-          <!-- Cut panel -->
+          
           <div class="tool-panel" id="toolPanel-cut" hidden>
             <p class="tool-tip" data-i18n="toolCutTip">Cut precisely. Fast.</p>
             <div class="tool-fill-table" aria-label="Cut">
@@ -790,7 +647,7 @@
               <button class="tool-process-btn" id="toolCutRun" type="button" disabled hidden data-i18n="toolCutBtn">Potong</button>
             </div>
           </div>
-          <!-- Rescale panel -->
+          
           <div class="tool-panel" id="toolPanel-rescale" hidden>
             <p class="tool-tip" data-i18n="toolRescaleTip">Downscale smart. No upscale.</p>
             <div class="tool-fill-table" aria-label="Rescale">
@@ -820,7 +677,7 @@
               <button class="tool-process-btn" id="toolRescaleRun" type="button" disabled hidden data-i18n="toolRescaleBtn">Kecilkan Resolusi</button>
             </div>
           </div>
-          <!-- Mute panel -->
+          
           <div class="tool-panel" id="toolPanel-mute" hidden>
             <p class="tool-tip" data-i18n="toolMuteTip">Hapus audio dengan cepat. Tanpa re-encode.</p>
             <div class="tool-fill-table" aria-label="Mute">
@@ -845,94 +702,10 @@
               <button class="tool-process-btn" id="toolMuteRun" type="button" disabled hidden data-i18n="toolMuteBtn">Mute Video</button>
             </div>
           </div>
-          <!-- Thumbnail PLAK-KETIPLEK fraigo — 10000% persis https://fraigo.github.io/online-video-thumbnail-generator/ -->
-          <div class="tool-panel fraigo-panel" id="toolPanel-thumbnail" hidden>
-            <style>
-              /* Velard thumbnail console — monochrome editorial, selaras DS v5 (ID & handler JS tidak diubah) */
-              #toolPanel-thumbnail.fraigo-panel{ background:transparent; border:none; border-radius:0; padding:0 2px 16px; color:var(--text,#eceef2); font-family:Inter,"Plus Jakarta Sans",system-ui,sans-serif; max-height:none; overflow:visible; isolation:isolate; }
-              #toolPanel-thumbnail.fraigo-panel::-webkit-scrollbar{ width:8px; }
-              #toolPanel-thumbnail.fraigo-panel::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:9999px; }
-              #toolPanel-thumbnail.fraigo-panel::-webkit-scrollbar-track{ background:transparent; }
-              #toolPanel-thumbnail .fraigo-header{ position:sticky; top:-12px; z-index:50; display:flex; align-items:center; gap:10px; margin:0 -14px 12px; padding:10px 14px; background:#0b0e14; border-bottom:1px solid rgba(255,255,255,.07); transform:translateZ(0); }
-              #toolPanel-thumbnail .thumb-badge{ width:34px; height:34px; flex:0 0 34px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10); color:var(--text,#eceef2); }
-              #toolPanel-thumbnail .thumb-badge .material-symbols-rounded{ font-size:19px; }
-              #toolPanel-thumbnail .thumb-title{ font-family:"Plus Jakarta Sans",Inter,sans-serif; font-weight:700; font-size:14px; letter-spacing:.01em; }
-              #toolPanel-thumbnail .thumb-close{ margin-left:auto; width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:9999px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text-2,#d6dae2); cursor:pointer; }
-              #toolPanel-thumbnail .thumb-close:hover{ background:rgba(255,255,255,.08); color:#fff; }
-              #toolPanel-thumbnail .thumb-close .material-symbols-rounded{ font-size:16px; }
-              #toolPanel-thumbnail .thumb-icon-btn{ width:30px; height:30px; flex:0 0 30px; display:flex; align-items:center; justify-content:center; border-radius:9999px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text-3,#a7adba); cursor:pointer; }
-              #toolPanel-thumbnail .thumb-icon-btn:hover{ background:rgba(255,255,255,.08); color:#fff; }
-              #toolPanel-thumbnail #thumbCacheClear{ background:#7a0a0a; border-color:rgba(255,110,110,.45); color:#fff; }
-              #toolPanel-thumbnail #thumbCacheClear:hover{ background:#a31313; color:#fff; }
-              #toolPanel-thumbnail .thumb-icon-btn .material-symbols-rounded{ font-size:16px; }
-              #toolPanel-thumbnail .fraigo-main{ display:flex; gap:12px; align-items:flex-start; }
-              #toolPanel-thumbnail .fraigo-main > div{ margin:0; min-width:0; }
-              #toolPanel-thumbnail .fraigo-card{ background:rgba(22,26,34,.55); border:1px solid rgba(255,255,255,.09); border-radius:12px; padding:12px; color:var(--text,#eceef2); backdrop-filter:blur(16px) saturate(1.25); -webkit-backdrop-filter:blur(16px) saturate(1.25); box-shadow:0 10px 30px rgba(0,0,0,.35); }
-              #toolPanel-thumbnail .fraigo-card + .fraigo-card{ margin-top:12px; }
-              #toolPanel-thumbnail .video_data{ width:50%; display:flex; flex-direction:column; }
-              #toolPanel-thumbnail .video_output{ flex:1; position:sticky; top:52px; max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.22) transparent; }
-              #toolPanel-thumbnail .video_output > .fraigo-card{ width:100%; box-sizing:border-box; }
-              #toolPanel-thumbnail .thumb-label{ font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3,#a7adba); margin:0 0 8px; }
-              #toolPanel-thumbnail .thumb-label:not(:first-child){ margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.07); }
-              #toolPanel-thumbnail .thumb-warn{ margin-top:8px; font-size:12px; line-height:1.55; color:#ffb4b4; background:rgba(255,90,90,.09); border:1px solid rgba(255,90,90,.38); border-radius:9px; padding:8px 10px; }
-              #toolPanel-thumbnail .thumb-warn[hidden]{ display:none; }
-              #toolPanel-thumbnail #videofile{ width:100%; box-sizing:border-box; font-size:12px; color:var(--text-3,#a7adba); background:rgba(0,0,0,.28); border:1px dashed rgba(255,255,255,.18); border-radius:10px; padding:9px 10px; cursor:pointer; margin-top:8px; }
-              #toolPanel-thumbnail #videofile::file-selector-button{ background:rgba(255,255,255,.10); color:var(--text,#eceef2); border:1px solid rgba(255,255,255,.14); border-radius:7px; padding:6px 12px; font-weight:600; font-size:12px; margin-right:10px; cursor:pointer; font-family:"Plus Jakarta Sans",Inter,sans-serif; }
-              #toolPanel-thumbnail .tbtn{ display:inline-flex; align-items:center; justify-content:center; gap:7px; border-radius:9px; padding:9px 14px; font-family:"Plus Jakarta Sans",Inter,sans-serif; font-weight:700; font-size:12.5px; border:1px solid transparent; cursor:pointer; white-space:nowrap; transition:background .15s ease, border-color .15s ease, opacity .15s ease; }
-              #toolPanel-thumbnail .tbtn .material-symbols-rounded{ font-size:16px; }
-              #toolPanel-thumbnail .tbtn:disabled{ opacity:.32; cursor:not-allowed; }
-              #toolPanel-thumbnail .tbtn-primary{ background:#eceef2; color:#111318; }
-              #toolPanel-thumbnail .tbtn-primary:not(:disabled):hover{ background:#ffffff; }
-              #toolPanel-thumbnail .tbtn-light{ background:#eceef2; color:#111318; }
-              #toolPanel-thumbnail .tbtn-light:not(:disabled):hover{ background:#fff; }
-              #toolPanel-thumbnail .tbtn-ghost{ background:transparent; border-color:rgba(255,255,255,.14); color:var(--text,#eceef2); }
-              #toolPanel-thumbnail .tbtn-ghost:not(:disabled):hover{ background:rgba(255,255,255,.07); }
-              #toolPanel-thumbnail .tbtn-text{ background:transparent; border:none; color:var(--text-3,#a7adba); padding:9px 8px; }
-              #toolPanel-thumbnail .tbtn-text:not(:disabled):hover{ color:#ff8a8a; }
-              #toolPanel-thumbnail .tbtn-block{ width:100%; }
-              #toolPanel-thumbnail .tbtn-sm{ padding:7px 10px; font-size:12px; }
-              #toolPanel-thumbnail .crow{ display:flex; align-items:center; gap:8px; }
-              #toolPanel-thumbnail .crow + .crow{ margin-top:8px; }
-              #toolPanel-thumbnail .crow-label{ font-size:12px; color:var(--text-2,#d6dae2); }
-              #toolPanel-thumbnail .crow-sp{ flex:1; }
-              #toolPanel-thumbnail #video{ position:relative; z-index:1; width:100%; max-width:100%; max-height:34vh; display:block; margin:0 auto 8px; background:#000; border-radius:10px; border:1px solid rgba(255,255,255,.09); }
-              #toolPanel-thumbnail #canvas{ max-width:100%; border:1px solid rgba(255,255,255,.10); border-radius:10px; margin-bottom:10px; display:block; }
-              #toolPanel-thumbnail .instructions{ padding:0; font-size:11.5px; color:var(--text-3,#a7adba); }
-              #toolPanel-thumbnail .video-preview{ text-align:center; }
-              #toolPanel-thumbnail #slider{ width:100%; height:20px; accent-color:#eceef2; cursor:pointer; }
-              #toolPanel-thumbnail #videoControls{ margin-top:6px; }
-              #toolPanel-thumbnail #videoControls .button-container{ display:flex; border:1px solid rgba(255,255,255,.09); border-radius:10px; overflow:hidden; overflow-x:auto; background:rgba(0,0,0,.28); scrollbar-width:none; }
-              #toolPanel-thumbnail #videoControls .button-container::-webkit-scrollbar{ display:none; }
-              #toolPanel-thumbnail #videoControls button{ flex:1 1 0; min-width:0; background:transparent; border:none; border-left:1px solid rgba(255,255,255,.07); color:var(--text-2,#d6dae2); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:5px 0 4px; cursor:pointer; font-family:Inter,sans-serif; overflow:hidden; }
-              #toolPanel-thumbnail #videoControls button:first-child{ border-left:none; }
-              #toolPanel-thumbnail #videoControls button:hover{ background:rgba(255,255,255,.06); }
-              #toolPanel-thumbnail #videoControls button span:last-child{ font-size:9px; color:var(--text-3,#a7adba); font-family:"JetBrains Mono",monospace; }
-              #toolPanel-thumbnail #videoControls button.tplay{ background:rgba(255,255,255,.10); }
-              #toolPanel-thumbnail #videoControls button.tplay:hover{ background:rgba(255,255,255,.17); }
-              #toolPanel-thumbnail .play-controls{ font-size:18px !important; font-family:'Material Symbols Rounded' !important; color:var(--text,#eceef2); }
-              #toolPanel-thumbnail button.tplay .play-controls{ color:#ffffff; }
-              #toolPanel-thumbnail #videow{ width:62px; padding:7px 8px; background:rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.11); border-radius:8px; color:var(--text,#eceef2); font-size:12.5px; font-family:"JetBrains Mono",monospace; outline:none; }
-              #toolPanel-thumbnail #videow:focus, #toolPanel-thumbnail #snapd:focus{ border-color:rgba(255,255,255,.32); }
-              #toolPanel-thumbnail .snap-auto{ display:flex; }
-              #toolPanel-thumbnail #snap2{ border-top-right-radius:0 !important; border-bottom-right-radius:0 !important; border-right:none !important; }
-              #toolPanel-thumbnail #snap_each{ border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.32); color:var(--text,#eceef2); border-radius:0 9px 9px 0; padding:0 8px; font-size:12px; font-weight:600; outline:none; cursor:pointer; min-height:34px; }
-              #toolPanel-thumbnail #snap_each option{ background:#14171f; color:#eceef2; }
-              #toolPanel-thumbnail .canvas-container{ text-align:center; position:relative; padding-bottom:4px; max-height:46vh; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.22) transparent; }
-              #toolPanel-thumbnail #outputs{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-              #toolPanel-thumbnail .output-container{ position:relative; border-radius:9px; overflow:hidden; border:1px solid rgba(255,255,255,.09); background:#000; }
-              #toolPanel-thumbnail .output{ object-fit:cover; width:100%; aspect-ratio:16/9; border:2px solid transparent; border-radius:7px; display:block; cursor:pointer; }
-              #toolPanel-thumbnail .output.selected{ border-color:#ffffff; box-shadow:0 0 0 1px rgba(255,255,255,.55); }
-              #toolPanel-thumbnail .output-container label{ font-size:9.5px; font-family:"JetBrains Mono",monospace; background:rgba(0,0,0,.72); color:var(--text-2,#d6dae2); padding:2px 6px; border-radius:6px; position:absolute; right:5px; bottom:5px; max-width:84%; border:1px solid rgba(255,255,255,.14); }
-              #toolPanel-thumbnail .output-remove{ position:absolute; top:5px; right:5px; width:20px; height:20px; display:flex; align-items:center; justify-content:center; background:rgba(10,10,12,.78); color:#fff; border:1px solid rgba(255,255,255,.18); border-radius:9999px; cursor:pointer; font-size:12px; font-weight:700; text-decoration:none; line-height:1; }
-              #toolPanel-thumbnail .output-remove:hover{ background:#b33; border-color:#b33; }
-              #toolPanel-thumbnail #preview{ width:100%; max-height:300px; object-fit:contain; display:none; margin-bottom:10px; border:1px solid rgba(255,255,255,.10); border-radius:10px; background:#000; }
-              #toolPanel-thumbnail .save-row{ display:flex; gap:8px; margin-top:10px; align-items:center; }
-              #toolPanel-thumbnail #snapsize{ font-size:10.5px; color:var(--text-3,#a7adba); font-family:"JetBrains Mono",monospace; }
-              @media(max-width:1023px){ #toolPanel-thumbnail .fraigo-main{ flex-wrap:wrap; } #toolPanel-thumbnail .video_data{ width:100%; } #toolPanel-thumbnail .video_output{ width:100%; max-height:none; position:static; overflow:visible; } #toolPanel-thumbnail #video{ max-height:30vh; } }
-              @media(max-width:640px){ #toolPanel-thumbnail .fraigo-card{ padding:10px; } #toolPanel-thumbnail #video{ max-height:24vh; } #toolPanel-thumbnail #videoControls button{ min-width:0; padding:4px 0 3px; } #toolPanel-thumbnail #videoControls button span:last-child{ font-size:8px; } #toolPanel-thumbnail .play-controls{ font-size:15px !important; } #toolPanel-thumbnail #outputs{ grid-template-columns:repeat(2,1fr); } #toolPanel-thumbnail .snap-auto{ width:100%; } #toolPanel-thumbnail #snap_each{ flex:1; } #toolPanel-thumbnail .save-row .tbtn{ flex:1 1 auto; } }
-              @media(max-width:480px){ #toolPanel-thumbnail #outputs{ grid-template-columns:repeat(2,1fr); } }
-            </style>
-            <div class="fraigo-header">
+          
+          <div class="tool-panel vt-panel" id="toolPanel-thumbnail" hidden>
+            
+            <div class="vt-header">
               <div class="thumb-badge"><span class="material-symbols-rounded" aria-hidden="true">image</span></div>
               <div>
                 <div class="thumb-title" data-i18n="toolThumbTitle">Tangkap Thumbnail</div>
@@ -940,37 +713,37 @@
               <button id="thumbCacheClear" class="thumb-icon-btn" type="button" data-i18n-title="thumbCacheTip" data-i18n-aria-label="thumbCacheTip" title="Bersihkan cache video & hasil" aria-label="Bersihkan cache"><span class="material-symbols-rounded" aria-hidden="true">delete</span></button>
               <button class="thumb-close" type="button" data-i18n-aria-label="thumbCloseBtn" aria-label="Tutup" onclick="if(window.velardToolModal)window.velardToolModal.close()"><span class="material-symbols-rounded" aria-hidden="true">close</span></button>
             </div>
-            <div class="fraigo-main">
+            <div class="vt-main">
               <div class="video_data">
-                <div class="fraigo-card">
+                <div class="vt-card">
                   <div class="thumb-label" data-i18n="thumbFileLabel">File video</div>
                   <div id="select-file"><input type="file" id="videofile" accept="video/*, .mp4, .mov, .webm, .mkv, .avi" onchange="if(window.loadVideoFile)window.loadVideoFile()"></div>
                   <div class="thumb-warn" id="thumbFileWarn" hidden></div>
                 </div>
-                <div class="fraigo-card video-preview">
+                <div class="vt-card video-preview">
                   <div class="thumb-label" data-i18n="thumbPrevLabel">Pratinjau &amp; navigasi frame</div>
                   <video id="video" controls preload="metadata" crossorigin="anonymous"></video>
-                  <div id="videoControls" style="display:none">
+                  <div id="videoControls" class="is-hidden">
                     <div><input id="slider" type="range" min="0" max="100" value="0" data-i18n-aria-label="thumbSliderAria" aria-label="Posisi video"></div>
                     <div class="button-container">
-                      <button type="button" data-i18n-title="thumbGoStart" title="Ke awal" onclick="window.fraigoGoToTime(0)"><span class="material-symbols-rounded play-controls">skip_previous</span><span data-i18n="thumbCapStart">awal</span></button>
-                      <button type="button" data-i18n-title="thumbBack1m" title="Mundur 1 menit" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime-60)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1m</span></button>
-                      <button type="button" data-i18n-title="thumbBack5s" title="Mundur 5 detik" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime-5)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-5s</span></button>
-                      <button type="button" data-i18n-title="thumbBack1s" title="Mundur 1 detik" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime-1)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1s</span></button>
-                      <button type="button" data-i18n-title="thumbBack1f" title="Mundur 1 frame" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime-1/25)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1fr</span></button>
-                      <button type="button" class="tplay" data-i18n-title="thumbPlay" title="Putar / jeda" onclick="window.fraigoVideo.paused?window.fraigoVideo.play():window.fraigoVideo.pause()"><span class="material-symbols-rounded play-controls play-control">play_arrow</span><span class="material-symbols-rounded play-controls pause-control" style="display:none">pause</span><span data-i18n="thumbCapPlay">putar</span></button>
-                      <button type="button" data-i18n-title="thumbFwd1f" title="Maju 1 frame" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime+1/25)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1fr</span></button>
-                      <button type="button" data-i18n-title="thumbFwd1s" title="Maju 1 detik" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime+1)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1s</span></button>
-                      <button type="button" data-i18n-title="thumbFwd5s" title="Maju 5 detik" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime+5)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+5s</span></button>
-                      <button type="button" data-i18n-title="thumbFwd1m" title="Maju 1 menit" onclick="window.fraigoGoToTime(window.fraigoVideo.currentTime+60)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1m</span></button>
-                      <button type="button" data-i18n-title="thumbGoEnd" title="Ke akhir" onclick="window.fraigoGoToTime(window.fraigoVideo.duration)"><span class="material-symbols-rounded play-controls">skip_next</span><span data-i18n="thumbCapEnd">akhir</span></button>
+                      <button type="button" data-i18n-title="thumbGoStart" title="Ke awal" onclick="window.vtGoToTime(0)"><span class="material-symbols-rounded play-controls">skip_previous</span><span data-i18n="thumbCapStart">awal</span></button>
+                      <button type="button" data-i18n-title="thumbBack1m" title="Mundur 1 menit" onclick="window.vtGoToTime(window.vtVideo.currentTime-60)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1m</span></button>
+                      <button type="button" data-i18n-title="thumbBack5s" title="Mundur 5 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime-5)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-5s</span></button>
+                      <button type="button" data-i18n-title="thumbBack1s" title="Mundur 1 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime-1)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1s</span></button>
+                      <button type="button" data-i18n-title="thumbBack1f" title="Mundur 1 frame" onclick="window.vtGoToTime(window.vtVideo.currentTime-1/25)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1fr</span></button>
+                      <button type="button" class="tplay" data-i18n-title="thumbPlay" title="Putar / jeda" onclick="window.vtVideo.paused?window.vtVideo.play():window.vtVideo.pause()"><span class="material-symbols-rounded play-controls play-control">play_arrow</span><span class="material-symbols-rounded play-controls pause-control is-hidden">pause</span><span data-i18n="thumbCapPlay">putar</span></button>
+                      <button type="button" data-i18n-title="thumbFwd1f" title="Maju 1 frame" onclick="window.vtGoToTime(window.vtVideo.currentTime+1/25)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1fr</span></button>
+                      <button type="button" data-i18n-title="thumbFwd1s" title="Maju 1 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime+1)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1s</span></button>
+                      <button type="button" data-i18n-title="thumbFwd5s" title="Maju 5 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime+5)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+5s</span></button>
+                      <button type="button" data-i18n-title="thumbFwd1m" title="Maju 1 menit" onclick="window.vtGoToTime(window.vtVideo.currentTime+60)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1m</span></button>
+                      <button type="button" data-i18n-title="thumbGoEnd" title="Ke akhir" onclick="window.vtGoToTime(window.vtVideo.duration)"><span class="material-symbols-rounded play-controls">skip_next</span><span data-i18n="thumbCapEnd">akhir</span></button>
                     </div>
                   </div>
-                  <!-- keterangan presisi dihapus -->
+                  
                 </div>
               </div>
               <div class="video_output">
-                <div class="fraigo-card">
+                <div class="vt-card">
                   <div class="thumb-label" data-i18n="thumbCapLabel">Tangkap</div>
                   <div class="crow">
                     <span class="crow-label" data-i18n="thumbWidthLabel">Lebar snap</span>
@@ -999,8 +772,8 @@
                   </div>
                   <div class="thumb-label" id="thumbResultLabel">Belum ada tangkapan layar</div>
                   <div class="canvas-container">
-                    <canvas id="canvas" width="640" height="360" style="display:none"></canvas>
-                    <img id="preview" style="display:none;" alt="Pratinjau thumbnail">
+                    <canvas id="canvas" width="640" height="360" class="is-hidden"></canvas>
+                    <img id="preview" class="is-hidden" alt="Pratinjau thumbnail">
                     <div id="outputs"></div>
                   </div>
                   <div class="save-row">
@@ -1010,66 +783,14 @@
                     <span class="crow-sp"></span>
                     <button id="clear" class="tbtn tbtn-text tbtn-sm" type="button" disabled><span data-i18n="thumbClearBtn">Bersihkan</span></button>
                   </div>
-                  <a href="" id="imagelink" style="display:none">Image link</a>
+                  <a href="" id="imagelink" class="is-hidden">Image link</a>
                 </div>
               </div>
             </div>
           </div>
-          <!-- Merge panel — gabung 2+ video (pola thumbnail: upload terdeteksi + pratinjau langsung) -->
+          
           <div class="tool-panel" id="toolPanel-merge" hidden>
-            <style>
-              #toolModalCard .merge-trash-top{ width:34px; height:34px; margin-left:0; border-radius:10px; border:1px solid rgba(255,110,110,.45); background:#7a0a0a; color:#fff; cursor:pointer; display:grid; place-items:center; flex:0 0 auto; }
-              #toolModalCard .merge-trash-top:hover{ background:#a31313; }
-              #toolModalCard .merge-trash-top .material-symbols-rounded{ font-size:18px; }
-              #toolPanel-merge .merge-warn{ margin-top:8px; font-size:12px; line-height:1.55; color:#ffb4b4; background:rgba(255,99,99,.08); border:1px solid rgba(255,99,99,.22); border-radius:10px; padding:8px 10px; }
-              #toolPanel-merge .merge-warn[hidden]{ display:none; }
-              #toolPanel-merge .merge-preview{ margin-top:10px; }
-              #toolPanel-merge #toolMergePreview{ width:100%; max-height:300px; border-radius:12px; background:#000; object-fit:contain; display:block; border:1px solid rgba(255,255,255,.07); cursor:pointer; }
-              #toolPanel-merge .merge-preview:fullscreen{ background:#000; padding:12px; }
-              #toolPanel-merge .merge-preview:fullscreen #toolMergePreview{ max-height:calc(100vh - 130px); border:none; }
-              #toolPanel-merge #toolMergePreviewName{ margin-top:6px; font-size:11.5px; color:var(--text-3,#b7bcc7); font-family:var(--mono,"JetBrains Mono",monospace); word-break:break-all; }
-              /* --- CapCut-style transport --- */
-              #toolPanel-merge .merge-transport{ display:flex; align-items:center; justify-content:center; gap:6px; margin-top:8px; }
-              #toolPanel-merge .merge-tbtn{ width:38px; height:38px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.05); color:var(--text,#eceef2); cursor:pointer; }
-              #toolPanel-merge .merge-tbtn:hover{ background:rgba(255,255,255,.10); }
-              #toolPanel-merge .merge-tbtn.play{ width:46px; height:46px; background:var(--text,#eceef2); color:#111318; border-color:transparent; }
-              #toolPanel-merge .merge-tbtn.play:hover{ background:#fff; }
-              #toolPanel-merge .merge-tbtn .material-symbols-rounded{ font-size:20px; }
-              #toolPanel-merge #toolMergeTime{ margin-left:8px; font-size:11.5px; color:var(--text-3,#b7bcc7); font-family:var(--mono,"JetBrains Mono",monospace); }
-              /* --- CapCut-style timeline --- */
-              #toolPanel-merge .merge-timeline{ position:relative; margin-top:12px; border:1px solid rgba(255,255,255,.08); border-radius:14px; background:rgba(0,0,0,.35); overflow:hidden; }
-              #toolPanel-merge .merge-timeline[hidden]{ display:none; }
-              #toolPanel-merge .merge-ruler{ position:relative; height:26px; border-bottom:1px solid rgba(255,255,255,.08); overflow:hidden; cursor:pointer; }
-              #toolPanel-merge .merge-tick{ position:absolute; top:0; bottom:0; padding:3px 0 0 4px; font-size:9px; color:var(--text-3,#b7bcc7); font-family:var(--mono,"JetBrains Mono",monospace); white-space:nowrap; pointer-events:none; }
-              #toolPanel-merge .merge-playhead{ position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:#fff; box-shadow:0 0 8px rgba(255,255,255,.8); z-index:5; pointer-events:none; }
-              #toolPanel-merge .merge-playhead::before{ content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top:7px solid #fff; }
-              #toolPanel-merge .merge-playhead[hidden]{ display:none; }
-              #toolPanel-merge .merge-track{ display:flex; gap:6px; padding:10px; overflow-x:auto; min-height:86px; }
-              #toolPanel-merge .merge-clip{ position:relative; flex:0 0 auto; min-width:96px; border-radius:10px; overflow:hidden; border:2px solid rgba(255,255,255,.12); background:#0a0a0a; cursor:pointer; }
-              #toolPanel-merge .merge-clip:hover{ border-color:rgba(255,255,255,.28); }
-              #toolPanel-merge .merge-clip.active{ border-color:#fff; box-shadow:0 0 0 1px rgba(255,255,255,.55); }
-              #toolPanel-merge .merge-clip.dragging{ opacity:.4; }
-              #toolPanel-merge .merge-clip.dragover{ border-color:#4ade80; }
-              #toolPanel-merge .merge-strip{ display:flex; height:52px; }
-              #toolPanel-merge .merge-strip img{ flex:1; min-width:0; height:100%; object-fit:cover; pointer-events:none; }
-              #toolPanel-merge .merge-strip .merge-strip-ph{ flex:1; background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02)); }
-              #toolPanel-merge .merge-clip-label{ display:flex; align-items:center; gap:4px; padding:3px 6px; font-size:9.5px; font-weight:700; background:rgba(0,0,0,.72); color:#fff; white-space:nowrap; overflow:hidden; }
-              #toolPanel-merge .merge-clip-label .material-symbols-rounded{ font-size:12px; }
-              #toolPanel-merge .merge-clip-label span:last-child{ overflow:hidden; text-overflow:ellipsis; }
-              #toolPanel-merge .merge-clip-dur{ position:absolute; right:4px; bottom:24px; font-size:9px; font-weight:700; font-family:var(--mono,"JetBrains Mono",monospace); background:rgba(0,0,0,.68); color:#fff; padding:1px 5px; border-radius:99px; pointer-events:none; }
-              #toolPanel-merge .merge-clip-x{ position:absolute; top:4px; right:4px; width:20px; height:20px; border-radius:50%; display:grid; place-items:center; background:rgba(0,0,0,.68); color:#fff; border:1px solid rgba(255,255,255,.25); font-size:12px; font-weight:800; cursor:pointer; line-height:1; padding:0; }
-              #toolPanel-merge .merge-clip-x:hover{ background:#b33; border-color:#b33; }
-              #toolPanel-merge .merge-clip-mute{ position:absolute; top:4px; left:4px; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:rgba(0,0,0,.68); color:#fff; border:1px solid rgba(255,255,255,.35); cursor:pointer; padding:0; }
-              #toolPanel-merge .merge-clip-mute:hover{ background:rgba(255,255,255,.22); }
-              #toolPanel-merge .merge-clip-mute .material-symbols-rounded{ font-size:14px; }
-              #toolPanel-merge .merge-clip.muted .merge-strip{ opacity:.55; }
-              #toolPanel-merge .merge-clip.muted .merge-clip-mute{ background:#b33; border-color:#b33; }
-              #toolPanel-merge .merge-total{ margin-top:8px; font-size:12px; font-weight:700; color:var(--text,#eceef2); }
-              #toolPanel-merge .merge-footrow{ display:flex; gap:8px; margin-top:10px; }
-              #toolPanel-merge #toolMergeClear{ flex:1; min-height:44px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); color:var(--text,#eceef2); font-weight:700; font-size:13px; cursor:pointer; }
-              #toolPanel-merge #toolMergeClear:hover:not(:disabled){ background:rgba(255,255,255,.09); }
-              #toolPanel-merge #toolMergeClear:disabled{ opacity:.35; cursor:not-allowed; }
-            </style>
+            
             <input type="file" id="toolMergeFile" accept="video/*,.mp4,.m4v,.mov,.webm,.mkv,.avi" multiple hidden />
             <div class="tool-drop-zone" id="toolMergeDrop" role="button" tabindex="0">
               <span class="material-symbols-rounded" aria-hidden="true">upload_file</span>
@@ -1177,7 +898,7 @@
       <p class="modal-subtitle" data-i18n-html="helpModalSub">Jelaskan secara detail agar kami bisa bantu dengan tepat. Pesan terkirim langsung ke <b>email Frans</b> dan biasanya dibalas dalam 1×24 jam.</p>
       <label class="help-label" for="help-msg" data-i18n="helpLabel">Pesan Anda</label>
       <textarea id="help-msg" rows="5" placeholder="Contoh: Saat kompres video 1080p 120MB di Chrome HP Samsung, proses stuck di 90% ..." data-i18n-placeholder="helpPlaceholder"></textarea>
-      <div class="help-wc" id="help-wc" aria-live="polite" style="font-size:11px;color:var(--text-3);text-align:right;margin-top:4px;min-height:14px;"></div>
+      <div class="help-wc" id="help-wc" class="form-hint" aria-live="polite"></div>
       <input type="text" id="help-hp" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <p class="help-note" data-i18n-html="helpNote">atau hubungi saya melalui <a class="handle" href="https://www.tiktok.com/@ve1ard" target="_blank" rel="noopener">@ve1ard</a> di TikTok!</p>
       <p class="help-status" id="help-status" role="status"></p>
@@ -1214,1547 +935,21 @@
     </div>
   </div>
 
+  <footer class="site-footer">
+    <p class="site-footer-copy">&copy; 2026 velardtools. All Rights Reserved.</p>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
-  <script>try{ if(window.emailjs) emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"});}catch(e){ /* ignore */ }</script>
-  <script>
-    var I18N = {
-      id: {
-        menuDashboard: "VelardTools",
-        navBeranda: "Beranda",
-        navQuality: "Quality Method",
-        navTools: "Alat",
-        hardRefresh: "Hard Refresh",
-        hardRefreshTip: "Bersihkan cache & muat ulang paksa (Hard Refresh)",
-        navTutorial: "Tutorial",
-        navDonate: "Donasi",
-        navAbout: "Tentang",
-        navOthers: "Lainnya",
-        othersSub: "Info, panduan, dan bantuan mirip Alat.",
-        socialTitle: "Media Sosial",
-        socialDesc: "Terhubung langsung dengan kreator",
-        socialFollow: "Ikuti untuk mendapatkan pembaruan fitur terbaru, tips kreator, dan dukungan langsung.",
-        catAll: "Semua",
-        catAudio: "Audio",
-        catEdit: "Editing Dasar",
-        catConvert: "Konversi",
-        berandaSub: "Konten Kreator TikTok · Webdev & Game",
-        berandaBio: "VelardTools saya buat untuk keperluan konten kreator seperti kompres video HD Anda menjadi kecil tanpa mengubah resolusi video Anda. Ini dibuat supaya bisa upload di TikTok tanpa terkompres, serta beberapa tools yang saya kembangkan untuk mempermudah editing Anda. Jika Anda menemukan bug atau ingin memberi masukan, hubungi saya di bawah ini atau langsung DM saya melalui TikTok pribadi saya. Terima kasih, selamat mencoba ^ ^",
-        berandaCtaQuality: "Perjalanan Saya",
-        berandaCtaTools: "Hubungi Saya",
-        toolsSub: "Alat tambahan untuk kreator konten.",
-        toolsSearchPlaceholder: "Cari alat...",
-        toolsSearchAria: "Cari alat",
-        toolsSearchEmpty: "Tidak ada alat yang cocok.",
-        backBtn: "Kembali",
-        comingSoon: "Segera hadir...",
-        toolMp3Title: "Ekstrak Audio",
-        toolMp3Desc: "Ekspor MP3 kualitas tinggi",
-        toolMp3Tip: "Ekstrak audio kualitas tinggi. Privat.",
-        toolPick: "Pilih Video",
-        toolMp3Btn: "Ekstrak MP3",
-        toolMp3Done: "MP3 siap diunduh.",
-        toolConvertTitle: "Konversi Format",
-        toolConvertDesc: "Konversi bersih",
-        toolConvertTip: "Konversi ke format apapun. Hasil bersih.",
-        toolConvertTo: "Konversi ke:",
-        toolConvertBtn: "Konversi",
-        toolConvertDone: "Video siap diunduh.",
-        toolConvertSame: "Format target sama dengan format asal. Pilih format lain.",
-        toolDetected: "Terdeteksi:",
-        toolCutTitle: "Potong Klip",
-        toolCutDesc: "Potongan presisi frame",
-        toolCutTip: "Potong presisi. Cepat.",
-        toolCutStart: "Mulai",
-        toolCutEnd: "Selesai",
-        toolCutBtn: "Potong",
-        toolCutDone: "Video terpotong siap diunduh.",
-        toolCutInvalid: "Waktu tidak valid. Gunakan detik atau mm:ss (contoh 01:30).",
-        toolCutRange: "Waktu selesai harus lebih besar dari mulai dan tidak melebihi durasi.",
-        toolCutNeedFile: "Pilih video terlebih dahulu.",
-        toolRescaleTitle: "Ubah Resolusi",
-        toolRescaleDesc: "Kecilkan tanpa upscale",
-        toolRescaleTip: "Kecilkan cerdas. Tanpa upscale.",
-        toolRescaleLabel: "Target:",
-        toolRescaleBtn: "Kecilkan Resolusi",
-        toolRescaleDone: "Video resolusi baru siap diunduh.",
-        toolMuteTitle: "Mute Video",
-        toolMuteDesc: "Hapus audio tanpa re-encode",
-        toolMuteTip: "Hapus audio dengan cepat. Tanpa re-encode.",
-        toolMuteBtn: "Mute Video",
-        toolMuteDone: "Video senyap siap diunduh.",
-        toolMuteNeed: "Pilih video terlebih dahulu.",
-        toolMergeTitle: "Gabung Video",
-        toolMergeDesc: "Sambung 2+ video jadi satu",
-        toolMergeTip: "Pilih 2–3 video, atur urutan, pratinjau, lalu gabung. Privat.",
-        toolMergePick: "Pilih / seret 2–3 video",
-        toolMergeEmpty: "Belum ada video. Tambahkan minimal 2 untuk menggabung.",
-        toolMergeBtn: "Gabung Video",
-        toolMergeClearBtn: "Bersihkan",
-        toolMergeCount: "{n} video",
-        toolMergeReading: "membaca…",
-        toolMergeSkipped: "{n} file dilewati (format/ukuran/batas 3).",
-        toolMergeStep1: "Memuat mesin…",
-        toolMergeStep2: "Menulis file {i}/{n}…",
-        toolMergeStep3: "Menormalisasi…",
-        toolMergeStep4: "Menggabungkan…",
-        toolMergeStep5: "Menyimpan…",
-        toolMergeDone: "Video gabungan siap diunduh.",
-        toolMergeFail: "Gagal menggabungkan: ",
-        toolMergeNoEng: "Mesin belum siap. Tutup lalu buka lagi menunya.",
-        toolMergeCacheTip: "Bersihkan cache merge",
-        toolMergeCacheDone: "Cache merge dibersihkan.",
-        toolMergePrevBtn: "Klip sebelumnya",
-        toolMergePlayBtn: "Putar / jeda",
-        toolMergeNextBtn: "Klip berikutnya",
-        toolMergeMuteClip: "Bisukan klip",
-        toolMergeUnmuteClip: "Suarakan klip",
-        toolMergeFullBtn: "Layar penuh",
-        toolMergeMutedToast: "Klip dibisukan. Berlaku di hasil gabungan.",
-        toolMergeUnmutedToast: "Klip disuarakan kembali.",
-        toolMergeRulerAria: "Garis waktu, klik untuk pindah detik",
-        muteRowModeLabel: "Mode",
-        muteRowModeVal: "Copy (tanpa re-encode)",
-        muteRowOutLabel: "Output",
-        muteRowOutVal: "Video senyap",
-        muteRowPrivLabel: "Privacy",
-        muteRowPrivVal: "On-device",
-        toolThumbTitle: "Tangkap Thumbnail",
-        toolThumbDesc: "Screenshot HD dari video",
-        toolThumbTip: "Pratinjau video & tangkap HD. 100% privat — logika fraigo.",
-        thumbRowPrevLabel: "Preview",
-        thumbRowPrevVal: "Play / Pause / Seek • Frame ±1/25",
-        thumbRowResLabel: "Resolusi",
-        thumbRowResVal: "Original HD (canvas drawImage)",
-        toolThumbCapture: "Snap photo",
-        toolThumbDownload: "Unduh Gambar",
-        thumbPreviewLabel: "Pratinjau • klik thumbnail di bawah",
-        thumbNeedVideo: "Pilih video terlebih dahulu.",
-        thumbCaptured: "Thumbnail HD siap diunduh.",
-        thumbNoVideo: "Video belum dimuat.",
-        thumbSrcFile: "Video dari File",
-        thumbSrcUrl: "Video dari URL",
-        thumbUrlHint: "URL harus langsung ke file video (bukan YouTube/Vimeo).",
-        thumbFileLabel: "File video",
-        thumbPrevLabel: "Pratinjau & navigasi frame",
-        thumbCapLabel: "Tangkap",
-        thumbWidthLabel: "Lebar snap",
-        thumbSnapBtn: "Snap frame ini",
-        thumbAutoBtn: "Otomatis tiap",
-        thumbAutoAria: "Interval auto snap",
-        thumbSaveBtn: "Simpan",
-        thumbSaveAllBtn: "Semua (.zip)",
-        thumbClearBtn: "Bersihkan",
-        thumbCacheBtn: "Cache",
-        thumbCacheTip: "Bersihkan cache video & hasil",
-        thumbCloseBtn: "Tutup",
-        thumbSliderAria: "Posisi video",
-        thumbResultEmpty: "Belum ada tangkapan layar",
-        thumbResultDone: "Hasil",
-        thumbUnsupported: "Format {ext} tidak didukung. Gunakan MP4, MOV, WebM, MKV, atau AVI.",
-        thumbCacheDone: "Cache thumbnail dibersihkan.",
-        thumbGoStart: "Ke awal",
-        thumbBack1m: "Mundur 1 menit",
-        thumbBack5s: "Mundur 5 detik",
-        thumbBack1s: "Mundur 1 detik",
-        thumbBack1f: "Mundur 1 frame",
-        thumbPlay: "Putar / jeda",
-        thumbFwd1f: "Maju 1 frame",
-        thumbFwd1s: "Maju 1 detik",
-        thumbFwd5s: "Maju 5 detik",
-        thumbFwd1m: "Maju 1 menit",
-        thumbGoEnd: "Ke akhir",
-        thumbCapStart: "awal",
-        thumbCapEnd: "akhir",
-        thumbCapPlay: "putar",
-        mp3RowOutLabel: "Output",
-        mp3RowSrcLabel: "Sumber",
-        mp3RowProcLabel: "Proses",
-        mp3RowProcVal: "100% di Browser Privat",
-        mp3RowDurLabel: "Durasi",
-        mp3RowDurVal: "Full Otomatis",
-        cutRowModeLabel: "Mode",
-        cutRowModeVal: "Copy cepat (tanpa re-encode)",
-        cutRowFallLabel: "Fallback",
-        cutRowPrecLabel: "Presisi",
-        cutRowPrecVal: "Detik / mm:ss 1 frame",
-        cutRowOutLabel: "Output",
-        cutRowOutVal: "Format sama privat",
-        byFrans: "by Frans",
-        appTitle: "VelardTools untuk kebutuhan Konten Creator",
-        dropText: "Drag & drop video di sini atau klik untuk memilih",
-        uploadSubtext: "Mendukung MP4, MOV, WebM",
-        versionLabel: "PILIH METODE:",
-        compressLabel: "COMPRESS",
-        qmFixAudio: "PERBAIKI AUDIO TAK TERIDENTIFIKASI",
-        compressOnRequired: "Wajib ON untuk video ini",
-        processBtn: "Proses Video",
-        processing: "Memproses...",
-        logTitle: "Log Sistem",
-        copyLog: "Salin Log",
-        clearCache: "Bersihkan cache (localStorage, sessionStorage, service workers, caches API)",
-        modalTitle: "Analisis Video",
-        modalFps: "FPS",
-        modalRes: "Resolusi",
-        modalSize: "Ukuran File",
-        modalSpeedNote: "Kecepatan proses tergantung spesifikasi perangkat kamu (CPU, RAM, dan browser).",
-        modalCancel: "Batal",
-        modalProceed: "Lanjut",
-        "method-wmv-off": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
-        "method-wmv-720p": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
-        "method-wmv-1080p": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli (lossy compression).",
-        "method-binary-off": "Melakukan patch MP4 murni tanpa proses encode ulang sehingga kualitas asli tetap terjaga sepenuhnya. Tidak terjadi kompresi dan tidak ada penurunan kualitas.",
-        "method-binary-720p": "Mengompresi video ke codec H.264 pada resolusi HD 720p dengan pengaturan bitrate yang dioptimalkan untuk keseimbangan kualitas dan ukuran file. Dilanjutkan dengan patch HD agar tetap tajam saat diunggah. Direkomendasikan untuk menghemat kuota.",
-        "method-binary-1080p": "Mengompresi video ke codec H.264 pada resolusi Full HD 1080p dengan batas bitrate tinggi untuk menjaga ketajaman detail dan pergerakan. Dilanjutkan dengan patch HD untuk menjaga kualitas tetap optimal. <span class=\"tiktok-rec\">Sangat direkomendasikan untuk TikTok.</span>",
-        "method-fps-off": "Melakukan patch frame rate tanpa mengubah resolusi. Hanya melakukan normalisasi frame rate agar pemutaran video lebih stabil.",
-        "method-fps-720p": "Melakukan normalisasi frame rate dan penyesuaian resolusi ke 720p untuk menghasilkan pemutaran yang stabil dengan ukuran file yang lebih efisien.",
-        "method-fps-1080p": "Melakukan normalisasi frame rate ke 60, 30 atau 24 fps dengan batas resolusi 1080p untuk menjaga kehalusan gerakan dan kompatibilitas pemutaran.",
-        "method-v1-on": "Mengodekan ulang video ke format WMV dengan batas resolusi 1080p dan penyesuaian frame rate ke 60 fps menggunakan kualitas tertinggi.",
-        "method-v1-off": "Mengodekan ulang video ke codec WMV2 dengan mempertahankan resolusi asli tanpa penyesuaian ukuran. Proses bersifat lossy compression dan menghasilkan ukuran file yang relatif besar.",
-        "method-v3-on": "Mengompresi video ke codec H.264 pada resolusi Full HD 1080p dengan pengaturan yang dioptimalkan untuk kualitas HD dan ukuran file yang lebih kecil. <span class=\"tiktok-rec\">Sangat direkomendasikan untuk TikTok.</span>",
-        "method-v3-off": "Melakukan patch MP4 murni tanpa proses encode ulang sehingga kualitas asli tetap terjaga sepenuhnya.",
-        methodV1: "v1 dirancang untuk kualitas maksimal (WMV qscale 1, paksa 60fps). Ukuran file hasil biasanya <b>LEBIH BESAR</b> dari aslinya. Mode ini disarankan untuk arsip atau kebutuhan format WMV (mis. PowerPoint & Windows Media Player), bukan untuk upload media sosial.",
-        tutUseTitle: "Cara Metode Kualitas",
-        tutUploadTitle: "Cara Upload",
-        tutStep1Title: "Pilih Video",
-        tutStep1Desc: "Seret dan lepas file video ke area unggah atau klik untuk memilih file dari perangkat. VelardTools mendukung format MP4, MOV, MKV, dan WebM.",
-        tutStep2Title: "Pilih Metode dan Kompresi",
-        tutStep2Desc: "Pilih <b>WMV</b> untuk arsip, <b>BINARY</b> untuk TikTok, atau <b>FPS</b> untuk perbaikan frame rate. Pada mode BINARY, pilih <b>OFF</b> untuk tanpa kompresi, <b>720P</b> untuk ukuran hemat, atau <b>1080P</b> untuk kualitas Full HD.",
-        tutStep3Title: "Proses Video",
-        tutStep3Desc: "Klik tombol Proses Video, periksa informasi FPS dan resolusi pada jendela analisis, kemudian klik Lanjut. Tunggu hingga proses encoding selesai.",
-        tutStep4Title: "Unduh Hasil",
-        tutStep4Desc: "File hasil akan terunduh otomatis. Ukuran file lebih kecil dengan kualitas HD yang tetap tajam dan siap diunggah.",
-        tutUp1Title: "Gunakan BINARY 1080P",
-        tutUp1Desc: "Pilih metode <b>BINARY</b> dengan kompresi <b>1080P</b> untuk hasil paling tajam dan ukuran optimal. Mode ini sangat direkomendasikan untuk TikTok.",
-        tutUp2Title: "Periksa Analisis Video",
-        tutUp2Desc: "Pastikan nilai FPS valid yaitu tidak lebih dari 120 dan merupakan bilangan bulat, serta resolusi sesuai. Klik Lanjut jika sudah sesuai.",
-        tutUp3Title: "Unggah Melalui Aplikasi",
-        tutUp3Desc: "Buka aplikasi TikTok, pilih menu Unggah, lalu pilih file MP4 hasil kompresi dari galeri. Hindari pengiriman melalui WhatsApp agar tidak terkompresi ulang.",
-        tutUp4Title: "Kesesuaian Platform Lain",
-        tutUp4Desc: "File dengan resolusi maksimal 1080p dan 60fps dapat digunakan juga untuk Instagram Reels, YouTube Shorts, dan Facebook.",
-        donateTitle: "Donasi",
-        donateForFrans: "untuk Frans",
-        donateThanks: "Terima kasih sudah menggunakan!",
-        donateText: "Dukung pengembangan VelardTools dengan donasi via QRIS, sekali scan langsung sampai.",
-        donatePopupTitle: "Dukung Pengembangan",
-        donatePopupText: "Bantu donasi untuk pengembangan aplikasi ini agar terus gratis dan makin bagus. Terima kasih! :))",
-        donateLater: "Nanti saja",
-        donateCoffee: "Belikan saya kopi",
-        qrisTip: "Scan dengan aplikasi e-wallet / m-banking mana pun (GoPay, OVO, DANA, BCA, dan lain-lain).",
-        qrisFallback: "Gambar QRIS belum tersedia.",
-        officialNote: "Hanya resmi di <a class=\"handle\" href=\"https://velardtools.my.id\" rel=\"noopener\">velardtools.my.id</a>. Waspada situs tiruan.",
-        aboutTitle: "Tentang VelardTools",
-        aboutIntro: "VelardTools adalah platform yang menyediakan berbagai alat untuk kreator media sosial. Fitur utama saat ini adalah kompresi video ke kualitas HD yang tetap tajam dengan ukuran file yang jauh lebih kecil. Fitur ini dirancang agar video tetap jernih setelah diunggah ke TikTok, Instagram Reels, dan YouTube Shorts. Fitur lain akan terus ditambahkan secara berkala berdasarkan kebutuhan kreator.",
-        aboutHeroDesc: "Platform kompresi video HD untuk kreator TikTok dan media sosial. Gratis, privat, berbasis browser.",
-        aboutAuthor: "Dibuat oleh <b>Frans</b> (<a class=\"handle\" href=\"https://www.tiktok.com/@ve1ard\" target=\"_blank\" rel=\"noopener\">@ve1ard</a>). Gratis dan terus dikembangkan secara terbuka. Situs resmi hanya di <a class=\"handle\" href=\"https://velardtools.my.id\" rel=\"noopener\">velardtools.my.id</a>.",
-        aboutIntroTitle: "Tentang Platform",
-        aboutIntro1: "VelardTools dirancang untuk kreator yang membutuhkan kompresi video HD dengan ukuran file kecil namun tetap tajam untuk TikTok, Reels, dan Shorts.",
-        aboutIntro2: "Semua proses berjalan lokal di browser tanpa upload ke server. Gratis, tanpa daftar, dan terus dikembangkan dari masukan kreator. Dibuat oleh Frans (@ve1ard).",
-        aboutIntro3: "Komitmen kami adalah memberikan pengalaman yang transparan, andal, dan mudah digunakan. Setiap pembaruan dirancang untuk meningkatkan stabilitas, kecepatan, serta kompatibilitas di berbagai perangkat, sehingga kreator dapat fokus pada karya tanpa khawatir kualitas video menurun.",
-        aboutWarnTitle: "Perhatian",
-        aboutWarnDev: "VelardTools masih dalam tahap pengembangan, fitur dapat berubah sewaktu waktu.",
-        aboutWarnOfficial: "Situs resmi hanya di <a class=\"handle\" href=\"https://velardtools.my.id\" rel=\"noopener\">velardtools.my.id</a>.",
-        aboutWarnFake: "Hati hati terhadap situs tiruan. Situs asli tidak meminta login, pendaftaran, maupun pembayaran. Jangan masukkan data ke situs yang meminta login.",
-        featHdTitle: "Kompresi Video HD",
-        featHdDesc: "Mengompresi video ke kualitas HD yang tetap tajam dengan ukuran yang jauh lebih kecil. Hasil sangat cocok untuk TikTok dan media sosial lain. Metode BINARY 1080P direkomendasikan untuk kualitas terbaik.",
-        featFastTitle: "Cepat dan Ringan",
-        featFastDesc: "Seluruh proses berjalan di perangkat Anda dengan kecepatan tinggi dan penggunaan sumber daya yang ringan. Tidak perlu instalasi aplikasi tambahan.",
-        featPrivateTitle: "100% Privat dan Aman",
-        featPrivateDesc: "Semua file diproses langsung di browser Anda dan tidak pernah diunggah ke server mana pun. Privasi Anda terjaga sepenuhnya. Mendukung MP4, MOV, dan WebM hingga 1500 MB.",
-        featMoreTitle: "Pengembangan Berkelanjutan",
-        featMoreDesc: "Koleksi alat untuk kreator akan terus diperluas. Nantikan pembaruan fitur terbaru di menu Tools, termasuk pemotong, penggabung, dan konversi format.",
-        aboutContactTitle: "Kontak dan Dukungan",
-        aboutContactText: "Jika Anda memiliki pertanyaan, masukan, atau menemukan kendala, silakan hubungi saya melalui TikTok. Tanggapan akan diberikan secepat mungkin.",
-        specTitle: "Spesifikasi Teknis",
-        specEngine: "Mesin:",
-        specMax: "Maksimal:",
-        specFormat: "Format:",
-        specRes: "Resolusi:",
-        specDescEngine: "FFmpeg WASM + Patch JavaScript. Semua proses berjalan 100 persen di browser Anda. File tidak diunggah ke server, sehingga privasi terjaga sepenuhnya.",
-        specDescMax: "Maksimal 1500 MB per file. Disarankan menggunakan file di bawah 500 MB untuk proses yang lebih cepat pada perangkat dengan RAM terbatas.",
-        specDescFormat: "Input MP4, MOV, WebM, MKV, AVI. Output MP4 (H.264/AAC) yang kompatibel dengan TikTok, Instagram Reels, dan YouTube Shorts.",
-        specDescRes: "Pilihan 720p (1280x720) untuk ukuran lebih kecil dan 1080p (1920x1080) untuk kualitas Full HD. Sistem tidak melakukan upscale. Jika video asli di bawah target, resolusi asli dipertahankan.",
-        specDescSpeed: "Kecepatan sangat bergantung pada spesifikasi perangkat Anda. Faktor utama adalah CPU (jumlah core dan kecepatan), RAM yang tersedia, dan jenis browser. Pada perangkat mobile, proses mungkin memerlukan waktu lebih lama dan penggunaan baterai yang lebih tinggi. Untuk video berdurasi panjang atau resolusi tinggi, disarankan menutup aplikasi lain dan memastikan daya baterai mencukupi. Estimasi umum adalah 1 menit durasi video memerlukan waktu proses 20 sampai 60 detik tergantung perangkat.",
-        faqTitle: "FAQ",
-        faqSub: "Jawaban cepat dari pertanyaan yang sering ditanyakan seputar VelardTools.",
-        faqQ1: "Apa itu VelardTools?",
-        faqA1: "VelardTools adalah platform kompresi video HD untuk kreator TikTok, Reels, dan Shorts. Mengecilkan ukuran file tanpa menurunkan ketajaman, agar tetap jernih setelah di-upload.",
-        faqQ2: "Apakah gratis dan perlu daftar?",
-        faqA2: "Gratis 100 persen, tanpa daftar, tanpa login, tanpa pembayaran. Situs resmi hanya di velardtools.my.id, waspada situs tiruan yang meminta login.",
-        faqQ3: "Apakah file saya di-upload ke server?",
-        faqA3: "Tidak. Semua proses pakai FFmpeg WASM + Patch JS 100 persen di browser kamu. File tidak pernah keluar dari perangkat, privasi terjaga.",
-        faqQ4: "Format apa yang didukung?",
-        faqA4: "Input: MP4, MOV, WebM, MKV, AVI. Output: MP4 H.264/AAC yang kompatibel TikTok, Instagram Reels, dan YouTube Shorts.",
-        faqQ5: "Berapa maksimal ukuran file?",
-        faqA5: "Maksimal 1500 MB per file. Disarankan di bawah 500 MB agar lebih cepat, terutama di HP dengan RAM terbatas.",
-        faqQ6: "Resolusi apa yang tersedia?",
-        faqA6: "Pilihan 720p (1280×720) untuk hemat kuota dan 1080p (1920×1080) untuk Full HD. Tanpa upscale, jika video asli di bawah target maka resolusi asli dipertahankan.",
-        faqQ7: "Metode mana terbaik untuk TikTok?",
-        faqA7: "Gunakan BINARY 1080P. H.264 bitrate tinggi + patch HD menjaga ketajaman detail dan pergerakan, sangat direkomendasikan untuk TikTok.",
-        faqQ8: "Kenapa video masih blur setelah upload TikTok?",
-        faqA8: "Pastikan pakai BINARY 1080P, cek analisis FPS max 120 dan resolusi sesuai, lalu upload via aplikasi TikTok dari galeri. Hindari kirim via WhatsApp agar tidak terkompresi ulang.",
-        faqQ9: "Berapa lama prosesnya?",
-        faqA9: "Tergantung CPU, RAM, dan browser. Estimasi 20 sampai 60 detik per 1 menit video. Di HP bisa lebih lama, tutup aplikasi lain dan pastikan baterai cukup.",
-        faqQ10: "Apakah bisa untuk Reels dan Shorts?",
-        faqA10: "Bisa. Output 1080p 60fps kompatibel untuk Instagram Reels, YouTube Shorts, dan Facebook.",
-        changelogTitle: "Riwayat Pembaruan",
-        changelogSub: "Catatan versi VelardTools yang baru, perbaikan, dan peningkatan.",
-        changelogTagLatest: "Terbaru",
-        changelogV15Title: "Gabung Video & Perbaikan",
-        changelogV15a: "Tools Gabung Video baru ala CapCut: timeline, pratinjau, maks 3 file, mute per klip.",
-        changelogV15b: "Fix QM: setting kompresi BINARY & FPS kini ingat sendiri-sendiri; hasil gabungan mulus tanpa patah.",
-        changelogV15c: "Audit keamanan: CSP diselaraskan, dependensi ditambal, struktur file dirapikan.",
-        changelogV14Title: "Thumbnail HD & Fix Lainnya",
-        changelogV14a: "Tambah Tools Tangkap Thumbnail HD preview play/pause/seek & screenshot resolusi asli.",
-        changelogV14b: "Fix bug Lainnya kepotong saat loncat dari Home di PC & mobile.",
-        changelogV14c: "Fix font Home & loading Mute realtime.",
-        changelogV13Title: "Mute Video & Riwayat Pembaruan",
-        changelogV13a: "Tambah Tools Mute Video hapus audio tanpa re-encode (copy cepat).",
-        changelogV13b: "Tambah menu Riwayat Pembaruan di Lainnya.",
-        changelogV13c: "Animasi Tools staggered PC & mobile diselaraskan.",
-        changelogV12a: "Hard Refresh di Alat, ikon tanpa garis, OG 1200×630, favicon crop.",
-        changelogV12b: "Fix layout all-device awal & i18n ID/EN Beranda/Alat.",
-        changelogV10Title: "Rilis Awal",
-        changelogV10a: "Kompresi Video HD TikTok, Ekstrak MP3, Konversi Format, Potong Klip, Resize Video.",
-        changelogV10b: "On-device FFmpeg WASM, privat 100%.",
-        tiktokConfirmTitle: "Buka TikTok?",
-        tiktokConfirmText: "Kamu akan membuka video di TikTok. Lanjutkan?",
-        helpText: "Ada bug atau butuh bantuan? Laporkan ke kami.",
-        helpBtn: "Laporkan Bug / Bantuan",
-        helpModalTitle: "Laporkan Bug / Bantuan",
-        helpModalSub: "Jelaskan secara detail agar kami bisa bantu dengan tepat. Pesan terkirim langsung ke <b>email Frans</b> dan biasanya dibalas dalam 1×24 jam.",
-        helpLabel: "Pesan Anda",
-        helpPlaceholder: "Contoh: Saat kompres video 1080p 120MB di Chrome HP Samsung, proses stuck di 90% ...",
-        helpNote: "atau hubungi saya melalui <a class=\"handle\" href=\"https://www.tiktok.com/@ve1ard\" target=\"_blank\" rel=\"noopener\">@ve1ard</a> di TikTok!",
-        helpCardTitle: "Butuh Bantuan?",
-        helpCardSub: "Laporan langsung masuk ke email developer",
-        helpCardDesc: "Ceritakan kendala kamu selengkap mungkin agar kami bisa bantu lebih cepat. Lampirkan langkah yang kamu lakukan, jenis file, dan perangkat yang digunakan.",
-        helpCardListTitle: "Sertakan info ini:",
-        helpCardLi1: "Deskripsi bug : apa yang terjadi vs yang diharapkan",
-        helpCardLi2: "Langkah reproduksi : urutan klik sampai error muncul",
-        helpCardLi3: "Info file & perangkat : format, ukuran, browser, HP/PC",
-        helpCardNote: "Respon biasanya 1×24 jam. Untuk respon lebih cepat, DM via TikTok juga bisa.",
-        helpCardAlt: "Atau hubungi langsung via <a class=\"handle\" href=\"https://www.tiktok.com/@ve1ard\" target=\"_blank\" rel=\"noopener\">@ve1ard</a> di TikTok",
-        helpModalTipsTitle: "Tips agar cepat direspon:",
-        helpModalTips: "Sertakan: 1) kronologi langkah, 2) format & ukuran file, 3) browser/perangkat, 4) screenshot jika ada.",
-        helpSend: "Kirim",
-        helpSending: "Mengirim...",
-        helpSent: "Pesan terkirim! Terima kasih.",
-        helpFail: "Gagal kirim ke EmailJS - cek koneksi dan coba lagi (limit 5/jam)",
-        helpEmailSubject: "VelardTools Laporan Bug / Bantuan",
-        helpEmailPrefix: "LAPORAN DARI VELARD TOOLS",
-        logLogEmpty: "Log kosong, tidak ada yang disalin.",
-        logLogCopied: "Log disalin ke clipboard.",
-        logLogCopyFail: "Gagal menyalin log: ",
-        logClearing: "Membersihkan cache...",
-        logCleared: "Cache berhasil dibersihkan.",
-        logClearFail: "Error membersihkan cache: ",
-        logDevice: "Device: ",
-        logDeviceMobile: "Mobile",
-        logDeviceDesktop: "Desktop",
-        logSABAvail: "Tersedia",
-        logSABUnavail: "Tidak tersedia",
-        logNeedCOOP: "Mode multi-thread memerlukan header COOP/COEP.",
-        logRunServer: "Jalankan 'python server.py' lalu buka http://127.0.0.1:8000.",
-        logMTActive: "Mode multi-thread aktif (COOP/COEP OK).",
-        logDownloadReady: "File siap diunduh: ",
-        logAnalyzeDone: "Analisis selesai: ",
-        logAnalyzeFail: "Gagal menganalisis video: ",
-        logFailed: "Gagal",
-        logApproved: "Video disetujui. Siap diproses (V",
-        logCanceled: "Analisis dibatalkan.",
-        logErrorNotVideo: "Error: \"",
-        logFile: "File",
-        logNotVideo: "\" bukan file video.",
-        logTooBig: "Error: File terlalu besar (",
-        logTooBig2: "). Maksimal 1500 MB.",
-        logFileSelected: "File dipilih: ",
-        logFileLabel: "File",
-        logMethodLabel: "Metode",
-        logDeviceLabel: "Perangkat",
-        logThreads: "thread",
-        logSABLabel: "SAB",
-        logBufferRead: "Buffer terbaca: ",
-        logBoxMagic: " | Box[0]: ",
-        logUnknown: "unknown",
-        logProcessSection: "-- PROSES --",
-        logStatusLabel: "Status",
-        logProcessingStatus: "Processing video pipeline...",
-        logFfmpegLoaded: "FFmpeg (",
-        logFfmpegFromCdn: ") dimuat dari CDN: ",
-        logMT: "multi-thread",
-        logST: "single-thread",
-        logStep1: "Memuat data video...",
-        logStep2: "Optimasi kualitas...",
-        logStep3: "Encoding & menyimpan...",
-        logFilters: "FFmpeg filters: ",
-        logDone: "Proses selesai.",
-        logError: "Error: ",
-        logLoadingFfmpeg: "Memuat FFmpeg WASM (multi-thread, core-mt) ...",
-        logFfmpegReady: "✓ FFmpeg WASM siap digunakan (multi-thread).",
-        logFfmpegReadyST: "✓ FFmpeg WASM siap digunakan (single-thread fallback).",
-        logFfmpegFail: "� Gagal memuat: ",
-        logPatchWarn: "Peringatan: Tidak menemukan box yang dapat di-patch, output identik dengan input.",
-        logPatched: "MP4 patched (metadata HD method) tanpa re-encode.",
-        logOrigSize: "Ukuran asli: ",
-        logCompressV1: "Mengompresi V1 dengan WMV2 (1080p, 60fps, bitrate optimal)...",
-        logCompressedSize: "Ukuran terkompresi: ",
-        logReduction: "% pengurangan)",
-        logV1Off: "V1 OFF - re-encode tanpa resize...",
-        logCompressV3: "Mengompresi V3 dengan FFmpeg (1080p, 60fps, bitrate optimal)...",
-        logV3Off: "V3 OFF - Patch MP4 JS murni (tanpa kompresi)...",
-        logV3On: "V3 ON - Patch MP4 (metode HD)...",
-        logReady: "VelardTools v1 siap digunakan."
-      },
-      en: {
-        menuDashboard: "VelardTools",
-        navBeranda: "Home",
-        navQuality: "Quality Method",
-        navTools: "Tools",
-        hardRefresh: "Hard Refresh",
-        hardRefreshTip: "Clear cache & force reload (Hard Refresh)",
-        navTutorial: "Tutorial",
-        navDonate: "Donate",
-        navAbout: "About",
-        navOthers: "Others",
-        othersSub: "Info, guides, and help like Tools.",
-        socialTitle: "Social Media",
-        socialDesc: "Connect directly with the creator",
-        socialFollow: "Follow for the latest feature updates, creator tips, and direct support.",
-        catAll: "All",
-        catAudio: "Audio",
-        catEdit: "Basic Editing",
-        catConvert: "Conversion",
-        berandaSub: "TikTok Creator · Webdev & Gaming",
-        berandaBio: "I built VelardTools for content creators to compress your HD video to a smaller size without changing your video resolution. This is made so you can upload to TikTok without compression, plus several tools I developed to make your editing easier. If you find a bug or want to give feedback, contact me below or DM me directly on my personal TikTok. Thank you, happy trying ^ ^",
-        berandaCtaQuality: "My Journey",
-        berandaCtaTools: "Contact Me",
-        toolsSub: "Additional tools for content creators.",
-        toolsSearchPlaceholder: "Search tools...",
-        toolsSearchAria: "Search tools",
-        toolsSearchEmpty: "No matching tools found.",
-        backBtn: "Back",
-        comingSoon: "Coming soon...",
-        toolMp3Title: "Extract MP3",
-        toolMp3Desc: "Extract audio from a video into MP3.",
-        toolMp3Tip: "Extract high-quality audio. Private.",
-        toolPick: "Choose Video",
-        toolMp3Btn: "Extract MP3",
-        toolMp3Done: "MP3 ready to download.",
-        toolConvertTitle: "Format Convert",
-        toolConvertDesc: "Clean conversion",
-        toolConvertTip: "Convert to any format. Clean output.",
-        toolConvertTo: "Convert to:",
-        toolConvertBtn: "Convert",
-        toolConvertDone: "Video ready to download.",
-        toolConvertSame: "Target format is the same as source. Pick another format.",
-        toolDetected: "Detected:",
-        toolCutTitle: "Trim Clip",
-        toolCutDesc: "Frame-accurate cut",
-        toolCutTip: "Cut precisely. Fast.",
-        toolCutStart: "Start",
-        toolCutEnd: "End",
-        toolCutBtn: "Cut",
-        toolCutDone: "Trimmed video ready to download.",
-        toolCutInvalid: "Invalid time. Use seconds or mm:ss (e.g. 01:30).",
-        toolCutRange: "End must be greater than start and within duration.",
-        toolCutNeedFile: "Pick a video first.",
-        toolRescaleTitle: "Resize Video",
-        toolRescaleDesc: "Downscale to 720p/480p/360p, auto-detect, no upscale.",
-        toolRescaleTip: "Downscale smart. No upscale.",
-        toolRescaleLabel: "Target:",
-        toolRescaleBtn: "Resize",
-        toolRescaleDone: "Resized video ready to download.",
-        toolMuteTitle: "Mute Video",
-        toolMuteDesc: "Remove audio without re-encode",
-        toolMuteTip: "Remove audio fast. Without re-encode.",
-        toolMuteBtn: "Mute Video",
-        toolMuteDone: "Muted video ready to download.",
-        toolMuteNeed: "Pick a video first.",
-        toolMergeTitle: "Merge Videos",
-        toolMergeDesc: "Join 2+ videos into one",
-        toolMergeTip: "Pick 2–3 videos, order them, preview, then merge. Private.",
-        toolMergePick: "Pick / drop 2–3 videos",
-        toolMergeEmpty: "No videos yet. Add at least 2 to merge.",
-        toolMergeBtn: "Merge Videos",
-        toolMergeClearBtn: "Clear",
-        toolMergeCount: "{n} videos",
-        toolMergeReading: "reading…",
-        toolMergeSkipped: "{n} file(s) skipped (format/size/limit 3).",
-        toolMergeStep1: "Loading engine…",
-        toolMergeStep2: "Writing file {i}/{n}…",
-        toolMergeStep3: "Normalizing…",
-        toolMergeStep4: "Merging…",
-        toolMergeStep5: "Saving…",
-        toolMergeDone: "Merged video ready to download.",
-        toolMergeFail: "Merge failed: ",
-        toolMergeNoEng: "Engine not ready. Close and reopen the menu.",
-        toolMergeCacheTip: "Clear merge cache",
-        toolMergeCacheDone: "Merge cache cleared.",
-        toolMergePrevBtn: "Previous clip",
-        toolMergePlayBtn: "Play / pause",
-        toolMergeNextBtn: "Next clip",
-        toolMergeMuteClip: "Mute clip",
-        toolMergeUnmuteClip: "Unmute clip",
-        toolMergeFullBtn: "Fullscreen",
-        toolMergeMutedToast: "Clip muted. Applies to merged result.",
-        toolMergeUnmutedToast: "Clip unmuted.",
-        toolMergeRulerAria: "Timeline, click to jump to a second",
-        muteRowModeLabel: "Mode",
-        muteRowModeVal: "Copy (without re-encode)",
-        muteRowOutLabel: "Output",
-        muteRowOutVal: "Silent video",
-        muteRowPrivLabel: "Privacy",
-        muteRowPrivVal: "On-device",
-        toolThumbTitle: "Capture Thumbnail",
-        toolThumbDesc: "HD screenshot from video",
-        toolThumbTip: "Preview video & capture HD. 100% private — fraigo logic.",
-        thumbRowPrevLabel: "Preview",
-        thumbRowPrevVal: "Play / Pause / Seek • Frame ±1/25",
-        thumbRowResLabel: "Resolution",
-        thumbRowResVal: "Original HD (canvas drawImage)",
-        toolThumbCapture: "Snap photo",
-        toolThumbDownload: "Download Image",
-        thumbPreviewLabel: "Preview • click thumbnail below",
-        thumbNeedVideo: "Pick a video first.",
-        thumbCaptured: "HD thumbnail ready to download.",
-        thumbNoVideo: "Video not loaded.",
-        thumbSrcFile: "Video from File",
-        thumbSrcUrl: "Video from URL",
-        thumbUrlHint: "URL must be direct to video file (not YouTube/Vimeo).",
-        thumbFileLabel: "Video file",
-        thumbPrevLabel: "Preview & frame navigation",
-        thumbCapLabel: "Capture",
-        thumbWidthLabel: "Snap width",
-        thumbSnapBtn: "Snap this frame",
-        thumbAutoBtn: "Auto every",
-        thumbAutoAria: "Auto snap interval",
-        thumbSaveBtn: "Save",
-        thumbSaveAllBtn: "All (.zip)",
-        thumbClearBtn: "Clear",
-        thumbCacheBtn: "Cache",
-        thumbCacheTip: "Clear video & results cache",
-        thumbCloseBtn: "Close",
-        thumbSliderAria: "Video position",
-        thumbResultEmpty: "No captures yet",
-        thumbResultDone: "Results",
-        thumbUnsupported: "Format {ext} is not supported. Use MP4, MOV, WebM, MKV, or AVI.",
-        thumbCacheDone: "Thumbnail cache cleared.",
-        thumbGoStart: "Go to start",
-        thumbBack1m: "Back 1 minute",
-        thumbBack5s: "Back 5 seconds",
-        thumbBack1s: "Back 1 second",
-        thumbBack1f: "Back 1 frame",
-        thumbPlay: "Play / pause",
-        thumbFwd1f: "Forward 1 frame",
-        thumbFwd1s: "Forward 1 second",
-        thumbFwd5s: "Forward 5 seconds",
-        thumbFwd1m: "Forward 1 minute",
-        thumbGoEnd: "Go to end",
-        thumbCapStart: "start",
-        thumbCapEnd: "end",
-        thumbCapPlay: "play",
-        mp3RowOutLabel: "Output",
-        mp3RowSrcLabel: "Source",
-        mp3RowProcLabel: "Process",
-        mp3RowProcVal: "100% in Browser Private",
-        mp3RowDurLabel: "Duration",
-        mp3RowDurVal: "Full Automatic",
-        cutRowModeLabel: "Mode",
-        cutRowModeVal: "Fast copy (without re-encode)",
-        cutRowFallLabel: "Fallback",
-        cutRowPrecLabel: "Precision",
-        cutRowPrecVal: "Seconds / mm:ss 1 frame",
-        cutRowOutLabel: "Output",
-        cutRowOutVal: "Same format private",
-        byFrans: "by Frans",
-        appTitle: "VelardTools untuk kebutuhan Konten Creator",
-        dropText: "Drag & drop video here or click to choose",
-        uploadSubtext: "Supports MP4, MOV, WebM",
-        versionLabel: "CHOOSE METHOD:",
-        compressLabel: "COMPRESS",
-        qmFixAudio: "FIX UNIDENTIFIED AUDIO",
-        compressOnRequired: "ON is required for this video",
-        processBtn: "Process Video",
-        processing: "Processing...",
-        logTitle: "System Logs",
-        copyLog: "Copy Log",
-        clearCache: "Clear cache (localStorage, sessionStorage, service workers, caches API)",
-        modalTitle: "Video Analysis",
-        modalFps: "FPS",
-        modalRes: "Resolution",
-        modalSize: "File Size",
-        modalSpeedNote: "Processing speed depends on your device specs (CPU, RAM & browser).",
-        modalCancel: "Cancel",
-        modalProceed: "Proceed",
-        "method-wmv-off": "Re-encodes the video to WMV2 codec while keeping the original resolution without resizing. The process is lossy compression and produces a relatively large file.",
-        "method-wmv-720p": "Re-encodes the video to WMV2 codec with a 720p resolution cap and frame rate adjustment to 60 fps. Suitable for medium size needs with WMV compatibility.",
-        "method-wmv-1080p": "Re-encodes the video to WMV2 codec with a Full HD 1080p cap and frame rate adjustment to 60 fps. Provides maximum quality in WMV format with a large file size.",
-        "method-binary-off": "Applies a pure MP4 patch without re-encoding so the original quality is fully preserved. No compression occurs and no quality loss.",
-        "method-binary-720p": "Compresses the video to H.264 at HD 720p with optimized bitrate settings for balanced quality and file size. Followed by HD patch to keep it sharp on upload. Recommended to save quota.",
-        "method-binary-1080p": "Compresses the video to H.264 at Full HD 1080p with a high bitrate limit to preserve detail and motion sharpness. Followed by HD patch to keep quality optimal. <span class=\"tiktok-rec\">Highly recommended for TikTok.</span>",
-        "method-fps-off": "Applies a frame rate patch without changing resolution. Only normalizes the frame rate for more stable playback.",
-        "method-fps-720p": "Normalizes the frame rate and adjusts resolution to 720p for stable playback with a more efficient file size.",
-        "method-fps-1080p": "Normalizes the frame rate to 60, 30 or 24 fps with a 1080p cap to keep motion smooth and playback compatible.",
-        "method-v1-on": "Re-encodes the video to WMV format with a 1080p cap and frame rate adjustment to 60 fps using maximum quality.",
-        "method-v1-off": "Re-encodes the video to WMV2 codec while keeping the original resolution without resizing. The process is lossy compression and produces a relatively large file.",
-        "method-v3-on": "Compresses the video to H.264 at Full HD 1080p with settings optimized for HD quality and a smaller file size. <span class=\"tiktok-rec\">Highly recommended for TikTok.</span>",
-        "method-v3-off": "Applies a pure MP4 patch without re-encoding so the original quality is fully preserved.",
-        methodV1: "v1 is built for maximum quality (WMV qscale 1, forced 60fps). The output file size is usually <b>LARGER</b> than the original. This mode is recommended for archiving or when you need the WMV format (e.g. PowerPoint & Windows Media Player), not for social media uploads.",
-        tutUseTitle: "Q.Method Tutorial",
-        tutUploadTitle: "Upload Tutorial",
-        tutStep1Title: "Select a Video",
-        tutStep1Desc: "Drag and drop your video onto the upload area or click to choose a file from your device. VelardTools supports MP4, MOV, MKV, and WebM.",
-        tutStep2Title: "Choose Method and Compression",
-        tutStep2Desc: "Choose <b>WMV</b> for archiving, <b>BINARY</b> for TikTok, or <b>FPS</b> to fix frame rate. In BINARY mode, select <b>OFF</b> for no compression, <b>720P</b> for smaller size, or <b>1080P</b> for Full HD quality.",
-        tutStep3Title: "Process the Video",
-        tutStep3Desc: "Click the Process Video button, check the FPS and resolution information in the analysis window, then click Proceed. Wait until encoding is complete.",
-        tutStep4Title: "Download the Result",
-        tutStep4Desc: "The output file will download automatically. It has a smaller size with sharp HD quality and is ready to upload.",
-        tutUp1Title: "Use BINARY 1080P",
-        tutUp1Desc: "Select <b>BINARY</b> with <b>1080P</b> compression for the sharpest result and optimal size. This mode is highly recommended for TikTok.",
-        tutUp2Title: "Review Video Analysis",
-        tutUp2Desc: "Make sure the FPS value is valid no more than 120 and an integer, and the resolution is correct. Click Proceed if everything looks good.",
-        tutUp3Title: "Upload via the App",
-        tutUp3Desc: "Open the TikTok app, tap Upload, then select the compressed MP4 from your gallery. Avoid sending via WhatsApp to prevent recompression.",
-        tutUp4Title: "Compatibility with Other Platforms",
-        tutUp4Desc: "Files with a maximum resolution of 1080p and 60fps can also be used for Instagram Reels, YouTube Shorts, and Facebook.",
-        donateTitle: "Donate",
-        donateForFrans: "for Frans",
-        donateThanks: "Thank you for using this!",
-        donateText: "Support the development of VelardTools by donating via QRIS one scan and it goes straight through.",
-        donatePopupTitle: "Support Development",
-        donatePopupText: "Please consider donating to support development so this app stays free and keeps improving. Thank you! :))",
-        donateLater: "Not now",
-        donateCoffee: "Buy me a coffee",
-        qrisTip: "Scan with any e-wallet / mobile-banking app (GoPay, OVO, DANA, BCA, and others).",
-        qrisFallback: "QRIS image not available.",
-        officialNote: "Official site only at <a class=\"handle\" href=\"https://velardtools.my.id\" rel=\"noopener\">velardtools.my.id</a>. Beware of fake sites.",
-        aboutTitle: "About VelardTools",
-        aboutIntro: "VelardTools is a platform that provides various tools for social media creators. The main feature is video compression to sharp HD quality with a much smaller file size. More features will be added regularly.",
-        aboutHeroDesc: "HD video compression platform for TikTok and social media creators. Free, private, browser-based.",
-        aboutAuthor: "Built by <b>Frans</b> (<a class=\"handle\" href=\"https://www.tiktok.com/@ve1ard\" target=\"_blank\" rel=\"noopener\">@ve1ard</a>), free and continuously improved.",
-        aboutIntroTitle: "About the Platform",
-        aboutIntro1: "VelardTools is designed for creators who need HD video compression with small file sizes while keeping sharp quality for TikTok, Reels, and Shorts.",
-        aboutIntro2: "All processing runs locally in your browser without uploading to any server. Free, no registration, and continuously improved from creator feedback. Created by Frans (@ve1ard).",
-        aboutIntro3: "Our commitment is to provide a transparent, reliable, and easy to use experience. Each update is designed to improve stability, speed, and compatibility across devices, so creators can focus on their work without worrying about quality loss.",
-        aboutWarnTitle: "Notice",
-        aboutWarnDev: "VelardTools is still in development and features may change at any time.",
-        aboutWarnOfficial: "The official site is only at <a class=\"handle\" href=\"https://velardtools.my.id\" rel=\"noopener\">velardtools.my.id</a>.",
-        aboutWarnFake: "Beware of clone sites. The real site does not require login, registration, or payment. Never enter data on sites that ask you to log in.",
-        featHdTitle: "HD Video Compression",
-        featHdDesc: "Compresses video to sharp HD quality with a much smaller size. Results are ideal for TikTok and other social media.",
-        featFastTitle: "Fast and Light",
-        featFastDesc: "The entire process runs on your device with high speed and light resource usage.",
-        featPrivateTitle: "100% Private",
-        featPrivateDesc: "All files are processed directly in your browser and are never uploaded to any server. Your privacy is fully protected.",
-        featMoreTitle: "Continuously Growing",
-        featMoreDesc: "Our collection of creator tools will continue to expand. Look forward to the latest updates in the Tools menu.",
-        aboutContactTitle: "Contact and Support",
-        aboutContactText: "If you have questions, feedback, or encounter an issue, please contact me via TikTok.",
-        specTitle: "Technical Specifications",
-        specEngine: "Engine:",
-        specMax: "Maximum:",
-        specFormat: "Format:",
-        specRes: "Resolution:",
-        specDescEngine: "FFmpeg WASM + Patch JavaScript. All processing runs 100 percent in your browser. Files are never uploaded to a server, so privacy is fully preserved.",
-        specDescMax: "Maximum 1500 MB per file. It is recommended to use files under 500 MB for faster processing on devices with limited RAM.",
-        specDescFormat: "Input MP4, MOV, WebM, MKV, AVI. Output MP4 (H.264/AAC) compatible with TikTok, Instagram Reels, and YouTube Shorts.",
-        specDescRes: "Choice of 720p (1280x720) for smaller size and 1080p (1920x1080) for Full HD quality. The system does not upscale. If the original video is below the target, the original resolution is maintained.",
-        specDescSpeed: "Speed depends heavily on your device specifications. The main factors are CPU (core count and speed), available RAM, and browser type. On mobile devices, processing may take longer and use more battery. For long duration or high resolution videos, it is recommended to close other applications and ensure sufficient battery. A general estimate is 1 minute of video requires 20 to 60 seconds of processing depending on the device.",
-        faqTitle: "FAQ",
-        faqSub: "Quick answers to frequently asked questions about VelardTools.",
-        faqQ1: "What is VelardTools?",
-        faqA1: "VelardTools is an HD video compression platform for TikTok, Reels, and Shorts creators. It reduces file size while keeping sharpness so videos stay clear after upload.",
-        faqQ2: "Is it free and do I need to register?",
-        faqA2: "100 percent free, no registration, no login, no payment. The official site is only velardtools.my.id, beware of fake sites asking for login.",
-        faqQ3: "Is my file uploaded to a server?",
-        faqA3: "No. Everything runs with FFmpeg WASM + Patch JS 100 percent in your browser. Files never leave your device, privacy is preserved.",
-        faqQ4: "What formats are supported?",
-        faqA4: "Input: MP4, MOV, WebM, MKV, AVI. Output: MP4 H.264/AAC compatible with TikTok, Instagram Reels, and YouTube Shorts.",
-        faqQ5: "What is the maximum file size?",
-        faqA5: "Maximum 1500 MB per file. Under 500 MB is recommended for faster processing, especially on phones with limited RAM.",
-        faqQ6: "What resolutions are available?",
-        faqA6: "Choice of 720p (1280×720) for quota saving and 1080p (1920×1080) for Full HD. No upscale, if original is below target the original resolution is kept.",
-        faqQ7: "Which method is best for TikTok?",
-        faqA7: "Use BINARY 1080P. High bitrate H.264 + HD patch keeps detail and motion sharp, highly recommended for TikTok.",
-        faqQ8: "Why is my video still blurry after TikTok upload?",
-        faqA8: "Make sure to use BINARY 1080P, check analysis FPS max 120 and correct resolution, then upload via TikTok app from gallery. Avoid sending via WhatsApp to prevent recompression.",
-        faqQ9: "How long does processing take?",
-        faqA9: "Depends on CPU, RAM, and browser. Estimate 20 to 60 seconds per 1 minute of video. On phones it can be longer, close other apps and ensure enough battery.",
-        faqQ10: "Is it compatible with Reels and Shorts?",
-        faqA10: "Yes. 1080p 60fps output is compatible for Instagram Reels, YouTube Shorts, and Facebook.",
-        changelogTitle: "Changelog",
-        changelogSub: "VelardTools version history what's new, fixes and improvements.",
-        changelogTagLatest: "Latest",
-        changelogV15Title: "Merge Videos & Fixes",
-        changelogV15a: "New CapCut-style Merge Videos tool: timeline, preview, max 3 files, per-clip mute.",
-        changelogV15b: "QM fix: BINARY & FPS compression settings now remembered separately; smooth stutter-free merges.",
-        changelogV15c: "Security audit: CSP aligned, dependencies patched, file structure tidied.",
-        changelogV14Title: "HD Thumbnail & Other Fixes",
-        changelogV14a: "Added HD Thumbnail capture tool with play/pause/seek preview & original-resolution screenshots.",
-        changelogV14b: "Fixed Others panel getting cut off when jumping from Home on PC & mobile.",
-        changelogV14c: "Fixed Home font & realtime Mute loading.",
-        changelogV13Title: "Mute Video & Changelog",
-        changelogV13a: "Added Mute Video tool remove audio without re-encode (fast copy).",
-        changelogV13b: "Added Changelog menu in Others.",
-        changelogV13c: "Tools staggered animation synced for PC & mobile.",
-        changelogV12a: "Hard Refresh in Tools, borderless icon, OG 1200×630, favicon crop.",
-        changelogV12b: "Initial all-device layout fix & ID/EN Beranda/Alat i18n.",
-        changelogV10Title: "Initial Release",
-        changelogV10a: "TikTok HD compression, Extract MP3, Format Convert, Trim Clip, Resize Video.",
-        changelogV10b: "On-device FFmpeg WASM, 100% private.",
-        tiktokConfirmTitle: "Open TikTok?",
-        tiktokConfirmText: "You will open the video on TikTok. Continue?",
-        helpText: "Found a bug or need help? Report it to us.",
-        helpBtn: "Report Bug / Help",
-        helpModalTitle: "Report Bug / Help",
-        helpModalSub: "Describe in detail so we can help precisely. Messages go straight to <b>Frans' email</b> and are usually answered within 24h.",
-        helpLabel: "Your Message",
-        helpPlaceholder: "Example: When compressing a 1080p 120MB video in Chrome on Samsung, it gets stuck at 90% ...",
-        helpNote: "or reach me on <a class=\"handle\" href=\"https://www.tiktok.com/@ve1ard\" target=\"_blank\" rel=\"noopener\">@ve1ard</a> on TikTok!",
-        helpCardTitle: "Need Help?",
-        helpCardSub: "Reports go directly to the developer email",
-        helpCardDesc: "Describe your issue as completely as possible so we can help faster. Include the steps you took, file type, and device used.",
-        helpCardListTitle: "Please include:",
-        helpCardLi1: "Bug description : what happened vs expected",
-        helpCardLi2: "Repro steps : click sequence until the error appears",
-        helpCardLi3: "File & device info : format, size, browser, phone/PC",
-        helpCardNote: "Usually replies within 24h. For faster response, DM via TikTok.",
-        helpCardAlt: "Or contact directly via <a class=\"handle\" href=\"https://www.tiktok.com/@ve1ard\" target=\"_blank\" rel=\"noopener\">@ve1ard</a> on TikTok",
-        helpModalTipsTitle: "Tips for faster reply:",
-        helpModalTips: "Include: 1) step chronology, 2) file format & size, 3) browser/device, 4) screenshot if any.",
-        helpSend: "Send",
-        helpSending: "Sending...",
-        helpSent: "Message sent! Thank you.",
-        helpFail: "EmailJS send failed - check connection and retry (5/hour limit)",
-        helpEmailSubject: "VelardTools Bug / Help Report",
-        helpEmailPrefix: "REPORT FROM VELARD TOOLS",
-        logLogEmpty: "Log is empty, nothing to copy.",
-        logLogCopied: "Log copied to clipboard.",
-        logLogCopyFail: "Failed to copy log: ",
-        logClearing: "Clearing cache...",
-        logCleared: "Cache cleared successfully.",
-        logClearFail: "Error clearing cache: ",
-        logDevice: "Device: ",
-        logDeviceMobile: "Mobile",
-        logDeviceDesktop: "Desktop",
-        logSABAvail: "Available",
-        logSABUnavail: "Not available",
-        logNeedCOOP: "Multi-thread mode requires COOP/COEP headers.",
-        logRunServer: "Run 'python server.py' then open http://127.0.0.1:8000.",
-        logMTActive: "Multi-thread mode active (COOP/COEP OK).",
-        logDownloadReady: "File ready to download: ",
-        logAnalyzeDone: "Analysis complete: ",
-        logAnalyzeFail: "Failed to analyze video: ",
-        logFailed: "Failed",
-        logApproved: "Video approved. Ready to process (V",
-        logCanceled: "Analysis canceled.",
-        logErrorNotVideo: "Error: \"",
-        logFile: "File",
-        logNotVideo: "\" is not a video file.",
-        logTooBig: "Error: File too large (",
-        logTooBig2: "). Maximum 1500 MB.",
-        logFileSelected: "File selected: ",
-        logFileLabel: "File",
-        logMethodLabel: "Method",
-        logDeviceLabel: "Device",
-        logThreads: "thread",
-        logSABLabel: "SAB",
-        logBufferRead: "Buffer read: ",
-        logBoxMagic: " | Box[0]: ",
-        logUnknown: "unknown",
-        logProcessSection: "-- PROCESS --",
-        logStatusLabel: "Status",
-        logProcessingStatus: "Processing video pipeline...",
-        logFfmpegLoaded: "FFmpeg (",
-        logFfmpegFromCdn: ") loaded from CDN: ",
-        logMT: "multi-thread",
-        logST: "single-thread",
-        logStep1: "Loading video data...",
-        logStep2: "Optimizing quality...",
-        logStep3: "Encoding & saving...",
-        logFilters: "FFmpeg filters: ",
-        logDone: "Processing complete.",
-        logError: "Error: ",
-        logLoadingFfmpeg: "Loading FFmpeg WASM (multi-thread, core-mt) ...",
-        logFfmpegReady: "✓ FFmpeg WASM ready (multi-thread).",
-        logFfmpegReadyST: "✓ FFmpeg WASM ready (single-thread fallback).",
-        logFfmpegFail: "� Failed to load: ",
-        logPatchWarn: "Warning: No patchable box found, output identical to input.",
-        logPatched: "MP4 patched (metadata HD method) without re-encoding.",
-        logOrigSize: "Original size: ",
-        logCompressV1: "Compressing V1 with WMV2 (1080p, 60fps, optimized bitrate)...",
-        logCompressedSize: "Compressed size: ",
-        logReduction: "% reduction)",
-        logV1Off: "V1 OFF - re-encode without resize...",
-        logCompressV3: "Compressing V3 with FFmpeg (1080p, 60fps, optimized bitrate)...",
-        logV3Off: "V3 OFF - Pure JS MP4 patch (no compression)...",
-        logV3On: "V3 ON - Patching MP4 (HD method)...",
-        logReady: "VelardTools v1 ready."
-      }
-    };
-
-    var lang = localStorage.getItem("lang") || "id";
-    var t = function (key) { return (I18N[lang] && I18N[lang][key]) || I18N.id[key] || key; };
-
-    function applyLang() {
-      document.title = t("appTitle");
-      document.querySelectorAll("[data-i18n]").forEach(function (el) {
-        el.textContent = t(el.getAttribute("data-i18n"));
-      });
-      document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
-        el.innerHTML = t(el.getAttribute("data-i18n-html"));
-      });
-      document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
-        el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
-      });
-      document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
-        el.setAttribute("title", t(el.getAttribute("data-i18n-title")));
-      });
-      document.querySelectorAll("[data-i18n-aria-label]").forEach(function (el) {
-        el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria-label")));
-      });
-      document.querySelectorAll(".lang-btn").forEach(function (btn) {
-        btn.classList.toggle("active", btn.dataset.lang === lang);
-      });
-    }
-
-    function setLang(l) {
-      lang = l;
-      localStorage.setItem("lang", l);
-      applyLang();
-      window.dispatchEvent(new Event("qm:langchange"));
-    }
-
-    applyLang();
-
-    window.i18n = {
-      t: t,
-      getLang: function () { return lang; },
-      setLang: setLang
-    };
-
-    document.querySelectorAll(".lang-btn").forEach(function (btn) {
-      btn.addEventListener("click", function () { setLang(btn.dataset.lang); });
-    });
-
-    (function () {
-      var PANEL_KEY = "velardPanel";
-      var panelOrder = ["beranda","tools","donate","others"];
-      var currentIndex = 0;
-      var slideTrack = document.getElementById("velardSlideTrack");
-      var dots = document.querySelectorAll(".dot-indicator");
-      function positionFloating(active) {
-        var nav = document.getElementById("floatingNav");
-        var ind = document.getElementById("floatingIndicator");
-        if (!nav || !ind || !active) return;
-        var navRect = nav.getBoundingClientRect();
-        var r = active.getBoundingClientRect();
-        ind.style.width = r.width + "px";
-        ind.style.transform = "translateX(" + (r.left - navRect.left - 6) + "px)";
-      }
-      function updateDots(index) {
-        document.querySelectorAll(".dot-indicator").forEach((dot,i)=>{
-          dot.classList.toggle("active", i===index);
-        });
-      }
-      function updateCubeDepth(){
-        // kept for compat edge slide no longer needs cube depth
-      }
-      function slideTo(index, save) {
-        if (!slideTrack) return;
-        if (index < 0) index = 0;
-        if (index >= panelOrder.length) index = panelOrder.length - 1;
-        var _nameEarly = panelOrder[index];
-        var _isHomeEarly = _nameEarly === "beranda";
-        if (index === currentIndex && document.querySelector('.slide-panel.active-panel')) {
-          // already active just sync height - cap untuk non-HOME biar tetap 1 layar
-          var _t = document.querySelector('.slide-panel[data-cube="'+index+'"]');
-          var _vp = document.querySelector('.cube-viewport');
-          if(_vp && _t){
-            var _h = Math.ceil(_t.scrollHeight);
-            if(!_isHomeEarly){
-              // non-HOME: pakai tinggi natural biar bawah keliatan, CSS min-height yang jaga 1 layar
-              _h = Math.ceil(_t.scrollHeight);
-            }
-            _vp.style.minHeight = _h + 'px';
-          }
-          return;
-        }
-        var prev = currentIndex;
-        var target = document.querySelector('.slide-panel[data-cube="'+index+'"]');
-        var prevEl = document.querySelector('.slide-panel[data-cube="'+prev+'"]');
-        if(!target) return;
-        // SMOOTH height: measure target without flicker width-matched clone
-        var vp = document.querySelector('.cube-viewport');
-        var targetH = Math.ceil(target.scrollHeight);
-        if(targetH < 20){
-          var clone = target.cloneNode(true);
-          var cw = vp ? vp.offsetWidth : 560;
-          clone.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;left:-9999px;top:0;height:auto;max-height:none;opacity:1;display:block;box-sizing:border-box;padding:0 16px;width:'+cw+'px;';
-          document.body.appendChild(clone);
-          targetH = Math.ceil(clone.scrollHeight);
-          document.body.removeChild(clone);
-        }
-        // kunci scroll kecuali HOME: paksa viewport 1 layar penuh, isi scroll sedikit di dalam panel
-        var isHome = _isHomeEarly;
-        // non-HOME biar natural scroll sampai bawah keliatan, tidak dipaksa cap
-        if(isHome){
-          // HOME tetap natural juga, tapi jaga biar tidak melebihi viewport gila
-        }
-        if(vp){
-          var curH = Math.ceil(vp.getBoundingClientRect().height);
-          // avoid jump when heights are close; animate only if >12px diff
-          if(Math.abs(curH - targetH) > 12){
-            vp.style.minHeight = curH + 'px';
-            void vp.offsetHeight;
-            vp.style.minHeight = targetH + 'px';
-          } else if(Math.abs(curH - targetH) > 2){
-            vp.style.minHeight = targetH + 'px';
-          }
-        }
-        document.querySelectorAll(".slide-panel").forEach((p,i)=>{
-          p.classList.toggle("active-panel", i===index);
-        });
-        // geser pakai % dari lebar trek (kebal scrollbar/resize) — smooth untuk semua jarak
-        if(vp && slideTrack){
-          var jump = Math.abs(index - prev);
-          clearTimeout(slideTrack._ease);
-          if(jump > 1){
-            // loncat jauh: easing halus tanpa overshoot biar mendarat pas
-            slideTrack.style.transition = 'transform 480ms cubic-bezier(0.32,0.72,0,1)';
-          } else {
-            slideTrack.style.transition = '';
-            slideTrack.classList.add('is-sliding');
-            setTimeout(function(){ slideTrack.classList.remove('is-sliding'); }, 660);
-          }
-          slideTrack.style.transform = 'translateX(' + (-index * 100) + '%)';
-          if(jump > 1){
-            slideTrack._ease = setTimeout(function(){ slideTrack.style.transition = ''; }, 500);
-          }
-        }
-        setTimeout(function(){
-          if(vp && target){
-            var finalH = Math.ceil(target.scrollHeight);
-            if(finalH < 20){
-              var clone2 = target.cloneNode(true);
-              var cw2 = vp ? vp.offsetWidth : 560;
-              clone2.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;left:-9999px;top:0;height:auto;max-height:none;opacity:1;display:block;box-sizing:border-box;padding:0 16px;width:'+cw2+'px;';
-              document.body.appendChild(clone2);
-              finalH = Math.ceil(clone2.scrollHeight);
-              document.body.removeChild(clone2);
-            }
-            var curMin = parseInt(vp.style.minHeight||0);
-            if(Math.abs(finalH - curMin) > 8){
-              vp.style.minHeight = finalH + 'px';
-            }
-          }
-        }, 680);
-        // update floating nav + body attr for cube
-        var name = panelOrder[index];
-        try{ document.body.setAttribute('data-view', name); }catch(e){ /* ignore */ }
-        document.querySelectorAll(".floating-nav-item").forEach(x=>{
-          var isActive = x.dataset.panel === name;
-          x.classList.toggle("active", isActive);
-          if(isActive) x.setAttribute("aria-current","page"); else x.removeAttribute("aria-current");
-        });
-        document.querySelectorAll(".nav-item").forEach(x=>{
-          var isActive = x.dataset.panel === name;
-          x.classList.toggle("active", isActive);
-          if(isActive) x.setAttribute("aria-current","page"); else x.removeAttribute("aria-current");
-        });
-        updateDots(index);
-        currentIndex = index;
-        var activeFloat = document.querySelector('.floating-nav-item[data-panel="' + name + '"]');
-        if (activeFloat) requestAnimationFrame(()=>{ requestAnimationFrame(()=> positionFloating(activeFloat)); setTimeout(()=> positionFloating(activeFloat), 380); });
-        try { window.scrollTo({top:0,behavior:'auto'}); document.documentElement.scrollTo({top:0,behavior:'auto'}); var sc=document.querySelector('.app-main'); if(sc) sc.scrollTo({top:0,behavior:'auto'}); } catch(e){ /* ignore */ }
-        if (save) {
-          try { localStorage.setItem(PANEL_KEY, name); } catch(e){ /* ignore */ }
-          try { history.replaceState(null, "", "#" + name); } catch(e){ /* ignore */ }
-        }
-      }
-      function activatePanel(name, save) {
-        var idx = panelOrder.indexOf(name);
-        if (idx === -1) idx = 0;
-        slideTo(idx, save);
-      }
-      // expose for inline hero buttons
-      window.velardActivatePanel = activatePanel;
-      window.velardPositionFloating = positionFloating;
-      window.velardSlideTo = slideTo;
-      // init cube depth first
-      updateCubeDepth();
-      document.querySelectorAll(".floating-nav-item").forEach((item, idx)=>{
-        item.addEventListener("click", ()=> slideTo(panelOrder.indexOf(item.dataset.panel), true));
-      });
-      document.querySelectorAll(".nav-item").forEach(item=>{
-        item.addEventListener("click", ()=> slideTo(panelOrder.indexOf(item.dataset.panel), true));
-      });
-      dots.forEach(dot=>{
-        dot.addEventListener("click", function(){
-          var idx = parseInt(this.dataset.index);
-          slideTo(idx, true);
-        });
-      });
-      /* offset trek berbasis % — otomatis tetap pas saat resize/load/rotasi, tanpa JS tambahan */
-      // swipe - anti sensitif saat scroll vertikal (mobile)
-      let touchStartX=0, touchStartY=0, touchStartTime=0;
-      const container = document.querySelector(".slide-container");
-      if (container) {
-        container.addEventListener("touchstart", e=>{
-          const t = e.changedTouches[0];
-          touchStartX = t.screenX; touchStartY = t.screenY; touchStartTime = Date.now();
-        }, {passive:true});
-        container.addEventListener("touchend", e=>{
-          const t = e.changedTouches[0];
-          const diffX = touchStartX - t.screenX;
-          const diffY = touchStartY - t.screenY;
-          const elapsed = Date.now() - touchStartTime;
-          const absX = Math.abs(diffX), absY = Math.abs(diffY);
-          // abaikan jika target adalah input/select/textarea atau sedang scroll vertikal dominan
-          const target = e.target;
-          if(target && target.closest && target.closest('input, textarea, select, [contenteditable="true"]')) return;
-          if(elapsed > 600) return;
-          if(absY > 70 && absY > absX * 1.2) return; // scroll vertikal, jangan swipe
-          if(absX < 85) return; // butuh geser horizontal cukup jauh
-          if(absX < absY * 1.6) return; // harus lebih horizontal dari vertikal
-          if (diffX > 0) slideTo(Math.min(currentIndex+1, panelOrder.length-1), true);
-          else slideTo(Math.max(currentIndex-1, 0), true);
-        }, {passive:true});
-      }
-      // initial - masuk awal ke Home, refresh tetap stay di menu (session-based)
-      var _isRefresh = false;
-      try{ if(sessionStorage.getItem("velardSession")) _isRefresh=true; }catch(e){ /* ignore */ }
-      try{ sessionStorage.setItem("velardSession","1"); }catch(e){ /* ignore */ }
-      if(_isRefresh){
-        var initial = null;
-        try { initial = localStorage.getItem(PANEL_KEY); } catch(e){ /* ignore */ }
-        var hash = (location.hash||"").replace(/^#/,"");
-        if (hash && panelOrder.indexOf(hash)!==-1) initial = hash;
-        if (initial) {
-          var initIdx = panelOrder.indexOf(initial);
-          if(initIdx!==-1) slideTo(initIdx, false);
-          else slideTo(0,false);
-        } else {
-          slideTo(0,false);
-        }
-      } else {
-        try{ history.replaceState(null,"", location.pathname); }catch(e){ /* ignore */ }
-        slideTo(0,false);
-      }
-      // reveal after preload - hilangkan flash MY VIDEOS
-      setTimeout(function(){
-        try{ document.documentElement.removeAttribute("data-preload"); }catch(e){ /* ignore */ }
-        var pf=document.getElementById("preload-fix"); if(pf) pf.remove();
-        var vp=document.querySelector(".cube-viewport");
-        if(vp){ vp.style.opacity="1"; vp.style.transition="opacity 180ms ease"; }
-      }, 30);
-      window.addEventListener("hashchange", ()=>{
-        var velardHash=(location.hash||"").replace(/^#/,"");
-        if(panelOrder.indexOf(h)!==-1) slideTo(panelOrder.indexOf(h), true);
-      });
-      window.addEventListener("resize", ()=>{
-        updateCubeDepth();
-        var vpR = document.querySelector('.cube-viewport');
-        if(vpR && slideTrack) slideTrack.style.transform = 'translateX(' + (-currentIndex * (vpR.offsetWidth||560)) + 'px)';
-        // recalc cap untuk non-HOME biar tetap 1 layar pas resize / rotate
-        var curView = document.body.getAttribute('data-view');
-        if(curView && curView !== 'beranda' && vpR){
-          // biarkan tinggi natural, jangan paksa cap - biar bawah keliatan
-          var curPanel = document.querySelector('.slide-panel.active-panel');
-          if(curPanel) vpR.style.minHeight = Math.ceil(curPanel.scrollHeight) + 'px';
-          else vpR.style.minHeight = 'calc(100dvh - 110px)';
-        }
-        var cur=document.querySelector('.floating-nav-item.active');
-        if(cur) positionFloating(cur);
-      });
-
-    })();
-
-    var helpModal = document.getElementById("help-modal");
-    var helpMsg = document.getElementById("help-msg");
-    var helpStatus = document.getElementById("help-status");
-    var helpSendBtn = document.getElementById("help-send");
-    var helpWc = document.getElementById("help-wc");
-    function updateHelpWc(){
-      var raw = helpMsg ? (helpMsg.value || "") : "";
-      var wc = (raw.trim().match(/\S+/g) || []).length;
-      if(!helpWc) return;
-      var curL = (window.i18n && window.i18n.getLang ? window.i18n.getLang() : null) || localStorage.getItem("lang") || "id";
-      if(!raw.trim()) helpWc.textContent = curL==="en" ? "0/5 words" : "0/5 kata";
-      else helpWc.textContent = wc + "/5 " + (curL==="en" ? "words" : "kata") + (wc<5 ? " " + (curL==="en" ? "need "+(5-wc)+" more" : "kurang "+(5-wc)+" lagi") : " ?");
-      helpWc.style.color = wc>=5 ? "var(--success, #4ade80)" : "var(--text-3)";
-    }
-
-    function openHelpModal() {
-      helpStatus.textContent = "";
-      helpMsg.value = "";
-      if(helpWc) updateHelpWc();
-      helpModal.hidden = false;
-      helpMsg.focus();
-    }
-    function closeHelpModal() {
-      helpModal.hidden = true;
-    }
-    function setHelpStatus(text) {
-      helpStatus.textContent = text;
-    }
-
-    document.querySelectorAll("#help-btn, #about-help-btn").forEach(function (btn) {
-      btn.addEventListener("click", openHelpModal);
-    });
-    document.getElementById("help-close").addEventListener("click", closeHelpModal);
-    document.getElementById("help-cancel").addEventListener("click", closeHelpModal);
-    helpModal.addEventListener("click", function (e) {
-      if (e.target === helpModal) closeHelpModal();
-    });
-    if(helpMsg) helpMsg.addEventListener("input", function(){ updateHelpWc(); helpStatus.textContent=""; });
-    window.addEventListener("qm:langchange", updateHelpWc);
-
-    helpSendBtn.addEventListener("click", function () {
-      var hp = document.getElementById("help-hp");
-      var raw = helpMsg ? (helpMsg.value || "") : "";
-      var msg = raw.trim();
-      var words = msg.match(/\S+/g);
-      var wordCount = words ? words.length : 0;
-      var curLang = (window.i18n && window.i18n.getLang ? window.i18n.getLang() : null) || (typeof lang!=="undefined" ? lang : null) || localStorage.getItem("lang") || "id";
-      if (!msg) { setHelpStatus(curLang==="en" ? "Message cannot be empty" : "Pesan tidak boleh kosong"); return; }
-      if (wordCount < 5) { setHelpStatus(curLang==="en" ? "Minimum 5 words, please write more completely" : "Minimal 5 kata, tulis lebih lengkap"); return; }
-      if (msg.length > 2000) { setHelpStatus(curLang==="en" ? "Maximum 2000 characters" : "Maksimal 2000 karakter"); return; }
-      if (hp && hp.value.trim()) {
-        setHelpStatus(curLang==="en" ? "Spam detected, please try again" : "Terdeteksi spam, coba lagi");
-        hp.value = "";
-        return;
-      }
-      var now = Date.now();
-      var rl = {};
-      try {
-        rl = JSON.parse(localStorage.getItem("qmHelpRl") || "{}");
-      } catch (e) {
-        rl = {};
-      }
-      var hourKey = Math.floor(now / 3600000);
-      if (!rl.hour || rl.hour !== hourKey) {
-        rl = { hour: hourKey, count: 0, last: 0 };
-      }
-      if (now - (rl.last || 0) < 30000) {
-        var wait = Math.ceil((30000 - (now - rl.last))/1000);
-        setHelpStatus(curLang==="en" ? "Please wait "+wait+" seconds before sending again" : "Tunggu "+wait+" detik sebelum kirim lagi");
-        return;
-      }
-      if ((rl.count || 0) >= 5) {
-        setHelpStatus(curLang==="en" ? "Limit 5 messages per hour, please contact via TikTok @ve1ard" : "Batas 5 pesan per jam, silakan hubungi via TikTok @ve1ard");
-        return;
-      }
-      rl.last = now;
-      rl.count = (rl.count || 0) + 1;
-      try {
-        localStorage.setItem("qmHelpRl", JSON.stringify(rl));
-      } catch(e){ /* ignore */ }
-      // pastikan EmailJS siap - init jika belum
-      try{ if(window.emailjs && !window._emailJsInited){ emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"}); window._emailJsInited=true; } }catch(e){ /* ignore */ }
-      if (typeof emailjs === "undefined" || !emailjs.send) {
-        console.error("EmailJS belum load", typeof emailjs);
-        setHelpStatus(t("helpFail")+" (EmailJS belum siap, refresh halaman)");
-        return;
-      }
-      setHelpStatus(t("helpSending"));
-      helpSendBtn.disabled = true;
-      console.log("EmailJS send attempt", msg.slice(0,40), "host", location.hostname);
-      // localhost simulation: EmailJS dashboard perlu whitelist 127.0.0.1, jika belum, simulasi sukses biar flow ke-test
-      var isLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
-      var sendPromise = null;
-      if (isLocal) {
-        console.warn("Localhost: simulasi kirim (EmailJS butuh whitelist di dashboard untuk 127.0.0.1)");
-        sendPromise = new Promise(function(res){ setTimeout(function(){ res({status:200, text:"OK (local simulation)"}); }, 700); });
-      } else {
-        sendPromise = emailjs.send("service_iopxgcj", "template_7iu1nhm", {
-          from_name: "Quality Method User",
-          subject: t("helpEmailSubject"),
-          message: t("helpEmailPrefix") + "\n\n" + msg
-        });
-      }
-      sendPromise
-        .then(function (res) {
-          console.log("EmailJS success", res);
-          setHelpStatus(t("helpSent"));
-          setTimeout(closeHelpModal, 1800);
-        })
-        .catch(function (err) {
-          console.error("EmailJS fail", err);
-          var detail = err && (err.text || err.message || err.status) ? (err.text || err.message || ("HTTP "+err.status)) : "";
-          if(detail && detail.indexOf("1010")!==-1){ detail = "EmailJS 403 (service/template belum aktif atau domain belum whitelist di dashboard EmailJS)"; }
-          if(detail && detail.indexOf("403")!==-1 && isLocal){ detail = "Localhost belum whitelist di EmailJS dashboard coba di velardtools.my.id"; }
-          try{ navigator.clipboard.writeText(msg); }catch(e){ /* ignore */ }
-          var fallback = " | Pesan sudah disalin, silakan DM TikTok @ve1ard";
-          if(detail) fallback = " ("+detail.slice(0,90)+")"+fallback;
-          setHelpStatus(t("helpFail") + fallback);
-          setTimeout(function(){
-            try{ window.open("https://www.tiktok.com/@ve1ard", "_blank"); }catch(e){ /* ignore */ }
-          }, 800);
-        })
-        .finally(function () {
-          helpSendBtn.disabled = false;
-        });
-    });
-  </script>
-  <script>
-  // Eco Journey long vertical AI ecosystem (12+ cards, data-driven, scroll reveal)
-  (function(){
-    // -- DATA: tambah CARD 13,14,... di sini tanpa redesign layout --
-    var ECO_DATA = Array.from({length:12}, function(_,i){ return { id:i, n:String(i+1).padStart(2,'0') }; });
-    // expose for console: window.ECO_DATA push & rerender
-    window.ECO_DATA = ECO_DATA;
-    var wrap = document.getElementById('ecoWrap');
-    var svg = document.getElementById('ecoSvg');
-    var spine = document.getElementById('ecoSpine');
-    var branchesG = document.getElementById('ecoBranches');
-    var cardsEl = document.getElementById('ecoCards');
-    var journey = document.getElementById('ecoJourney');
-    if(!wrap || !svg || !spine || !cardsEl) return;
-
-    function makeCards(){
-      cardsEl.innerHTML='';
-      branchesG.innerHTML='';
-      ECO_DATA.forEach(function(item, idx){
-        var card = document.createElement('div');
-        card.className = 'eco-card' + (idx%2===0 ? ' eco-left' : ' eco-right');
-        card.setAttribute('data-idx', idx);
-        card.setAttribute('tabindex','0');
-        card.setAttribute('aria-label','Card '+(idx+1));
-        // kosong isi nanti sendiri. Beri placeholder subtle agar terlihat premium tapi kosong
-        card.innerHTML = '<span class="eco-card-num">'+item.n+'</span><span class="eco-card-ph"></span>';
-        cardsEl.appendChild(card);
-        // branch path placeholder (akan diisi saat update)
-        var p = document.createElementNS('http://www.w3.org/2000/svg','path');
-        p.setAttribute('id','ecoP'+idx);
-        p.setAttribute('class','eco-branch');
-        p.setAttribute('fill','none');
-        p.setAttribute('stroke','url(#ecoBranchGrad)');
-        p.setAttribute('stroke-width','1.55');
-        p.setAttribute('stroke-linecap','round');
-        p.setAttribute('stroke-linejoin','round');
-        p.setAttribute('opacity','0.92');
-        p.setAttribute('filter','url(#ecoBranchGlow)');
-        branchesG.appendChild(p);
-        // endpoint node
-        var g = document.createElementNS('http://www.w3.org/2000/svg','g');
-        g.setAttribute('filter','url(#ecoBranchGlow)');
-        var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-        c.setAttribute('id','ecoE'+idx);
-        c.setAttribute('r','4.4');
-        c.setAttribute('fill','#e2e8f0');
-        c.setAttribute('stroke','rgba(125,211,252,0.52)');
-        c.setAttribute('stroke-width','5.5');
-        c.setAttribute('opacity','0.96');
-        var ci = document.createElementNS('http://www.w3.org/2000/svg','circle');
-        ci.setAttribute('id','ecoEi'+idx);
-        ci.setAttribute('r','1.5');
-        ci.setAttribute('fill','#fff');
-        g.appendChild(c); g.appendChild(ci);
-        branchesG.appendChild(g);
-      });
-    }
-    makeCards();
-    window.ecoRerender = function(){ makeCards(); bindHover(); refresh(); };
-
-    var cards = function(){ return cardsEl.querySelectorAll('.eco-card'); };
-    function branchCurve(sx,sy,tx,ty, isLeft){
-      var dx = tx - sx;
-      var dy = ty - sy;
-      // organic smooth: horizontal keluar dulu lalu melengkung ke card
-      var c1x = sx + dx * 0.42;
-      var c1y = sy + dy * 0.20;
-      var c2x = tx - dx * 0.28;
-      var c2y = ty - dy * 0.18;
-      // tweak untuk kiri/kanan agar tidak kaku
-      if(isLeft){ c1x = sx + dx*0.48; } else { c1x = sx + dx*0.38; }
-      return 'M'+sx+' '+sy+' C '+c1x+' '+c1y+', '+c2x+' '+c2y+', '+tx+' '+ty;
-    }
-    function refresh(){
-      try{
-        var wr = wrap.getBoundingClientRect();
-        var w = wrap.offsetWidth;
-        var h = wrap.offsetHeight;
-        if(h < 200) h = 200;
-        svg.setAttribute('viewBox','0 0 '+w+' '+h);
-        svg.style.height = h+'px';
-        // spine: vertical elegant thin silver dari top-node sampai end-dot
-        var topNode = document.getElementById('ecoTopNode');
-        var endDot = document.querySelector('.eco-end-dot');
-        var sx = w/2;
-        var isMobile = w < 640;
-        if(isMobile) sx = 28; // spine kiri di mobile
-        var sy = topNode ? (topNode.getBoundingClientRect().top - wr.top + topNode.offsetHeight/2) : 14;
-        var eyEl = document.getElementById('ecoEnd');
-        var ey = eyEl ? (eyEl.getBoundingClientRect().top - wr.top + 10) : h - 24;
-        if(ey <= sy) ey = h - 16;
-        spine.setAttribute('d','M'+sx+' '+sy+' L '+sx+' '+ey);
-        // dash for scroll reveal akan diupdate di onScroll
-        try{
-          var len = spine.getTotalLength();
-          spine.style.strokeDasharray = len;
-          if(!spine.dataset.init){ spine.style.strokeDashoffset = len; spine.dataset.init='1'; }
-        }catch(e){ /* ignore */ }
-        // branches
-        var allCards = cards();
-        allCards.forEach(function(card, idx){
-          var r = card.getBoundingClientRect();
-          var isLeft = card.classList.contains('eco-left');
-          // target: tengah sisi dalam kartu yang menghadap spine
-          var tx, ty;
-          if(isMobile){
-            tx = r.left - wr.left - 14; // junction di kiri kartu, 14px dari spine
-            if(tx < sx+2) tx = sx+2;
-            ty = r.top - wr.top + r.height*0.5;
-          } else {
-            tx = isLeft ? (r.left + r.width - wr.left + 10) : (r.left - wr.left - 10);
-            // clamp agar tidak melewati spine terlalu jauh
-            ty = r.top - wr.top + r.height*0.42;
-          }
-          var syBranch = sy + ( (ty - sy) * 0 ); // branch start sedikit di bawah spine y agar tidak overlap
-          // start di spine pada y yang sama dengan branch height
-          var sBy = ty - 28; // cabang keluar 28px di atas card center
-          if(sBy < sy) sBy = ty;
-          var d = branchCurve(sx, sBy, tx, ty, isLeft);
-          var p = document.getElementById('ecoP'+idx);
-          if(p) p.setAttribute('d', d);
-          var ec = document.getElementById('ecoE'+idx);
-          var eci = document.getElementById('ecoEi'+idx);
-          if(ec){ ec.setAttribute('cx', tx); ec.setAttribute('cy', ty); }
-          if(eci){ eci.setAttribute('cx', tx); eci.setAttribute('cy', ty); }
-        });
-      }catch(e){ /* ignore */ }
-    }
-    function bindHover(){
-      var allCards = cards();
-      allCards.forEach(function(card, idx){
-        var p = document.getElementById('ecoP'+idx);
-        card.addEventListener('mouseenter', function(){ if(p) p.classList.add('is-hover'); card.classList.add('is-hover'); });
-        card.addEventListener('mouseleave', function(){ if(p) p.classList.remove('is-hover'); card.classList.remove('is-hover'); });
-        card.addEventListener('focus', function(){ if(p) p.classList.add('is-hover'); });
-        card.addEventListener('blur', function(){ if(p) p.classList.remove('is-hover'); });
-      });
-    }
-    bindHover();
-
-    // scroll reveal spine
-    var ticking=false;
-    function onScroll(){
-      if(ticking) return;
-      ticking=true;
-      requestAnimationFrame(function(){
-        try{
-          var rect = wrap.getBoundingClientRect();
-          var vh = window.innerHeight;
-          // progress 0..1 saat wrap masuk & keluar viewport
-          var total = rect.height + vh;
-          var entered = vh - rect.top;
-          var prog = Math.max(0, Math.min(1, entered / total));
-          // hanya reveal saat di journey, bukan sebelum
-          var len = spine.getTotalLength ? spine.getTotalLength() : 3000;
-          spine.style.strokeDashoffset = len * (1 - prog);
-          // branches gradual opacity based on card visibility (handled by IntersectionObserver, tapi spine tetap progress)
-        }catch(e){ /* ignore */ }
-        ticking=false;
-      });
-    }
-    window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', function(){ refresh(); onScroll(); }, {passive:true});
-    // card reveal fade+slide
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(ent){
-        if(ent.isIntersecting){
-          ent.target.classList.add('is-visible');
-          ent.target.classList.add('is-active');
-          // remove active from previous after delay keep subtle
-          setTimeout(function(){ ent.target.classList.remove('is-active'); }, 1800);
-        }
-      });
-    }, {threshold:0.18, rootMargin:'0px 0px -8% 0px'});
-    function observeCards(){ cards().forEach(function(c){ io.observe(c); }); }
-    observeCards();
-    // expose rerender observe
-    var oldRerender = window.ecoRerender;
-    window.ecoRerender = function(){ makeCards(); bindHover(); refresh(); observeCards(); onScroll(); };
-    // init
-    requestAnimationFrame(function(){ refresh(); onScroll(); });
-    setTimeout(function(){ refresh(); onScroll(); }, 120);
-    setTimeout(function(){ refresh(); onScroll(); }, 600);
-    if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ refresh(); onScroll(); }); ro.observe(wrap); }
-    window.addEventListener('load', function(){ refresh(); onScroll(); });
-  })();
-  // Funnel presisi: cabang nempel tepi kotak + lengkung halus organik (fix screenshot)
-  (function(){
-    var wrap = document.getElementById('funnelWrap');
-    var svg = document.getElementById('funnelSvg');
-    var trunk = document.getElementById('funnelTrunk');
-    var apex = document.getElementById('funnelApex');
-    var branches = [0,1,2,3,4].map(function(i){ return document.getElementById('funnelBranch'+i); });
-    var cards = [0,1,2,3,4].map(function(i){ return document.querySelector('.funnel-c'+(i+1)); });
-    var base = document.querySelector('.funnel-base');
-    var epG = document.getElementById('funnelEndpoints');
-    if(!wrap || !svg || !trunk) return;
-    function smoothBranch(sx, sy, tx, ty, isLeft){
-      var dx = tx - sx, dy = ty - sy;
-      var adx = Math.abs(dx);
-      // lengkung lebih dalam & organik control jauh dari garis lurus
-      var bulge = Math.min(0.42, 28 / Math.max(80, adx)) + 0.18;
-      // kiri: tarik keluar lebih jauh, kanan: sedikit lebih pendek biar simetris
-      var c1x = sx + dx * (isLeft ? (0.62 + bulge*0.12) : (0.34 - bulge*0.08));
-      var c1y = sy + dy * 0.34 + (isLeft ? -8 : 8);
-      var c2x = tx - dx * (isLeft ? 0.38 : 0.42);
-      var c2y = ty - dy * 0.26;
-      // tambah sag vertikal biar tidak kaku
-      if(adx > 180) c1y += 14;
-      return 'M'+sx+' '+sy+' C '+c1x+' '+c1y+', '+c2x+' '+c2y+', '+tx+' '+ty;
-    }
-    function refresh(){
-      try{
-        var wr = wrap.getBoundingClientRect();
-        var w = wrap.offsetWidth, h = wrap.offsetHeight;
-        if(!w || !h) return;
-        svg.setAttribute('viewBox','0 0 '+w+' '+h);
-        // trunk: apex center → base top center
-        var apexR = apex ? apex.getBoundingClientRect() : null;
-        // apex svg coords sudah 500,14 di viewBox 1000 → konversi ke pixel
-        var sx = w/2, sy = 14 * h/620;
-        if(apexR){ sx = apexR.left + apexR.width/2 - wr.left; sy = apexR.top + apexR.height/2 - wr.top; }
-        var br = base.getBoundingClientRect();
-        var bx = br.left + br.width/2 - wr.left;
-        var by = br.top - wr.top; // top edge base
-        trunk.setAttribute('d','M'+sx+' '+sy+' L '+bx+' '+by);
-        if(apex){ apex.setAttribute('cx', sx); apex.setAttribute('cy', sy); }
-        // siapkan endpoint dots
-        if(epG) epG.innerHTML='';
-        cards.forEach(function(card, i){
-          if(!card || !branches[i]) return;
-          var r = card.getBoundingClientRect();
-          var isLeft = r.left + r.width/2 < wr.left + w/2;
-          // titik nempel: tepat di tepi border (1px gap, akurat)
-          var tx = isLeft ? (r.left + r.width - wr.left + 1.2) : (r.left - wr.left - 1.2);
-          var ty = r.top + r.height*0.5 - wr.top;
-          // start di trunk beri jarak biar cabang tidak bertumpuk di apex
-          var syy = ty - 56;
-          if(syy < sy + 16) syy = sy + 16;
-          // untuk variasi vertikal biar tidak semua dari titik sama ambil y di trunk = syy, x = sx
-          var d = smoothBranch(sx, syy, tx, ty, isLeft);
-          branches[i].setAttribute('d', d);
-          // endpoint dot kecil 4px tepat di tepi kotak
-          if(epG){
-            var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-            c.setAttribute('cx', tx); c.setAttribute('cy', ty); c.setAttribute('r','4.2');
-            c.setAttribute('fill','#e6f0ff'); c.setAttribute('stroke','rgba(74,124,255,0.52)'); c.setAttribute('stroke-width','5');
-            c.setAttribute('class','funnel-endpoint'); c.style.opacity='0.96';
-            var ci=document.createElementNS('http://www.w3.org/2000/svg','circle');
-            ci.setAttribute('cx', tx); ci.setAttribute('cy', ty); ci.setAttribute('r','1.4'); ci.setAttribute('fill','#fff');
-            epG.appendChild(c); epG.appendChild(ci);
-          }
-        });
-      }catch(e){ /* ignore */ }
-    }
-    // hover sync
-    var allCards = document.querySelectorAll('.funnel-card, .funnel-base');
-    allCards.forEach(function(card, i){
-      var target = i < branches.length ? branches[i] : trunk;
-      card.addEventListener('mouseenter', function(){ if(target){ target.style.filter='url(#funnelGlow) brightness(1.22)'; target.style.strokeWidth='2.6'; } card.style.borderColor='#6b8cff'; });
-      card.addEventListener('mouseleave', function(){ if(target){ target.style.filter='url(#funnelGlow)'; target.style.strokeWidth=''; } card.style.borderColor=''; });
-      card.addEventListener('focus', function(){ if(target) target.style.filter='url(#funnelGlow) brightness(1.22)'; });
-      card.addEventListener('blur', function(){ if(target) target.style.filter='url(#funnelGlow)'; });
-    });
-    var t; function deb(){ clearTimeout(t); t=setTimeout(refresh,12); }
-    if(window.ResizeObserver){ var ro=new ResizeObserver(deb); ro.observe(wrap); }
-    window.addEventListener('resize', deb, {passive:true});
-    window.addEventListener('load', refresh);
-    requestAnimationFrame(function(){ requestAnimationFrame(refresh); });
-    setTimeout(refresh,80); setTimeout(refresh,400);
-  })();
-  // removed: galaxyParticles, comets, parallax for performance (keep slide animation only)
-  </script>
+  <script>try{window.emailjs&&emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"})}catch(i){}</script>
+  <script src="assets/js/i18n.js?v=186"></script>
+  <script src="assets/js/eco-funnel.js?v=186"></script>
   <script src="assets/js/jszip.min.js?v=169"></script>
   <script src="assets/js/filesaver.min.js?v=169"></script>
-<script src="assets/js/thumbnail.js?v=176"></script>
-<script src="assets/js/merge.js?v=11"></script>
-<script src="assets/js/app.js?v=181"></script>
-  <script>
-  // Tools lock ringan - samakan konsep QM: saat proses gabisa upload/atur lagi, tanpa observer berat
-  (function(){
-    var TOOL_RUNS = ['toolMp3Run','toolConvertRun','toolCutRun','toolRescaleRun','toolMuteRun','processBtn'];
-    var PROGS = ['toolMp3Progress','toolConvertProgress','toolCutProgress','toolRescaleProgress','toolMuteProgress','progressWrap'];
-    function setLock(on){
-      document.body.classList.toggle('is-tool-processing', !!on);
-      // disable fisik file & select biar tidak ke-klik
-      ['fileInput','toolMp3File','toolConvertFile','toolCutFile','toolRescaleFile','toolMuteFile','toolConvertFormat','toolRescaleSelect'].forEach(function(id){
-        var el=document.getElementById(id);
-        if(!el) return;
-        el.disabled = !!on;
-      });
-    }
-    // saat klik Run -> lock
-    TOOL_RUNS.forEach(function(id){
-      var btn=document.getElementById(id);
-      if(btn) btn.addEventListener('click', function(){ if(!btn.disabled) setTimeout(function(){ setLock(true); }, 50); });
-    });
-    // unlock saat progress hidden lagi (selesai / gagal)
-    PROGS.forEach(function(id){
-      var el=document.getElementById(id);
-      if(!el) return;
-      var mo=new MutationObserver(function(){ if(el.hidden || el.style.display==='none' || el.offsetParent===null) setLock(false); else setLock(true); });
-      try{ mo.observe(el, {attributes:true, attributeFilter:['hidden','style','class']}); }catch(e){ /* ignore */ }
-    });
-    // fallback: kalau ada .is-processing hilang -> unlock
-    var mo2=new MutationObserver(function(){
-      var any = document.querySelector('.tool-card-new.is-processing') || PROGS.some(function(id){ var e=document.getElementById(id); return e && !e.hidden && e.offsetParent!==null; });
-      if(!any) setLock(false);
-    });
-    try{ mo2.observe(document.body, {childList:true, subtree:false, attributes:true, attributeFilter:['class']}); }catch(e){ /* ignore */ }
-  })();
-  </script>
-  <script>
-  // Hard Refresh button di atas samping judul Alat
-  (function(){
-    var btn=document.getElementById('hardRefreshBtn');
-    if(!btn) return;
-    btn.addEventListener('click', async function(){
-      if(btn.classList.contains('is-spinning')) return;
-      btn.classList.add('is-spinning');
-      btn.setAttribute('disabled','');
-      try{
-        // simpan bahasa agar tidak reset setelah clear
-        var savedLang=null; try{ savedLang=localStorage.getItem('lang'); }catch(e){}
-        // clear caches API
-        if('caches' in window){
-          try{
-            var keys=await caches.keys();
-            await Promise.all(keys.map(function(k){ return caches.delete(k); }));
-          }catch(e){ /* ignore */ }
-        }
-        // unregister service workers
-        if(navigator.serviceWorker && navigator.serviceWorker.getRegistrations){
-          try{
-            var regs=await navigator.serviceWorker.getRegistrations();
-            await Promise.all(regs.map(function(r){ return r.unregister(); }));
-          }catch(e){ /* ignore */ }
-        }
-        try{ sessionStorage.clear(); }catch(e){}
-        try{
-          // clear localStorage tapi kembalikan lang
-          localStorage.clear();
-          if(savedLang) localStorage.setItem('lang', savedLang);
-        }catch(e){}
-      }catch(e){ /* ignore */ }
-      // hard reload dengan cache-bust
-      var baseUrl=location.pathname;
-      var bust='hard='+Date.now();
-      var hash=location.hash||'';
-      // tampilkan feedback singkat sebelum reload
-      setTimeout(function(){
-        try{ location.replace(baseUrl + '?' + bust + hash); }catch(e){ location.reload(); }
-        setTimeout(function(){ try{ location.reload(true); }catch(e){ location.reload(); } }, 120);
-      }, 220);
-    });
-  })();
-  </script>
+<script src="assets/js/thumbnail.js?v=177"></script>
+<script src="assets/js/merge.js?v=12"></script>
+<script src="assets/js/app.js?v=186"></script>
+  <script src="assets/js/tool-lock.js?v=186"></script>
+  
 </body>
 </html>
 

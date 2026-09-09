@@ -23,7 +23,7 @@ console.log("IDS 1x: " + (bad.length ? "FAIL " + bad.join(",") : "OK"));
 console.log("card: " + (html.includes('data-tool="merge"') ? "OK" : "FAIL"));
 console.log("i18n ID: " + (html.includes('toolMergeBtn: "Gabung Video"') ? "OK" : "FAIL"));
 console.log("i18n EN: " + (html.includes('toolMergeBtn: "Merge Videos"') ? "OK" : "FAIL"));
-console.log("script tag: " + (html.includes("assets/js/merge.js?v=11") ? "OK" : "FAIL"));
+console.log("script tag: " + (html.includes("assets/js/merge.js?v=12") ? "OK" : "FAIL"));
 
 // 3. eval merge.js + app.js dalam jsdom
 const dom = new JSDOM(html, {

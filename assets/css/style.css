@@ -1,18 +1,18 @@
-/* VelardTools Premium Design System v5
-   UI/UX Pro Max: Soft UI Evolution + Glassmorphism (dark)
-   21st.dev patterns: bento cards, pill nav, mesh aurora, backdrop-blur
-   Stack: Plus Jakarta Sans (display) + Inter (body) + JetBrains Mono (code)
-   Tokens: primitive → semantic → component (3 layers)
-================================================================== */
 
-/* human tokens - handcrafted */
+
+
+
+
+
+
+
 :root{--human-bg:#0b0e14;--human-surface:rgba(255,255,255,0.06);--human-text:#eceef2;--human-accent:#f0abfc;--human-radius:16px;--human-gap:12px;--human-blur:16px;--human-shadow:0 8px 32px rgba(0,0,0,0.28);--human-font:"Plus Jakarta Sans";--human-mono:"JetBrains Mono";}
-/* ---------- 1. Design Tokens HSL theming (snippet) + VelardTokens ---------- */
+
 :root {
     --primary-h: 0;
     --primary-s: 0%;
     --primary-l: 88%;
-    /* Monokrom hitam-putih editorial Swiss, 0% saturasi (tidak AI) */
+    
     --md-sys-color-primary: hsl(0, 0%, 92%);
     --md-sys-color-on-primary: hsl(0, 0%, 7%);
     --md-sys-color-primary-container: hsl(0, 0%, 16%);
@@ -25,7 +25,7 @@
     --md-sys-color-on-tertiary: hsl(0, 0%, 10%);
     --md-sys-color-tertiary-container: hsl(0, 0%, 16%);
     --md-sys-color-on-tertiary-container: hsl(0, 0%, 88%);
-    /* Background LOCKED keep #06080a, tidak ikut primary */
+    
     --md-sys-color-surface: hsl(0, 0%, 7%);
     --md-sys-color-surface-dim: hsl(0, 0%, 5%);
     --md-sys-color-surface-bright: hsl(0, 0%, 11%);
@@ -60,7 +60,7 @@
     --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
     --drawer-width: 270px;
     --rail-width: 76px;
-  /* Velard aliases hero VELARD tetap #e0f28c lime, UI monokrom */
+  
   --lime: #e0f28c;
   --lime-strong: hsl(0, 0%, 82%);
   --lime-soft: hsla(0, 0%, 92%, 0.10);
@@ -72,8 +72,8 @@
   --surface-3: var(--md-sys-color-surface-container-high);
   --surface-4: var(--md-sys-color-surface-container-highest);
   --text: var(--md-sys-color-on-surface);
-  --text-2: hsl(var(--primary-h), 12%, 82%);
-  --text-3: var(--md-sys-color-on-surface-variant);
+  --text-2: hsl(var(--primary-h), 12%, 88%);
+  --text-3: hsl(var(--primary-h), 10%, 84%);
   --text-4: hsl(var(--primary-h), 8%, 56%);
   --line: var(--md-sys-color-outline-variant);
   --line-strong: var(--md-sys-color-outline);
@@ -99,7 +99,7 @@
   --blur: 16px;
   --ease-out: cubic-bezier(0.16,1,0.3,1);
   --dur-1: 180ms; --dur-2: 260ms; --dur-3: 420ms;
-  /* Cube depth & easings (snippet) */
+  
   --cube-depth: 420px;
   --cube-rot-y: 0deg;
   --ease-spring: cubic-bezier(0.34, 1.24, 0.5, 1);
@@ -154,7 +154,7 @@
 .light-theme .floating-nav-item:hover { color: var(--md-sys-color-on-surface); }
 .dark-theme, :root.dark-theme { --md-sys-color-primary: hsl(var(--primary-h), 65%, 74%); --md-sys-color-on-primary: hsl(var(--primary-h), 65%, 12%); }
 
-/* ---------- 2. Reset & Base ---------- */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; scrollbar-width: none !important; -ms-overflow-style: none !important; }
 [hidden] { display: none !important; }
 *::-webkit-scrollbar, *::-webkit-scrollbar-thumb, *::-webkit-scrollbar-track { display: none !important; width: 0 !important; height: 0 !important; background: transparent !important; }
@@ -182,10 +182,10 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
-/* keterbacaan teks terang di atas foto background — tanpa menyentuh bg */
+
 .app-main, .tool-modal-card{ text-shadow:0 1px 8px rgba(0,0,0,.6); }
 
-/* ---------- 3. Background System (INIYA.jpg static, performance keep slide only) ---------- */
+
 .bg-static{
   position:fixed; inset:0;
   background: url('../images/bg/background-1.jpg') center center / cover no-repeat fixed;
@@ -201,7 +201,7 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
 .streak-bg-old {
   position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh;
   background: #04060a;
-  /* 10x premium nebula — 6 lapisan aurora + depth */
+  
   background-image:
     radial-gradient(ellipse 1400px 900px at 18% -8%, rgba(96,165,250,0.16) 0%, rgba(96,165,250,0.08) 28%, transparent 58%),
     radial-gradient(ellipse 1100px 780px at 88% 12%, rgba(168,85,247,0.13) 0%, rgba(168,85,247,0.06) 32%, transparent 62%),
@@ -270,7 +270,7 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   filter:blur(20px); opacity:0.95; pointer-events:none; z-index:2;
   animation:glowPulse 5.6s ease-in-out infinite 0.8s;
 }
-/* Cinematic image animations bumi breathe + blackhole drift */
+
 @keyframes bumiBreathe{
   0%,100%{ transform:translateX(-50%) scale(1) translateY(0); filter:brightness(1.18) saturate(1.22) contrast(1.08); }
   50%{ transform:translateX(-50%) scale(1.015) translateY(-5px); filter:brightness(1.22) saturate(1.26) contrast(1.10); }
@@ -297,7 +297,7 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   .streak-bg .blackhole-glow{ right:-6%; bottom:22%; }
 }
 .comets{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:2;}
-/* PC/laptop only — tablet/mobile/ipad gada komet biar tidak lag & tidak ganggu */
+
 @media(max-width:1024px){
   .comets, .comet, .edge-flashes{ display:none !important; }
 }
@@ -362,7 +362,7 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   box-shadow:0 0 14px rgba(255,255,255,0.96), 0 0 26px rgba(110,160,255,0.88), 0 0 42px rgba(34,211,238,0.56);
   opacity:0.96;
 }
-/* kilatan di KANAN semua di ujung lintasan komet turun */
+
 .ef-tl{ right:-180px; top:6%; left:auto; }
 .ef-tr{ right:-180px; top:18%; left:auto; }
 .ef-bl{ right:-180px; top:32%; left:auto; bottom:auto; }
@@ -387,7 +387,7 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   .ef-lm{ right:-130px; top:68%; left:auto; } .ef-rm{ right:-130px; top:82%; left:auto; }
 }
 @media(prefers-reduced-motion:reduce){ .edge-flash{ animation:none !important; opacity:0.22; } }
-/* partikel debu realistic floating dust */
+
 .galaxy-particles{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1;}
 .galaxy-particles .gp{
   position:absolute; border-radius:50%; background:#cdd6f4;
@@ -434,7 +434,7 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
   .streak-bg .blackhole-glow{ width:96vw; right:-8%; bottom:-2%; left:auto; top:auto; }
 }
 
-/* ---------- 4. Layout ---------- */
+
 .app-container {
   display: flex; flex: 1; min-height: 0; width: 100%; max-width: 920px; margin: 0 auto;
   gap: 16px; align-items: flex-start; justify-content: center; padding: 20px 16px 118px;
@@ -447,13 +447,13 @@ button { font-family: inherit; cursor: var(--velard-cursor, pointer); border: no
 html, body{ max-width:100% !important; overflow-x:hidden !important; }
 .dash-panel { display: flex; flex-direction: column; gap: 18px; width:100%; }
 .dash-panel[hidden] { display: none !important; }
-/* Tablet/iPad — FIX: hapus hack 100vw, ganti fluid centered */
+
 @media(min-width:641px) and (max-width:1024px){
   .slide-container.cube-viewport{ width:100% !important; max-width:100% !important; margin:0 auto !important; left:auto !important; right:auto !important; }
   .slide-panel.cube-face{ width:100% !important; max-width:100% !important; flex:0 0 100% !important; }
   .slide-track.cube-3d-box{ width:100% !important; }
 }
-/* Scroll system: HOME bebas scroll panjang, menu lain kunci / sedikit scroll (premium centered) */
+
 html{ overscroll-behavior:auto; }
 body{ overflow-y:auto; overflow-x:hidden; height:auto; overscroll-behavior:auto; }
 .app-container{ height:auto !important; min-height:0 !important; overflow:visible !important; }
@@ -461,7 +461,7 @@ body{ overflow-y:auto; overflow-x:hidden; height:auto; overscroll-behavior:auto;
 .slide-container.cube-viewport{ overflow:hidden !important; min-height:0 !important; height:auto !important; max-height:none !important; }
 .slide-track.cube-3d-box{ height:auto !important; }
 .slide-panel.cube-face{ overflow:visible !important; height:auto !important; max-height:none !important; padding:0 16px 32px; }
-/* ——— Non-HOME: 1 full layar visual, aman dari nav tengah-bawah, scroll natural sampai bawah keliatan ——— */
+
 body:not([data-view="beranda"]){
   overflow-y:auto !important;
   overflow-x:hidden !important;
@@ -514,7 +514,7 @@ body:not([data-view="beranda"]) .slide-panel.cube-face{
   gap:12px !important;
   box-sizing:border-box !important;
 }
-/* Atur ukuran agar muat 1 layar penuh tanpa scroll berlebihan — lebih compact untuk muat */
+
 body:not([data-view="beranda"]) .panel-head-large{ margin-bottom:2px !important; padding-bottom:6px !important; }
 body:not([data-view="beranda"]) .panel-head-large .panel-title-large{ font-size: clamp(1.35rem, 3.6vw, 1.75rem) !important; line-height:1.05 !important; }
 body:not([data-view="beranda"]) .upload-card{ padding:12px !important; gap:8px !important; max-width:560px !important; }
@@ -555,7 +555,7 @@ body:not([data-view="beranda"]) .about-contact{ padding-top:10px !important; mar
   #panel-tentang .about-card{ padding-bottom: 16px !important; }
   #panel-tentang .about-contact{ padding-bottom: 20px !important; margin-bottom: 16px !important; display:flex !important; }
 }
-/* Anti-flash MY VIDEOS: hanya tampil saat beranda aktif */
+
 #panel-beranda:not(.active-panel) .tiktok-section{ display:none !important; opacity:0 !important; visibility:hidden !important; pointer-events:none !important; }
 .slide-container.cube-viewport:not(.is-ready){ opacity:1; }
 .panel-head,
@@ -567,7 +567,7 @@ body:not([data-view="beranda"]) .about-contact{ padding-top:10px !important; mar
   border-bottom: none;
 }
 
-/* Top header (pill ID/EN) 21st.dev glass pill */
+
 .top-header {
   position: fixed; top: 12px; right: 12px; z-index: 50;
   display: flex; align-items: center; justify-content: flex-end;
@@ -588,12 +588,12 @@ body:not([data-view="beranda"]) .about-contact{ padding-top:10px !important; mar
 .lang-btn:hover { color: var(--text); }
 .lang-btn.active { background: linear-gradient(135deg, #f2f4f6 0%, #dfe6ec 100%); color: #0b0e12; font-weight: 800; box-shadow: 0 2px 10px rgba(255,255,255,0.18); }
 
-/* ---------- 5. Hero Premium stacked kinetic ---------- */
+
 .kinetic-hero {
   display: flex; flex-direction: column; gap: 14px;
   padding: 28px 0 10px; position: relative;
 }
-/* Hard-refresh fix: Beranda hero — desktop 1 layar, mobile compact agar tidak memenuhi layar */
+
 #panel-beranda .kinetic-hero{
   min-height: calc(100dvh - 160px);
   justify-content: center;
@@ -607,7 +607,7 @@ body[data-view="beranda"] .slide-container.cube-viewport{
 body[data-view="beranda"] .slide-panel.cube-face{
   overflow: visible !important;
 }
-/* Batasan scroll: ujung UI = ujung scroll */
+
 .tiktok-section{
   padding-bottom: 40px !important;
   scroll-margin-bottom: 120px;
@@ -682,14 +682,14 @@ body[data-view="beranda"] .slide-panel.cube-face{
 #panel-beranda .hero-action-row .btn-main, #panel-beranda .hero-action-row .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; line-height: 1; }
 #panel-beranda .hero-action-row .material-symbols-rounded { display: inline-flex; align-items: center; justify-content: center; line-height: 1; font-size: 18px; flex-shrink: 0; }
 
-/* Staggered entrance (premium) */
+
 @keyframes fadeInUp { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)} }
 .kinetic-hero .hero-badge { animation: fadeInUp 0.6s var(--ease-out) 0.08s both; }
 .kinetic-hero .kinetic-stacked-title { animation: fadeInUp 0.6s var(--ease-out) 0.16s both; }
 .kinetic-hero .hero-bio-text { animation: fadeInUp 0.6s var(--ease-out) 0.26s both; }
 .kinetic-hero .hero-action-row { animation: fadeInUp 0.6s var(--ease-out) 0.36s both; }
 
-/* MY VIDEOS — animasi muncul saat scroll kebawah (fade + stagger) */
+
 .tiktok-section{
   width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
   margin-top:140px;
@@ -753,7 +753,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 @media(max-width:640px){ .tiktok-section{ padding:20px 10px 10px; gap:14px; } .tiktok-grid{ grid-template-columns:repeat(2,1fr); gap:8px; } .tiktok-title{ font-size:1.9rem; } .tiktok-like{ padding:6px 3px; font-size:9.5px; gap:4px; } .tiktok-stat{ gap:2px; } .tiktok-stat .material-symbols-rounded{ font-size:11px; } .tiktok-thumb{ aspect-ratio:1/1; } }
 @media(prefers-reduced-motion:reduce){ .tiktok-card{ transition:none; } }
 
-/* ---------- 6. Panels & Cards (glass + soft UI) ---------- */
+
 .panel-head { position: relative; padding-bottom: 10px; margin-bottom: -2px; }
 .panel-head::after {
   content: ''; position: absolute; bottom: 0; left: 0; width: 28px; height: 2px;
@@ -762,7 +762,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .panel-head h1 { font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 750; color: var(--text-3); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .panel-by { font-style: normal; font-size: 12.5px; font-weight: 600; color: var(--lime); letter-spacing: 0; text-transform: none; }
 .head-sub { font-size: 12.5px; font-weight: 500; color: var(--text-3); margin-top: 4px; }
-/* Large titles tanpa ikon header ikon bawah tetap sesuai fungsi */
+
 .panel-head-large { display: block; padding-bottom: 14px; margin-bottom: 2px; border-bottom: none; }
 .panel-head-large::after { display: none; }
 .panel-head-large .panel-title-large { font-size: clamp(1.8rem, 5.5vw, 2.4rem); font-weight: 900; letter-spacing: -0.035em; line-height: 1.05; color: #ffffff !important; text-transform: uppercase; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; text-shadow: 0 0 14px rgba(255,255,255,0.55), 0 0 28px rgba(255,255,255,0.28); filter: drop-shadow(0 0 12px rgba(255,255,255,0.32)); opacity: 1; }
@@ -795,7 +795,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
   .hard-refresh-btn.hard-refresh-icon{ width:34px; height:34px; min-width:34px; min-height:34px; border-radius:9px; }
   .hard-refresh-btn.hard-refresh-icon .material-symbols-rounded{ font-size:17px; }
 }
-/* hidden fix log & progress harus hidden default */
+
 .progress-wrap[hidden], .log-head[hidden], .log-area[hidden] { display: none !important; }
 
 .card {
@@ -815,7 +815,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .card:hover { border-color: rgba(255,255,255,0.12); box-shadow: var(--shadow-lift), inset 0 1px 0 rgba(255,255,255,0.06); }
 .card:hover::before { opacity: 1; }
 
-/* Built for Excellence PREMIUM WHITE TREE v6 smooth curves, white editorial, 1 layar */
+
 .built-excellence{margin-top:22px;padding:28px 0 24px;border:none;border-radius:0;background:transparent;overflow:visible;overflow-x:clip;position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);min-height:96vh;min-height:96dvh;display:flex;flex-direction:column;align-items:center;gap:10px;}
 .built-kicker{display:none !important;}
 .built-title{font-size:clamp(22px,4.8vw,30px);font-weight:900;letter-spacing:-0.03em;line-height:1.08;text-align:center;color:#ffffff;margin-bottom:4px;text-shadow:0 1px 18px rgba(255,255,255,0.14),0 0 32px rgba(255,255,255,0.08);position:relative;padding-bottom:14px;}
@@ -838,14 +838,14 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .ex-card i{display:block;width:28px;height:2px;border-radius:999px;margin-bottom:7px;opacity:0.95;background:linear-gradient(90deg,rgba(255,255,255,0.95),rgba(255,255,255,0.22));box-shadow:0 0 8px rgba(255,255,255,0.28);}
 .ex-card p{font-size:11.2px;line-height:1.62;color:rgba(255,255,255,0.72);font-weight:500;}
 .ex-card .material-symbols-rounded{font-size:19px;}
-/* stagger reveal premium entrance */
+
 @keyframes exCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .ex-card{animation:exCardIn 560ms var(--ease-out) both;}
 .ex-tl{animation-delay:80ms}.ex-tr{animation-delay:160ms}.ex-bl{animation-delay:240ms}.ex-br{animation-delay:320ms}
 @media(max-width:860px){.excellence-tree{width:96vw;max-width:860px;height:clamp(520px,74vh,680px)}.ex-card{width:210px;padding:13px}}
 @media(max-width:640px){.built-excellence{padding:20px 10px 18px;min-height:92vh;min-height:92dvh;gap:8px}.built-title{font-size:clamp(18px,5.6vw,22px);padding-bottom:12px}.excellence-tree{height:84vh;min-height:620px;width:98vw}.ex-card{width:150px;padding:11px 10px;gap:9px;border-radius:12px}.ex-icon{width:34px;height:34px}.ex-card h4{font-size:11.2px}.ex-card p{font-size:10px;line-height:1.55}.ex-card i{width:22px}.ex-tl{left:1.2%;top:15%}.ex-tr{right:1.2%;top:15%}.ex-bl{left:1.2%;bottom:11%}.ex-br{right:1.2%;bottom:11%}}
 
-/* ── Neural Network 6-card futuristic AI ecosystem ── */
+
 :root{--nn-cyan:#22d3ee;--nn-blue:#3b82f6;--nn-purple:#a78bfa;--nn-glow:0 0 22px rgba(59,130,246,0.28);--nn-card-h:148px;--nn-gap:16px;}
 .neural-wrap{position:relative;width:min(1180px,96vw);margin:10px auto 0;display:flex;flex-direction:column;align-items:center;gap:0;padding:18px 0 8px;overflow:visible;}
 .nn-central{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:3;margin-bottom:6px;}
@@ -870,7 +870,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 @media(max-width:380px){.nn-cards{gap:10px} .nn-card{height:112px}}
 @media(prefers-reduced-motion:reduce){.nn-pulse,.nn-lights circle{animation:none !important} .nn-card{transition:none}}
 
-/* ── Eco Journey LONG vertical AI ecosystem (scroll storytelling) ── */
+
 .eco-journey{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;padding:12px 0 24px;overflow:visible;}
 .eco-top{position:relative;display:flex;flex-direction:column;align-items:center;gap:0;z-index:3;margin:8px 0 0;}
 .eco-top-node{position:relative;width:18px;height:18px;display:grid;place-items:center;}
@@ -911,7 +911,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 @media(max-width:380px){.eco-cards{gap:52px} .eco-card{width:86%;min-height:122px;height:122px}}
 @media(prefers-reduced-motion:reduce){.eco-top-pulse,.eco-end-pulse{animation:none !important} .eco-card{transition:none}}
 
-/* ── Funnel Tree sesuai sketsa (apex → cabang melengkung halus → kotak + base) ── */
+
 .funnel-tree{position:relative;width:min(1120px,96vw);margin:16px auto 0;padding:10px 0 18px;overflow:visible;}
 .funnel-wrap{position:relative;width:100%;height:620px;overflow:visible;background:transparent;}
 .funnel-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1;}
@@ -919,7 +919,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .funnel-card{position:absolute;width:96px;height:96px;border-radius:10px;background:linear-gradient(180deg,rgba(22,26,34,0.92) 0%,rgba(14,18,28,0.96) 100%);border:1.6px solid #4a7cff;border-top:1.6px solid #5b8cff;box-shadow:0 0 0 1px rgba(74,124,255,0.18),0 10px 28px rgba(0,0,0,0.38),inset 0 1px 0 rgba(255,255,255,0.06);backdrop-filter:blur(10px) saturate(1.12);-webkit-backdrop-filter:blur(10px) saturate(1.12);transition:transform 260ms var(--ease-out),box-shadow 260ms ease,border-color 200ms ease;z-index:2;cursor: var(--velard-cursor, pointer);}
 .funnel-card:hover,.funnel-card:focus-visible{transform:translateY(-3px) scale(1.02);box-shadow:0 0 0 1px rgba(74,124,255,0.32),0 16px 32px rgba(0,0,0,0.44),0 0 18px rgba(74,124,255,0.22);outline:none;}
 .funnel-endpoint{pointer-events:none;}
-/* posisi meniru sketsa: kiri atas, kanan tengah-atas, kiri tengah, kanan tengah-bawah, kiri bawah */
+
 .funnel-c1{left:12.2%;top:13.5%;width:92px;height:92px;}
 .funnel-c2{right:13.2%;top:22.5%;width:96px;height:104px;}
 .funnel-c3{left:18.8%;top:36.2%;width:88px;height:88px;}
@@ -940,7 +940,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 }
 @media(max-width:380px){.funnel-card{width:68px;height:68px} .funnel-base{width:78%}}
 
-/* ===== Quality Method — Velard glass (beda dari sumber, logika 100% sama) ===== */
+
 .qm-card{
   width:100%; max-width:560px;
   background: rgba(255,255,255,0.07);
@@ -981,7 +981,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .qm-close:hover{ background: rgba(255,255,255,0.08); color:var(--text); }
 .qm-close .material-symbols-rounded{ font-size:18px; }
 
-/* Drop zone — Velard dashed glass transparent */
+
 .qm-drop{
   border:1.5px dashed rgba(255,255,255,0.12); border-radius: var(--md-radius);
   background: rgba(255,255,255,0.05); padding:22px 14px; text-align:center; cursor: var(--velard-cursor, pointer);
@@ -1062,7 +1062,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .qm-info-desc::before{ content:'ⓘ'; color:var(--md-sys-color-primary); font-weight:800; flex-shrink:0; margin-top:1px; }
 .qm-info-desc:empty{ display:none; }
 
-/* keep legacy selectors for JS compat */
+
 .upload-card{ display:none !important; }
 .upload-area{ border-color: rgba(224,242,140,0.22); }
 .file-info{ display:none !important; }
@@ -1108,7 +1108,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 }
 .tiktok-rec { color: #fff; font-weight: 750; }
 
-/* Process button premium pill */
+
 .process-btn {
   display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px;
   border-radius: var(--radius-pill); background: var(--text); color: var(--ink);
@@ -1126,7 +1126,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .process-btn:not(:disabled):active { transform: translateY(0) scale(0.99); }
 .process-btn:disabled { opacity: 0.42; cursor: not-allowed; }
 
-/* Progress + Log */
+
 .progress-wrap { display: flex; align-items: center; gap: 12px; }
 .progress-track { flex: 1; height: 7px; background: var(--surface-3); border-radius: var(--radius-pill); overflow: hidden; border: 1px solid rgba(255,255,255,0.04); }
 .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--md-sys-color-primary), #dfe4e9); border-radius: var(--radius-pill); transition: width 200ms ease; }
@@ -1151,7 +1151,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 .log-line { color: var(--text); white-space: pre-wrap; word-break: break-word; }
 .log-time { color: var(--text-3); margin-right: 8px; user-select: none; }
 
-/* ---------- 7. Tools Grid Bento 21st.dev — FIX: 1 kolom mobile, 2 kolom hanya desktop agar kartu tidak kecil ---------- */
+
 .tools-grid-new { display: grid; grid-template-columns: 1fr; gap: 14px; }
 @media(min-width:1024px){ .tools-grid-new{ grid-template-columns: repeat(2, 1fr); } }
 .tool-card-new {
@@ -1178,7 +1178,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
   display: grid; place-items: center; flex-shrink: 0; color: var(--md-sys-color-primary); transition: all 220ms ease;
 }
 .tool-card-new:hover .tool-icon-wrap { background: hsla(0, 0%, 92%, 0.12); border-color: hsla(0, 0%, 92%, 0.2); transform: scale(1.04); }
-/* klik tools ikut warna Quality Method (monokrom 0 0% 92%) untuk semua tools */
+
 .tool-card-new:active .tool-icon-wrap,
 .tool-card-new.is-processing .tool-icon-wrap,
 .tool-modal-hero .tool-icon-wrap {
@@ -1204,7 +1204,7 @@ body[data-view="beranda"] .slide-panel.cube-face{
 
 
 
-/* Tutorial scroll fix PC - biar bisa scroll dimanapun, tidak ketahan */
+
 #panel-tutorial{ scroll-behavior:auto; overscroll-behavior:auto !important; overflow:visible !important; -webkit-overflow-scrolling:auto; pointer-events:auto !important; }
 #panel-tutorial *{ scroll-behavior:auto !important; overscroll-behavior:auto !important; pointer-events:auto !important; }
 body[data-view="tutorial"]{ overflow-y:auto !important; }
@@ -1213,7 +1213,7 @@ body[data-view="tutorial"] .app-main,
 body[data-view="tutorial"] .slide-container.cube-viewport,
 body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 
-/* ---------- 8. Tutorial / Donate / About ---------- */
+
 .tutorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
 .tutorial-grid .tutorial-card { height: 100%; }
 @media (max-width: 860px) { .tutorial-grid { grid-template-columns: 1fr; } }
@@ -1235,7 +1235,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   grid-column: 1 / -1; margin-top: 2px;
   display:flex; align-items:center; gap:14px;
   padding:16px 18px; border: 1px dashed var(--line);
-  min-height:72px; /* lock tinggi biar ID/EN sama */
+  min-height:72px; 
   border-radius: var(--radius-l);
   background: rgba(255,255,255,0.02);
 }
@@ -1245,7 +1245,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 }
 .help-card-wide p{
   margin:0; line-height:1.5; font-size:13px;
-  min-height:20px; /* cegah loncat tinggi saat ganti bahasa */
+  min-height:20px; 
   display:block; width:100%;
 }
 @media (max-width: 860px) {
@@ -1332,7 +1332,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .handle { color: var(--md-sys-color-primary); font-weight: 600; text-decoration: none; transition: opacity 200ms; }
 .handle:hover { opacity: 0.82; text-decoration: underline; }
 
-/* ---------- 9. Floating Nav 21st.dev pill ---------- */
+
 .floating-nav-bar {
   display: inline-flex; position: fixed; bottom: max(44px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
   background: rgba(14,16,20,0.76); border: 1px solid rgba(255,255,255,0.08); border-top: 1px solid rgba(255,255,255,0.11);
@@ -1363,7 +1363,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .floating-nav-item:hover { color: #fff; }
 .floating-nav-item:active { transform: scale(0.96); }
 
-/* ---------- 10. Slide PREMIUM — FIX overflow peek kanan ---------- */
+
 .slide-container.cube-viewport {
   width: 100%;
   max-width: 100%;
@@ -1386,7 +1386,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   transform: translateX(0);
 }
 .slide-track.cube-3d-box.is-sliding {
-  /* is-sliding hook no blur per request */
+  
 }
 .slide-panel.cube-face {
   flex: 0 0 100%;
@@ -1421,7 +1421,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   will-change: transform, opacity;
 }
 
-/* stagger premium: konten masuk halus setelah track settle tanpa blur */
+
 .slide-panel.cube-face > * {
   opacity: 0;
   transform: translateY(14px) scale(0.98);
@@ -1436,7 +1436,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .slide-panel.cube-face.active-panel > *:nth-child(3){ transition-delay: 188ms; }
 .slide-panel.cube-face.active-panel > *:nth-child(4){ transition-delay: 246ms; }
 .slide-panel.cube-face.active-panel > *:nth-child(5){ transition-delay: 304ms; }
-/* Tools isi 5 kartu bounce smooth (transition, anti-blur, cepet pencet tetap smooth) */
+
 #panel-tools .tool-card-new{
   opacity:0;
   transform: translateY(16px) scale(0.96);
@@ -1455,7 +1455,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 #panel-tools.active-panel .tool-card-new:nth-child(6){ transition-delay: 370ms; }
 #panel-tools.active-panel .tool-card-new:nth-child(7){ transition-delay: 430ms; }
 #panel-tools.active-panel .tool-card-new:nth-child(8){ transition-delay: 490ms; }
-/* Quality Method di tools - header sticky dengan logo+teks di samping X (PC & mobile sama) */
+
 .tool-modal-card.is-quality { overscroll-behavior: contain; }
 .tool-modal-card.is-quality .tool-modal-hero { display: flex !important; }
 .tool-modal-card.is-quality #toolPanel-quality .qm-header{ display:none !important; }
@@ -1483,7 +1483,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 #toolPanel-quality .qm-progress-label { font-size: 9px !important; }
 #toolPanel-quality .qm-log-head { padding: 3px 0 !important; margin: 2px 0 !important; }
 #toolPanel-quality .qm-log-area { font-size: 8.5px !important; max-height: 48px !important; line-height: 1.25 !important; padding: 4px !important; }
-/* matikan stagger panel > * khusus Tools biar tidak double (grid sudah handle) */
+
 #panel-tools > *{ opacity:1 !important; transform:none !important; transition:none !important; }
 #panel-tools .tools-grid-new{ opacity:1 !important; transform:none !important; }
 @media(prefers-reduced-motion:reduce){
@@ -1497,26 +1497,26 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 @media(prefers-reduced-motion:reduce){
   .slide-track.cube-3d-box, .slide-panel.cube-face > *{ transition:none !important; }
 }
-/* fallback for old slide logic */
+
 .slide-container:not(.cube-viewport) { display: flex; flex-wrap: nowrap; width: 100%; overflow: hidden; position: relative; }
 .slide-track:not(.cube-3d-box) { display: flex; flex-wrap: nowrap; transition: transform 520ms cubic-bezier(0.32,0.72,0,1); will-change: transform; width: 100%; }
 @keyframes panelSlideIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
 .dot-indicator { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: var(--velard-cursor, pointer); transition: background 200ms ease, transform 200ms ease; }
 .dot-indicator.active { background: var(--md-sys-color-primary); transform: scale(1.2); box-shadow: 0 0 10px hsla(0, 0%, 92%, 0.4); }
 
-/* ---------- 11. Modals (glass) ---------- */
+
 .modal-backdrop, #help-modal {
   position: fixed; inset: 0; background: rgba(0,0,0,0.64); backdrop-filter: blur(8px) saturate(1.1); -webkit-backdrop-filter: blur(8px) saturate(1.1);
   display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100;
 }
 .modal-backdrop[hidden], #help-modal[hidden] { display: none; }
-/* Donate popup harus paling atas setelah proses Tools selesai */
+
 #donateModal{ z-index: 200 !important; }
 #donateModal .modal{ z-index: 201; }
-/* Merge limit modal must be above tool-modal (150/151) so not hidden behind gabung klip */
+
 #mergeLimitModal{ z-index: 300 !important; }
 #mergeLimitModal .modal{ z-index: 301 !important; }
-/* Quality detection (analysis) harus paling depan di atas tool-modal quality */
+
 #analysisModal{ z-index: 500 !important; }
 #analysisModal .modal{ z-index: 501 !important; }
 #tiktokConfirmModal{ z-index: 400 !important; }
@@ -1546,7 +1546,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .btn-cancel:hover, .btn-proceed:hover { opacity: 0.88; }
 .btn-cancel:active, .btn-proceed:active { transform: scale(0.98); }
 
-/* Help modal */
+
 .modal-card { width: 100%; max-width: 480px; background: rgba(18,20,26,0.42); border: 1px solid rgba(255,255,255,0.07); border-top: 1px solid rgba(255,255,255,0.09); border-radius: 18px; padding: 22px; box-shadow: 0 16px 40px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.05); backdrop-filter: blur(20px) saturate(1.25); -webkit-backdrop-filter: blur(20px) saturate(1.25); }
 .modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
 .modal-header h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.015em; }
@@ -1561,7 +1561,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .help-status { font-size: 12.5px; font-weight: 600; min-height: 18px; margin-top: 10px; color: var(--md-sys-color-primary); }
 .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; border: 0; padding: 0; margin: 0; overflow: hidden; }
 
-/* Tool modal compact browser-friendly (desain premium kecil) */
+
 .tool-modal-backdrop { position: fixed; inset: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.58); backdrop-filter: blur(8px); z-index: 150; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 260ms var(--ease-out), visibility 260ms ease; }
 .tool-modal-backdrop.active { opacity: 1; visibility: visible; pointer-events: auto; }
 .tool-modal-backdrop[hidden] { display: none !important; }
@@ -1596,15 +1596,15 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   .tool-modal-card.is-quality .tool-modal-hero .tool-desc-new{ font-size:10.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:38vw; }
 }
 .tool-modal-body::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
-/* FRAIGO FULL PLAK-KETIPLEK — thumbnail jadi 100% seperti fraigo.github.io */
+
 .tool-modal-card:has(#toolPanel-thumbnail:not([hidden])){ background:rgba(11,14,20,.78) !important; border:1px solid rgba(255,255,255,0.10) !important; backdrop-filter:blur(20px) saturate(1.25) !important; -webkit-backdrop-filter:blur(20px) saturate(1.25) !important; }
 .tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-header{ display:none !important; }
 .tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body{ padding:12px 12px 24px !important; gap:0 !important; background:transparent !important; overflow-y:auto !important; overflow-x:hidden !important; flex:1 1 auto !important; min-height:0 !important; max-height:100% !important; scrollbar-width:thin !important; scrollbar-color:rgba(255,255,255,.28) transparent !important; touch-action:pan-y !important; -webkit-overflow-scrolling:touch !important; }
 .tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body::-webkit-scrollbar{ display:block !important; width:8px !important; height:8px !important; }
 .tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.25) !important; border-radius:9999px !important; }
 .tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) .tool-modal-body::-webkit-scrollbar-track{ background:transparent !important; }
-.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) #toolPanel-thumbnail.fraigo-panel{ border-radius:0 !important; border:none !important; min-height:0 !important; }
-/* thumbnail mobile ikut bottom-sheet standar via JS (sama seperti menu lain) */
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) #toolPanel-thumbnail.vt-panel{ border-radius:0 !important; border:none !important; min-height:0 !important; }
+
 .tool-drop-zone { border: 1.5px dashed var(--line); border-radius: 10px; padding: 14px 12px; background: rgba(255,255,255,0.02); display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: var(--velard-cursor, pointer); text-align: center; transition: border-color 160ms ease, background 160ms ease; }
 .tool-drop-zone:hover, .tool-drop-zone.dragover { border-color: hsla(0, 0%, 92%, 0.42); background: hsla(0, 0%, 92%, 0.06); }
 .tool-drop-zone .material-symbols-rounded { font-size: 24px; color: var(--md-sys-color-primary); }
@@ -1622,13 +1622,13 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 .tool-process-btn:not(:disabled):active { transform: scale(0.99); }
 .tool-download-btn { width: 100%; height: 44px; background: var(--text); color: var(--ink); border-radius: var(--radius-pill); font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-/* Tabel isi 1 tabel per menu Tools biar penuh premium */
+
 .tool-fill-table { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
 .tool-table-row { display: flex; justify-content: space-between; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--line); font-size: 11px; line-height: 1.4; }
 .tool-table-row:last-child { border-bottom: none; }
 .tool-table-row span { color: var(--text-3); font-weight: 600; white-space: nowrap; }
 .tool-table-row strong { color: var(--text); font-weight: 700; text-align: right; font-size: 11px; }
-/* Misc tool internals */
+
 .tool-selected { display:block; font-size: 11.5px; color: var(--text); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 8px 12px; word-break: break-all; line-height: 1.4; min-height: 16px; }
 .tool-selected:empty{ display:none; }
 .tool-detected { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--text); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); padding: 7px 12px; border-radius: var(--radius-pill); width: fit-content; max-width:100%; word-break: break-all; }
@@ -1687,15 +1687,15 @@ select.tool-select { color-scheme: dark; }
 .tool-status.err { color: var(--danger); }
 .tool-tip { font-size: 11.5px; color: var(--text-3); line-height: 1.55; padding: 8px 10px; background: rgba(255,255,255,0.02); border: 1px dashed var(--line); border-radius: 8px; }
 
-/* Toast - TOPMOST notification (gabung >7) - must be above all modals/tool-modal - z max */
+
 .toast { position: fixed !important; top: calc(10px + env(safe-area-inset-top, 0px)) !important; bottom: auto !important; left: 50% !important; transform: translateX(-50%) translateY(-12px) !important; background: rgba(18,20,26,0.42); color: var(--text); border: 1px solid rgba(255,255,255,0.07); padding: 10px 16px; border-radius: 12px; font-size: 12.5px; font-weight: 700; z-index: 2147483647 !important; opacity: 0; pointer-events: none; transition: opacity 220ms ease, transform 220ms ease; box-shadow: 0 12px 28px rgba(0,0,0,0.42); max-width: calc(100vw - 32px); text-align: center; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); will-change: transform, opacity; }
 .toast.show { opacity: 1 !important; transform: translateX(-50%) translateY(0) !important; pointer-events: auto !important; }
-/* Top-notif dedicated - always visible above gabung klip modal, full-width top bar */
+
 .top-notif { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; z-index: 2147483647 !important; background: #e11d48; color: #fff; font-size: 13px; font-weight: 800; text-align: center; padding: 10px 12px calc(10px + env(safe-area-inset-top, 0px)); padding-top: calc(10px + env(safe-area-inset-top, 0px)); line-height: 1.4; box-shadow: 0 4px 16px rgba(0,0,0,0.4); transform: translateY(-100%); opacity: 0; pointer-events: none; transition: transform 260ms cubic-bezier(0.34,1.24,0.5,1), opacity 200ms ease; letter-spacing: -0.01em; }
 .top-notif.show { transform: translateY(0) !important; opacity: 1 !important; pointer-events: auto !important; }
 .top-notif[hidden] { display: block !important; }
 
-/* ---------- 12. Responsive & Compacts ---------- */
+
 @media (max-width: 768px) {
   .app-main { padding: 44px 12px 112px; }
   .app-container { padding: 10px 10px; gap: 12px; }
@@ -1703,11 +1703,11 @@ select.tool-select { color-scheme: dark; }
   .tool-card-new { padding: 12px 14px; gap: 10px; min-height: 76px; }
   .tool-icon-wrap { width: 38px; height: 38px; }
   .tool-icon-wrap .material-symbols-rounded { font-size: 20px; }
-  /* Mobile penuh - Tools pas edge-to-edge */
+  
   #panel-tools { padding-left: 0 !important; padding-right: 0 !important; }
   #panel-tools .panel-head-large { padding-left: 12px; padding-right: 12px; }
   #panel-tools .tools-grid-new { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); padding: 0 12px; box-sizing: border-box; }
-  /* Quality mobile - kecilkan biar proses tidak makan tempat */
+  
   #toolPanel-quality .qm-title { font-size: 16px !important; }
   #toolPanel-quality .qm-subtitle { font-size: 12px !important; }
   #toolPanel-quality .qm-drop { padding: 10px !important; }
@@ -1757,7 +1757,7 @@ select.tool-select { color-scheme: dark; }
 @media (max-width: 360px) {
   .app-container { padding: 12px 10px; gap: 14px; }
 }
-/* Mobile — Tools & Others diperbesar */
+
 @media(max-width:640px){
   #panel-tools .tool-card-new,
   #panel-others .tool-card-new {
@@ -1787,7 +1787,7 @@ select.tool-select { color-scheme: dark; }
   }
   .top-header .lang-toggle{ padding:2px; display:grid !important; min-height:30px; }
   .lang-btn{ font-size:10.5px; padding:0 10px; min-height:26px; min-width:36px; display:inline-flex !important; }
-  /* Hero BERANDA mobile — tidak mepet kiri, teks singkat, HI VELARD BESAR */
+  
   .kinetic-hero{ gap:10px; padding:12px 4px 10px 6px; min-height:auto !important; }
   .kinetic-stacked-title{ padding-left:2px; }
   .kinetic-greeting-line{ font-size: clamp(1.45rem, 6vw, 1.75rem); line-height:1.08; white-space:normal; }
@@ -1798,9 +1798,9 @@ select.tool-select { color-scheme: dark; }
   }
   .hero-action-row{ gap:7px; flex-direction:column; align-items:stretch; }
   .hero-action-row .btn-main, .hero-action-row .btn-ghost{ min-height:38px; padding:0 14px; font-size:12px; width:100%; justify-content:center; }
-  /* Beranda MY VIDEOS — mobile 2 kolom lega, tidak 4 kolom sempit */
+  
   .tiktok-title{ font-size:1.45rem; letter-spacing:-0.03em; }
-  /* Cards — kecilkan semua UI biar tidak kebesaran */
+  
   .upload-card{ border-radius:12px; padding:10px; gap:8px; }
   .upload-area{ padding:12px 10px; border-width:1.3px; }
   .upload-area .upload-text{ font-size:12px; }
@@ -1828,7 +1828,7 @@ select.tool-select { color-scheme: dark; }
   .feature-item{ padding:8px 9px; }
   .feature-item h4{ font-size:12px; }
   .feature-item p{ font-size:11px; }
-  /* Hapus komet & matikan efek berat di mobile biar tidak lag */
+  
   .comets, .edge-flashes, .galaxy-particles{ display:none !important; }
   .streak-bg .galaxy-stars, .streak-bg .galaxy-stars2{ animation:none !important; opacity:0.32 !important; }
   .streak-bg .bumi-img, .streak-bg .blackhole-img, .streak-bg .bumi-glow, .streak-bg .blackhole-glow{ animation:none !important; will-change:auto !important; }
@@ -1838,7 +1838,7 @@ select.tool-select { color-scheme: dark; }
   .card::before, .upload-card::before{ display:none !important; }
   .floating-nav-bar{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; box-shadow: 0 8px 20px rgba(0,0,0,0.32) !important; }
   body::after{ opacity:0.008 !important; }
-  /* Floating nav — MOBILE SAMA KAYAK PC: pill, hanya aktif tampil teks */
+  
   .floating-nav-bar{
     display:inline-flex !important; width:max-content !important; max-width:min(94vw,560px) !important;
     padding:6px !important; gap:4px !important;
@@ -1868,7 +1868,7 @@ select.tool-select { color-scheme: dark; }
     max-width:110px !important; opacity:1 !important; margin-left:6px !important; pointer-events:auto;
   }
 }
-/* Tablet 641-860 — iPad portrait: nav & hero & grid biar tidak bingung */
+
 @media(min-width:641px) and (max-width:860px){
   html, body{ overflow-x:hidden !important; }
   .slide-container.cube-viewport{ width:100% !important; max-width:100% !important; margin:0 !important; }
@@ -1900,7 +1900,7 @@ select.tool-select { color-scheme: dark; }
   .comets, .edge-flashes{ display:none !important; }
   .card, .upload-card, .tool-card-new{ backdrop-filter:none !important; }
 }
-/* Mobile perf - tingkatkan FPS, kurangi framedrop, tetap slide */
+
 @media(max-width:768px){
   .bg-static{ background-attachment: scroll !important; background-size: cover !important; }
   .slide-track.cube-3d-box{ will-change: auto !important; transition: transform 280ms cubic-bezier(0.32,0.72,0,1) !important; }
@@ -1918,7 +1918,7 @@ select.tool-select { color-scheme: dark; }
   .card, .qm-card, .about-card, .tutorial-card, .tool-card-new, .tool-modal-card, .modal{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
   .floating-nav-bar{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background: rgba(14,16,20,0.92) !important; }
 }
-/* Mobile - tampilkan bio & center VELARD (fix gada & ga ditengah) */
+
 @media(max-width:640px){
   #panel-beranda .kinetic-hero{ align-items:center; text-align:center; padding:18px 12px 14px; gap:12px; }
   #panel-beranda .kinetic-stacked-title{ align-items:center; text-align:center; width:100%; }
@@ -1931,7 +1931,7 @@ select.tool-select { color-scheme: dark; }
   .streak-bg, .streak-bg .bumi-img, .streak-bg .blackhole-img, .streak-bg .bumi-glow, .streak-bg .blackhole-glow, .bg-glow{ display:none !important; }
   .streak-bg svg{ display:none !important; }
 }
-/* PC/laptop — tutorial biar bisa scroll sampai laporan */
+
 @media(min-width:1025px){
   #panel-tutorial{ padding-bottom:48px !important; }
   #panel-tutorial .help-card-wide{ margin-bottom:32px !important; }
@@ -1945,15 +1945,15 @@ body.tool-modal-open .app-main,
 body.tool-modal-open .app-container { overflow: hidden !important; overscroll-behavior: none !important; touch-action: none !important; }
 body.tool-modal-open .floating-nav-bar { transform: translateX(-50%) translateY(120px); opacity: 0; pointer-events: none; }
 
-/* Compat: legacy grid */
+
 .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: stretch; }
 @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } }
 
-/* A11y: ensure min touch 44px for primary actions */
+
 .process-btn, .tool-process-btn, .floating-nav-item, .lang-btn, .seg-btn { min-height: 38px; }
 @media (pointer: coarse) { .floating-nav-item { min-width: 44px; min-height: 44px; } }
 
-/* Tools search - below Alat tambahan (subtle, tidak ungu pekat) */
+
 .tools-search-wrap{
   margin-top:14px; position:relative; display:flex; align-items:center; gap:8px;
   background: rgba(18,20,30,0.62); border:1px solid rgba(255,255,255,0.08);
@@ -1987,7 +1987,7 @@ body.tool-modal-open .floating-nav-bar { transform: translateX(-50%) translateY(
   .tools-cat-btn .material-symbols-rounded{ font-size:14px; }
 }
 
-/* INIYA: semua menu kecuali home - kalem, tidak mencolok, dark glass netral */
+
 .slide-panel:not(#panel-beranda){
   --primary-h: 0;
   --primary-s: 0%;
@@ -2027,7 +2027,7 @@ body.tool-modal-open .floating-nav-bar { transform: translateX(-50%) translateY(
 .slide-panel:not(#panel-beranda) .qm-seg-btn.active{ background: hsl(0 0% 88%); color:#0a0e14; }
 .slide-panel:not(#panel-beranda) .qm-process-btn:not(:disabled){ background: hsl(0 0% 88%); color:#0a0e14; box-shadow: 0 4px 14px rgba(0,0,0,0.22); }
 .slide-panel:not(#panel-beranda) .qm-info-box{ background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.07); }
-/* Tools lock ringan ala QM — hanya saat proses, tanpa observer berat */
+
 body.is-tool-processing .tool-card-new:not(.is-processing){ pointer-events:none; opacity:0.35; }
 body.is-tool-processing .floating-nav-bar{ pointer-events:none; opacity:0.45; }
 body.is-tool-processing .qm-drop,
@@ -2035,24 +2035,24 @@ body.is-tool-processing .tool-drop-zone,
 body.is-tool-processing .tool-select,
 body.is-tool-processing .tool-input,
 body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
-/* Others menu — kecilkan sedikit */
+
 #panel-others .tool-card-new{ padding:12px 12px !important; min-height:68px !important; gap:10px !important; border-radius:13px !important; }
 #panel-others .tool-icon-wrap{ width:38px !important; height:38px !important; }
 #panel-others .tool-icon-wrap .material-symbols-rounded{ font-size:19px !important; }
 #panel-others .tool-title-new{ font-size:13.5px !important; }
 #panel-others .tool-arrow{ width:28px !important; height:28px !important; }
 #panel-others .tool-arrow .material-symbols-rounded{ font-size:16px !important; }
-/* MY VIDEOS — kebawahi sedikit di mobile beserta gambar */
+
 @media(max-width:640px){
   .tiktok-section{ margin-top: 28px !important; padding-top: 28px !important; }
   .tiktok-grid{ margin-top: 4px !important; }
 }
 
-/* ==================================================================
-   INSPECT CLEAN v1 — ekstrak inline style → class (tanpa ubah logika)
-   Tujuan: inspect Elements rapi, tidak ada style="" / onmouseover
-   Semua visual identik, hanya dipindah ke CSS
-   ================================================================== */
+
+
+
+
+
 .icon-sm{font-size:18px;line-height:1}
 .about-hero-row{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:12px}
 .about-hero-icon{width:42px;height:42px;border-radius:12px;background:var(--surface-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--md-sys-color-primary);flex-shrink:0}
@@ -2111,7 +2111,7 @@ body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
 .changelog-ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:12.5px;color:var(--text-3);line-height:1.6}
 .tut-head{font-size:18px;text-align:center}
 .others-back{margin-bottom:10px}
-/* Fix Lainnya kepotong saat loncat dari Home — beri clearance bawah */
+
 #panel-others{ padding-bottom:90px !important; }
 #panel-others .tools-grid-new{ padding-bottom:12px; }
 @media(max-width:640px){ #panel-others{ padding-bottom:100px !important; } }
@@ -2122,7 +2122,7 @@ body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
 .about-p.muted{color:var(--text-3)}
 .about-p:last-child{margin-bottom:0}
 .faq-icon{font-size:18px;color:var(--text-3)}
-/* Thumbnail HD — fraigo logic + Velard premium glass */
+
 .thumb-source-toggle{ display:flex; gap:10px; margin:6px 0 4px; flex-wrap:wrap; }
 .thumb-radio{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; color:var(--text-3); cursor:pointer; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); transition:border-color 160ms ease, background 160ms ease; }
 .thumb-radio:has(input:checked){ color:var(--text); border-color:rgba(255,255,255,0.18); background:rgba(255,255,255,0.08); }
@@ -2180,8 +2180,151 @@ body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
 .thumb-download[hidden]{ display:none !important; }
 .thumb-download{ background:var(--text) !important; color:var(--ink) !important; }
 @media(max-width:480px){ .thumb-output-card{ flex:0 1 calc(50% - 4px); } .thumb-controls button{ min-width:36px; min-height:42px; padding:5px 4px; } .thumb-controls .material-symbols-rounded{ font-size:18px; } }
-/* Mobile: MY VIDEOS jangan keliatan di awal — hero full viewport */
+
 @media(max-width:640px){
   #panel-beranda .kinetic-hero{ min-height:88dvh !important; min-height:88vh !important; justify-content:center !important; padding:32px 12px 24px !important; gap:14px !important; }
   .tiktok-section{ opacity:0 !important; transform:translateY(28px) !important; }
 }
+
+
+              
+              #toolPanel-thumbnail.vt-panel{ background:transparent; border:none; border-radius:0; padding:0 2px 16px; color:var(--text,#eceef2); font-family:Inter,"Plus Jakarta Sans",system-ui,sans-serif; max-height:none; overflow:visible; isolation:isolate; }
+              #toolPanel-thumbnail.vt-panel::-webkit-scrollbar{ width:8px; }
+              #toolPanel-thumbnail.vt-panel::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:9999px; }
+              #toolPanel-thumbnail.vt-panel::-webkit-scrollbar-track{ background:transparent; }
+              #toolPanel-thumbnail .vt-header{ position:sticky; top:-12px; z-index:50; display:flex; align-items:center; gap:10px; margin:0 -14px 12px; padding:10px 14px; background:#0b0e14; border-bottom:1px solid rgba(255,255,255,.07); transform:translateZ(0); }
+              #toolPanel-thumbnail .thumb-badge{ width:34px; height:34px; flex:0 0 34px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10); color:var(--text,#eceef2); }
+              #toolPanel-thumbnail .thumb-badge .material-symbols-rounded{ font-size:19px; }
+              #toolPanel-thumbnail .thumb-title{ font-family:"Plus Jakarta Sans",Inter,sans-serif; font-weight:700; font-size:14px; letter-spacing:.01em; }
+              #toolPanel-thumbnail .thumb-close{ margin-left:auto; width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:9999px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text-2,#d6dae2); cursor:pointer; }
+              #toolPanel-thumbnail .thumb-close:hover{ background:rgba(255,255,255,.08); color:#fff; }
+              #toolPanel-thumbnail .thumb-close .material-symbols-rounded{ font-size:16px; }
+              #toolPanel-thumbnail .thumb-icon-btn{ width:30px; height:30px; flex:0 0 30px; display:flex; align-items:center; justify-content:center; border-radius:9999px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text-3,#a7adba); cursor:pointer; }
+              #toolPanel-thumbnail .thumb-icon-btn:hover{ background:rgba(255,255,255,.08); color:#fff; }
+              #toolPanel-thumbnail #thumbCacheClear{ background:#7a0a0a; border-color:rgba(255,110,110,.45); color:#fff; }
+              #toolPanel-thumbnail #thumbCacheClear:hover{ background:#a31313; color:#fff; }
+              #toolPanel-thumbnail .thumb-icon-btn .material-symbols-rounded{ font-size:16px; }
+              #toolPanel-thumbnail .vt-main{ display:flex; gap:12px; align-items:flex-start; }
+              #toolPanel-thumbnail .vt-main > div{ margin:0; min-width:0; }
+              #toolPanel-thumbnail .vt-card{ background:rgba(22,26,34,.55); border:1px solid rgba(255,255,255,.09); border-radius:12px; padding:12px; color:var(--text,#eceef2); backdrop-filter:blur(16px) saturate(1.25); -webkit-backdrop-filter:blur(16px) saturate(1.25); box-shadow:0 10px 30px rgba(0,0,0,.35); }
+              #toolPanel-thumbnail .vt-card + .vt-card{ margin-top:12px; }
+              #toolPanel-thumbnail .video_data{ width:50%; display:flex; flex-direction:column; }
+              #toolPanel-thumbnail .video_output{ flex:1; position:sticky; top:52px; max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.22) transparent; }
+              #toolPanel-thumbnail .video_output > .vt-card{ width:100%; box-sizing:border-box; }
+              #toolPanel-thumbnail .thumb-label{ font-size:10.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3,#a7adba); margin:0 0 8px; }
+              #toolPanel-thumbnail .thumb-label:not(:first-child){ margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.07); }
+              #toolPanel-thumbnail .thumb-warn{ margin-top:8px; font-size:12px; line-height:1.55; color:#ffb4b4; background:rgba(255,90,90,.09); border:1px solid rgba(255,90,90,.38); border-radius:9px; padding:8px 10px; }
+              #toolPanel-thumbnail .thumb-warn[hidden]{ display:none; }
+              #toolPanel-thumbnail #videofile{ width:100%; box-sizing:border-box; font-size:12px; color:var(--text-3,#a7adba); background:rgba(0,0,0,.28); border:1px dashed rgba(255,255,255,.18); border-radius:10px; padding:9px 10px; cursor:pointer; margin-top:8px; }
+              #toolPanel-thumbnail #videofile::file-selector-button{ background:rgba(255,255,255,.10); color:var(--text,#eceef2); border:1px solid rgba(255,255,255,.14); border-radius:7px; padding:6px 12px; font-weight:600; font-size:12px; margin-right:10px; cursor:pointer; font-family:"Plus Jakarta Sans",Inter,sans-serif; }
+              #toolPanel-thumbnail .tbtn{ display:inline-flex; align-items:center; justify-content:center; gap:7px; border-radius:9px; padding:9px 14px; font-family:"Plus Jakarta Sans",Inter,sans-serif; font-weight:700; font-size:12.5px; border:1px solid transparent; cursor:pointer; white-space:nowrap; transition:background .15s ease, border-color .15s ease, opacity .15s ease; }
+              #toolPanel-thumbnail .tbtn .material-symbols-rounded{ font-size:16px; }
+              #toolPanel-thumbnail .tbtn:disabled{ opacity:.32; cursor:not-allowed; }
+              #toolPanel-thumbnail .tbtn-primary{ background:#eceef2; color:#111318; }
+              #toolPanel-thumbnail .tbtn-primary:not(:disabled):hover{ background:#ffffff; }
+              #toolPanel-thumbnail .tbtn-light{ background:#eceef2; color:#111318; }
+              #toolPanel-thumbnail .tbtn-light:not(:disabled):hover{ background:#fff; }
+              #toolPanel-thumbnail .tbtn-ghost{ background:transparent; border-color:rgba(255,255,255,.14); color:var(--text,#eceef2); }
+              #toolPanel-thumbnail .tbtn-ghost:not(:disabled):hover{ background:rgba(255,255,255,.07); }
+              #toolPanel-thumbnail .tbtn-text{ background:transparent; border:none; color:var(--text-3,#a7adba); padding:9px 8px; }
+              #toolPanel-thumbnail .tbtn-text:not(:disabled):hover{ color:#ff8a8a; }
+              #toolPanel-thumbnail .tbtn-block{ width:100%; }
+              #toolPanel-thumbnail .tbtn-sm{ padding:7px 10px; font-size:12px; }
+              #toolPanel-thumbnail .crow{ display:flex; align-items:center; gap:8px; }
+              #toolPanel-thumbnail .crow + .crow{ margin-top:8px; }
+              #toolPanel-thumbnail .crow-label{ font-size:12px; color:var(--text-2,#d6dae2); }
+              #toolPanel-thumbnail .crow-sp{ flex:1; }
+              #toolPanel-thumbnail #video{ position:relative; z-index:1; width:100%; max-width:100%; max-height:34vh; display:block; margin:0 auto 8px; background:#000; border-radius:10px; border:1px solid rgba(255,255,255,.09); }
+              #toolPanel-thumbnail #canvas{ max-width:100%; border:1px solid rgba(255,255,255,.10); border-radius:10px; margin-bottom:10px; display:block; }
+              #toolPanel-thumbnail .instructions{ padding:0; font-size:11.5px; color:var(--text-3,#a7adba); }
+              #toolPanel-thumbnail .video-preview{ text-align:center; }
+              #toolPanel-thumbnail #slider{ width:100%; height:20px; accent-color:#eceef2; cursor:pointer; }
+              #toolPanel-thumbnail #videoControls{ margin-top:6px; }
+              #toolPanel-thumbnail #videoControls .button-container{ display:flex; border:1px solid rgba(255,255,255,.09); border-radius:10px; overflow:hidden; overflow-x:auto; background:rgba(0,0,0,.28); scrollbar-width:none; }
+              #toolPanel-thumbnail #videoControls .button-container::-webkit-scrollbar{ display:none; }
+              #toolPanel-thumbnail #videoControls button{ flex:1 1 0; min-width:0; background:transparent; border:none; border-left:1px solid rgba(255,255,255,.07); color:var(--text-2,#d6dae2); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:5px 0 4px; cursor:pointer; font-family:Inter,sans-serif; overflow:hidden; }
+              #toolPanel-thumbnail #videoControls button:first-child{ border-left:none; }
+              #toolPanel-thumbnail #videoControls button:hover{ background:rgba(255,255,255,.06); }
+              #toolPanel-thumbnail #videoControls button span:last-child{ font-size:9px; color:var(--text-3,#a7adba); font-family:"JetBrains Mono",monospace; }
+              #toolPanel-thumbnail #videoControls button.tplay{ background:rgba(255,255,255,.10); }
+              #toolPanel-thumbnail #videoControls button.tplay:hover{ background:rgba(255,255,255,.17); }
+              #toolPanel-thumbnail .play-controls{ font-size:18px !important; font-family:'Material Symbols Rounded' !important; color:var(--text,#eceef2); }
+              #toolPanel-thumbnail button.tplay .play-controls{ color:#ffffff; }
+              #toolPanel-thumbnail #videow{ width:62px; padding:7px 8px; background:rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.11); border-radius:8px; color:var(--text,#eceef2); font-size:12.5px; font-family:"JetBrains Mono",monospace; outline:none; }
+              #toolPanel-thumbnail #videow:focus, #toolPanel-thumbnail #snapd:focus{ border-color:rgba(255,255,255,.32); }
+              #toolPanel-thumbnail .snap-auto{ display:flex; }
+              #toolPanel-thumbnail #snap2{ border-top-right-radius:0 !important; border-bottom-right-radius:0 !important; border-right:none !important; }
+              #toolPanel-thumbnail #snap_each{ border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.32); color:var(--text,#eceef2); border-radius:0 9px 9px 0; padding:0 8px; font-size:12px; font-weight:600; outline:none; cursor:pointer; min-height:34px; }
+              #toolPanel-thumbnail #snap_each option{ background:#14171f; color:#eceef2; }
+              #toolPanel-thumbnail .canvas-container{ text-align:center; position:relative; padding-bottom:4px; max-height:46vh; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.22) transparent; }
+              #toolPanel-thumbnail #outputs{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+              #toolPanel-thumbnail .output-container{ position:relative; border-radius:9px; overflow:hidden; border:1px solid rgba(255,255,255,.09); background:#000; }
+              #toolPanel-thumbnail .output{ object-fit:cover; width:100%; aspect-ratio:16/9; border:2px solid transparent; border-radius:7px; display:block; cursor:pointer; }
+              #toolPanel-thumbnail .output.selected{ border-color:#ffffff; box-shadow:0 0 0 1px rgba(255,255,255,.55); }
+              #toolPanel-thumbnail .output-container label{ font-size:9.5px; font-family:"JetBrains Mono",monospace; background:rgba(0,0,0,.72); color:var(--text-2,#d6dae2); padding:2px 6px; border-radius:6px; position:absolute; right:5px; bottom:5px; max-width:84%; border:1px solid rgba(255,255,255,.14); }
+              #toolPanel-thumbnail .output-remove{ position:absolute; top:5px; right:5px; width:20px; height:20px; display:flex; align-items:center; justify-content:center; background:rgba(10,10,12,.78); color:#fff; border:1px solid rgba(255,255,255,.18); border-radius:9999px; cursor:pointer; font-size:12px; font-weight:700; text-decoration:none; line-height:1; }
+              #toolPanel-thumbnail .output-remove:hover{ background:#b33; border-color:#b33; }
+              #toolPanel-thumbnail #preview{ width:100%; max-height:300px; object-fit:contain; display:none; margin-bottom:10px; border:1px solid rgba(255,255,255,.10); border-radius:10px; background:#000; }
+              #toolPanel-thumbnail .save-row{ display:flex; gap:8px; margin-top:10px; align-items:center; }
+              #toolPanel-thumbnail #snapsize{ font-size:10.5px; color:var(--text-3,#a7adba); font-family:"JetBrains Mono",monospace; }
+              @media(max-width:1023px){ #toolPanel-thumbnail .vt-main{ flex-wrap:wrap; } #toolPanel-thumbnail .video_data{ width:100%; } #toolPanel-thumbnail .video_output{ width:100%; max-height:none; position:static; overflow:visible; } #toolPanel-thumbnail #video{ max-height:30vh; } }
+              @media(max-width:640px){ #toolPanel-thumbnail .vt-card{ padding:10px; } #toolPanel-thumbnail #video{ max-height:24vh; } #toolPanel-thumbnail #videoControls button{ min-width:0; padding:4px 0 3px; } #toolPanel-thumbnail #videoControls button span:last-child{ font-size:8px; } #toolPanel-thumbnail .play-controls{ font-size:15px !important; } #toolPanel-thumbnail #outputs{ grid-template-columns:repeat(2,1fr); } #toolPanel-thumbnail .snap-auto{ width:100%; } #toolPanel-thumbnail #snap_each{ flex:1; } #toolPanel-thumbnail .save-row .tbtn{ flex:1 1 auto; } }
+              @media(max-width:480px){ #toolPanel-thumbnail #outputs{ grid-template-columns:repeat(2,1fr); } }
+            
+
+              #toolModalCard .merge-trash-top{ width:34px; height:34px; margin-left:0; border-radius:10px; border:1px solid rgba(255,110,110,.45); background:#7a0a0a; color:#fff; cursor:pointer; display:grid; place-items:center; flex:0 0 auto; }
+              #toolModalCard .merge-trash-top:hover{ background:#a31313; }
+              #toolModalCard .merge-trash-top .material-symbols-rounded{ font-size:18px; }
+              #toolPanel-merge .merge-warn{ margin-top:8px; font-size:12px; line-height:1.55; color:#ffb4b4; background:rgba(255,99,99,.08); border:1px solid rgba(255,99,99,.22); border-radius:10px; padding:8px 10px; }
+              #toolPanel-merge .merge-warn[hidden]{ display:none; }
+              #toolPanel-merge .merge-preview{ margin-top:10px; }
+              #toolPanel-merge #toolMergePreview{ width:100%; max-height:300px; border-radius:12px; background:#000; object-fit:contain; display:block; border:1px solid rgba(255,255,255,.07); cursor:pointer; }
+              #toolPanel-merge .merge-preview:fullscreen{ background:#000; padding:12px; }
+              #toolPanel-merge .merge-preview:fullscreen #toolMergePreview{ max-height:calc(100vh - 130px); border:none; }
+              #toolPanel-merge #toolMergePreviewName{ margin-top:6px; font-size:11.5px; color:var(--text-3,#b7bcc7); font-family:var(--mono,"JetBrains Mono",monospace); word-break:break-all; }
+              
+              #toolPanel-merge .merge-transport{ display:flex; align-items:center; justify-content:center; gap:6px; margin-top:8px; }
+              #toolPanel-merge .merge-tbtn{ width:38px; height:38px; display:grid; place-items:center; border-radius:50%; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.05); color:var(--text,#eceef2); cursor:pointer; }
+              #toolPanel-merge .merge-tbtn:hover{ background:rgba(255,255,255,.10); }
+              #toolPanel-merge .merge-tbtn.play{ width:46px; height:46px; background:var(--text,#eceef2); color:#111318; border-color:transparent; }
+              #toolPanel-merge .merge-tbtn.play:hover{ background:#fff; }
+              #toolPanel-merge .merge-tbtn .material-symbols-rounded{ font-size:20px; }
+              #toolPanel-merge #toolMergeTime{ margin-left:8px; font-size:11.5px; color:var(--text-3,#b7bcc7); font-family:var(--mono,"JetBrains Mono",monospace); }
+              
+              #toolPanel-merge .merge-timeline{ position:relative; margin-top:12px; border:1px solid rgba(255,255,255,.08); border-radius:14px; background:rgba(0,0,0,.35); overflow:hidden; }
+              #toolPanel-merge .merge-timeline[hidden]{ display:none; }
+              #toolPanel-merge .merge-ruler{ position:relative; height:26px; border-bottom:1px solid rgba(255,255,255,.08); overflow:hidden; cursor:pointer; }
+              #toolPanel-merge .merge-tick{ position:absolute; top:0; bottom:0; padding:3px 0 0 4px; font-size:9px; color:var(--text-3,#b7bcc7); font-family:var(--mono,"JetBrains Mono",monospace); white-space:nowrap; pointer-events:none; }
+              #toolPanel-merge .merge-playhead{ position:absolute; top:0; bottom:0; width:2px; margin-left:-1px; background:#fff; box-shadow:0 0 8px rgba(255,255,255,.8); z-index:5; pointer-events:none; }
+              #toolPanel-merge .merge-playhead::before{ content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top:7px solid #fff; }
+              #toolPanel-merge .merge-playhead[hidden]{ display:none; }
+              #toolPanel-merge .merge-track{ display:flex; gap:6px; padding:10px; overflow-x:auto; min-height:86px; }
+              #toolPanel-merge .merge-clip{ position:relative; flex:0 0 auto; min-width:96px; border-radius:10px; overflow:hidden; border:2px solid rgba(255,255,255,.12); background:#0a0a0a; cursor:pointer; }
+              #toolPanel-merge .merge-clip:hover{ border-color:rgba(255,255,255,.28); }
+              #toolPanel-merge .merge-clip.active{ border-color:#fff; box-shadow:0 0 0 1px rgba(255,255,255,.55); }
+              #toolPanel-merge .merge-clip.dragging{ opacity:.4; }
+              #toolPanel-merge .merge-clip.dragover{ border-color:#4ade80; }
+              #toolPanel-merge .merge-strip{ display:flex; height:52px; }
+              #toolPanel-merge .merge-strip img{ flex:1; min-width:0; height:100%; object-fit:cover; pointer-events:none; }
+              #toolPanel-merge .merge-strip .merge-strip-ph{ flex:1; background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02)); }
+              #toolPanel-merge .merge-clip-label{ display:flex; align-items:center; gap:4px; padding:3px 6px; font-size:9.5px; font-weight:700; background:rgba(0,0,0,.72); color:#fff; white-space:nowrap; overflow:hidden; }
+              #toolPanel-merge .merge-clip-label .material-symbols-rounded{ font-size:12px; }
+              #toolPanel-merge .merge-clip-label span:last-child{ overflow:hidden; text-overflow:ellipsis; }
+              #toolPanel-merge .merge-clip-dur{ position:absolute; right:4px; bottom:24px; font-size:9px; font-weight:700; font-family:var(--mono,"JetBrains Mono",monospace); background:rgba(0,0,0,.68); color:#fff; padding:1px 5px; border-radius:99px; pointer-events:none; }
+              #toolPanel-merge .merge-clip-x{ position:absolute; top:4px; right:4px; width:20px; height:20px; border-radius:50%; display:grid; place-items:center; background:rgba(0,0,0,.68); color:#fff; border:1px solid rgba(255,255,255,.25); font-size:12px; font-weight:800; cursor:pointer; line-height:1; padding:0; }
+              #toolPanel-merge .merge-clip-x:hover{ background:#b33; border-color:#b33; }
+              #toolPanel-merge .merge-clip-mute{ position:absolute; top:4px; left:4px; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:rgba(0,0,0,.68); color:#fff; border:1px solid rgba(255,255,255,.35); cursor:pointer; padding:0; }
+              #toolPanel-merge .merge-clip-mute:hover{ background:rgba(255,255,255,.22); }
+              #toolPanel-merge .merge-clip-mute .material-symbols-rounded{ font-size:14px; }
+              #toolPanel-merge .merge-clip.muted .merge-strip{ opacity:.55; }
+              #toolPanel-merge .merge-clip.muted .merge-clip-mute{ background:#b33; border-color:#b33; }
+              #toolPanel-merge .merge-total{ margin-top:8px; font-size:12px; font-weight:700; color:var(--text,#eceef2); }
+              #toolPanel-merge .merge-footrow{ display:flex; gap:8px; margin-top:10px; }
+              #toolPanel-merge #toolMergeClear{ flex:1; min-height:44px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); color:var(--text,#eceef2); font-weight:700; font-size:13px; cursor:pointer; }
+              #toolPanel-merge #toolMergeClear:hover:not(:disabled){ background:rgba(255,255,255,.09); }
+              #toolPanel-merge #toolMergeClear:disabled{ opacity:.35; cursor:not-allowed; }
+            
+.is-hidden{display:none}
+.form-hint{font-size:11px;color:var(--text-3);text-align:right;margin-top:4px;min-height:14px}
+.site-footer{max-width:1120px;margin:28px auto 0;padding:20px 18px 90px;text-align:center}
+.site-footer-copy{font-size:12px;color:var(--text-3);margin:0}

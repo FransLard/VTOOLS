@@ -1,0 +1,1 @@
+!function(){var e=document.querySelector(".tiktok-section");e&&(window.matchMedia("(prefers-reduced-motion: reduce)").matches?e.classList.add("is-visible"):new IntersectionObserver(function(i){i.forEach(function(i){i.isIntersecting?e.classList.add("is-visible"):e.classList.remove("is-visible")})},{threshold:.15,rootMargin:"-8% 0px -12% 0px"}).observe(e))}();

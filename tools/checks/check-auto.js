@@ -15,7 +15,7 @@ console.log("AUTO-menit pertahankan galeri: " + (!minBody.includes("clearSnaps()
 console.log("AUTO masih hentikan jadwal lama: " + (pctBody.includes("clearInterval(snapProc)") && minBody.includes("clearInterval(snapProc)") ? "OK" : "FAIL"));
 // tombol Bersihkan + cache tetap bisa hapus
 const h = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-console.log("VER thumb176: " + (h.includes("assets/js/thumbnail.js?v=176") ? "OK" : "FAIL"));
+console.log("VER thumb177: " + (h.includes("assets/js/thumbnail.js?v=177") ? "OK" : "FAIL"));
 // simulasi: 1 snap manual (div palsu) + auto tidak menghapus
 const start = h.lastIndexOf('<div class="tool-panel fraigo-panel"');
 const anchor = h.indexOf('<a href="" id="imagelink"');

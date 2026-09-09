@@ -26,11 +26,6 @@ function seg(containerId, val) {
   if (!b) { ok("tombol " + containerId + "=" + val + " ada", false); return; }
   b.click();
 }
-function activeVal(containerId) {
-  const c = d.getElementById(containerId);
-  const b = c && c.querySelector(".qm-seg-btn.active, .seg-btn.active");
-  return b ? b.dataset.value : null;
-}
 const res = () => d.getElementById("qmInfoRes").textContent;
 const desc = () => d.getElementById("methodDesc").textContent;
 
@@ -39,21 +34,18 @@ ok("awal binary 1080p", res() === "1080p");
 // skenario bug: pilih 720 di BINARY ...
 seg("compressToggle", "720p");
 ok("binary 720 -> label 720p", res() === "720p");
-// ... beralih ke FPS: harus Original (setting fps sendiri, default off)
+// ... beralih ke FPS ala web sumber: opsi kompresi hilang, selalu Original
 seg("versionToggle", "fps");
-ok("fps: compressRow tampil", d.getElementById("compressRow").hidden === false);
-ok("fps: highlight OFF", activeVal("compressToggle") === "off");
+ok("fps: compressRow disembunyikan", d.getElementById("compressRow").hidden === true);
 ok("fps: label Original (tidak kebawa 720p)", res() === "Original");
 ok("fps: deskripsi fps-off", desc().includes("tanpa mengubah resolusi"));
-// pilih 1080 di FPS ...
-seg("compressToggle", "1080p");
-ok("fps 1080 -> label 1080p", res() === "1080p");
-// ... kembali ke BINARY: ingat 720p, bukan 1080p
+// kembali ke BINARY: setting 720p utuh (tidak tersentuh kunjungan ke FPS)
 seg("versionToggle", "binary");
-ok("binary: ingat 720p", activeVal("compressToggle") === "720p" && res() === "720p");
+ok("binary: tetap 720p", res() === "720p");
 ok("binary: deskripsi binary-720p", desc().includes("720p"));
-// fps tetap ingat 1080p
+// OFF di binary lalu FPS tetap Original
+seg("compressToggle", "off");
 seg("versionToggle", "fps");
-ok("fps: ingat 1080p", activeVal("compressToggle") === "1080p" && res() === "1080p");
+ok("fps setelah binary-off: Original", res() === "Original");
 console.log(fails.length ? "GAGAL: " + fails.join(", ") : "SEMUA TES LOLOS");
 process.exit(fails.length ? 1 : 0);
