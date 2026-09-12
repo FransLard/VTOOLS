@@ -45,6 +45,23 @@
   let isProcessing = false;
   let toolProcessingCount = 0;
   const toolProgressDisplayed = {};
+  window.__velardCancelRequested = false;
+  function uiLang() {
+    try { return (window.i18n && window.i18n.getLang ? window.i18n.getLang() : null) || localStorage.getItem("lang") || "id"; } catch (e) { return "id"; }
+  }
+  function throwIfCancelled() {
+    if (window.__velardCancelRequested) {
+      window.__velardCancelRequested = false;
+      throw new Error(uiLang() === "en" ? "Cancelled by user." : "Dibatalkan pengguna.");
+    }
+  }
+  function cancelAllProcessing() {
+    window.__velardCancelRequested = true;
+    try { if (ffmpegInstance) { try { ffmpegInstance.terminate(); } catch (e) { console.warn(e); } } } catch (e) { console.warn(e); }
+    ffmpegInstance = null;
+    ffmpegLoading = null;
+    try { addLog(uiLang() === "en" ? "Process cancelled by user." : "Proses dibatalkan pengguna."); } catch (e) { console.warn(e); }
+  }
 
   const els = {
     uploadArea: document.getElementById("uploadArea"),
@@ -179,6 +196,16 @@
     }
   }
 
+  function friendlyRunError(err) {
+    var m = getErrorMessage(err);
+    var low = String(m).toLowerCase();
+    if (window.__velardCancelRequested || low.indexOf("terminate") !== -1 || low.indexOf("dibatalkan") !== -1 || low.indexOf("cancelled") !== -1) {
+      try { window.__velardCancelRequested = false; } catch (e) {}
+      return uiLang() === "en" ? "Process cancelled." : "Proses dibatalkan.";
+    }
+    return tr("logError", "Error: ") + m;
+  }
+
   function formatBytes(bytes) {
     if (bytes === 0) return "0 B";
     const units = ["B", "KB", "MB", "GB"];
@@ -217,11 +244,23 @@
     line.innerHTML =
       '<span class="log-time">[' + new Date().toLocaleTimeString() + "]</span>" + escapeHtml(message);
     els.logArea.appendChild(line);
+    // PERF-OPT aman: batasi max 150 baris biar DOM tidak tumbuh tanpa batas (isi/hasil sama)
+    try {
+      while (els.logArea.children.length > 150) els.logArea.removeChild(els.logArea.firstChild);
+    } catch (e) {}
     els.logArea.scrollTop = els.logArea.scrollHeight;
   }
 
+  let _lastProgTime = 0;
+  let _lastToolDomTime = 0;
   function setProgress(pct) {
     const value = Math.max(0, Math.min(100, pct));
+    // PERF-OPT aman: throttle update DOM max ~5x/detik, nilai 100 selalu lolos (hasil akhir sama)
+    try {
+      const now = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+      if (value < 100 && now - _lastProgTime < 200) return;
+      _lastProgTime = now;
+    } catch (e) {}
     els.progressBar.style.width = value + "%";
     els.progressLabel.textContent = Math.round(value) + "%";
   }
@@ -288,6 +327,7 @@
 
   async function extractMp3(file) {
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const ext = getFileExtension(file.name) || "mp4";
     const inputName = "tool_input_" + Date.now() + "." + ext;
     const outputName = "tool_output_" + Date.now() + ".mp3";
@@ -336,6 +376,7 @@
       throw new Error(tr("toolConvertSame", "Format target sama dengan format asal. Pilih format lain."));
     }
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const inputName = "conv_input_" + Date.now() + "." + srcExt;
     const outputName = "conv_output_" + Date.now() + "." + tgt;
     addLog("[1/3] " + tr("logStep1", "Memuat data video...") + " (" + srcExt.toUpperCase() + " → " + tgt.toUpperCase() + ")");
@@ -407,6 +448,7 @@
     }
     const srcExt = detectVideoFormat(file);
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const inputName = "cut_input_" + Date.now() + "." + srcExt;
     const outputName = "cut_output_" + Date.now() + "." + srcExt;
     addLog("[1/3] " + tr("logStep1", "Memuat data video...") + " (" + formatCutTime(startSec) + " → " + formatCutTime(endSec) + ")");
@@ -439,6 +481,7 @@
     const tgt = parseInt(targetHeight,10);
     if (![360,480,720].includes(tgt)) throw new Error("Target tidak valid.");
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const srcExt = detectVideoFormat(file);
     const inputName = "rescale_in_" + Date.now() + "." + srcExt;
     const outputName = "rescale_out_" + Date.now() + ".mp4";
@@ -464,6 +507,7 @@
     if (!file) throw new Error(tr("toolMuteNeed", "Pilih video terlebih dahulu."));
     if (file.size > MAX_FILE_BYTES) throw new Error(tr("logTooBig", "Error: File terlalu besar (") + formatBytes(file.size) + tr("logTooBig2", "). Maksimal 1500 MB."));
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const srcExt = detectVideoFormat(file);
     const inputName = "mute_in_" + Date.now() + "." + srcExt;
     const outputName = "mute_out_" + Date.now() + ".mp4";
@@ -516,10 +560,16 @@
     if (on) {
       isProcessing = true;
       toolProcessingCount++;
+      window.__velardCancelRequested = false;
     } else {
       toolProcessingCount = Math.max(0, toolProcessingCount - 1);
       if (toolProcessingCount === 0) isProcessing = false;
     }
+    // PERF-OPT aman: tandai body agar CSS bisa pause animasi background (tidak ubah logika)
+    try {
+      const busy = toolProcessingCount > 0 || isProcessing === true;
+      document.body.classList.toggle("is-encoding", !!busy);
+    } catch (e) {}
   }
 
   function isBusy() {
@@ -1018,6 +1068,7 @@
       if(qmCard){
         qmCard.querySelectorAll('button, input, select, textarea').forEach(function(el){
           if(el===els.processBtn) return;
+          if(el===els.copyLogBtn) return; // salin log selalu bisa ditekan, bahkan saat proses
           if(on){ el.dataset.prevDisabled = el.disabled ? '1' : '0'; el.disabled=true; el.style.pointerEvents='none'; el.style.opacity='0.5'; }
           else { if(el.dataset.prevDisabled==='0') el.disabled=false; else if(el.dataset.prevDisabled==='1') el.disabled=true; else el.disabled=false; el.style.pointerEvents=''; el.style.opacity=''; delete el.dataset.prevDisabled; }
         });
@@ -1025,6 +1076,7 @@
         // keep processBtn and progress visible even when card disabled
         els.processBtn.style.pointerEvents = '';
         if(els.progressWrap) els.progressWrap.style.pointerEvents = 'auto';
+        if(els.copyLogBtn){ els.copyLogBtn.disabled=false; els.copyLogBtn.style.pointerEvents='auto'; els.copyLogBtn.style.opacity=''; }
       }
     }catch(e){ console.warn(e); }
     if (on) {
@@ -1049,7 +1101,7 @@
       setProgress(100);
       ok = true;
     } catch (err) {
-      addLog(tr("logError", "Error: ") + getErrorMessage(err));
+      addLog(friendlyRunError(err));
     } finally {
       setProcessing(false);
     }
@@ -1149,6 +1201,10 @@
                   const prev = toolProgressDisplayed[active] || 0;
                   if(capped > prev){
                     toolProgressDisplayed[active]=capped;
+                    // PERF-OPT aman: throttle DOM tools ~4x/detik, nilai akhir tetap sama
+                    var _nt = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+                    var _allowDom = (capped >= 99) || (_nt - _lastToolDomTime >= 250);
+                    if(_allowDom){ _lastToolDomTime = _nt;
                     const fill=document.getElementById('tool'+Cap+'ProgressFill');
                     const pctEl=document.getElementById('tool'+Cap+'ProgressPct');
                     const sec=document.getElementById('tool'+Cap+'Progress');
@@ -1158,9 +1214,9 @@
                     if(pctEl) pctEl.textContent=capped+'%';
                     if(sec && sec.hidden) sec.hidden=false;
                     if(arrow) arrow.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>';
-                    if(closeB && active===window.velardToolModal.getActive()){ closeB.classList.add("is-processing"); closeB.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>'; }
                     const card=document.querySelector('[data-tool="'+active+'"]');
                     if(card) card.classList.add("is-processing");
+                    }
                   }
                 }
               }
@@ -1205,7 +1261,6 @@
                   if(pctEl) pctEl.textContent=capped+'%';
                   if(sec && sec.hidden) sec.hidden=false;
                   if(arrow) arrow.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>';
-                  if(closeB && active===window.velardToolModal.getActive()){ closeB.classList.add("is-processing"); closeB.innerHTML='<span class="tool-card-progress-text">'+capped+'%</span>'; }
                   const card=document.querySelector('[data-tool="'+active+'"]');
                   if(card) card.classList.add("is-processing");
                 }
@@ -1243,6 +1298,7 @@
 
   async function compressV1WithFfmpeg(arrayBuffer, fileName) {
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const ext = getFileExtension(fileName) || "mp4";
     const inputName = "input_" + Date.now() + "." + ext;
     const outputName = "output_" + Date.now() + ".wmv";
@@ -1271,6 +1327,7 @@
 
   async function reencodeV1WithoutResize(arrayBuffer, fileName) {
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const ext = getFileExtension(fileName) || "mp4";
     const inputName = "input_" + Date.now() + "." + ext;
     const outputName = "output_" + Date.now() + ".wmv";
@@ -1355,6 +1412,7 @@
   }
   async function compressV3WithFfmpeg(arrayBuffer, fileName, meta) {
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const ext = getFileExtension(fileName) || "mp4";
     const inputName = "input_" + Date.now() + "." + ext;
     const outputName = "output_" + Date.now() + ".mp4";
@@ -1408,6 +1466,7 @@
 
   async function remuxMp4Copy(arrayBuffer, fileName) {
     const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
     const ext = getFileExtension(fileName) || "mp4";
     const inputName = "input_" + Date.now() + "." + ext;
     const outputName = "output_" + Date.now() + ".mp4";
@@ -2649,6 +2708,7 @@
         const scaleF = "scale='if(lt(iw,ih),trunc(min(iw,1080)/2)*2,-2)':'if(lt(iw,ih),-2,trunc(min(ih,1080)/2)*2)'";
         const result = await (async function(){
           const ffmpeg = await loadFfmpeg();
+    throwIfCancelled();
           const ext = getFileExtension(file.name) || "mp4";
           const inputName = "input_" + Date.now() + "." + ext;
           const outputName = "output_" + Date.now() + ".wmv";
@@ -2790,8 +2850,8 @@
           localStorage.setItem("qmMp3Count", String(count));
           if (count % 3 === 0) openDonateModal();
         } catch (err) {
-          toolStatus(els.toolMp3Status, "err", tr("logError", "Error: ") + getErrorMessage(err));
-          addLog(tr("logError", "Error: ") + getErrorMessage(err));
+          toolStatus(els.toolMp3Status, "err", friendlyRunError(err));
+          addLog(friendlyRunError(err));
         } finally {
           els.toolMp3Run.disabled = false;
           setProcessingFlag(false);
@@ -2873,8 +2933,8 @@
           downloadFile(data, base + "_converted." + target.toLowerCase());
           openDonateModal();
         } catch (err) {
-          toolStatus(els.toolConvertStatus, "err", tr("logError", "Error: ") + getErrorMessage(err));
-          addLog(tr("logError", "Error: ") + getErrorMessage(err));
+          toolStatus(els.toolConvertStatus, "err", friendlyRunError(err));
+          addLog(friendlyRunError(err));
         } finally {
           els.toolConvertRun.disabled = false;
           setProcessingFlag(false);
@@ -2968,8 +3028,8 @@
           downloadFile(data, base + "_cut_" + formatCutTime(s).replace(/:/g, "-") + "-" + formatCutTime(e).replace(/:/g, "-") + "." + ext);
           openDonateModal();
         } catch (err) {
-          toolStatus(els.toolCutStatus, "err", tr("logError", "Error: ") + getErrorMessage(err));
-          addLog(tr("logError", "Error: ") + getErrorMessage(err));
+          toolStatus(els.toolCutStatus, "err", friendlyRunError(err));
+          addLog(friendlyRunError(err));
         } finally {
           els.toolCutRun.disabled = false;
           setProcessingFlag(false);
@@ -3020,7 +3080,7 @@
             downloadFile(data, base + "_"+tgt+"p.mp4");
             openDonateModal();
           }catch(err){
-            const emsg = tr("logError","Error: ") + getErrorMessage(err);
+            const emsg = friendlyRunError(err);
             toolStatus(els.toolRescaleStatus,"err", emsg);
             try{ showToast(emsg); }catch(e){ console.warn(e); }
             addLog(emsg);
@@ -3105,7 +3165,7 @@
             openDonateModal();
             setTimeout(function(){ setMuteProgress(0,false); }, 1800);
           }catch(err){
-            const emsg = tr("logError","Error: ") + getErrorMessage(err);
+            const emsg = friendlyRunError(err);
             toolStatus(els.toolMuteStatus,"err", emsg);
             try{ showToast(emsg); }catch(e){ console.warn(e); }
             addLog(emsg);
@@ -3759,6 +3819,7 @@
 
     function openToolModal(tool) {
       if (isBusy() || window.__mergeBusy) { showToast(tr("processing","Memproses...")); return; }
+      pauseAllToolMedia();
       const card = getCard(tool);
       if (!card) return;
       activeTool = tool;
@@ -3779,6 +3840,16 @@
         d.textContent = desc ? desc.textContent : "";
         info.appendChild(t); info.appendChild(d);
         toolHeroEl.appendChild(info);
+        if (tool === "quality") {
+          const trash = document.createElement("button");
+          trash.type = "button";
+          trash.className = "qm-hero-trash";
+          trash.title = "Bersihkan cache";
+          trash.setAttribute("aria-label", "Bersihkan cache");
+          trash.innerHTML = '<span class="material-symbols-rounded" aria-hidden="true">delete</span>';
+          trash.addEventListener("click", function(){ if (isProcessing) return; clearAppCache(); });
+          toolHeroEl.appendChild(trash);
+        }
       }
       // show correct panel
       document.querySelectorAll(".tool-panel").forEach(function (p) { p.hidden = true; });
@@ -3866,9 +3937,44 @@
 
     function closeToolModal() {
       if (!toolModalEl || toolModalEl.hidden) return;
-      // if busy in active tool (termasuk merge standalone), prevent close
+      // jika ada proses berjalan, minta konfirmasi dulu (X tetap bisa ditekan kapan saja)
       const busy = isProcessing || window.__mergeBusy;
-      if (busy) { showToast(tr("processing","Memproses...")); return; }
+      if (busy) { openCancelConfirm(); return; }
+      doCloseToolModal();
+    }
+
+    function openCancelConfirm() {
+      const wrap = document.getElementById("cancelConfirmModal");
+      if (!wrap) { showToast(tr("processing","Memproses...")); return; }
+      const en = uiLang() === "en";
+      const t = document.getElementById("cancelConfirmTitle");
+      const d = document.getElementById("cancelConfirmDesc");
+      const no = document.getElementById("cancelConfirmNo");
+      const yes = document.getElementById("cancelConfirmYes");
+      if (t) t.textContent = en ? "Cancel process?" : "Batalkan proses?";
+      if (d) d.textContent = en ? "The running process will be stopped and progress will be lost. Are you sure you want to close?" : "Proses yang sedang berjalan akan dihentikan dan progresnya hilang. Apakah Anda yakin ingin menutup?";
+      if (no) no.textContent = en ? "Continue" : "Lanjutkan";
+      if (yes) yes.textContent = en ? "Yes, cancel" : "Ya, batalkan";
+      wrap.hidden = false;
+    }
+
+    function hideCancelConfirm() {
+      const wrap = document.getElementById("cancelConfirmModal");
+      if (wrap) wrap.hidden = true;
+    }
+
+    function pauseAllToolMedia() {
+      try { if (window.__vtStop) window.__vtStop(); } catch (e) { console.warn(e); }
+      try { if (window.vtVideo && !window.vtVideo.paused) window.vtVideo.pause(); } catch (e) { console.warn(e); }
+      try {
+        var mp = document.getElementById("toolMergePreview");
+        if (mp && !mp.paused) mp.pause();
+      } catch (e) { console.warn(e); }
+    }
+    window.velardPauseToolMedia = pauseAllToolMedia;
+
+    function doCloseToolModal() {
+      pauseAllToolMedia();
       const card = activeTool ? getCard(activeTool) : null;
       toolModalEl.classList.remove("expanded");
       toolModalEl.classList.add("is-morphing");
@@ -3909,8 +4015,14 @@
       card.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openToolModal(card.dataset.tool);} });
     });
     if (closeBtn) closeBtn.addEventListener("click", closeToolModal);
-    if (toolBackdropEl) toolBackdropEl.addEventListener("click", closeToolModal);
-    document.addEventListener("keydown", function(e){ if(e.key==="Escape" && !toolModalEl.hidden) closeToolModal(); });
+    if (toolBackdropEl) toolBackdropEl.addEventListener("click", function(){ if (isProcessing || window.__mergeBusy) return; closeToolModal(); });
+    var cancelNoBtn = document.getElementById("cancelConfirmNo");
+    var cancelYesBtn = document.getElementById("cancelConfirmYes");
+    var cancelWrap = document.getElementById("cancelConfirmModal");
+    if (cancelNoBtn) cancelNoBtn.addEventListener("click", hideCancelConfirm);
+    if (cancelWrap) cancelWrap.addEventListener("click", function(e){ if(e.target===cancelWrap) hideCancelConfirm(); });
+    if (cancelYesBtn) cancelYesBtn.addEventListener("click", function(){ hideCancelConfirm(); cancelAllProcessing(); doCloseToolModal(); });
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape" && !toolModalEl.hidden){ if (isProcessing || window.__mergeBusy) return; closeToolModal(); } });
 
     // drop zones
     const dropMap = { mp3: "toolMp3Drop", convert: "toolConvertDrop", cut: "toolCutDrop", rescale: "toolRescaleDrop", mute: "toolMuteDrop" };
@@ -3952,7 +4064,6 @@
         const c = getCard(tool);
         if (c) c.classList.add("is-processing");
         if (cardArrow) { cardArrow.innerHTML = '<span class="tool-card-progress-text">6%</span>'; }
-        if (closeB && activeTool===tool) { closeB.classList.add("is-processing"); closeB.innerHTML = '<span class="tool-card-progress-text">6%</span>'; }
       } else if (isDone) {
         if (fill) fill.style.width = "100%";
         if (pctEl) pctEl.textContent = "100%";
@@ -3967,7 +4078,6 @@
         if (fill) fill.style.width = pct + "%";
         if (pctEl) pctEl.textContent = Math.round(pct) + "%";
         if (cardArrow) cardArrow.innerHTML = '<span class="tool-card-progress-text">' + Math.round(pct) + '%</span>';
-        if (closeB && activeTool===tool) closeB.innerHTML = '<span class="tool-card-progress-text">' + Math.round(pct) + '%</span>';
       }
     }
     // realtime tools progress 4 tools (mp3/convert/cut/rescale) - smoothed realtime

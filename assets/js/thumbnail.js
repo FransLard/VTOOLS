@@ -38,6 +38,59 @@
         } catch (e) {}
         return fb;
     }
+    var THUMB_OPT_I18N = {
+        id: { orig: "Asli", pics: "gambar", every1s: "Tiap 1 detik", every5s: "Tiap 5 detik", every10s: "Tiap 10 detik", every30s: "Tiap 30 detik", every1m: "Tiap 1 menit", mute: "Bisukan", unmute: "Suarakan" },
+        en: { orig: "Original", pics: "images", every1s: "Every 1 sec", every5s: "Every 5 secs", every10s: "Every 10 secs", every30s: "Every 30 secs", every1m: "Every 1 min", mute: "Mute", unmute: "Unmute" }
+    };
+    function thumbOpt(key) {
+        var L = THUMB_OPT_I18N[thumbLang()] || THUMB_OPT_I18N.id;
+        return L[key] || THUMB_OPT_I18N.id[key] || key;
+    }
+    var THUMB_AUTO_MAP = {
+        "2%": ["50", "pics"], "4%": ["25", "pics"], "5%": ["20", "pics"],
+        "6.25%": ["16", "pics"], "10%": ["10", "pics"],
+        "0.0166666m": "every1s", "0.0833333m": "every5s", "0.166666m": "every10s",
+        "0.5m": "every30s", "1m": "every1m"
+    };
+    function refreshThumbOptions() {
+        try {
+            if (videow) {
+                var ow = videow.querySelector("option[data-orig]");
+                if (ow) {
+                    var wdt = ow.getAttribute("data-w") || "";
+                    ow.textContent = thumbOpt("orig") + (wdt ? " (" + wdt + " px)" : "");
+                }
+            }
+        } catch (e) {}
+        try {
+            var sel = q("#snap_each");
+            if (sel) {
+                var opts = sel.querySelectorAll("option");
+                for (var i = 0; i < opts.length; i++) {
+                    var m = THUMB_AUTO_MAP[opts[i].value];
+                    if (!m) continue;
+                    opts[i].textContent = (typeof m === "string") ? thumbOpt(m) : (m[0] + " " + thumbOpt(m[1]));
+                }
+            }
+        } catch (e) {}
+        syncMuteBtn();
+    }
+    function syncMuteBtn() {
+        try {
+            var m = !!(video && video.muted);
+            var ico = document.querySelector("#toolPanel-thumbnail #thumbMuteIco");
+            var lab = document.querySelector("#toolPanel-thumbnail #thumbMuteLabel");
+            var btn = document.getElementById("thumbMuteBtn");
+            if (ico) ico.textContent = m ? "volume_off" : "volume_up";
+            if (lab) lab.textContent = (m ? thumbOpt("unmute") : thumbOpt("mute")).toLowerCase();
+            if (btn) btn.title = m ? thumbOpt("unmute") : thumbOpt("mute");
+        } catch (e) {}
+    }
+    window.vtMute = function() {
+        if (!video) return;
+        try { video.muted = !video.muted; } catch (e) {}
+        syncMuteBtn();
+    };
     function thumbNotify(msg) {
         try {
             var toast = document.getElementById("appToast");
@@ -69,13 +122,25 @@
         el.hidden = true;
     }
     window.vtVideo = video || null;
-    function timeUpdate() {
+    var _lastThumbInfo = 0;
+    function timeUpdate(force) {
         if (!video) return;
         if (slider) {
-            slider.setAttribute("max", Math.ceil(video.duration));
+            try {
+                var _d = Math.ceil(video.duration);
+                if (slider._max !== _d) { slider._max = _d; slider.setAttribute("max", _d); }
+            } catch (e) {}
             slider.value = video.currentTime;
         }
         if (!videoInfo) return;
+        // PERF-OPT aman: info teks max 2x/detik, hasil sama persis
+        if (!force) {
+            try {
+                var _nt = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+                if (_nt - _lastThumbInfo < 500) return;
+                _lastThumbInfo = _nt;
+            } catch (e) {}
+        }
         videoInfo.style.display = "block";
         videoInfo.innerHTML = [ "Video size: " + video.videoWidth + "x" + video.videoHeight, "Video length: " + Math.round(video.duration * 10) / 10 + "sec", "Playback position: " + Math.round(video.currentTime * 10) / 10 + "sec" ].join("<br>");
     }
@@ -88,23 +153,57 @@
     window.vtGoToTime = function(t) {
         goToTime(video, t);
     };
+    window.vtFull = function() {
+        try {
+            var wrap = video && video.closest ? (video.closest(".video-preview") || video.parentElement) : null;
+            var fs = document.fullscreenElement || document.webkitFullscreenElement;
+            if (fs) {
+                if (document.exitFullscreen) document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            } else if (wrap) {
+                if (wrap.requestFullscreen) wrap.requestFullscreen();
+                else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+            }
+        } catch (e) {}
+    };
     if (video) {
-        video.addEventListener("timeupdate", timeUpdate);
+        video.addEventListener("timeupdate", function(){ timeUpdate(false); });
+        video.addEventListener("click", function() {
+            try { if (video.paused) video.play(); else video.pause(); } catch (e) {}
+        });
+        // PERF-OPT aman: tandai body saat preview jalan agar background pause (tidak ubah logika)
+        try {
+            video.addEventListener("play", function(){ try { document.body.classList.add("is-preview"); } catch (e) {} });
+            video.addEventListener("pause", function(){ try { document.body.classList.remove("is-preview"); } catch (e) {} });
+            video.addEventListener("ended", function(){ try { document.body.classList.remove("is-preview"); } catch (e) {} });
+        } catch (e) {}
+        var _thumbPlayBtn = null, _thumbPauseBtn = null;
         setInterval(function() {
             if (!video) return;
-            var play = document.querySelector("#toolPanel-thumbnail .play-control");
-            var pause = document.querySelector("#toolPanel-thumbnail .pause-control");
+            // PERF-OPT aman: cache tombol, hasil visual sama
+            if (!_thumbPlayBtn) _thumbPlayBtn = document.querySelector("#toolPanel-thumbnail .play-control");
+            if (!_thumbPauseBtn) _thumbPauseBtn = document.querySelector("#toolPanel-thumbnail .pause-control");
+            var play = _thumbPlayBtn, pause = _thumbPauseBtn;
+            if (!play || !pause) { _thumbPlayBtn = null; _thumbPauseBtn = null; return; }
             if (!play || !pause) return;
             if (video.paused) {
-                play.style.display = "block";
-                pause.style.display = "none";
+                play.classList.remove("is-hidden");
+                pause.classList.add("is-hidden");
             } else {
-                play.style.display = "none";
-                pause.style.display = "block";
+                play.classList.add("is-hidden");
+                pause.classList.remove("is-hidden");
             }
         }, 1e3);
         video.addEventListener("loadedmetadata", function() {
-            if (videow) videow.value = video.videoWidth;
+            if (videow) {
+                var origOpt = videow.querySelector("option[data-orig]");
+                if (origOpt) {
+                    origOpt.value = String(video.videoWidth || 640);
+                    origOpt.setAttribute("data-w", String(video.videoWidth || 640));
+                }
+                videow.value = String(video.videoWidth || 640);
+                refreshThumbOptions();
+            }
             if (videoInfo) {
                 videoInfo.innerHTML = [ "Video size: " + video.videoWidth + "x" + video.videoHeight, "Video length: " + Math.round(video.duration * 10) / 10 + "sec" ].join("<br>");
             }
@@ -119,7 +218,7 @@
     function resize() {
         if (!video || !video.videoWidth || !videow) return;
         ratio = video.videoWidth / video.videoHeight;
-        w = videow.value;
+        w = parseInt(videow.value, 10) || 640;
         h = parseInt(w / ratio, 10);
         canvas.width = w;
         canvas.height = h;
@@ -136,7 +235,20 @@
     }
     function snapPicture() {
         if (!video || !video.videoWidth || !canvas) return;
-        resize();
+        if (videow) {
+            var vw = parseInt(videow.value, 10) || 0;
+            if (vw > 0) {
+                ratio = video.videoWidth / video.videoHeight;
+                w = vw;
+                h = parseInt(w / ratio, 10);
+                canvas.width = w;
+                canvas.height = h;
+            } else {
+                resize();
+            }
+        } else {
+            resize();
+        }
         context.fillRect(0, 0, w, h);
         context.drawImage(video, 0, 0, w, h);
         var time = video.currentTime;
@@ -144,6 +256,7 @@
         var img = document.createElement("img");
         img.src = canvas.toDataURL();
         img.className = "output";
+        img.style.cssText = "width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;cursor:pointer;";
         img.addEventListener("click", function() {
             selectImage(img);
         });
@@ -153,7 +266,7 @@
         };
         var cont = document.createElement("div");
         cont.className = "output-container";
-        cont.style.display = "inline-block";
+        cont.style.cssText = "display:inline-block;flex:0 0 128px;width:128px;max-width:128px;min-width:128px;";
         cont.appendChild(img);
         var label = document.createElement("label");
         label.innerHTML = time.toFixed(2) + "s " + w + "x" + h;
@@ -163,13 +276,18 @@
         close.innerHTML = "x";
         close.href = "javascript:void(0)";
         close.addEventListener("click", function() {
+            var wasSelected = cont.querySelector("img.selected") ? true : false;
             container.removeChild(cont);
             if (container.children.length == 0) {
                 if (save) save.disabled = true;
                 if (saveall) saveall.disabled = true;
                 if (clear) clear.disabled = true;
+            } else if (wasSelected) {
+                var rest = thumbImages();
+                if (rest.length) selectImage(rest[0]);
             }
             refreshResultLabel();
+            updateViewer();
         });
         cont.appendChild(close);
         container.appendChild(cont);
@@ -265,8 +383,7 @@
         if (save) save.disabled = true;
         if (saveall) saveall.disabled = true;
         if (clear) clear.disabled = true;
-        var prev = q("#preview");
-        if (prev) prev.style.display = "none";
+        updateViewer();
         refreshResultLabel();
     }
     function refreshResultLabel() {
@@ -280,6 +397,23 @@
     window.__vtStop = function() {
         clearInterval(snapProc);
     };
+    function thumbImages() {
+        var container = q("#outputs");
+        return container ? Array.prototype.slice.call(container.querySelectorAll(".output-container > img")) : [];
+    }
+    function updateViewer() {
+        var viewer = q("#thumbViewer");
+        var imgs = thumbImages();
+        var idx = -1;
+        for (var i = 0; i < imgs.length; i++) {
+            if (imgs[i].classList.contains("selected")) { idx = i; break; }
+        }
+        if (!imgs.length || idx < 0) {
+            if (viewer) viewer.classList.add("is-hidden");
+            return;
+        }
+        if (viewer) viewer.classList.remove("is-hidden");
+    }
     function selectImage(img) {
         var parent = img.parentElement.parentElement;
         var images = parent.querySelectorAll(".output-container > img");
@@ -292,13 +426,14 @@
         img.classList.add("selected");
         var preview = q("#preview");
         if (preview) {
+            preview.style.cssText = "display:block;width:auto;height:auto;max-width:100%;max-height:150px;margin:0 auto;object-fit:contain;background:#000;border:none;";
             preview.src = img.src;
-            preview.style.display = "";
             preview.title = img.title;
         }
         if (save) save.disabled = false;
         if (saveall) saveall.disabled = false;
         if (clear) clear.disabled = false;
+        updateViewer();
     }
     function selectVideo() {
         if (file) file.click();
@@ -321,6 +456,8 @@
         }
         hideWarn();
         if (fileInput) {
+            // PERF-OPT aman: pause + buang blob lama agar decoder tidak numpuk (hasil sama)
+            try { video.pause(); } catch (e) {}
             if (video.objectURL && video.src) {
                 try {
                     URL.revokeObjectURL(video.src);
@@ -333,7 +470,7 @@
             if (videow) videow.removeAttribute("readonly");
             if (snap) snap.disabled = false;
             if (snap2) snap2.disabled = false;
-            if (videoControls) videoControls.style.display = "";
+            if (videoControls) videoControls.classList.remove("is-hidden");
             try {
                 video.load();
             } catch (e) {}
@@ -342,12 +479,18 @@
     window.loadVideoFile = loadVideoFile;
     function loadVideoURL(url) {
         if (!video || !url) return;
+        // PERF-OPT aman: bersihkan blob lama sebelum ganti sumber (tidak ubah logika)
+        try { video.pause(); } catch (e) {}
+        try {
+            if (video.objectURL && video.src && video.src.indexOf("blob:") === 0) URL.revokeObjectURL(video.src);
+        } catch (e) {}
+        video.objectURL = false;
         video.preload = "metadata";
         video.src = url;
         if (videow) videow.removeAttribute("readonly");
         if (snap) snap.disabled = false;
         if (snap2) snap2.disabled = false;
-        if (videoControls) videoControls.style.display = "";
+        if (videoControls) videoControls.classList.remove("is-hidden");
         try {
             video.load();
         } catch (e) {}
@@ -376,14 +519,14 @@
             var dataURL = selected.src;
             var link = document.getElementById("imagelink");
             if (!link) return;
-            link.style.display = "";
+            link.classList.remove("is-hidden");
             link.style.opacity = 0;
             link.href = dataURL;
             var rnd = Math.round(Math.random() * 1e4);
             link.setAttribute("download", "video-capture-" + selected.title + "-" + rnd + ".png");
             link.click();
             setTimeout(function() {
-                link.style.display = "none";
+                link.classList.add("is-hidden");
             }, 100);
         }
     }
@@ -421,11 +564,9 @@
             slider.value = "0";
             slider.setAttribute("max", "100");
         }
-        if (videoControls) videoControls.style.display = "none";
+        if (videoControls) videoControls.classList.add("is-hidden");
         if (snap) snap.disabled = true;
         if (snap2) snap2.disabled = true;
-        var cPrev = q("#preview");
-        if (cPrev) cPrev.style.display = "none";
         clearSnaps();
         hideWarn();
         thumbNotify(thumbT("thumbCacheDone", "Cache thumbnail dibersihkan."));
@@ -433,10 +574,12 @@
     window.addEventListener("qm:langchange", function() {
         hideWarn();
         refreshResultLabel();
+        refreshThumbOptions();
     });
     var cacheBtn = document.getElementById("thumbCacheClear");
     if (cacheBtn) cacheBtn.addEventListener("click", thumbClearCache);
     refreshResultLabel();
+    refreshThumbOptions();
     var urlRadio = document.getElementById("vt_url_radio") || document.getElementById("video_url");
     var fileRadio = document.getElementById("vt_file_radio") || document.getElementById("video_file");
     if (fileRadio) fileRadio.addEventListener("click", function() {

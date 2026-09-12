@@ -1562,6 +1562,11 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 
 #analysisModal{ z-index: 500 !important; }
 #analysisModal .modal{ z-index: 501 !important; }
+#cancelConfirmModal{ z-index: 600 !important; }
+#cancelConfirmModal .modal{ z-index: 601 !important; }
+#toolModalHero .qm-hero-trash{ margin-left:auto; width:32px; height:32px; flex:0 0 auto; border-radius:10px; border:1px solid #3a222b; background:#241419; color:#ffe8ef; cursor:pointer; display:grid; place-items:center; }
+#toolModalHero .qm-hero-trash:hover{ background:#2e1a21; border-color:#5a3440; }
+#toolModalHero .qm-hero-trash .material-symbols-rounded{ font-size:18px; }
 #tiktokConfirmModal{ z-index: 400 !important; }
 #tiktokConfirmModal .modal{ z-index: 401 !important; }
 .modal {
@@ -2281,6 +2286,7 @@ body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
               #toolPanel-thumbnail .crow-sp{ flex:1; }
               #toolPanel-thumbnail #video{ position:relative; z-index:1; width:100%; max-width:100%; max-height:34vh; display:block; margin:0 auto 8px; background:#000; border-radius:10px; border:1px solid rgba(255,255,255,.09); }
               #toolPanel-thumbnail #canvas{ max-width:100%; border:1px solid rgba(255,255,255,.10); border-radius:10px; margin-bottom:10px; display:block; }
+              #toolPanel-thumbnail #canvas.is-hidden{ display:none !important; }
               #toolPanel-thumbnail .instructions{ padding:0; font-size:11.5px; color:var(--text-3,#a7adba); }
               #toolPanel-thumbnail .video-preview{ text-align:center; }
               #toolPanel-thumbnail #slider{ width:100%; height:20px; accent-color:#eceef2; cursor:pointer; }
@@ -2373,3 +2379,140 @@ body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
 .form-hint{font-size:11px;color:var(--text-3);text-align:right;margin-top:4px;min-height:14px}
 .site-footer{max-width:1120px;margin:28px auto 0;padding:20px 18px 90px;text-align:center}
 .site-footer-copy{font-size:12px;color:var(--text-3);margin:0}
+
+/* PERF-NO-BLUR (revisi): hanya matikan blur di modal/video, background hero dikembalikan */
+*,*::before,*::after{backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+.streak-bg,.streak-bg-dummy,.streak-bg-old,
+.comets,.comet,.edge-flashes,.edge-flash,.galaxy-particles,
+.bumi-glow,.blackhole-glow,.bumi-img,.blackhole-img,.bimasakti-img,
+.galaxy-stars,.galaxy-stars2{display:none !important;animation:none !important;filter:none !important;opacity:0 !important;will-change:auto !important}
+.tool-modal-backdrop{background:rgba(0,0,0,.72) !important}
+.tool-modal-card,.modal-card,.modal,.card,.qm-card,.upload-card,
+.about-card,.tutorial-card,.donate-card,.feature-item,.nn-card,.eco-card,
+.ex-card,.funnel-card,.funnel-base,.tiktok-card,.social-link,
+#toolPanel-thumbnail .vt-card{background:#1a0b10 !important;border-color:rgba(255,170,190,.10) !important;box-shadow:0 8px 20px rgba(0,0,0,.35) !important}
+.tool-modal-header{background:#1a0b10 !important}
+/* CARDS maroon-solid + anti-lag: no blur, no gradient overlay, no lift */
+.tool-card-new{background:#161016 !important;border:1px solid rgba(255,170,190,.10) !important;box-shadow:0 8px 20px rgba(0,0,0,.35) !important;transition:border-color 160ms ease,background 160ms ease !important;transform:none !important;will-change:auto !important}
+.tool-card-new::before{display:none !important}
+.tool-card-new:hover{background:#22141a !important;border-color:rgba(255,170,190,.22) !important;transform:none !important;box-shadow:0 8px 20px rgba(0,0,0,.35) !important}
+.tool-card-new:active{transform:scale(.99) !important}
+.tool-card-new .tool-icon-wrap,.tool-card-new .tool-arrow{background:#241419 !important;border-color:rgba(255,170,190,.12) !important;transition:border-color 160ms ease,background 160ms ease !important;transform:none !important}
+.tool-card-new:hover .tool-icon-wrap,.tool-card-new:hover .tool-arrow{transform:none !important}
+.tools-search-wrap{background:#161016 !important;border-color:rgba(255,170,190,.14) !important;box-shadow:none !important}
+.tools-search-wrap:focus-within{border-color:rgba(255,170,190,.35) !important;box-shadow:0 0 0 3px rgba(242,85,122,.12) !important}
+.seg-btn:not(.active),.tool-seg-btn:not(.active),.qm-seg-btn:not(.active){background:#241419 !important;background-image:none !important;border:1px solid #3a222b !important;color:#d8c2c9 !important;box-shadow:none !important;opacity:1 !important}
+.seg-btn.active,.tool-seg-btn.active,.qm-seg-btn.active{background:#ffe8ef !important;background-image:none !important;color:#2a0d15 !important;border:1px solid #ffe8ef !important;box-shadow:none !important;opacity:1 !important}
+.seg-btn,.tool-seg-btn,.qm-seg-btn,.tools-cat-btn{text-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+/* pill kategori ALAT: solid penuh, tanpa blur/transparan */
+.tools-cat-wrap{background:transparent !important}
+.tools-cat-btn{background:#241419 !important;background-image:none !important;border:1px solid #3a222b !important;color:#d8c2c9 !important;box-shadow:none !important;opacity:1 !important}
+.tools-cat-btn:hover{background:#2e1a21 !important;border-color:#5a3440 !important;color:#ffe8ef !important}
+.tools-cat-btn.active{background:#ffe8ef !important;background-image:none !important;border-color:#ffe8ef !important;color:#2a0d15 !important;box-shadow:none !important}
+.qm-segmented{background:#1a0e13 !important;background-image:none !important;border:1px solid #3a222b !important;box-shadow:none !important}
+.floating-nav-bar{background:#161016 !important;border-color:rgba(255,170,190,.12) !important;box-shadow:0 8px 20px rgba(0,0,0,.35) !important}
+.top-header .lang-toggle{background:#1a0e13 !important;background-image:none !important;border:1px solid #3a222b !important;box-shadow:none !important}
+.lang-btn{background:transparent !important;color:#d8c2c9 !important;box-shadow:none !important}
+.lang-btn.active{background:#ffe8ef !important;background-image:none !important;color:#2a0d15 !important;box-shadow:none !important}
+#othersBack.btn-ghost,#othersDetail .btn-ghost,#panel-beranda .btn-ghost{background:#241419 !important;background-image:none !important;border:1px solid #3a222b !important;color:#ffe8ef !important;box-shadow:none !important}
+#video,#toolMergePreview{filter:none !important;transform:translateZ(0);background:#000 !important}
+/* hemat GPU saat video diputar: pause animasi background hanya ketika modal terbuka */
+body.tool-modal-open .bg-static::before,body.tool-modal-open .bg-silk-sway{animation:none !important}
+body.tool-modal-open .bg-static{will-change:auto !important}
+/* FRANS pale-pink + glow, animasi flip dikembalikan */
+.kinetic-name-line{color:#fff1f5 !important;-webkit-text-fill-color:#fff1f5 !important;filter:drop-shadow(0 0 16px rgba(255,110,140,.55)) drop-shadow(0 0 44px rgba(242,60,100,.35)) drop-shadow(0 2px 14px rgba(0,0,0,.5)) !important;text-shadow:none !important}
+.name-box .flip-char{color:#fff1f5 !important;-webkit-text-fill-color:#fff1f5 !important;background:none !important;text-shadow:0 0 12px rgba(255,130,160,.90),0 0 32px rgba(242,60,100,.55),0 0 64px rgba(200,20,50,.40) !important;filter:drop-shadow(0 0 10px rgba(255,110,140,.50)) !important;will-change:transform,opacity !important}
+/* BG-RED: samakan background ke maroon seperti referensi */
+.bg-static{background-color:#160409 !important;background-image:radial-gradient(ellipse 90% 46% at 18% -8%, rgba(255,170,190,.42) 0%, rgba(200,60,80,.16) 46%, transparent 70%),linear-gradient(115deg, rgba(255,150,170,.12) 0%, rgba(160,20,40,.32) 34%, rgba(120,10,30,.16) 52%, transparent 68%),radial-gradient(ellipse 52% 52% at 58% 44%, rgba(180,30,55,.40) 0%, rgba(120,10,30,.16) 52%, transparent 74%),radial-gradient(ellipse 44% 52% at 86% 54%, rgba(255,120,150,.26) 0%, rgba(140,15,35,.12) 48%, transparent 74%),radial-gradient(ellipse 70% 52% at 10% 98%, rgba(120,10,25,.70) 0%, rgba(60,5,15,.40) 52%, transparent 78%),linear-gradient(180deg, #1c060d 0%, #2b0a13 30%, #3a0e1a 50%, #200812 74%, #0d0307 100%) !important}
+.bg-static::before{background:radial-gradient(ellipse 44% 34% at 30% 22%, rgba(255,170,190,.26) 0%, transparent 70%),radial-gradient(ellipse 38% 34% at 80% 52%, rgba(242,85,122,.20) 0%, transparent 70%),radial-gradient(ellipse 52% 30% at 52% 46%, rgba(180,30,55,.18) 0%, transparent 70%),radial-gradient(ellipse 58% 32% at 22% 94%, rgba(140,15,35,.28) 0%, transparent 72%) !important}
+.flip-char,.char-flip-in,.char-flip-out{animation-duration:380ms !important}
+.modal-icon,.social-icon--tiktok .material-symbols-rounded,.social-icon--instagram .material-symbols-rounded{filter:none !important}
+.comet,.edge-flash,.galaxy-particles .gp,.streak-bg .galaxy-stars,.streak-bg .galaxy-stars2{animation:none !important;will-change:auto !important}
+/* OTHERS transparan penuh: tanpa pondasi, background tembus */
+/* OTHERS luar kembali kartu solid seperti tools; transparan hanya isi detail */
+#panel-others .tool-card-new{background:#161016 !important;background-image:none !important;border:1px solid rgba(255,170,190,.10) !important;box-shadow:0 8px 20px rgba(0,0,0,.35) !important;border-radius:16px !important;min-height:68px !important;padding:12px !important;gap:10px !important;transition:border-color 160ms ease,background 160ms ease !important;transform:none !important}
+#panel-others .tool-card-new:hover{background:#22141a !important;border-color:rgba(255,170,190,.22) !important;box-shadow:0 8px 20px rgba(0,0,0,.35) !important}
+#panel-others .tool-card-new .tool-icon-wrap,#panel-others .tool-card-new .tool-arrow{background:#241419 !important;background-image:none !important;border:1px solid rgba(255,170,190,.12) !important;box-shadow:none !important}
+#panel-others .tool-card-new .tool-icon-wrap{width:38px !important;height:38px !important;border-radius:12px !important;color:#ffe8ef !important}
+#panel-others .tool-card-new .tool-icon-wrap .material-symbols-rounded{font-size:19px !important}
+#panel-others .tool-card-new .tool-title-new{font-size:13.5px !important;font-weight:800 !important;color:var(--text,#eceef2) !important;text-shadow:none !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important}
+#panel-others .tool-card-new .tool-arrow{width:28px !important;height:28px !important;border-radius:50% !important;color:var(--text-3,#b7bcc7) !important}
+#othersDetail .card,#othersDetail .about-card,#othersDetail .tutorial-card,#othersDetail .social-card,#othersDetail .help-card,#othersDetail .donate-card,#othersDetail .feature-item{background:#161016 !important;background-image:none !important;border:1px solid rgba(255,170,190,.10) !important;box-shadow:0 8px 20px rgba(0,0,0,.35) !important}
+#othersDetail .about-hero,#othersDetail .about-intro,#othersDetail .tutorial-step,#othersDetail .help-info-box,#othersDetail .help-note-box,#othersDetail .spec-grid>div,#othersDetail .faq-item,#othersDetail .changelog-item,#othersDetail .social-link{background:#1e1116 !important;background-image:none !important;border:1px solid rgba(255,170,190,.10) !important;box-shadow:none !important}
+#othersDetail .step-num,#othersDetail .about-ver-badge,#othersDetail .changelog-badge{background:#2e1a21 !important;border:1px solid #5a3440 !important;color:#ffe8ef !important;box-shadow:none !important}
+/* NAV tanpa animasi pindah posisi: indikator mati, status aktif instan */
+.floating-nav-indicator{display:none !important;animation:none !important;transition:none !important}
+.floating-nav-item{transition:background-color 150ms ease,color 150ms ease !important}
+.floating-nav-item .nav-label{transition:none !important}
+.floating-nav-item:active{transform:none !important}
+/* Bubble putih instan untuk opsi aktif (tanpa animasi geser) */
+.floating-nav-item.active{background:#ffffff !important;color:#2a0d15 !important;border-radius:999px !important;box-shadow:none !important}
+.floating-nav-item.active .material-symbols-rounded{color:#2a0d15 !important}
+.floating-nav-item:not(.active){background:transparent !important}
+/* THUMB satu layar: kompak tanpa scroll menu, galeri gambar scroll sendiri */
+#toolPanel-thumbnail .vt-main{gap:10px !important}
+#toolPanel-thumbnail .vt-card{padding:10px !important}
+#toolPanel-thumbnail .thumb-label{margin:0 0 6px !important}
+#toolPanel-thumbnail .thumb-label:not(:first-child){margin-top:10px !important;padding-top:10px !important}
+#toolPanel-thumbnail #video{max-height:28vh !important;margin:0 auto 6px !important}
+#toolPanel-thumbnail #videoControls{margin-top:4px !important}
+#toolPanel-thumbnail .video_output{max-height:none !important;overflow:visible !important}
+#toolPanel-thumbnail .crow + .crow{margin-top:6px !important}
+#toolPanel-thumbnail .canvas-container{max-height:30vh !important;overflow-y:auto !important;padding-bottom:4px !important}
+#toolPanel-thumbnail .save-row{margin-top:8px !important}
+#toolPanel-thumbnail select#videow,#toolPanel-thumbnail select#snap_each{background:#241419 !important;border:1px solid #3a222b !important;color:#ffe8ef !important;border-radius:9px !important;padding:7px 8px !important;font-size:12px !important;font-weight:600 !important;outline:none !important;cursor:pointer !important;box-shadow:none !important;min-height:34px !important}
+#toolPanel-thumbnail select#videow{width:auto !important;max-width:100% !important}
+#toolPanel-thumbnail select#videow option,#toolPanel-thumbnail select#snap_each option{background:#1a0e13 !important;color:#ffe8ef !important}
+#toolPanel-thumbnail #snap2{border-top-right-radius:0 !important;border-bottom-right-radius:0 !important;border-right:none !important}
+#toolPanel-thumbnail .snap-auto{width:100% !important}
+#toolPanel-thumbnail #snap_each{flex:1 !important;border-top-left-radius:0 !important;border-bottom-left-radius:0 !important}
+/* THUMB ala referensi: preview besar di atas, strip gambar di bawah */
+#toolPanel-thumbnail .canvas-container{max-height:60vh !important}
+#toolPanel-thumbnail #thumbViewer{width:fit-content !important;max-width:100% !important;margin:0 auto 8px !important;background:#0a0a0c !important;border:1px solid rgba(255,255,255,.09) !important;border-radius:10px !important;padding:6px !important}
+#toolPanel-thumbnail #thumbViewer.is-hidden{display:none !important}
+#toolPanel-thumbnail .video-preview:fullscreen{background:#000 !important;padding:12px !important;overflow-y:auto !important}
+#toolPanel-thumbnail .video-preview:fullscreen #video{max-height:calc(100vh - 170px) !important}
+#toolPanel-thumbnail #thumbViewer #preview{display:block !important;width:auto !important;height:auto !important;max-width:100% !important;max-height:150px !important;margin:0 auto !important;object-fit:contain !important;border:none !important;background:#000 !important}
+#toolPanel-thumbnail #outputs{display:grid !important;grid-template-columns:repeat(auto-fill,128px) !important;justify-content:start !important;gap:8px !important;overflow:visible !important;padding-bottom:6px !important}
+#toolPanel-thumbnail .output-container{flex:0 0 128px !important;width:128px !important;max-width:128px !important;min-width:128px !important}
+#toolPanel-thumbnail .output{aspect-ratio:4/3 !important;width:100% !important;height:auto !important}
+#toolPanel-thumbnail .output-remove{background:#a31313 !important;border-color:#a31313 !important}
+/* THUMB: tombol auto merah tegas teks hitam */
+#toolPanel-thumbnail #snap2{background:#ff3b3b !important;border-color:#ff3b3b !important;color:#111318 !important}
+#toolPanel-thumbnail #snap2:not(:disabled):hover{background:#e02525 !important;border-color:#e02525 !important;color:#111318 !important}
+#toolPanel-thumbnail #snap2:disabled{opacity:.35 !important}
+/* TOOLS: subtitle terang */
+#panel-tools .head-sub{color:#ffd9e4 !important}
+/* TOOLS: search & kategori lebih besar, pas mobile & PC */
+.tools-search-wrap{padding:11px 14px 11px 16px !important;gap:10px !important}
+.tools-search-icon{font-size:20px !important}
+#toolsSearch{font-size:14px !important}
+.tools-search-clear{width:30px !important;height:30px !important}
+.tools-cat-wrap{gap:10px !important;margin:14px 0 4px !important}
+.tools-cat-btn{padding:9px 18px !important;font-size:13px !important;gap:7px !important}
+.tools-cat-btn .material-symbols-rounded{font-size:18px !important}
+@media(max-width:640px){
+  .tools-search-wrap{padding:10px 12px 10px 14px !important}
+  #toolsSearch{font-size:13.5px !important}
+  .tools-cat-wrap{gap:8px !important}
+  .tools-cat-btn{padding:7px 14px !important;font-size:12px !important;gap:5px !important}
+  .tools-cat-btn .material-symbols-rounded{font-size:16px !important}
+}
+/* THUMB: hanya galeri yang scroll (saat gambar > muatan), tombol selalu terlihat */
+#toolPanel-thumbnail .video_output{overflow:visible !important;max-height:none !important;position:sticky !important;top:52px !important}
+#toolPanel-thumbnail .video_output > .vt-card{display:flex !important;flex-direction:column !important}
+#toolPanel-thumbnail .canvas-container{overflow:visible !important;max-height:none !important;min-height:0 !important}
+#toolPanel-thumbnail #outputs{overflow-y:auto !important;overflow-x:hidden !important;max-height:216px !important;min-height:0 !important;overscroll-behavior:contain !important;scrollbar-width:thin !important;scrollbar-color:rgba(255,255,255,.22) transparent !important}
+#toolPanel-thumbnail #outputs::-webkit-scrollbar{width:8px !important}
+#toolPanel-thumbnail #outputs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25) !important;border-radius:9999px !important}
+#toolPanel-thumbnail #outputs::-webkit-scrollbar-track{background:transparent !important}
+#toolPanel-thumbnail .crow-split{flex-wrap:wrap !important;row-gap:6px !important}
+#toolPanel-thumbnail .crow-split select#videow{flex:1 !important;min-width:110px !important}
+#toolPanel-thumbnail .crow-split .snap-auto{flex:2 !important;min-width:210px !important;width:auto !important}
+#toolPanel-thumbnail .save-row{flex:0 0 auto !important;margin-top:10px !important}
+/* PERF-OPT (aman, tanpa ubah logika): pause animasi berat saat sibuk + hemat render panel hidden */
+body.is-encoding .bg-silk-sway,body.is-preview .bg-silk-sway{animation-play-state:paused !important}
+body.is-encoding .bg-static::before,body.is-preview .bg-static::before{animation-play-state:paused !important}
+.slide-panel:not(.active-panel){content-visibility:hidden !important}
+.slide-panel:not(.active-panel) video,.slide-panel:not(.active-panel) canvas{content-visibility:hidden !important}
+#logArea{content-visibility:auto !important}

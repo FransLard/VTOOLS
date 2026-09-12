@@ -48,6 +48,8 @@
     function setBusy(v) {
         busy = v;
         window.__mergeBusy = v;
+        // PERF-OPT aman: tandai body agar background pause saat encode (tidak ubah logika)
+        try { document.body.classList.toggle("is-encoding", !!v); } catch (e) {}
     }
     var fileInput = q("#toolMergeFile");
     var drop = q("#toolMergeDrop");
@@ -452,26 +454,44 @@
         }
         var p = Math.max(0, Math.min(1, virtualNow() / total));
         ph.hidden = false;
-        ph.style.left = "calc(10px + (100% - 20px) * " + p.toFixed(4) + ")";
-        if (rulerEl) rulerEl.setAttribute("aria-valuenow", String(Math.round(virtualNow())));
+        // PERF-OPT aman: tulis DOM hanya jika berubah >=0.2% (hasil visual sama)
+        var key = Math.round(p * 500);
+        if (ph._vk !== key) {
+            ph._vk = key;
+            ph.style.left = "calc(10px + (100% - 20px) * " + p.toFixed(4) + ")";
+        }
+        // PERF-OPT aman: aria hanya update per detik (tidak ubah logika)
+        var secNow = Math.round(virtualNow());
+        if (rulerEl && rulerEl._vs !== secNow) {
+            rulerEl._vs = secNow;
+            rulerEl.setAttribute("aria-valuenow", String(secNow));
+        }
     }
     var rafId = null;
+    var _lastTick = 0;
     function tickLoop() {
         rafId = null;
         try {
-            if (!preview || preview.paused) return;
-            updateTime();
-            updatePlayhead();
+            if (!preview || preview.paused) { try { document.body.classList.remove("is-preview"); } catch (e) {} return; }
+            // PERF-OPT aman: batasi ~15fps, cukup untuk playhead halus (logika sama)
+            var _nt = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+            if (_nt - _lastTick >= 66) {
+                _lastTick = _nt;
+                updateTime();
+                updatePlayhead();
+            }
             rafId = requestAnimationFrame(tickLoop);
         } catch (e) {}
     }
     function startLoop() {
         try {
+            try { document.body.classList.add("is-preview"); } catch (e) {}
             if (rafId === null && preview && !preview.paused && typeof requestAnimationFrame === "function") rafId = requestAnimationFrame(tickLoop);
         } catch (e) {}
     }
     function stopLoop() {
         try {
+            try { document.body.classList.remove("is-preview"); } catch (e) {}
             if (rafId !== null && typeof cancelAnimationFrame === "function") cancelAnimationFrame(rafId);
         } catch (e) {}
         rafId = null;
@@ -714,6 +734,7 @@
     }
     async function runMerge() {
         if (busy || files.length < 2) return;
+        try { window.__velardCancelRequested = false; } catch (e) {}
         var bridge = getBridge();
         if (!bridge) {
             var msg = mergeT("toolMergeNoEng", "Mesin belum siap. Tutup lalu buka lagi menunya.");
@@ -727,6 +748,7 @@
         var created = [];
         try {
             var ffmpeg = await bridge.load();
+            if (window.__velardCancelRequested) { try { window.__velardCancelRequested = false; } catch (e) {} throw new Error("Dibatalkan pengguna."); }
             try {
                 if (ffmpeg.on) ffmpeg.on("progress", function() {});
             } catch (e) {}
@@ -828,7 +850,11 @@
             setProgress(100, mergeT("toolMergeDone", "Video gabungan siap diunduh."));
             mergeNotify(mergeT("toolMergeDone", "Video gabungan siap diunduh."));
         } catch (e) {
-            var emsg = mergeT("toolMergeFail", "Gagal menggabungkan: ") + (e && e.message ? e.message : e);
+            var rawMsg = String((e && e.message ? e.message : e) || "");
+            var isCancel = false;
+            try { isCancel = !!window.__velardCancelRequested || /terminate|dibatalkan|cancelled/i.test(rawMsg); } catch (err) {}
+            try { if (isCancel) window.__velardCancelRequested = false; } catch (err) {}
+            var emsg = isCancel ? (mergeLang() === "en" ? "Process cancelled." : "Proses dibatalkan.") : mergeT("toolMergeFail", "Gagal menggabungkan: ") + rawMsg;
             setStatus(emsg, "err");
             mergeNotify(emsg);
             hideProgress();
