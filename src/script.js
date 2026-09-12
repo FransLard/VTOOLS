@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   "use strict";
 
   function tr(key, fallback) {
@@ -3747,7 +3747,7 @@
       return;
     }
     // mobile tetap animasi pink (sesuai request)
-    const greetings = ["hi, saya","hi, i'm","hola, soy","bonjour, je suis","ciao, sono","hallo, ich bin","olá, eu sou","привет, я","مرحبا، أنا","こんにちは、私は","안녕하세요, 저는","你好，我是","สวัสดี, ฉันคือ","xin chào, tôi là","cześć, jestem","merhaba, ben"];
+    const greetings = ["hi, saya", "horas, ahu", "wilujeng, abdi", "halo, aku", "halo, ambo", "om swastyastu, tiang", "halo, ulun", "hi, i'm", "hola, soy", "bonjour, je suis", "ciao, sono", "hallo, ich bin", "olá, eu sou", "привет, я", "مرحبا، أنا", "こんにちは、私は", "안녕하세요, 저는", "你好，我是", "สวัสดี, ฉันคือ", "xin chào, tôi là", "cześć, jestem", "merhaba, ben"];
     const names = ["Velard","Frans"];
     const greetingSuffix = "";
     let gIdx = 0, nIdx = 0;
