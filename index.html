@@ -70,7 +70,7 @@
 
   
   <link rel="stylesheet" href="assets/css/style.css?v=212" />
-  <link rel="stylesheet" href="assets/css/minimal-landing.css?v=61" />
+  <link rel="stylesheet" href="assets/css/minimal-landing.css?v=73" />
   <script>!function(){try{var t=["beranda","tools","donate","others"];try{["quality","tutorial","tentang"].forEach(function(t){try{localStorage.getItem("velardPanel")===t&&localStorage.removeItem("velardPanel")}catch(t){}if((location.hash||"")==="#"+t)try{history.replaceState(null,"",location.pathname)}catch(t){}})}catch(t){}try{sessionStorage.getItem("velardSession")&&(isRefresh=!0)}catch(t){}var e="beranda";if(isRefresh){var a=(location.hash||"").replace(/^#/,"");try{s=localStorage.getItem("velardPanel")}catch(t){}h&&-1!==t.indexOf(a)?v=h:s&&-1!==t.indexOf(null)&&(v=s)}document.documentElement.setAttribute("data-preload",e);var n=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+e+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}",o=document.createElement("style");o.id="preload-fix",o.textContent=n,document.head.appendChild(o)}catch(t){}}();</script>
   <script>try{"scrollRestoration"in history&&(history.scrollRestoration="manual")}catch(o){}window.addEventListener("beforeunload",function(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0}catch(o){}}),window.addEventListener("load",function(){function o(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0;var o=document.querySelector(".app-main");o&&(o.scrollTop=0);var t=document.querySelector(".cube-viewport");t&&(t.scrollTop=0)}catch(o){}}o(),setTimeout(o,60),setTimeout(o,400)});</script>
 
@@ -178,7 +178,7 @@
             <div class="ml-hero-copy">
               <h1 class="ml-title">velard tools<br />for <span class="ml-rotate"><span class="ml-rotate-word" id="mlRotateWord">efficient</span></span></h1>
               <div class="ml-cta-row">
-                <button class="ml-btn ml-btn-primary" type="button" onclick="window.velardActivatePanel && window.velardActivatePanel('others', true); setTimeout(function(){ var a = document.querySelector('[data-others=&quot;about&quot;]'); if (a) a.click(); }, 680)"><span data-i18n="heroAbout">Tentang</span></button>
+                <button class="ml-btn ml-btn-primary" type="button" id="heroAboutBtn" onclick="(function(){ var sec = document.querySelector('.home-about'); if (!sec) return; var isActive = document.getElementById('panel-beranda') && document.getElementById('panel-beranda').classList.contains('active-panel'); if (!isActive && window.velardActivatePanel) { window.velardActivatePanel('beranda', false); setTimeout(function(){ sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 400); } else { sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); } })()"><span data-i18n="heroAbout">Tentang</span></button>
                 <button class="ml-btn ml-btn-outline" type="button" onclick="window.velardActivatePanel && window.velardActivatePanel('tools', true)"><span data-i18n="heroToolsBtn">Tools</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></button>
               </div>
             </div>
@@ -194,6 +194,15 @@
             </div>
           </div>
         </div>
+        <section class="home-about" aria-label="About VelardTools">
+          <h2 class="home-about-title" data-i18n="homeAboutTitle">ABOUT VELARDTOOLS</h2>
+          <p class="home-about-body" data-i18n="homeAboutBody1">Selamat datang. Saya Frans, seorang kreator konten dan mahasiswa yang mendedikasikan platform ini untuk menghadirkan solusi digital yang efisien bagi kebutuhan para profesional di industri kreatif. Website ini dikembangkan untuk mempermudah berbagai keperluan pengelolaan konten Anda, termasuk fitur unggulan TikTok High-Quality Bypass yang dirancang untuk mengunggah video tanpa mengalami penurunan kualitas akibat kompresi sistem, sehingga ketajaman visual tetap terjaga secara optimal di samping berbagai perangkat penunjang produktivitas lainnya yang akan terus dikembangkan secara berkelanjutan.</p>
+          <p class="home-about-body" data-i18n="homeAboutBody2">Apabila Anda menemukan kendala teknis atau memiliki masukan konstruktif, silakan menghubungi saya melalui tombol di bawah ini atau melalui pesan langsung (DM) pada akun TikTok resmi saya. Terima kasih atas kepercayaan Anda, selamat mencoba, dan semoga platform ini memberikan nilai tambah bagi produktivitas Anda.</p>
+          <div class="home-about-cta">
+            <button class="ml-btn ml-btn-primary" type="button" onclick="window.velardOpenHelp&&window.velardOpenHelp()"><span data-i18n="helpBtn">Laporkan Bug / Bantuan</span></button>
+            <a class="ml-btn ml-btn-outline" href="https://www.tiktok.com/@ve1ard" target="_blank" rel="noopener"><span>DM TikTok @ve1ard</span></a>
+          </div>
+        </section>
         <section class="tiktok-section" aria-label="My Videos">
           <h2 class="tiktok-title">MY VIDEOS</h2>
           <div class="tiktok-grid">
@@ -242,6 +251,14 @@
             <button class="tools-cat-btn" data-cat="convert" type="button"><span class="material-symbols-rounded" aria-hidden="true">sync_alt</span> <span data-i18n="catConvert">Konversi</span></button>
           </div>
         </header>
+        <div class="ml-plus-field" aria-hidden="true">
+          <span style="--px:2%;--py:6%;--pr:-14deg;--ps:56px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:93%;--py:4%;--pr:12deg;--ps:80px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:5%;--py:38%;--pr:20deg;--ps:44px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:90%;--py:34%;--pr:-8deg;--ps:92px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:3%;--py:72%;--pr:8deg;--ps:74px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:94%;--py:68%;--pr:24deg;--ps:46px;--po:1" class="material-symbols-rounded">add</span>
+        </div>
         <div class="tools-grid-new" id="toolsGridNew">
           <div class="tool-card-new" data-tool="quality" data-category="convert" role="button" tabindex="0" aria-label="Quality Method">
             <div class="tool-icon-wrap"><span class="material-symbols-rounded" aria-hidden="true">workspace_premium</span></div>
@@ -311,6 +328,14 @@
       </section>
 
       <section id="panel-donate" class="slide-panel dash-panel cube-face" data-cube="2">
+        <div class="ml-plus-field" aria-hidden="true">
+          <span style="--px:6%;--py:8%;--pr:14deg;--ps:62px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:88%;--py:6%;--pr:-12deg;--ps:88px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:3%;--py:46%;--pr:-22deg;--ps:46px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:93%;--py:44%;--pr:18deg;--ps:48px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:10%;--py:82%;--pr:6deg;--ps:80px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:84%;--py:84%;--pr:-16deg;--ps:68px;--po:1" class="material-symbols-rounded">add</span>
+        </div>
         <div class="card donate-card">
           <div class="donate-hero">
             <h2 data-i18n="donateThanks">Terima kasih sudah menggunakan!</h2>
@@ -332,6 +357,16 @@
           <p class="tools-headline">Support &amp; Info</p>
           <p class="head-sub" data-i18n="othersSub">Info, panduan, dan bantuan mirip Alat.</p>
         </header>
+        <div class="ml-plus-field" aria-hidden="true">
+          <span style="--px:2%;--py:3%;--pr:-10deg;--ps:68px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:92%;--py:2%;--pr:16deg;--ps:52px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:4%;--py:30%;--pr:22deg;--ps:46px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:91%;--py:28%;--pr:-20deg;--ps:88px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:3%;--py:58%;--pr:10deg;--ps:80px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:93%;--py:60%;--pr:-6deg;--ps:44px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:6%;--py:86%;--pr:-24deg;--ps:58px;--po:1" class="material-symbols-rounded">add</span>
+          <span style="--px:89%;--py:88%;--pr:12deg;--ps:74px;--po:1" class="material-symbols-rounded">add</span>
+        </div>
         <nav class="others-stack-nav" aria-label="Navigasi Lainnya">
           <button type="button" data-target="others-tut-upload"><span data-i18n="tutUploadTitle">Tutorial Upload</span></button>
           <button type="button" data-target="others-tut-qm"><span data-i18n="tutUseTitle">Tutorial Quality Method</span></button>
@@ -459,29 +494,13 @@
           </div>
         </template>
         <template id="tpl-report">
-          <div class="card help-card help-card-inner">
-            <div class="help-card-head">
-              <div class="help-icon help-icon--lg"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-              <div>
-                <h3 class="help-head-title" data-i18n="helpCardTitle">Butuh Bantuan?</h3>
-                <p class="help-head-sub" data-i18n="helpCardSub">Laporan langsung masuk ke email developer</p>
-              </div>
-            </div>
-            <p class="help-desc" data-i18n="helpCardDesc">Ceritakan kendala kamu selengkap mungkin agar kami bisa bantu lebih cepat. Lampirkan langkah yang kamu lakukan, jenis file, dan perangkat yang digunakan.</p>
-            <div class="help-info-box">
-              <div class="help-info-kicker" data-i18n="helpCardListTitle">Sertakan info ini:</div>
-              <ul class="help-info-list">
-                <li class="help-info-item"><span class="help-bullet">•</span><span data-i18n="helpCardLi1">Deskripsi bug : apa yang terjadi vs yang diharapkan</span></li>
-                <li class="help-info-item"><span class="help-bullet">•</span><span data-i18n="helpCardLi2">Langkah reproduksi : urutan klik sampai error muncul</span></li>
-                <li class="help-info-item"><span class="help-bullet">•</span><span data-i18n="helpCardLi3">Info file & perangkat : format, ukuran, browser, HP/PC</span></li>
-              </ul>
-            </div>
-            <div class="help-note-box">
-              <span class="material-symbols-rounded help-note-icon">schedule</span>
-              <p class="help-note-text" data-i18n="helpCardNote">Respon biasanya 1×24 jam. Untuk respon lebih cepat, DM via TikTok juga bisa.</p>
-            </div>
-            <button class="btn-main help-btn help-btn-full" type="button" onclick="document.getElementById('help-modal').hidden=false" data-i18n="helpBtn">Laporkan Bug / Bantuan</button>
-            <p class="help-alt" data-i18n-html="helpCardAlt">Atau hubungi langsung via <a class="handle" href="https://www.tiktok.com/@ve1ard" target="_blank" rel="noopener">@ve1ard</a> di TikTok</p>
+          <div class="card report-saas report-saas-btn report-saas-left" id="reportSaasCard">
+            <h3 class="report-saas-title" data-i18n="reportTitle">Laporkan Bug / Minta Bantuan</h3>
+            <button class="report-open-btn" type="button" data-open-help>
+              <span class="material-symbols-rounded" aria-hidden="true">outgoing_mail</span>
+              <span data-i18n="helpBtn">Laporkan Bug / Bantuan</span>
+            </button>
+            <p class="report-alt" data-i18n-html="helpCardAlt">Atau hubungi langsung via <a class="handle" href="https://www.tiktok.com/@ve1ard" target="_blank" rel="noopener">@ve1ard</a> di TikTok</p>
           </div>
         </template>
         <template id="tpl-spec">
@@ -976,22 +995,29 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="help-modal" hidden>
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
-      <div class="modal-header">
-        <h2 id="help-modal-title" data-i18n="helpModalTitle">Laporkan Bug / Bantuan</h2>
+  <div class="modal-overlay help-modal-saas" id="help-modal" hidden>
+    <div class="modal-card help-popup" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+      <div class="help-popup-head">
+        <div class="help-popup-ico"><span class="material-symbols-rounded" aria-hidden="true">support_agent</span></div>
+        <div class="help-popup-titles">
+          <p class="help-popup-kicker">Support Center</p>
+          <h2 id="help-modal-title" data-i18n="helpModalTitle">Laporkan Bug / Bantuan</h2>
+        </div>
         <button class="modal-close" id="help-close" type="button" aria-label="Close">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </div>
       <p class="modal-subtitle" data-i18n-html="helpModalSub">Jelaskan secara detail agar kami bisa bantu dengan tepat. Pesan terkirim langsung ke <b>email Frans</b> dan biasanya dibalas dalam 1×24 jam.</p>
       <label class="help-label" for="help-msg" data-i18n="helpLabel">Pesan Anda</label>
-      <textarea id="help-msg" rows="5" placeholder="Contoh: Saat kompres video 1080p 120MB di Chrome HP Samsung, proses stuck di 90% ..." data-i18n-placeholder="helpPlaceholder"></textarea>
-      <div class="help-wc" id="help-wc" class="form-hint" aria-live="polite"></div>
+      <textarea id="help-msg" rows="5" maxlength="2000" placeholder="Contoh: Saat kompres video 1080p 120MB di Chrome HP Samsung, proses stuck di 90% ..." data-i18n-placeholder="helpPlaceholder"></textarea>
+      <div class="help-popup-row">
+        <div class="help-wc form-hint" id="help-wc" aria-live="polite"></div>
+        <span class="help-max">Maks. 2000 karakter · Min. 5 kata</span>
+      </div>
       <input type="text" id="help-hp" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <p class="help-note" data-i18n-html="helpNote">atau hubungi saya melalui <a class="handle" href="https://www.tiktok.com/@ve1ard" target="_blank" rel="noopener">@ve1ard</a> di TikTok!</p>
       <p class="help-status" id="help-status" role="status"></p>
-      <div class="modal-actions">
+      <div class="modal-actions help-popup-actions">
         <button class="btn-cancel" id="help-cancel" type="button" data-i18n="modalCancel">Cancel</button>
         <button class="btn-proceed" id="help-send" type="button" data-i18n="helpSend">Kirim</button>
       </div>
@@ -1030,14 +1056,15 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
   <script>try{window.emailjs&&emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"})}catch(i){}</script>
-  <script src="assets/js/i18n.js?v=189"></script>
+  <script src="assets/js/i18n.js?v=193"></script>
   <script src="assets/js/eco-funnel.js?v=186"></script>
   <script src="assets/js/jszip.min.js?v=169"></script>
   <script src="assets/js/filesaver.min.js?v=169"></script>
 <script src="assets/js/thumbnail.js?v=187"></script>
 <script src="assets/js/merge.js?v=14"></script>
-<script src="assets/js/app.js?v=192"></script>
+  <script src="assets/js/app.js?v=192"></script>
   <script src="assets/js/tool-lock.js?v=186"></script>
+  <script src="assets/js/report.js?v=2"></script>
   <script>window.addEventListener('load',function(){var n=0;var t=setInterval(function(){try{window.dispatchEvent(new Event('resize'))}catch(e){}if(++n>=4)clearInterval(t)},700)});</script>
 
 </body>

@@ -2233,7 +2233,6 @@ body.is-tool-processing .tool-time-input{ pointer-events:none; opacity:0.42; }
 
 @media(max-width:640px){
   #panel-beranda .kinetic-hero{ min-height:88dvh !important; min-height:88vh !important; justify-content:center !important; padding:32px 12px 24px !important; gap:14px !important; }
-  .tiktok-section{ opacity:0 !important; transform:translateY(28px) !important; }
 }
 
 
@@ -2516,3 +2515,90 @@ body.is-encoding .bg-static::before,body.is-preview .bg-static::before{animation
 .slide-panel:not(.active-panel){content-visibility:hidden !important}
 .slide-panel:not(.active-panel) video,.slide-panel:not(.active-panel) canvas{content-visibility:hidden !important}
 #logArea{content-visibility:auto !important}
+
+/* =========================================================
+   MOBILE: Kartu tutorial/info full-width + teks lebih besar
+   Khusus mobile (max-width: 640px) - #panel-others
+   ========================================================= */
+@media (max-width: 640px) {
+  /* Kartu tutorial & info: full-width mentok ke tepi layar */
+  #othersDetail .tutorial-card,
+  #othersDetail .card,
+  #othersDetail .about-card,
+  #othersDetail .social-card,
+  #othersDetail .help-card,
+  #othersDetail .donate-card,
+  #othersDetail .report-saas {
+    width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    border-radius: 0 !important;
+    padding: 20px 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Judul seksi tutorial lebih besar */
+  #othersDetail .tut-section-title,
+  #othersDetail .tut-head {
+    font-size: 18px !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 10px !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  /* Heading step tutorial lebih besar */
+  #othersDetail .tutorial-step h3,
+  #othersDetail .tutorial-card h2,
+  #othersDetail .tutorial-card h3 {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Deskripsi step tutorial lebih besar */
+  #othersDetail .tutorial-step p,
+  #othersDetail .tutorial-card p {
+    font-size: 14.5px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Nomor step lebih besar */
+  #othersDetail .tutorial-step .step-num {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 14px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Heading card umum (FAQ, Spec, dll) */
+  #othersDetail .card h3,
+  #othersDetail .faq-head,
+  #othersDetail .spec-head {
+    font-size: 17px !important;
+  }
+
+  /* Paragraf card umum lebih besar */
+  #othersDetail .card p,
+  #othersDetail .faq-sub {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* FAQ */
+  #othersDetail .faq-q {
+    font-size: 14.5px !important;
+  }
+  #othersDetail .faq-a {
+    font-size: 14px !important;
+    line-height: 1.62 !important;
+  }
+
+  /* Gap antar step lebih lapang */
+  #othersDetail .tutorial-card {
+    gap: 18px !important;
+  }
+  #othersDetail .tutorial-step {
+    gap: 12px !important;
+    padding: 6px 0 !important;
+  }
+}
