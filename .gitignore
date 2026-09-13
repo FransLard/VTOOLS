@@ -12,3 +12,5 @@ __pycache__/
 opencode.json
 tmp-*.js
 tmp*.js
+
+.env*

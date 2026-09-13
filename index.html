@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-site-bg="white">
 <head>
   
   <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
   <meta name="description" content="VelardTools untuk kebutuhan Konten Creator" />
   <title>VelardTools untuk kebutuhan Konten Creator</title>
   <link rel="canonical" href="https://velardtools.my.id/" />
-  <meta name="theme-color" content="#0b0e14" />
+  <meta name="theme-color" content="#ffffff" />
 
   
   <meta property="og:type" content="website" />
@@ -70,6 +70,7 @@
 
   
   <link rel="stylesheet" href="assets/css/style.css?v=212" />
+  <link rel="stylesheet" href="assets/css/minimal-landing.css?v=61" />
   <script>!function(){try{var t=["beranda","tools","donate","others"];try{["quality","tutorial","tentang"].forEach(function(t){try{localStorage.getItem("velardPanel")===t&&localStorage.removeItem("velardPanel")}catch(t){}if((location.hash||"")==="#"+t)try{history.replaceState(null,"",location.pathname)}catch(t){}})}catch(t){}try{sessionStorage.getItem("velardSession")&&(isRefresh=!0)}catch(t){}var e="beranda";if(isRefresh){var a=(location.hash||"").replace(/^#/,"");try{s=localStorage.getItem("velardPanel")}catch(t){}h&&-1!==t.indexOf(a)?v=h:s&&-1!==t.indexOf(null)&&(v=s)}document.documentElement.setAttribute("data-preload",e);var n=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+e+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}",o=document.createElement("style");o.id="preload-fix",o.textContent=n,document.head.appendChild(o)}catch(t){}}();</script>
   <script>try{"scrollRestoration"in history&&(history.scrollRestoration="manual")}catch(o){}window.addEventListener("beforeunload",function(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0}catch(o){}}),window.addEventListener("load",function(){function o(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0;var o=document.querySelector(".app-main");o&&(o.scrollTop=0);var t=document.querySelector(".cube-viewport");t&&(t.scrollTop=0)}catch(o){}}o(),setTimeout(o,60),setTimeout(o,400)});</script>
 
@@ -132,25 +133,65 @@
   <div class="app-container">
 
     <main class="app-main">
-      <div class="top-header">
-        <div class="lang-toggle" role="group" aria-label="Bahasa">
-          <button class="lang-btn active" data-lang="id" type="button">ID</button>
-          <button class="lang-btn" data-lang="en" type="button">EN</button>
+      <header class="ml-nav" role="banner">
+        <div class="ml-nav-inner">
+          <button class="ml-brand" type="button" onclick="window.velardActivatePanel && window.velardActivatePanel('beranda', true)" aria-label="VelardTools - Beranda">velard tools</button>
+          <nav class="ml-links" aria-label="Navigasi utama">
+            <button class="ml-link nav-item active" data-panel="beranda" type="button" aria-current="page"><span data-i18n="navBeranda">Beranda</span></button>
+            <button class="ml-link nav-item" data-panel="tools" type="button"><span data-i18n="navTools">Tools</span></button>
+            <button class="ml-link nav-item" data-panel="donate" type="button"><span data-i18n="navDonate">Donate</span></button>
+            <button class="ml-link nav-item" data-panel="others" type="button"><span data-i18n="navOthers">Lainnya</span></button>
+          </nav>
+          <div class="ml-lang lang-toggle" role="group" aria-label="Bahasa / Language">
+            <button class="lang-btn active" data-lang="id" type="button">ID</button>
+            <button class="lang-btn" data-lang="en" type="button">EN</button>
+          </div>
         </div>
-      </div>
+      </header>
       <div class="dash-panels slide-container cube-viewport">
         <div class="slide-track cube-3d-box" id="velardSlideTrack">
 
       <section id="panel-beranda" class="slide-panel active-panel dash-panel cube-face" data-cube="0">
-        <div class="kinetic-hero" id="kineticHero">
-          <div class="kinetic-stacked-title">
-            <div class="kinetic-greeting-line" id="kineticGreeting" aria-live="polite"><span class="kinetic-flip-box greeting-box" id="greetingBox"></span></div>
-            <div class="kinetic-name-line" id="kineticName" aria-live="polite"><span class="kinetic-flip-box name-box" id="nameBox"></span></div>
-          </div>
-          <p class="hero-bio-text" data-i18n="berandaBio">VelardTools saya buat untuk keperluan konten kreator seperti kompres video HD Anda menjadi kecil tanpa mengubah resolusi video Anda. Ini dibuat supaya bisa upload di TikTok tanpa terkompres, serta beberapa tools yang saya kembangkan untuk mempermudah editing Anda. Jika Anda menemukan bug atau ingin memberi masukan, hubungi saya di bawah ini atau langsung DM saya melalui TikTok pribadi saya. Terima kasih, selamat mencoba ^ ^</p>
-          <div class="hero-action-row">
-            <button class="btn-main" type="button" onclick="window.velardActivatePanel('others',true); setTimeout(function(){ var a=document.querySelector('[data-others=&quot;about&quot;]'); if(a) a.click(); }, 680)"><span class="material-symbols-rounded icon-sm" aria-hidden="true">info</span> <span data-i18n="navAbout">Tentang</span></button>
-            <button class="btn-ghost" type="button" onclick="(function(){ var b=document.getElementById('help-btn')||document.getElementById('about-help-btn'); if(b) b.click(); else document.getElementById('help-modal') && (document.getElementById('help-modal').hidden=false); window.scrollTo({top:0,behavior:'smooth'}); })()"><span class="material-symbols-rounded icon-sm" aria-hidden="true">mail</span> <span data-i18n="berandaCtaTools">Hubungi Saya</span></button>
+        <div class="kinetic-hero ml-hero" id="kineticHero">
+          <!-- Garis diagonal dekoratif (latar, di belakang konten) -->
+          <svg class="ml-diagonal" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="mlLineFade" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#111111" stop-opacity="0" />
+                <stop offset="0.12" stop-color="#111111" stop-opacity="1" />
+                <stop offset="0.82" stop-color="#111111" stop-opacity="1" />
+                <stop offset="1" stop-color="#111111" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="mlLineGhost" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#d4d4d8" stop-opacity="0" />
+                <stop offset="0.2" stop-color="#d4d4d8" stop-opacity="1" />
+                <stop offset="0.8" stop-color="#e8e8e8" stop-opacity="1" />
+                <stop offset="1" stop-color="#e8e8e8" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <path class="ml-line-ghost" d="M100,4 C88,26 78,36 64,52 C50,68 28,76 0,100" fill="none" stroke="url(#mlLineGhost)" stroke-width="1" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+            <path class="ml-line-main" d="M100,0 C88,22 78,32 64,48 C50,64 28,72 0,96" fill="none" stroke="url(#mlLineFade)" stroke-width="1.6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+          </svg>
+          <span class="ml-dot ml-dot-start" aria-hidden="true"></span>
+          <span class="ml-dot ml-dot-end" aria-hidden="true"></span>
+          <div class="ml-hero-grid">
+            <div class="ml-hero-copy">
+              <h1 class="ml-title">velard tools<br />for <span class="ml-rotate"><span class="ml-rotate-word" id="mlRotateWord">efficient</span></span></h1>
+              <div class="ml-cta-row">
+                <button class="ml-btn ml-btn-primary" type="button" onclick="window.velardActivatePanel && window.velardActivatePanel('others', true); setTimeout(function(){ var a = document.querySelector('[data-others=&quot;about&quot;]'); if (a) a.click(); }, 680)"><span data-i18n="heroAbout">Tentang</span></button>
+                <button class="ml-btn ml-btn-outline" type="button" onclick="window.velardActivatePanel && window.velardActivatePanel('tools', true)"><span data-i18n="heroToolsBtn">Tools</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></button>
+              </div>
+            </div>
+            <div class="ml-hero-media">
+              <img class="ml-hero-img" src="assets/images/hero-crop.png" alt="Ilustrasi VelardTools untuk kreator konten" data-i18n-aria-label="heroMediaAlt" fetchpriority="high" decoding="async" />
+              <div class="ml-bg-pick" aria-label="Theme mode picker">
+                <span class="ml-bg-pick-label">Theme Mode</span>
+                <div class="ml-bg-options" role="radiogroup" aria-label="Theme Mode">
+                  <button class="ml-bg-opt" type="button" data-setbg="white" role="radio" aria-checked="true">White</button>
+                  <button class="ml-bg-opt" type="button" data-setbg="black" role="radio" aria-checked="false">Black</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <section class="tiktok-section" aria-label="My Videos">
@@ -176,17 +217,18 @@
         </section>
         <script src="assets/js/tiktok-reveal.js?v=187"></script>
         <script src="assets/js/tiktok-modal.js?v=186"></script>
+        <script src="assets/js/hero-rotate.js?v=3"></script>
+        <script src="assets/js/hero-bg.js?v=1"></script>
       </section>
 
       <section id="panel-tools" class="slide-panel dash-panel cube-face" data-cube="1">
         <header class="panel-head panel-head-large">
-          <div class="panel-title-row">
-            <h1 class="panel-title-large" data-i18n="navTools">Alat</h1>
+          <div class="tools-title-row">
+            <p class="tools-headline">Additional tools for content creators.</p>
             <button class="hard-refresh-btn hard-refresh-icon" id="hardRefreshBtn" type="button" data-i18n-title="hardRefreshTip" title="Bersihkan cache & muat ulang paksa (Hard Refresh)" aria-label="Hard Refresh">
               <span class="material-symbols-rounded" aria-hidden="true">delete</span>
             </button>
           </div>
-          <span class="head-sub" data-i18n="toolsSub">Alat tambahan untuk kreator konten.</span>
           <div class="tools-search-wrap" id="toolsSearchWrap">
             <span class="material-symbols-rounded tools-search-icon" aria-hidden="true">search</span>
             <input type="search" id="toolsSearch" placeholder="Cari tools..." data-i18n-placeholder="toolsSearchPlaceholder" autocomplete="off" aria-label="Cari tools" data-i18n-aria-label="toolsSearchAria" />
@@ -269,14 +311,8 @@
       </section>
 
       <section id="panel-donate" class="slide-panel dash-panel cube-face" data-cube="2">
-        <header class="panel-head panel-head-large">
-          <h1 class="panel-title-large"><span data-i18n="donateTitle">Donate</span> <span class="panel-by" data-i18n="donateForFrans">untuk Frans</span></h1>
-        </header>
         <div class="card donate-card">
           <div class="donate-hero">
-            <div class="donate-icon">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
             <h2 data-i18n="donateThanks">Terima kasih sudah menggunakan!</h2>
             <p data-i18n="donateText">Dukung pengembangan VelardTools dengan donasi via QRIS, sekali scan langsung sampai.</p>
           </div>
@@ -293,9 +329,20 @@
 
       <section id="panel-others" class="slide-panel dash-panel cube-face" data-cube="3">
         <header class="panel-head panel-head-large">
-          <h1 class="panel-title-large" data-i18n="navOthers">Lainnya</h1>
+          <p class="tools-headline">Support &amp; Info</p>
+          <p class="head-sub" data-i18n="othersSub">Info, panduan, dan bantuan mirip Alat.</p>
         </header>
-        <div class="tools-grid-new" id="othersGrid">
+        <nav class="others-stack-nav" aria-label="Navigasi Lainnya">
+          <button type="button" data-target="others-tut-upload"><span data-i18n="tutUploadTitle">Tutorial Upload</span></button>
+          <button type="button" data-target="others-tut-qm"><span data-i18n="tutUseTitle">Tutorial Quality Method</span></button>
+          <button type="button" data-target="others-spec"><span data-i18n="specTitle">Spesifikasi</span></button>
+          <button type="button" data-target="others-faq"><span data-i18n="faqTitle">FAQ</span></button>
+          <button type="button" data-target="others-social"><span data-i18n="socialTitle">Social Media</span></button>
+          <button type="button" data-target="others-report"><span data-i18n="helpBtn">Report Bug</span></button>
+          <button type="button" data-target="others-changelog"><span data-i18n="changelogTitle">Riwayat Pembaruan</span></button>
+        </nav>
+        <div class="others-stack" id="othersStack"></div>
+        <div class="tools-grid-new" id="othersGrid" hidden>
           <div class="tool-card-new" data-others="about" role="button" tabindex="0" aria-label="About VelardTools">
             <div class="tool-icon-wrap"><span class="material-symbols-rounded" aria-hidden="true">info</span></div>
             <div class="tool-info-new">
@@ -443,8 +490,8 @@
             <div class="spec-grid">
               <div><strong data-i18n="specEngine">Mesin:</strong> <span data-i18n="specDescEngine">FFmpeg WASM + Patch JavaScript. Semua proses berjalan 100 persen di browser Anda. File tidak diunggah ke server, sehingga privasi terjaga sepenuhnya.</span></div>
               <div><strong data-i18n="specMax">Maksimal:</strong> <span data-i18n="specDescMax">Maksimal 1500 MB per file. Disarankan menggunakan file di bawah 500 MB untuk proses yang lebih cepat pada perangkat dengan RAM terbatas.</span></div>
-              <div><strong data-i18n="specFormat">Format:</strong> <span data-i18n="specDescFormat">Input MP4, MOV, WebM, MKV, AVI. Output MP4 (H.264/AAC) yang kompatibel dengan TikTok, Instagram Reels, dan YouTube Shorts.</span></div>
-              <div><strong data-i18n="specRes">Resolusi:</strong> <span data-i18n="specDescRes">Pilihan 720p (1280x720) untuk ukuran lebih kecil dan 1080p (1920x1080) untuk kualitas Full HD. Sistem tidak melakukan upscale. Jika video asli di bawah target, resolusi asli dipertahankan.</span></div>
+              <div><strong data-i18n="specFormat">Format:</strong> <span data-i18n="specDescFormat">Input MP4, MOV, MKV, WebM, AVI — menu Convert juga menerima WMV, FLV, dan 3GP. Output MP4 (H.264/AAC) yang kompatibel dengan TikTok, Instagram Reels, dan YouTube Shorts. Mute tanpa re-encode, MP3 untuk audio.</span></div>
+              <div><strong data-i18n="specRes">Resolusi:</strong> <span data-i18n="specDescRes">Rentang 360p–1080p Full HD. Quality Method (V-SHARP): OFF / 720P / 1080P — hanya menurunkan resolusi, tanpa upscale. Tool Rescale: 720p / 480p / 360p.</span></div>
               <div><span data-i18n="specDescSpeed">Kecepatan sangat bergantung pada spesifikasi perangkat Anda. Faktor utama adalah CPU (jumlah core dan kecepatan), RAM yang tersedia, dan jenis browser. Pada perangkat mobile, proses mungkin memerlukan waktu lebih lama dan penggunaan baterai yang lebih tinggi. Untuk video berdurasi panjang atau resolusi tinggi, disarankan menutup aplikasi lain dan memastikan daya baterai mencukupi. Estimasi umum adalah 1 menit durasi video memerlukan waktu proses 20 sampai 60 detik tergantung perangkat.</span></div>
             </div>
           </div>
@@ -460,8 +507,8 @@
               <details class="faq-item"><summary class="faq-q" data-i18n="faqQ4">Format apa yang didukung? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA4">Input: MP4, MOV, WebM, MKV, AVI. Output: MP4 H.264/AAC yang kompatibel TikTok, Instagram Reels, dan YouTube Shorts.</p></details>
               <details class="faq-item"><summary class="faq-q" data-i18n="faqQ5">Berapa maksimal ukuran file? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA5">Maksimal 1500 MB per file. Disarankan di bawah 500 MB agar lebih cepat, terutama di HP dengan RAM terbatas.</p></details>
               <details class="faq-item"><summary class="faq-q" data-i18n="faqQ6">Resolusi apa yang tersedia? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA6">Pilihan 720p (1280×720) untuk hemat kuota dan 1080p (1920×1080) untuk Full HD. Tanpa upscale, jika video asli di bawah target maka resolusi asli dipertahankan.</p></details>
-              <details class="faq-item"><summary class="faq-q" data-i18n="faqQ7">Metode mana terbaik untuk TikTok? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA7">Gunakan BINARY 1080P. H.264 bitrate tinggi + patch HD menjaga ketajaman detail dan pergerakan, sangat direkomendasikan untuk TikTok.</p></details>
-              <details class="faq-item"><summary class="faq-q" data-i18n="faqQ8">Kenapa video masih blur setelah upload TikTok? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA8">Pastikan pakai BINARY 1080P, cek analisis FPS max 120 dan resolusi sesuai, lalu upload via aplikasi TikTok dari galeri. Hindari kirim via WhatsApp agar tidak terkompresi ulang.</p></details>
+              <details class="faq-item"><summary class="faq-q" data-i18n="faqQ7">Metode mana terbaik untuk TikTok? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA7">Gunakan V-SHARP 1080P. H.264 bitrate tinggi + patch HD menjaga ketajaman detail dan pergerakan, sangat direkomendasikan untuk TikTok.</p></details>
+              <details class="faq-item"><summary class="faq-q" data-i18n="faqQ8">Kenapa video masih blur setelah upload TikTok? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA8">Pastikan pakai V-SHARP 1080P, cek analisis FPS max 120 dan resolusi sesuai, lalu upload via aplikasi TikTok dari galeri. Hindari kirim via WhatsApp agar tidak terkompresi ulang.</p></details>
               <details class="faq-item"><summary class="faq-q" data-i18n="faqQ9">Berapa lama prosesnya? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA9">Tergantung CPU, RAM, dan browser. Estimasi 20 sampai 60 detik per 1 menit video. Di HP bisa lebih lama, tutup aplikasi lain dan pastikan baterai cukup.</p></details>
               <details class="faq-item"><summary class="faq-q" data-i18n="faqQ10">Apakah bisa untuk Reels dan Shorts? <span class="material-symbols-rounded">expand_more</span></summary><p class="faq-a" data-i18n="faqA10">Bisa. Output 1080p 60fps kompatibel untuk Instagram Reels, YouTube Shorts, dan Facebook.</p></details>
             </div>
@@ -511,6 +558,7 @@
         </template>
       </section>
       <script src="assets/js/others.js?v=186"></script>
+      <script src="assets/js/others-stack.js?v=4"></script>
         </div>
       </div>
 
@@ -768,18 +816,14 @@
                   <div id="videoControls" class="is-hidden">
                     <div><input id="slider" type="range" min="0" max="100" value="0" data-i18n-aria-label="thumbSliderAria" aria-label="Posisi video"></div>
                     <div class="button-container">
+                      <button type="button" title="Layar penuh" onclick="window.vtFull()"><span class="material-symbols-rounded play-controls">fullscreen</span><span>penuh</span></button>
                       <button type="button" data-i18n-title="thumbGoStart" title="Ke awal" onclick="window.vtGoToTime(0)"><span class="material-symbols-rounded play-controls">skip_previous</span><span data-i18n="thumbCapStart">awal</span></button>
-                      <button type="button" data-i18n-title="thumbBack1m" title="Mundur 1 menit" onclick="window.vtGoToTime(window.vtVideo.currentTime-60)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1m</span></button>
-                      <button type="button" data-i18n-title="thumbBack5s" title="Mundur 5 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime-5)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-5s</span></button>
                       <button type="button" data-i18n-title="thumbBack1s" title="Mundur 1 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime-1)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1s</span></button>
                       <button type="button" data-i18n-title="thumbBack1f" title="Mundur 1 frame" onclick="window.vtGoToTime(window.vtVideo.currentTime-1/25)"><span class="material-symbols-rounded play-controls">fast_rewind</span><span>-1fr</span></button>
                       <button type="button" class="tplay" data-i18n-title="thumbPlay" title="Putar / jeda" onclick="window.vtVideo.paused?window.vtVideo.play():window.vtVideo.pause()"><span class="material-symbols-rounded play-controls play-control">play_arrow</span><span class="material-symbols-rounded play-controls pause-control is-hidden">pause</span><span data-i18n="thumbCapPlay">putar</span></button>
                       <button type="button" data-i18n-title="thumbFwd1f" title="Maju 1 frame" onclick="window.vtGoToTime(window.vtVideo.currentTime+1/25)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1fr</span></button>
                       <button type="button" data-i18n-title="thumbFwd1s" title="Maju 1 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime+1)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1s</span></button>
-                      <button type="button" data-i18n-title="thumbFwd5s" title="Maju 5 detik" onclick="window.vtGoToTime(window.vtVideo.currentTime+5)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+5s</span></button>
-                      <button type="button" data-i18n-title="thumbFwd1m" title="Maju 1 menit" onclick="window.vtGoToTime(window.vtVideo.currentTime+60)"><span class="material-symbols-rounded play-controls">fast_forward</span><span>+1m</span></button>
                       <button type="button" data-i18n-title="thumbGoEnd" title="Ke akhir" onclick="window.vtGoToTime(window.vtVideo.duration)"><span class="material-symbols-rounded play-controls">skip_next</span><span data-i18n="thumbCapEnd">akhir</span></button>
-                      <button type="button" title="Layar penuh" onclick="window.vtFull()"><span class="material-symbols-rounded play-controls">fullscreen</span><span>penuh</span></button>
                       <button type="button" id="thumbMuteBtn" title="Bisukan" onclick="window.vtMute()"><span class="material-symbols-rounded play-controls" id="thumbMuteIco">volume_up</span><span id="thumbMuteLabel">bisukan</span></button>
                     </div>
                   </div>
@@ -885,25 +929,7 @@
     </main>
   </div>
 
-  <nav class="floating-nav-bar" id="floatingNav" aria-label="Navigasi cepat">
-    <div class="floating-nav-indicator" id="floatingIndicator" aria-hidden="true"></div>
-    <button class="floating-nav-item active" data-panel="beranda" type="button" aria-current="page">
-      <span class="material-symbols-rounded" aria-hidden="true">home</span>
-      <span class="nav-label" data-i18n="navBeranda">Beranda</span>
-    </button>
-    <button class="floating-nav-item" data-panel="tools" type="button">
-      <span class="material-symbols-rounded" aria-hidden="true">handyman</span>
-      <span class="nav-label" data-i18n="navTools">Alat</span>
-    </button>
-    <button class="floating-nav-item" data-panel="donate" type="button">
-      <span class="material-symbols-rounded" aria-hidden="true">favorite</span>
-      <span class="nav-label" data-i18n="navDonate">Donate</span>
-    </button>
-    <button class="floating-nav-item" data-panel="others" type="button">
-      <span class="material-symbols-rounded" aria-hidden="true">apps</span>
-      <span class="nav-label" data-i18n="navOthers">Others</span>
-    </button>
-  </nav>
+  <!-- floating-nav dihapus pada eksperimen minimal-landing: navigasi dipindah ke navbar atas (class .nav-item tetap diikat i18n.js). -->
 
   <div class="modal-backdrop" id="analysisModal" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
