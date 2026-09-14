@@ -358,19 +358,40 @@ body .bg-static { display: none !important; }
   letter-spacing: -0.05em;
   color: var(--ml-ink);
   margin: 0 0 40px;
-  text-wrap: balance;
+  /* Jangan pakai balance: tiap ganti kata browser menata ulang
+     baris sehingga kata "for" terlihat bergeser */
+  text-wrap: pretty;
 }
 
-/* Kata bergantian: efficient > youtuber > tiktoker > editor > everything — font sama semua */
+/* PC (awal): 2 baris — "velard tools" / "for + kata".
+   Kata statis inline, "for" tidak bergeser karena rata kiri */
+.ml-w1,
+.ml-w2,
+.ml-w3 {
+  display: inline;
+}
+
+/* Kata bergantian: inline-block + lebar auto (= kata aktif),
+   jadi underline selalu pas sepanjang kata */
 .ml-rotate {
   display: inline-block;
+  text-align: left;
   position: relative;
   overflow: hidden;
+  overflow: clip;
+  /* Biarkan ekor huruf (y, g, j) tampil penuh: area klip diperluas
+     tanpa mengubah layout & posisi underline */
+  overflow-clip-margin: 0.35em;
   vertical-align: bottom;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  /* Lebar dikunci via JS per kata + transisi halus */
+  transition: width 320ms var(--ml-ease);
 }
 
+/* Underline milik WADAH (bukan kata) sehingga tetap tampil penuh
+   selama kata berganti — hanya panjangnya yang menyusut/melebar
+   halus mengikuti kata. currentColor agar ikut tema putih/hitam */
 .ml-rotate::after {
   content: "";
   position: absolute;
@@ -379,7 +400,7 @@ body .bg-static { display: none !important; }
   bottom: 0;
   height: 0.07em;
   min-height: 4px;
-  background: var(--ml-ink);
+  background: currentColor;
   border-radius: 999px;
 }
 
@@ -388,6 +409,30 @@ body .bg-static { display: none !important; }
   white-space: nowrap;
   transition: opacity 320ms var(--ml-ease), transform 320ms var(--ml-ease), filter 320ms var(--ml-ease);
   will-change: opacity, transform;
+}
+
+/* Mobile saja: 4 baris bertumpuk — velard / tools / for / kata.
+   Semua block + rata TENGAH dan sejajar */
+@media (max-width: 640px) {
+  .ml-title {
+    text-align: center;
+  }
+  .ml-title .ml-br {
+    display: none;
+  }
+  .ml-title .ml-w1,
+  .ml-title .ml-w2,
+  .ml-title .ml-w3 {
+    display: block;
+    text-align: center;
+    margin: 0;
+  }
+  .ml-title .ml-rotate {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }
 
 /* Font disamakan semua — tidak ada pengecilan untuk kata panjang */
@@ -545,13 +590,18 @@ body .bg-static { display: none !important; }
   border: 1px solid #e8e8e8;
   border-radius: 999px;
   padding: 4px;
+  max-width: 100%;
+  /* Pil aktif tidak boleh mengecat keluar track dalam kondisi apa pun */
+  overflow: hidden;
 }
 
 .ml-bg-opt {
-  flex: 1;
-  display: inline-flex;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   font-family: var(--ml-font);
   font-size: 13px;
   font-weight: 600;
@@ -588,16 +638,26 @@ body .bg-static { display: none !important; }
   }
 
   .ml-bg-pick-label {
-    font-size: clamp(1.35rem, 6.4vw, 1.8rem);
+    font-size: clamp(1.1rem, 5.5vw, 1.35rem);
+    white-space: nowrap;
+    align-self: center;
   }
 
   .ml-bg-options {
     flex-direction: row;
+    width: 100%;
+    /* Track dibuat sedikit lebih tegas agar terbaca sebagai
+       satu bubble utuh di layar putih */
+    background: #ececee;
+    border-color: #d4d4d8;
   }
 
   .ml-bg-opt {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
     justify-content: center;
+    padding: 8px 6px;
+    font-size: 12.5px;
   }
 }
 
@@ -727,9 +787,10 @@ body .bg-static { display: none !important; }
     outline: none;
   }
 
-  /* Hero tetap 2 kolom seperti PC */
+  /* Hero tetap 2 kolom seperti PC (kolom teks sedikit dilebarkan
+     agar kata terpanjang muat) */
   .ml-hero-grid {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1.12fr 0.88fr;
     align-items: center;
   }
 
@@ -800,12 +861,20 @@ body[data-view="beranda"] .slide-container.cube-viewport {
 
 body[data-view="beranda"] .slide-panel.cube-face { padding: 0 !important; }
 
-/* Judul tidak boleh kepotong / nabrak kolom gambar */
-.ml-hero-copy { min-width: 0; overflow: clip; }
+/* Kata rotasi kini pendek (maks "creator") jadi tidak nabrak kolom gambar;
+   overflow visible agar bayangan tombol tidak kepotong */
+.ml-hero-copy { min-width: 0; overflow: visible; }
 
 .ml-title {
   font-size: clamp(2.5rem, 1.4rem + 3.6vw, 3.9rem);
   overflow-wrap: break-word;
+}
+
+/* HP: judul 4 baris di tengah kolom teks — ukuran dibesarkan */
+@media (max-width: 640px) {
+  .ml-title {
+    font-size: clamp(1.7rem, 9vw, 2.3rem);
+  }
 }
 
 /* Pill bahasa menang dari override pink (!important) style.css */
@@ -1239,6 +1308,9 @@ select.tool-select { color-scheme: light !important; }
 }
 
 .tiktok-rec { color: #111 !important; }
+
+/* Dark mode: rekomendasi TikTok harus putih terang agar terbaca */
+html[data-site-bg="black"] .tiktok-rec { color: #ffffff !important; }
 
 .tool-merge-list { background: #fafafa !important; }
 
@@ -3068,14 +3140,14 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   gap: 6px !important;
 }
 
-/* ---- Social: tautan besar, mudah tap ---- */
+/* ---- Social: rata kiri seperti section lain ---- */
 #panel-others .others-stack .social-card {
-  text-align: center !important;
+  text-align: left !important;
 }
 
 #panel-others .others-stack .social-card .social-title,
 #panel-others .others-stack .social-card .social-desc {
-  text-align: center !important;
+  text-align: left !important;
 }
 
 #panel-others .others-stack .social-grid {
@@ -3092,8 +3164,9 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   font-size: 13px !important;
   line-height: 1.7 !important;
   max-width: 52ch !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
 }
 
 /* ---- Report/help: tombol penuh ---- */
@@ -3131,11 +3204,13 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
     font-size: 22px !important;
   }
 
+  /* Navigasi kembali seperti PC: banyak bubble wrap berderet ke bawah */
   .others-stack-nav {
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    scrollbar-width: none !important;
-    padding-bottom: 4px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    overflow: visible !important;
+    padding-bottom: 0 !important;
   }
 
   .others-stack-nav::-webkit-scrollbar {
@@ -3143,8 +3218,10 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   }
 
   .others-stack-nav button {
-    white-space: nowrap !important;
     flex: none !important;
+    text-align: center !important;
+    min-height: 36px !important;
+    width: auto !important;
   }
 
   #panel-others .others-stack .card,
@@ -4428,8 +4505,14 @@ html[data-site-bg="black"] .ml-plus-field span {
 .home-about {
   max-width: 920px !important;
   margin: 0 auto !important;
-  padding: 64px 24px 12px !important;
+  padding: 96px 24px 48px !important;
   text-align: center !important;
+  /* About satu layar penuh: judul lebih turun & MY VIDEOS
+     tersembunyi di bawah fold saat tombol About diklik */
+  min-height: calc(100vh - 84px) !important;
+  min-height: calc(100svh - 84px) !important;
+  box-sizing: border-box !important;
+  scroll-margin-top: 84px !important;
 }
 .home-about-title {
   font-family: var(--ml-font) !important;
@@ -4463,7 +4546,7 @@ html[data-site-bg="white"] .home-about-body {
   text-decoration: none !important;
 }
 @media (max-width: 640px) {
-  .home-about { padding: 44px 18px 8px !important; }
+  .home-about { padding: 64px 18px 32px !important; }
   .home-about-body { font-size: 14.5px !important; }
 }
 
@@ -4493,10 +4576,22 @@ html[data-site-bg="white"] .home-about-body {
   font-family: var(--ml-font) !important;
   font-weight: 800 !important;
   font-size: clamp(1.45rem, 1.1rem + 1.8vw, 1.9rem) !important;
-  letter-spacing: -0.03em !important;
+  letter-spacing: -0.05em !important;
   line-height: 1.1 !important;
   color: var(--ml-ink) !important;
   opacity: 1 !important;
+}
+
+/* Judul besar lain di panel Lainnya: samakan dengan font hero home
+   (Inter 800, -0.05em) */
+#panel-others .others-stack .about-hero-title,
+#panel-others .others-stack .about-intro-title,
+#panel-others .others-stack .changelog-h,
+#panel-others .others-stack .report-saas-title,
+#panel-others .others-stack .help-head-title {
+  font-family: var(--ml-font) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.05em !important;
 }
 
 @media (max-width: 640px) {
@@ -4623,6 +4718,123 @@ html[data-site-bg="black"] .tiktok-like {
   .tiktok-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
+  }
+}
+
+/* ============================================================
+   33. TOMBOL KEMBALI-KE-ATAS + CHIP AKTIF PANEL LAINNYA
+   ============================================================ */
+.to-top-btn {
+  position: fixed;
+  right: 16px;
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  z-index: 120;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #111111;
+  border: 1px solid #111111;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 220ms var(--ml-ease), transform 220ms var(--ml-ease),
+    visibility 220ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.to-top-btn .material-symbols-rounded {
+  font-size: 22px !important;
+  line-height: 1 !important;
+}
+
+.to-top-btn.is-show {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+body.tool-modal-open .to-top-btn {
+  display: none !important;
+}
+
+html[data-site-bg="black"] .to-top-btn {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+}
+
+/* Chip navigasi Lainnya yang sedang dibaca: menyala seperti menu aktif */
+.others-stack-nav button.active {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+}
+
+html[data-site-bg="black"] .others-stack-nav button.active {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top-btn { transition: none; }
+}
+
+/* ============================================================
+   32. LAINNYA FULL-BLEED MOBILE — semua isi mentok ke tepi
+   layar kiri/kanan, tidak ada ruang tersisa.
+   ============================================================ */
+@media (max-width: 640px) {
+  /* Lepas padding 24px wadah konten saat panel Lainnya aktif */
+  body:not([data-view="beranda"]) .dash-panels:has(#panel-others.active-panel) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: none !important;
+  }
+
+  #panel-others > .panel-head-large,
+  #panel-others > .others-stack-nav,
+  #panel-others > .others-stack {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Header mentok tepi */
+  #panel-others > .panel-head-large {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Chip navigasi seperti PC: bubble rounded wrap berderet */
+  #panel-others > .others-stack-nav {
+    gap: 8px !important;
+  }
+
+  #panel-others > .others-stack-nav button {
+    border-radius: 999px !important;
+  }
+
+  /* Kartu-kartu: rapat tanpa jeda, sudut siku, sisi mentok layar */
+  #panel-others > .others-stack {
+    gap: 0 !important;
+  }
+
+  #panel-others .others-stack .card,
+  #panel-others .others-stack .about-card,
+  #panel-others .others-stack .help-card-inner {
+    border-radius: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+  }
+
+  #panel-others .others-stack .others-section + .others-section {
+    margin-top: -1px !important;
   }
 }
 

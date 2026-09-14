@@ -20,7 +20,7 @@
 
   /* Ubah 4 info spesifikasi pertama jadi kartu statistik ala referensi:
      label sebagai kicker, nilai singkat sebagai angka besar. */
-  var SPEC_VALS = ["FFmpeg WASM + Patch JavaScript", "1500 MB", "MP4 · H.264", "360p–1080p FULL HD"];
+  var SPEC_VALS = ["FFmpeg WASM + Patch JavaScript", "1500 MB", "MP4 · MKV · MP3", "360p–1080p FULL HD"];
 
   function specStats() {
     var grid = document.querySelector("#others-spec .spec-grid");

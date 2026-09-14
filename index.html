@@ -70,7 +70,7 @@
 
   
   <link rel="stylesheet" href="assets/css/style.css?v=212" />
-  <link rel="stylesheet" href="assets/css/minimal-landing.css?v=73" />
+  <link rel="stylesheet" href="assets/css/minimal-landing.css?v=89" />
   <script>!function(){try{var t=["beranda","tools","donate","others"];try{["quality","tutorial","tentang"].forEach(function(t){try{localStorage.getItem("velardPanel")===t&&localStorage.removeItem("velardPanel")}catch(t){}if((location.hash||"")==="#"+t)try{history.replaceState(null,"",location.pathname)}catch(t){}})}catch(t){}try{sessionStorage.getItem("velardSession")&&(isRefresh=!0)}catch(t){}var e="beranda";if(isRefresh){var a=(location.hash||"").replace(/^#/,"");try{s=localStorage.getItem("velardPanel")}catch(t){}h&&-1!==t.indexOf(a)?v=h:s&&-1!==t.indexOf(null)&&(v=s)}document.documentElement.setAttribute("data-preload",e);var n=".slide-container.cube-viewport{opacity:0 !important} html[data-preload] .slide-panel.cube-face{opacity:0 !important;visibility:hidden !important} html[data-preload='"+e+"'] #panel-"+v+"{opacity:1 !important;visibility:visible !important} #panel-beranda:not(.active-panel) .tiktok-section{display:none !important}",o=document.createElement("style");o.id="preload-fix",o.textContent=n,document.head.appendChild(o)}catch(t){}}();</script>
   <script>try{"scrollRestoration"in history&&(history.scrollRestoration="manual")}catch(o){}window.addEventListener("beforeunload",function(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0}catch(o){}}),window.addEventListener("load",function(){function o(){try{window.scrollTo(0,0),document.documentElement.scrollTop=0,document.body.scrollTop=0;var o=document.querySelector(".app-main");o&&(o.scrollTop=0);var t=document.querySelector(".cube-viewport");t&&(t.scrollTop=0)}catch(o){}}o(),setTimeout(o,60),setTimeout(o,400)});</script>
 
@@ -176,26 +176,26 @@
           <span class="ml-dot ml-dot-end" aria-hidden="true"></span>
           <div class="ml-hero-grid">
             <div class="ml-hero-copy">
-              <h1 class="ml-title">velard tools<br />for <span class="ml-rotate"><span class="ml-rotate-word" id="mlRotateWord">efficient</span></span></h1>
+              <h1 class="ml-title"><span class="ml-w1">velard</span> <span class="ml-w2">tools</span><br class="ml-br" /><span class="ml-w3">for</span> <span class="ml-rotate"><span class="ml-rotate-word" id="mlRotateWord">creator</span></span></h1>
               <div class="ml-cta-row">
                 <button class="ml-btn ml-btn-primary" type="button" id="heroAboutBtn" onclick="(function(){ var sec = document.querySelector('.home-about'); if (!sec) return; var isActive = document.getElementById('panel-beranda') && document.getElementById('panel-beranda').classList.contains('active-panel'); if (!isActive && window.velardActivatePanel) { window.velardActivatePanel('beranda', false); setTimeout(function(){ sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 400); } else { sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); } })()"><span data-i18n="heroAbout">Tentang</span></button>
-                <button class="ml-btn ml-btn-outline" type="button" onclick="window.velardActivatePanel && window.velardActivatePanel('tools', true)"><span data-i18n="heroToolsBtn">Tools</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></button>
+                <button class="ml-btn ml-btn-outline" type="button" onclick="window.velardActivatePanel && window.velardActivatePanel('tools', true)"><span data-i18n="heroToolsBtn">Alat</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg></button>
               </div>
             </div>
             <div class="ml-hero-media">
               <img class="ml-hero-img" src="assets/images/hero-crop.png" alt="Ilustrasi VelardTools untuk kreator konten" data-i18n-aria-label="heroMediaAlt" fetchpriority="high" decoding="async" />
               <div class="ml-bg-pick" aria-label="Theme mode picker">
-                <span class="ml-bg-pick-label">Theme Mode</span>
-                <div class="ml-bg-options" role="radiogroup" aria-label="Theme Mode">
-                  <button class="ml-bg-opt" type="button" data-setbg="white" role="radio" aria-checked="true">White</button>
-                  <button class="ml-bg-opt" type="button" data-setbg="black" role="radio" aria-checked="false">Black</button>
+                <span class="ml-bg-pick-label" data-i18n="themeModeLabel">Mode Tema</span>
+                <div class="ml-bg-options" role="radiogroup" aria-label="Theme Mode" data-i18n-aria-label="themeModeLabel">
+                  <button class="ml-bg-opt" type="button" data-setbg="white" role="radio" aria-checked="true" data-i18n="themeWhite">Putih</button>
+                  <button class="ml-bg-opt" type="button" data-setbg="black" role="radio" aria-checked="false" data-i18n="themeBlack">Hitam</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <section class="home-about" aria-label="About VelardTools">
-          <h2 class="home-about-title" data-i18n="homeAboutTitle">ABOUT VELARDTOOLS</h2>
+          <h2 class="home-about-title" data-i18n="homeAboutTitle">TENTANG VELARDTOOLS</h2>
           <p class="home-about-body" data-i18n="homeAboutBody1">Selamat datang. Saya Frans, seorang kreator konten dan mahasiswa yang mendedikasikan platform ini untuk menghadirkan solusi digital yang efisien bagi kebutuhan para profesional di industri kreatif. Website ini dikembangkan untuk mempermudah berbagai keperluan pengelolaan konten Anda, termasuk fitur unggulan TikTok High-Quality Bypass yang dirancang untuk mengunggah video tanpa mengalami penurunan kualitas akibat kompresi sistem, sehingga ketajaman visual tetap terjaga secara optimal di samping berbagai perangkat penunjang produktivitas lainnya yang akan terus dikembangkan secara berkelanjutan.</p>
           <p class="home-about-body" data-i18n="homeAboutBody2">Apabila Anda menemukan kendala teknis atau memiliki masukan konstruktif, silakan menghubungi saya melalui tombol di bawah ini atau melalui pesan langsung (DM) pada akun TikTok resmi saya. Terima kasih atas kepercayaan Anda, selamat mencoba, dan semoga platform ini memberikan nilai tambah bagi produktivitas Anda.</p>
           <div class="home-about-cta">
@@ -204,7 +204,7 @@
           </div>
         </section>
         <section class="tiktok-section" aria-label="My Videos">
-          <h2 class="tiktok-title">MY VIDEOS</h2>
+          <h2 class="tiktok-title" data-i18n="myVideosTitle">VIDEO SAYA</h2>
           <div class="tiktok-grid">
             <button class="tiktok-card" type="button" data-href="https://www.tiktok.com/@ve1ard/video/7609974122348596498" aria-label="Vid 1">
               <div class="tiktok-thumb"><img src="assets/images/tiktok/1.png" alt="Vid 1" loading="lazy" decoding="async"></div>
@@ -226,7 +226,7 @@
         </section>
         <script src="assets/js/tiktok-reveal.js?v=187"></script>
         <script src="assets/js/tiktok-modal.js?v=186"></script>
-        <script src="assets/js/hero-rotate.js?v=3"></script>
+        <script src="assets/js/hero-rotate.js?v=7"></script>
         <script src="assets/js/hero-bg.js?v=1"></script>
       </section>
 
@@ -509,7 +509,7 @@
             <div class="spec-grid">
               <div><strong data-i18n="specEngine">Mesin:</strong> <span data-i18n="specDescEngine">FFmpeg WASM + Patch JavaScript. Semua proses berjalan 100 persen di browser Anda. File tidak diunggah ke server, sehingga privasi terjaga sepenuhnya.</span></div>
               <div><strong data-i18n="specMax">Maksimal:</strong> <span data-i18n="specDescMax">Maksimal 1500 MB per file. Disarankan menggunakan file di bawah 500 MB untuk proses yang lebih cepat pada perangkat dengan RAM terbatas.</span></div>
-              <div><strong data-i18n="specFormat">Format:</strong> <span data-i18n="specDescFormat">Input MP4, MOV, MKV, WebM, AVI — menu Convert juga menerima WMV, FLV, dan 3GP. Output MP4 (H.264/AAC) yang kompatibel dengan TikTok, Instagram Reels, dan YouTube Shorts. Mute tanpa re-encode, MP3 untuk audio.</span></div>
+              <div><strong data-i18n="specFormat">Format:</strong> <span data-i18n="specDescFormat">Input MP4, MOV, MKV, WebM, AVI — Convert juga menerima WMV, FLV, 3GP dan Merge menerima M4V. Output MP4 (H.264/AAC), AVI, MOV, MKV, WebM (VP9/Opus), WMV, MP3, PNG, hingga ZIP untuk thumbnail.</span></div>
               <div><strong data-i18n="specRes">Resolusi:</strong> <span data-i18n="specDescRes">Rentang 360p–1080p Full HD. Quality Method (V-SHARP): OFF / 720P / 1080P — hanya menurunkan resolusi, tanpa upscale. Tool Rescale: 720p / 480p / 360p.</span></div>
               <div><span data-i18n="specDescSpeed">Kecepatan sangat bergantung pada spesifikasi perangkat Anda. Faktor utama adalah CPU (jumlah core dan kecepatan), RAM yang tersedia, dan jenis browser. Pada perangkat mobile, proses mungkin memerlukan waktu lebih lama dan penggunaan baterai yang lebih tinggi. Untuk video berdurasi panjang atau resolusi tinggi, disarankan menutup aplikasi lain dan memastikan daya baterai mencukupi. Estimasi umum adalah 1 menit durasi video memerlukan waktu proses 20 sampai 60 detik tergantung perangkat.</span></div>
             </div>
@@ -577,7 +577,7 @@
         </template>
       </section>
       <script src="assets/js/others.js?v=186"></script>
-      <script src="assets/js/others-stack.js?v=4"></script>
+      <script src="assets/js/others-stack.js?v=5"></script>
         </div>
       </div>
 
@@ -1054,9 +1054,11 @@
     <p class="site-footer-copy">&copy; 2026 velardtools. All Rights Reserved.</p>
   </footer>
 
+  <button id="toTopBtn" class="to-top-btn" type="button" data-i18n-aria-label="toTopAria" aria-label="Kembali ke atas"><span class="material-symbols-rounded" aria-hidden="true">arrow_upward</span></button>
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
   <script>try{window.emailjs&&emailjs.init({publicKey:"5xKmdLZIxzxQ_4xWG"})}catch(i){}</script>
-  <script src="assets/js/i18n.js?v=193"></script>
+  <script src="assets/js/i18n.js?v=195"></script>
   <script src="assets/js/eco-funnel.js?v=186"></script>
   <script src="assets/js/jszip.min.js?v=169"></script>
   <script src="assets/js/filesaver.min.js?v=169"></script>
@@ -1065,6 +1067,7 @@
   <script src="assets/js/app.js?v=192"></script>
   <script src="assets/js/tool-lock.js?v=186"></script>
   <script src="assets/js/report.js?v=2"></script>
+  <script src="assets/js/panel-nav.js?v=1"></script>
   <script>window.addEventListener('load',function(){var n=0;var t=setInterval(function(){try{window.dispatchEvent(new Event('resize'))}catch(e){}if(++n>=4)clearInterval(t)},700)});</script>
 
 </body>
