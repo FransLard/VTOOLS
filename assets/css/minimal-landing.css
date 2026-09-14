@@ -1,0 +1,4840 @@
+/* ============================================================
+   VelardTools — Minimal Landing Experiment (full-bleed)
+   Theme: putih bersih #FFFFFF, teks near-black, aksen hitam.
+   Style: Minimalism & Swiss Style (ui-ux-pro-max) + Inter
+   (Minimal Swiss single-family). Full-bleed 2 kolom dengan
+   divider vertikal ala referensi. File terpisah agar mudah
+   revert: hapus <link> minimal-landing.css dari index.html.
+   Catatan kompatibilitas:
+   - Class .lang-btn + data-lang dipertahankan (i18n.js).
+   - Class .nav-item + data-panel di navbar atas diikat
+     otomatis oleh i18n.js (klik + status active).
+   - ID panel-beranda / velardSlideTrack / kineticHero kept.
+   - .tiktok-section disembunyikan visual saja (DOM/JS aman).
+   ============================================================ */
+
+:root {
+  --ml-bg: #ffffff;
+  --ml-ink: #111111;
+  --ml-ink-soft: #1a1a1a;
+  --ml-gray: #6b7280;
+  --ml-gray-light: #9ca3af;
+  --ml-line: #e8e8e8;
+  --ml-soft: #f4f4f5;
+  --ml-font: "Inter", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --ml-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- Base: paksa kanvas putih bersih ---- */
+html, body {
+  background: var(--ml-bg) !important;
+  color: var(--ml-ink);
+  font-family: var(--ml-font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body .bg-static { display: none !important; }
+
+.app-container,
+.app-main,
+.dash-panels,
+.slide-container,
+.slide-track,
+.slide-panel,
+.dash-panel {
+  background: var(--ml-bg) !important;
+  color: var(--ml-ink);
+}
+
+.top-header { display: none !important; }
+
+/* ============================================================
+   0. ICON BASE — Material Symbols wajib punya font-family
+   (tanpa ini icon tampil sebagai teks polos / kosong)
+   ============================================================ */
+.material-symbols-rounded {
+  font-family: "Material Symbols Rounded" !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+  word-wrap: normal !important;
+  direction: ltr !important;
+  -webkit-font-smoothing: antialiased !important;
+  text-rendering: optimizeLegibility !important;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24 !important;
+  flex-shrink: 0 !important;
+  user-select: none !important;
+}
+
+/* Semua kartu: ikon selalu di tengah, tidak kepotong, kontras jelas */
+.tool-card-new {
+  align-items: center !important;
+}
+
+.tool-card-new .tool-icon-wrap {
+  display: grid !important;
+  place-items: center !important;
+  width: 46px !important;
+  height: 46px !important;
+  min-width: 46px !important;
+  min-height: 46px !important;
+  border-radius: 13px !important;
+  line-height: 1 !important;
+  overflow: visible !important;
+}
+
+.tool-card-new .tool-icon-wrap .material-symbols-rounded {
+  font-size: 23px !important;
+  line-height: 1 !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+}
+
+.tool-card-new .tool-arrow {
+  display: grid !important;
+  place-items: center !important;
+  min-width: 32px !important;
+  line-height: 1 !important;
+}
+
+.tool-card-new .tool-arrow .material-symbols-rounded {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+.tools-cat-btn .material-symbols-rounded,
+.tools-search-icon,
+.hard-refresh-btn .material-symbols-rounded,
+.social-icon .material-symbols-rounded,
+.faq-q .material-symbols-rounded {
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+/* ============================================================
+   1. NAVBAR — full width, menu dalam pill abu-abu
+   ============================================================ */
+.ml-nav {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: #ffffff !important;
+  background-image: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom: 1px solid var(--ml-line);
+  box-shadow: none;
+  transform: translateZ(0);
+}
+
+/* PC: navbar fixed — velard tools, beranda, tools, donate,
+   lainnya + ID/EN selalu kelihatan walau scroll ke bawah.
+   Mobile tetap sticky (tinggi nav berubah karena menu wrap). */
+@media (min-width: 921px) {
+  .ml-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 200 !important;
+    box-shadow: 0 1px 0 var(--ml-line), 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  /* Kompensasi tinggi nav 72px agar konten tidak ketutup */
+  body[data-view="beranda"] .app-main,
+  body:not([data-view]) .app-main,
+  body:not([data-view="beranda"]) .app-main {
+    padding-top: 72px !important;
+  }
+}
+
+.ml-nav-inner {
+  min-height: 72px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.ml-brand {
+  font-family: var(--ml-font);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--ml-ink);
+  background: none;
+  border: 0;
+  padding: 10px 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Menu navigasi pill — solid, tanpa blur agar scroll ringan */
+.ml-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0 auto;
+  background: #f4f4f5;
+  border: 1px solid #e8e8e8;
+  border-radius: 999px;
+  box-shadow: none;
+  padding: 3px;
+}
+
+.ml-link {
+  font-family: var(--ml-font);
+  font-size: 15px;
+  font-weight: 600;
+  color: #52525b;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: none;
+  padding: 8px 16px;
+  min-height: 36px;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.ml-link + .ml-link::before {
+  content: none;
+}
+
+.ml-link:hover { color: #111111; background: #e8e8e8; box-shadow: none; }
+
+/* Status active disinkron otomatis oleh i18n.js */
+.ml-link.active {
+  background: #111111;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* Language switch — pill minimal, class .lang-btn dipertahankan */
+.ml-lang {
+  display: flex;
+  align-items: center;
+  background: var(--ml-soft);
+  border: 1px solid var(--ml-line);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.ml-lang .lang-btn {
+  font-family: var(--ml-font);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ml-gray);
+  padding: 7px 14px;
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  transition: background 200ms var(--ml-ease), color 200ms var(--ml-ease),
+    box-shadow 200ms var(--ml-ease);
+}
+
+.ml-lang .lang-btn.active {
+  background: var(--ml-ink);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* ============================================================
+   2. HERO — full-bleed 2 kolom + divider vertikal
+   ============================================================ */
+#panel-beranda {
+  padding: 0 !important;
+  max-width: none !important;
+}
+
+.ml-hero { padding: 0 !important; position: relative; overflow: clip; }
+
+/* Garis diagonal latar: kanan-atas ke kiri-bawah, di belakang konten.
+   Premium: garis utama tipis + gradient fade di ujung,
+   didampingi hairline abu sebagai bayangan, + aksen dot. */
+.ml-diagonal {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.ml-line-main {
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  animation: ml-draw 1.6s var(--ml-ease) 0.15s forwards;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9));
+}
+
+.ml-line-ghost {
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  animation: ml-draw 1.8s var(--ml-ease) 0.35s forwards;
+  opacity: 0.9;
+}
+
+@keyframes ml-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Aksen dot di ujung garis — HTML span (tidak ikut stretch SVG) */
+.ml-dot {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  animation: ml-dot-in 0.6s var(--ml-ease) forwards;
+}
+
+.ml-dot-start {
+  top: 14px;
+  right: 18px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #111;
+  box-shadow: 0 0 0 4px #fff, 0 0 0 5px #e8e8e8, 0 2px 8px rgba(0, 0, 0, 0.25);
+  animation-delay: 1.1s;
+}
+
+.ml-dot-end {
+  bottom: 22px;
+  left: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #111;
+  box-shadow: 0 0 0 4px #fff, 0 2px 8px rgba(0, 0, 0, 0.18);
+  animation-delay: 1.3s;
+}
+
+@keyframes ml-dot-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.ml-hero-grid { position: relative; z-index: 1; }
+
+.ml-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: calc(100svh - 73px);
+  border-bottom: 1px solid var(--ml-line);
+}
+
+.ml-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: end;
+  width: 100%;
+  max-width: 620px;
+  padding: clamp(48px, 6vw, 96px) clamp(20px, 3vw, 48px) clamp(48px, 6vw, 96px) clamp(28px, 5vw, 88px);
+  min-width: 0;
+}
+
+.ml-title {
+  font-family: var(--ml-font);
+  font-weight: 800;
+  font-size: clamp(3rem, 2rem + 5vw, 5rem);
+  line-height: 1.0;
+  letter-spacing: -0.05em;
+  color: var(--ml-ink);
+  margin: 0 0 40px;
+  /* Jangan pakai balance: tiap ganti kata browser menata ulang
+     baris sehingga kata "for" terlihat bergeser */
+  text-wrap: pretty;
+}
+
+/* PC (awal): 2 baris — "velard tools" / "for + kata".
+   Kata statis inline, "for" tidak bergeser karena rata kiri */
+.ml-w1,
+.ml-w2,
+.ml-w3 {
+  display: inline;
+}
+
+/* Kata bergantian: inline-block + lebar auto (= kata aktif),
+   jadi underline selalu pas sepanjang kata */
+.ml-rotate {
+  display: inline-block;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+  /* Biarkan ekor huruf (y, g, j) tampil penuh: area klip diperluas
+     tanpa mengubah layout & posisi underline */
+  overflow-clip-margin: 0.35em;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  /* Lebar dikunci via JS per kata + transisi halus */
+  transition: width 320ms var(--ml-ease);
+}
+
+/* Underline milik WADAH (bukan kata) sehingga tetap tampil penuh
+   selama kata berganti — hanya panjangnya yang menyusut/melebar
+   halus mengikuti kata. currentColor agar ikut tema putih/hitam */
+.ml-rotate::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.07em;
+  min-height: 4px;
+  background: currentColor;
+  border-radius: 999px;
+}
+
+.ml-rotate-word {
+  display: inline-block;
+  white-space: nowrap;
+  transition: opacity 320ms var(--ml-ease), transform 320ms var(--ml-ease), filter 320ms var(--ml-ease);
+  will-change: opacity, transform;
+}
+
+/* Mobile saja: 4 baris bertumpuk — velard / tools / for / kata.
+   Semua block + rata TENGAH dan sejajar */
+@media (max-width: 640px) {
+  .ml-title {
+    text-align: center;
+  }
+  .ml-title .ml-br {
+    display: none;
+  }
+  .ml-title .ml-w1,
+  .ml-title .ml-w2,
+  .ml-title .ml-w3 {
+    display: block;
+    text-align: center;
+    margin: 0;
+  }
+  .ml-title .ml-rotate {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* Font disamakan semua — tidak ada pengecilan untuk kata panjang */
+.ml-rotate-word.is-mid,
+.ml-rotate-word.is-long {
+  font-size: 1em;
+  letter-spacing: inherit;
+}
+
+.ml-rotate-word.is-out {
+  opacity: 0;
+  transform: translateY(55%);
+  filter: blur(5px);
+}
+
+.ml-rotate-word.is-in {
+  opacity: 0;
+  transform: translateY(-55%);
+  filter: blur(5px);
+}
+
+.ml-sub {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ml-gray);
+  max-width: 44ch;
+  margin: 0 0 36px;
+}
+
+.ml-cta-row {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ml-btn {
+  font-family: var(--ml-font);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 15px 30px;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 220ms var(--ml-ease), background 220ms var(--ml-ease),
+    color 220ms var(--ml-ease), border-color 220ms var(--ml-ease),
+    box-shadow 220ms var(--ml-ease);
+}
+
+.ml-btn:active { transform: translateY(1px) scale(0.99); }
+
+/* Tombol 1 — primary hitam */
+.ml-btn-primary {
+  background: var(--ml-ink);
+  color: #fff;
+  border: 1.5px solid var(--ml-ink);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+}
+
+.ml-btn-primary:hover {
+  background: #2a2a2a;
+  border-color: #2a2a2a;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Tombol 2 — outline + panah */
+.ml-btn-outline {
+  background: transparent;
+  color: var(--ml-ink);
+  border: 1.5px solid var(--ml-ink);
+}
+
+.ml-btn-outline:hover {
+  background: var(--ml-soft);
+  transform: translateY(-1px);
+}
+
+.ml-btn-outline svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 220ms var(--ml-ease);
+}
+
+.ml-btn-outline:hover svg { transform: translateX(3px); }
+
+/* ---- Kolom kanan: gambar proporsional, tidak kebesaran ---- */
+.ml-hero-media {
+  min-width: 0;
+  border-left: 0 !important;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(32px, 4vw, 64px) clamp(28px, 5vw, 88px) clamp(32px, 4vw, 64px) clamp(20px, 3vw, 48px);
+}
+
+.ml-hero-img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  max-height: min(78vh, 680px);
+  object-fit: contain;
+  object-position: center;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* ---- Theme Mode tanpa kartu: label sebesar judul hero,
+   posisi kanan-atas (jauh dari gambar) ---- */
+.ml-hero-media {
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.ml-bg-pick {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  margin: auto clamp(16px, 3vw, 48px) clamp(16px, 5vh, 56px) auto;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 200px;
+  max-width: 260px;
+}
+
+.ml-bg-pick-label {
+  font-family: var(--ml-font);
+  font-weight: 800;
+  font-size: clamp(3rem, 2rem + 5vw, 5rem);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--ml-ink);
+  margin: 0;
+}
+
+.ml-bg-options {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  background: #f4f4f5;
+  border: 1px solid #e8e8e8;
+  border-radius: 999px;
+  padding: 4px;
+  max-width: 100%;
+  /* Pil aktif tidak boleh mengecat keluar track dalam kondisi apa pun */
+  overflow: hidden;
+}
+
+.ml-bg-opt {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-family: var(--ml-font);
+  font-size: 13px;
+  font-weight: 600;
+  color: #52525b;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 180ms var(--ml-ease), color 180ms var(--ml-ease), box-shadow 180ms var(--ml-ease);
+}
+
+.ml-bg-opt:hover {
+  color: #111;
+}
+
+.ml-bg-opt.is-active {
+  background: #111;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 640px) {
+  .ml-hero-media {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ml-bg-pick {
+    min-width: 0;
+    max-width: none;
+    align-self: stretch;
+    margin: 0;
+  }
+
+  .ml-bg-pick-label {
+    font-size: clamp(1.1rem, 5.5vw, 1.35rem);
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  .ml-bg-options {
+    flex-direction: row;
+    width: 100%;
+    /* Track dibuat sedikit lebih tegas agar terbaca sebagai
+       satu bubble utuh di layar putih */
+    background: #ececee;
+    border-color: #d4d4d8;
+  }
+
+  .ml-bg-opt {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 8px 6px;
+    font-size: 12.5px;
+  }
+}
+
+/* Section TikTok: tampil di semua ukuran layar */
+/* (visibility diatur oleh JS / kelas .active-panel) */
+
+/* ============================================================
+   3. Footer terang
+   ============================================================ */
+.site-footer {
+  background: transparent !important;
+  border-top: 0 !important;
+}
+
+.site-footer-copy { color: var(--ml-gray-light) !important; }
+
+/* Fokus keyboard selalu terlihat (aksesibilitas) */
+.ml-nav button:focus-visible,
+.ml-btn:focus-visible,
+.ml-lang .lang-btn:focus-visible {
+  outline: 2px solid var(--ml-ink);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   4. RESPONSIVE — tetap bersebelahan seperti PC
+   (gambar + teks side-by-side di semua ukuran)
+   ============================================================ */
+@media (max-width: 920px) {
+  .ml-hero-grid {
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+    align-items: center;
+  }
+
+  .ml-hero-copy {
+    padding: 40px 12px 40px 20px;
+    justify-self: end;
+    justify-content: center;
+    max-width: none;
+  }
+
+  .ml-title {
+    font-size: clamp(1.6rem, 1rem + 4vw, 2.4rem);
+    margin-bottom: 22px;
+  }
+
+  .ml-sub { max-width: 60ch; }
+
+  .ml-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .ml-btn {
+    padding: 12px 16px;
+    min-height: 44px;
+    font-size: 13.5px;
+    width: 100%;
+  }
+
+  .ml-hero-media {
+    order: 0;
+    border-left: 0;
+    border-top: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 20px 24px 12px;
+  }
+
+  .ml-hero-img {
+    width: 100%;
+    height: auto;
+    max-height: 46vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .ml-nav-inner {
+    padding: 10px 14px;
+    gap: 10px;
+    min-height: 62px;
+    flex-wrap: wrap;
+  }
+
+  .ml-brand {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+
+  .ml-lang {
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  .ml-links {
+    order: 3;
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 440px;
+    margin: 4px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+    padding: 3px;
+    box-sizing: border-box;
+  }
+
+  .ml-links::-webkit-scrollbar { display: none; }
+
+  .ml-link {
+    flex: 1 1 0;
+    padding: 8px 4px;
+    white-space: nowrap;
+    font-size: 13.5px;
+    text-align: center;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ml-link:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Hero tetap 2 kolom seperti PC (kolom teks sedikit dilebarkan
+     agar kata terpanjang muat) */
+  .ml-hero-grid {
+    grid-template-columns: 1.12fr 0.88fr;
+    align-items: center;
+  }
+
+  .ml-hero-copy { padding: 32px 10px 32px 16px; }
+
+  .ml-title {
+    font-size: clamp(1.35rem, 6.4vw, 1.8rem);
+    margin-bottom: 18px;
+  }
+
+  /* Font tetap sama di layar sempit */
+  .ml-rotate-word.is-mid,
+  .ml-rotate-word.is-long { font-size: 1em; }
+
+  .ml-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .ml-btn {
+    flex: none;
+    width: 100%;
+    padding: 11px 14px;
+    min-height: 42px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .ml-hero-media {
+    padding: 20px 16px 20px 10px;
+  }
+
+  .ml-hero-img {
+    max-height: 38vh;
+  }
+
+  .ml-diagonal { opacity: 0.9; }
+}
+
+/* ============================================================
+   5. BERANDA FULL-BLEED — lepas batas 920px/560px style.css
+   ============================================================ */
+body[data-view="beranda"] .app-container {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+body[data-view="beranda"] .app-main {
+  padding: 0 !important;
+  align-items: stretch !important;
+  max-width: none !important;
+}
+
+.ml-nav { align-self: stretch; }
+
+body[data-view="beranda"] .dash-panels {
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+body[data-view="beranda"] .slide-container.cube-viewport {
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+body[data-view="beranda"] .slide-panel.cube-face { padding: 0 !important; }
+
+/* Kata rotasi kini pendek (maks "creator") jadi tidak nabrak kolom gambar;
+   overflow visible agar bayangan tombol tidak kepotong */
+.ml-hero-copy { min-width: 0; overflow: visible; }
+
+.ml-title {
+  font-size: clamp(2.5rem, 1.4rem + 3.6vw, 3.9rem);
+  overflow-wrap: break-word;
+}
+
+/* HP: judul 4 baris di tengah kolom teks — ukuran dibesarkan */
+@media (max-width: 640px) {
+  .ml-title {
+    font-size: clamp(1.7rem, 9vw, 2.3rem);
+  }
+}
+
+/* Pill bahasa menang dari override pink (!important) style.css */
+.ml-nav .ml-lang .lang-btn {
+  background: transparent !important;
+  color: #6b7280 !important;
+  box-shadow: none !important;
+}
+
+.ml-nav .ml-lang .lang-btn.active {
+  background: #111 !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* ============================================================
+   6. TEMA MONOKROM TERANG — samakan Tools/Donate/Others
+   dengan Beranda (putih · hitam · abu-abu)
+   ============================================================ */
+:root {
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --surface-3: #fafafa;
+  --surface-4: #ffffff;
+  --text: #111111;
+  --text-2: #1c1c1e;
+  --text-3: #52525b;
+  --text-4: #71717a;
+  --line: #e8e8e8;
+  --line-strong: #d4d4d8;
+  --md-sys-color-primary: #111111;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-secondary: #3f3f46;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-tertiary: #52525b;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-on-surface: #111111;
+  --md-sys-color-surface-variant: #f4f4f5;
+  --md-sys-color-on-surface-variant: #3f3f46;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #fafafa;
+  --md-sys-color-surface-container: #f4f4f5;
+  --md-sys-color-surface-container-high: #eeeeef;
+  --md-sys-color-surface-container-highest: #e9e9eb;
+  --md-sys-color-outline: #d4d4d8;
+  --md-sys-color-outline-variant: #e8e8e8;
+  --md-sys-color-inverse-surface: #111111;
+  --md-sys-color-inverse-primary: #fafafa;
+  --md-sys-color-error: #dc2626;
+  --md-sys-color-success: #15803d;
+  --md-sys-color-warning: #b45309;
+  --md-sys-color-border: #e8e8e8;
+  --md-sys-color-border-strong: #d4d4d8;
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-border: #e8e8e8;
+  --human-bg: #ffffff;
+  --human-surface: #f4f4f5;
+  --human-text: #111111;
+  --lime: #111111;
+  --lime-strong: #111111;
+  --lime-soft: rgba(0, 0, 0, 0.06);
+  --lime-glow: rgba(0, 0, 0, 0.08);
+}
+
+/* Panel non-beranda: lega tapi tetap premium */
+body:not([data-view="beranda"]) .app-container {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+body:not([data-view="beranda"]) .app-main {
+  padding: 0 !important;
+  align-items: stretch !important;
+  max-width: none !important;
+}
+
+/* Navbar full-width di SEMUA panel (tidak ikut menyempit),
+   yang dibatasi hanya kolom konten */
+body:not([data-view="beranda"]) .dash-panels {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+}
+
+body:not([data-view="beranda"]) .slide-container.cube-viewport {
+  max-width: 100% !important;
+}
+
+body:not([data-view="beranda"]) .site-footer {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+/* Judul panel (Tools/Donate/Lainnya): hitam, tanpa glow */
+.panel-head-large .panel-title-large {
+  color: #111 !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.head-sub, .panel-by { color: #6b7280 !important; }
+
+#panel-tools .panel-head-large .head-sub { color: #52525b !important; }
+
+/* Matikan text-shadow gelap global */
+.app-main, .tool-modal-card { text-shadow: none !important; }
+
+/* ---- Kartu generik ---- */
+.card {
+  background: #fff !important;
+  border: 1px solid #e8e8e8 !important;
+  border-top: 1px solid #e8e8e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.card::before { display: none !important; }
+
+.card:hover {
+  border-color: #d4d4d8 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ---- Kartu Tools ---- */
+.tool-card-new {
+  background: #fff !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.tool-card-new::before { display: none !important; }
+
+.tool-card-new:hover {
+  background: #fafafa !important;
+  border-color: #d4d4d8 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+.tool-icon-wrap {
+  background: #f4f4f5 !important;
+  border-color: #e8e8e8 !important;
+  color: #111 !important;
+}
+
+.tool-card-new:hover .tool-icon-wrap {
+  background: #111 !important;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
+.tool-arrow {
+  background: #f4f4f5 !important;
+  border-color: #e8e8e8 !important;
+  color: #52525b !important;
+}
+
+.tool-card-new:hover .tool-arrow {
+  background: #111 !important;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
+/* RONDE 3 — kalahkan style.css:2400 maroon: ikon Tools harus kelihatan
+   (kotak terang + ikon hitam pekat, hover jadi hitam + ikon putih) */
+#panel-tools .tool-card-new .tool-icon-wrap,
+#panel-tools .tool-card-new .tool-arrow {
+  background: #f4f4f5 !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: none !important;
+}
+
+#panel-tools .tool-card-new .tool-icon-wrap,
+#panel-tools .tool-card-new .tool-icon-wrap .material-symbols-rounded {
+  color: #111 !important;
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 24 !important;
+}
+
+#panel-tools .tool-card-new .tool-arrow,
+#panel-tools .tool-card-new .tool-arrow .material-symbols-rounded {
+  color: #111 !important;
+}
+
+#panel-tools .tool-card-new:hover .tool-icon-wrap,
+#panel-tools .tool-card-new:hover .tool-arrow {
+  background: #111 !important;
+  background-image: none !important;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
+#panel-tools .tool-card-new:hover .tool-icon-wrap .material-symbols-rounded,
+#panel-tools .tool-card-new:hover .tool-arrow .material-symbols-rounded {
+  color: #fff !important;
+}
+
+.tool-ver {
+  background: #f4f4f5 !important;
+  border-color: #e8e8e8 !important;
+  color: #52525b !important;
+}
+
+/* Status proses (background gelap + teks gelap = perbaiki) */
+.tool-card-new:active .tool-icon-wrap,
+.tool-card-new.is-processing .tool-icon-wrap,
+.tool-card-new.is-processing .tool-arrow,
+.tool-modal-close.is-processing,
+.tool-file-badge,
+.btn-proceed,
+.changelog-badge,
+.about-ver-badge {
+  background: #111 !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+/* ---- Search + kategori Tools (menang dari !important pink) ---- */
+#panel-tools .tools-search-wrap,
+.tools-search-wrap {
+  background: #f4f4f5 !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.tools-search-icon { color: #71717a !important; }
+
+#toolsSearch { color: #111 !important; }
+
+#toolsSearch::placeholder { color: #9ca3af !important; }
+
+.tools-search-clear {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+  color: #52525b !important;
+}
+
+.tools-search-empty { color: #71717a !important; }
+
+#panel-tools .tools-cat-btn,
+.tools-cat-btn {
+  background: #fff !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #52525b !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  text-shadow: none !important;
+}
+
+#panel-tools .tools-cat-btn:hover,
+.tools-cat-btn:hover { border-color: #d4d4d8 !important; color: #111 !important; }
+
+#panel-tools .tools-cat-btn.active,
+.tools-cat-btn.active {
+  background: #111 !important;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
+/* ---- Modal ---- */
+.modal, .modal-card {
+  background: #fff !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: #111 !important;
+}
+
+.modal-icon { color: #111 !important; filter: none !important; }
+
+.btn-cancel {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #111 !important;
+}
+
+.modal-close, .tool-modal-close {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #52525b !important;
+}
+
+.modal-close:hover, .tool-modal-close:hover { color: #111 !important; }
+
+#help-msg {
+  background: #fafafa !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #111 !important;
+}
+
+#help-msg:focus {
+  border-color: #111 !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.tool-modal-card {
+  background: #fff !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.tool-modal-header {
+  background: #fff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.tool-modal-card:has(#toolPanel-thumbnail:not([hidden])) {
+  background: #fff !important;
+  border: 1px solid #e8e8e8 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#toolPanel-thumbnail .vt-card {
+  background: #fff !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  color: #111 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ---- Zona tools: dropzone, tabel, input, log, segmen ---- */
+.tool-drop-zone {
+  background: #fafafa !important;
+  border-color: #d4d4d8 !important;
+}
+
+.tool-drop-zone:hover, .tool-drop-zone.dragover {
+  border-color: #111 !important;
+  background: #f4f4f5 !important;
+}
+
+.tool-fill-table, .tool-selected, .tool-detected {
+  background: #fafafa !important;
+  border-color: #e8e8e8 !important;
+}
+
+.tool-select, .tool-input, .tool-time-input {
+  background: #fff !important;
+  border-color: #e8e8e8 !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+select.tool-select { color-scheme: light !important; }
+
+.tool-select option { background: #fff !important; color: #111 !important; }
+
+.tool-time-input:focus {
+  border-color: #111 !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.qm-segmented {
+  background: #f4f4f5 !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.qm-seg-btn:not(.active):hover { background: #e8e8e8 !important; color: #111 !important; }
+
+.qm-seg-btn.active, .tool-seg-btn.active, .seg-btn.active {
+  background: #111 !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+}
+
+.qm-check {
+  background: #fff !important;
+  border-color: #d4d4d8 !important;
+}
+
+.qm-checkbox input:checked + .qm-check {
+  background: #111 !important;
+  border-color: #111 !important;
+}
+
+.qm-checkbox input:checked + .qm-check::after { color: #fff !important; }
+
+.qm-info-box, .qm-info-desc {
+  background: #fafafa !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.qm-log-area {
+  background: #fafafa !important;
+  border-color: #e8e8e8 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.qm-process-btn:disabled {
+  background: #f4f4f5 !important;
+  color: #9ca3af !important;
+  border-color: #e8e8e8 !important;
+}
+
+.qm-progress-track, .tool-progress-track {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+.qm-progress-bar { background: #111 !important; }
+
+.tool-progress-fill { background: #111 !important; }
+
+.qm-icon-btn, .qm-copy-btn {
+  background: #f4f4f5 !important;
+  border-color: #e8e8e8 !important;
+}
+
+.tiktok-rec { color: #111 !important; }
+
+/* Dark mode: rekomendasi TikTok harus putih terang agar terbaca */
+html[data-site-bg="black"] .tiktok-rec { color: #ffffff !important; }
+
+.tool-merge-list { background: #fafafa !important; }
+
+/* ---- Donate / Others ---- */
+.donate-icon {
+  background: #111 !important;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
+.qris-box { background: #fafafa !important; }
+
+html[data-site-bg="white"] .social-link {
+  background: #fff !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-site-bg="white"] .social-link:hover {
+  border-color: #d4d4d8 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-site-bg="white"] .social-icon {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="white"] .social-icon .material-symbols-rounded {
+  color: #111111 !important;
+  filter: none !important;
+}
+
+html[data-site-bg="white"] .social-name {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .social-handle {
+  color: #71717a !important;
+}
+
+html[data-site-bg="white"] .faq-item {
+  background: #fff !important;
+  border-color: #e8e8e8 !important;
+}
+
+html[data-site-bg="white"] .faq-q {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .faq-a { color: #52525b !important; }
+
+html[data-site-bg="black"] .social-link {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #26262b !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-site-bg="black"] .social-link:hover {
+  border-color: #f4f4f5 !important;
+  background: #0a0a0c !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+html[data-site-bg="black"] .social-icon {
+  background: #0a0a0c !important;
+  border: 1px solid #2e2e33 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .social-icon .material-symbols-rounded {
+  color: #f4f4f5 !important;
+  filter: none !important;
+}
+
+html[data-site-bg="black"] .social-name {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .social-handle {
+  color: #8e8e96 !important;
+}
+
+html[data-site-bg="black"] .faq-item {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #26262b !important;
+}
+
+html[data-site-bg="black"] .faq-q {
+  color: #ffffff !important;
+}
+
+html[data-site-bg="black"] .faq-q .material-symbols-rounded {
+  color: #8e8e96 !important;
+}
+
+html[data-site-bg="black"] .faq-a {
+  color: #b7bcc7 !important;
+}
+
+/* ---- Toast ---- */
+.toast {
+  background: #111 !important;
+  color: #fff !important;
+  border-color: #111 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ============================================================
+   8. RONDE 2 — kalahkan !important maroon style.css:2433-2463
+   (kartu Others, isi detail Others, select thumbnail,
+   tombol hard-refresh)
+   ============================================================ */
+#panel-others .tool-card-new {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  border-radius: 16px !important;
+  transform: none !important;
+}
+
+#panel-others .tool-card-new:hover {
+  background: #fafafa !important;
+  border-color: #d4d4d8 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+#panel-others .tool-card-new .tool-icon-wrap,
+#panel-others .tool-card-new .tool-arrow {
+  background: #f4f4f5 !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: none !important;
+}
+
+#panel-others .tool-card-new .tool-icon-wrap { color: #111 !important; }
+
+#panel-others .tool-card-new .tool-arrow { color: #52525b !important; }
+
+#panel-others .tool-card-new:hover .tool-icon-wrap,
+#panel-others .tool-card-new:hover .tool-arrow {
+  background: #111 !important;
+  border-color: #111 !important;
+  color: #fff !important;
+}
+
+#panel-others .tool-card-new .tool-title-new { color: #111 !important; }
+
+#othersDetail .card,
+#othersDetail .about-card,
+#othersDetail .tutorial-card,
+#othersDetail .social-card,
+#othersDetail .help-card,
+#othersDetail .donate-card,
+#othersDetail .feature-item {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+}
+
+#othersDetail .about-hero,
+#othersDetail .about-intro,
+#othersDetail .tutorial-step,
+#othersDetail .help-info-box,
+#othersDetail .help-note-box,
+#othersDetail .spec-grid > div,
+#othersDetail .faq-item,
+#othersDetail .changelog-item,
+#othersDetail .social-link {
+  background: #fafafa !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: none !important;
+}
+
+#othersDetail .step-num,
+#othersDetail .about-ver-badge,
+#othersDetail .changelog-badge {
+  background: #111 !important;
+  border: 1px solid #111 !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+#toolPanel-thumbnail select#videow,
+#toolPanel-thumbnail select#snap_each {
+  background: #fff !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.hard-refresh-btn.hard-refresh-icon {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #111 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Hormati pengurangan gerak */
+@media (prefers-reduced-motion: reduce) {
+  .ml-link,
+  .ml-btn,
+  .ml-btn-outline svg,
+  .ml-lang .lang-btn {
+    transition: none !important;
+  }
+
+  .ml-btn-primary:hover,
+  .ml-btn-outline:hover { transform: none; }
+
+  .ml-line-main,
+  .ml-line-ghost {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .ml-dot { animation: none !important; opacity: 1 !important; }
+}
+
+/* ============================================================
+   7. FRESH-LOAD FIX — saat baru dibuka, JS belum sempat
+   mengeset data-view (default HTML = beranda). Ulangi
+   rule full-bleed untuk body tanpa atribut. Blok ini di
+   akhir file supaya menang dari rule panel lain.
+   ============================================================ */
+body:not([data-view]) .app-container {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+body:not([data-view]) .app-main {
+  padding: 0 !important;
+  align-items: stretch !important;
+  max-width: none !important;
+}
+
+body:not([data-view]) .dash-panels {
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+body:not([data-view]) .slide-container.cube-viewport {
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+body:not([data-view]) .slide-panel.cube-face { padding: 0 !important; }
+
+/* Anak langsung panel dibatasi 560px oleh style.css
+   (.slide-panel.cube-face > *) — lepas khusus hero */
+.slide-panel.cube-face > .ml-hero,
+#panel-beranda > .ml-hero {
+  max-width: none !important;
+  width: 100% !important;
+  align-self: stretch !important;
+}
+
+/* ============================================================
+   8. PC FIXED-NAV KOMPENSASI (paling akhir — menang dari
+   padding:0 section 5/6/7). Tanpa ini judul panel seperti
+   ALAT ketutup navbar fixed saat scroll.
+   ============================================================ */
+@media (min-width: 921px) {
+  body[data-view="beranda"] .app-main,
+  body:not([data-view]) .app-main,
+  body:not([data-view="beranda"]) .app-main {
+    padding-top: 72px !important;
+  }
+}
+
+/* ============================================================
+   9. SITE BACKGROUND MODE — putih / hitam untuk SELURUH situs
+   Dikontrol dari pemilih di home. Default: white.
+   ============================================================ */
+
+/* ---- 9A. MODE PUTIH: halaman + semua kartu + isi modal terang ---- */
+html[data-site-bg="white"] body,
+html[data-site-bg="white"] .app-container,
+html[data-site-bg="white"] .app-main,
+html[data-site-bg="white"] .slide-panel,
+html[data-site-bg="white"] .ml-hero {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Isi modal Quality Method: kartu terang, teks gelap jelas */
+html[data-site-bg="white"] .tool-modal-card,
+html[data-site-bg="white"] .tool-modal-header,
+html[data-site-bg="white"] .tool-modal-body,
+html[data-site-bg="white"] .qm-card,
+html[data-site-bg="white"] #toolPanel-quality .qm-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16) !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .qm-title,
+html[data-site-bg="white"] .qm-label,
+html[data-site-bg="white"] .qm-drop-title,
+html[data-site-bg="white"] .qm-file-name,
+html[data-site-bg="white"] .qm-info-v,
+html[data-site-bg="white"] .qm-info-desc,
+html[data-site-bg="white"] .tool-drop-title {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .qm-subtitle,
+html[data-site-bg="white"] .qm-drop-sub,
+html[data-site-bg="white"] .qm-file-meta,
+html[data-site-bg="white"] .qm-info-k,
+html[data-site-bg="white"] .tool-tip,
+html[data-site-bg="white"] .tool-drop-sub {
+  color: #52525b !important;
+}
+
+html[data-site-bg="white"] .qm-icon-badge,
+html[data-site-bg="white"] .qm-drop-icon,
+html[data-site-bg="white"] .qm-file-icon,
+html[data-site-bg="white"] .qm-info-row .material-symbols-rounded {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .qm-drop {
+  background: #f4f4f5 !important;
+  background-image: none !important;
+  border: 1.5px dashed #d4d4d8 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="white"] .qm-drop:hover,
+html[data-site-bg="white"] .qm-drop.dragging {
+  border-color: #111111 !important;
+  background: #ececee !important;
+}
+
+html[data-site-bg="white"] .qm-file-info,
+html[data-site-bg="white"] .qm-info-box {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: none !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .qm-info-row {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .qm-segmented {
+  background: #f4f4f5 !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="white"] .qm-segmented .qm-seg-btn,
+html[data-site-bg="white"] .qm-seg-btn:not(.active) {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  color: #52525b !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+html[data-site-bg="white"] .qm-segmented .qm-seg-btn.active,
+html[data-site-bg="white"] .qm-seg-btn.active {
+  background: #111111 !important;
+  background-image: none !important;
+  border-color: #111111 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+html[data-site-bg="white"] .qm-checkbox {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .qm-check {
+  background: #ffffff !important;
+  border: 1.5px solid #d4d4d8 !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .qm-process-btn,
+html[data-site-bg="white"] .tool-process-btn {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-color: #111111 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22) !important;
+}
+
+html[data-site-bg="white"] .qm-process-btn:disabled,
+html[data-site-bg="white"] .tool-process-btn:disabled {
+  background: #e8e8e8 !important;
+  color: #71717a !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+html[data-site-bg="white"] .tool-drop-zone {
+  background: #f4f4f5 !important;
+  background-image: none !important;
+  border: 1.5px dashed #d4d4d8 !important;
+  color: #111111 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="white"] .tool-fill-table .tool-table-row,
+html[data-site-bg="white"] .tool-select,
+html[data-site-bg="white"] .qm-log-area {
+  background: #ffffff !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #111111 !important;
+}
+
+/* Ikon di atas kotak hitam harus putih (logo modal, badge, proses) */
+html[data-site-bg="white"] .tool-modal-hero .tool-icon-wrap,
+html[data-site-bg="white"] .tool-card-new:active .tool-icon-wrap,
+html[data-site-bg="white"] .tool-card-new.is-processing .tool-icon-wrap,
+html[data-site-bg="white"] .tool-card-new.is-processing .tool-arrow,
+html[data-site-bg="white"] .tool-file-badge,
+html[data-site-bg="white"] .btn-proceed {
+  color: #ffffff !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail .tbtn-ghost {
+  color: #111111 !important;
+  border-color: #d4d4d8 !important;
+}
+
+/* Header thumbnail ikut terang */
+html[data-site-bg="white"] #toolPanel-thumbnail .vt-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e8e8e8 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail .thumb-title { color: #111111 !important; }
+
+html[data-site-bg="white"] #toolPanel-thumbnail .thumb-badge {
+  background: #f4f4f5 !important;
+  border-color: #e8e8e8 !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail .thumb-close {
+  border-color: #e8e8e8 !important;
+  color: #52525b !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail .thumb-close:hover {
+  background: #f4f4f5 !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail .thumb-icon-btn { border-color: #e8e8e8 !important; }
+
+/* Strip kontrol video ikut terang + ikon gelap jelas */
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls .button-container {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button {
+  color: #111111 !important;
+  border-left-color: #e8e8e8 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button span:last-child {
+  color: #52525b !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button:hover {
+  background: #e8e8e8 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail .play-controls { color: #111111 !important; }
+
+/* Tombol putar: lingkaran hitam + ikon putih besar yang eksplisit */
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay {
+  background: #111111 !important;
+  border-radius: 50% !important;
+  border-left: none !important;
+  flex: 0 0 auto !important;
+  width: 46px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  align-self: center !important;
+  margin: 5px 10px !important;
+  padding: 0 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay:hover {
+  background: #2a2a2a !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay .play-controls,
+html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .play-controls,
+html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .play-control,
+html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .pause-control {
+  color: #ffffff !important;
+  font-size: 26px !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay span:last-child {
+  display: none !important;
+}
+
+/* ============================================================
+   14. Strip kontrol thumbnail: tombol lega + play tegas
+   ============================================================ */
+#toolPanel-thumbnail #videoControls .button-container {
+  gap: 2px !important;
+  padding: 5px !important;
+}
+
+#toolPanel-thumbnail #videoControls button {
+  min-width: 56px !important;
+  padding: 8px 4px !important;
+}
+
+#toolPanel-thumbnail #videoControls button span:last-child { font-size: 10px !important; }
+
+#toolPanel-thumbnail .play-controls { font-size: 22px !important; }
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay {
+  width: 52px !important;
+  height: 52px !important;
+  min-height: 52px !important;
+}
+
+html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay .play-controls,
+html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .play-controls,
+html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .play-control,
+html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .pause-control {
+  font-size: 30px !important;
+}
+
+@media (min-width: 921px) {
+  #toolPanel-thumbnail #videoControls button { min-width: 64px !important; }
+  #toolPanel-thumbnail .play-controls { font-size: 24px !important; }
+}
+
+/* ============================================================
+   15. Transport muat SEMUA tombol (melipat, tanpa scroll) +
+   tombol play hanya tampilkan ikon
+   ============================================================ */
+#toolPanel-thumbnail #videoControls .button-container { flex-wrap: wrap !important; }
+
+#toolPanel-thumbnail #videoControls button {
+  flex: 1 1 0 !important;
+  min-width: 52px !important;
+}
+
+#toolPanel-thumbnail #videoControls button.tplay > span { display: none !important; }
+
+#toolPanel-thumbnail #videoControls button.tplay > span.play-control {
+  display: inline-block !important;
+}
+
+/* ---- 9B. MODE HITAM: halaman + semua kartu gelap, teks terang ---- */
+html[data-site-bg="black"] body,
+html[data-site-bg="black"] .app-container,
+html[data-site-bg="black"] .app-main,
+html[data-site-bg="black"] .slide-panel,
+html[data-site-bg="black"] .ml-hero {
+  background: #101012 !important;
+  background-image: none !important;
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .ml-nav {
+  background: #000000 !important;
+  background-image: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom-color: #26262b !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .ml-links {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #26262b !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .ml-link {
+  color: #b7bcc7 !important;
+  background: transparent !important;
+}
+
+html[data-site-bg="black"] .ml-link:hover {
+  color: #ffffff !important;
+  background: #1a1a1e !important;
+}
+
+html[data-site-bg="black"] .ml-link.active {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .ml-title,
+html[data-site-bg="black"] .ml-brand,
+html[data-site-bg="black"] .panel-title-large,
+html[data-site-bg="black"] .qm-title,
+html[data-site-bg="black"] .tool-title-new,
+html[data-site-bg="black"] .card,
+html[data-site-bg="black"] .tool-modal-card {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .head-sub,
+html[data-site-bg="black"] .panel-by,
+html[data-site-bg="black"] .tool-desc-new,
+html[data-site-bg="black"] .qm-subtitle,
+html[data-site-bg="black"] .tool-tip {
+  color: #b7bcc7 !important;
+}
+
+html[data-site-bg="black"] .card,
+html[data-site-bg="black"] .tool-card-new,
+html[data-site-bg="black"] #panel-others .tool-card-new,
+html[data-site-bg="black"] .tool-modal-card,
+html[data-site-bg="black"] .qm-card,
+html[data-site-bg="black"] #toolPanel-quality .qm-card,
+html[data-site-bg="black"] .tool-modal-header,
+html[data-site-bg="black"] #othersDetail .card {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+}
+
+html[data-site-bg="black"] .tool-icon-wrap,
+html[data-site-bg="black"] #panel-tools .tool-card-new .tool-icon-wrap,
+html[data-site-bg="black"] #panel-others .tool-card-new .tool-icon-wrap,
+html[data-site-bg="black"] .tool-arrow,
+html[data-site-bg="black"] #panel-tools .tool-card-new .tool-arrow,
+html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
+  background: #2a2a30 !important;
+  background-image: none !important;
+  border: 1px solid #3a3a41 !important;
+  box-shadow: none !important;
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .tool-icon-wrap .material-symbols-rounded,
+html[data-site-bg="black"] .tool-arrow .material-symbols-rounded {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .tools-search-wrap,
+html[data-site-bg="black"] .qm-drop,
+html[data-site-bg="black"] .qm-file-info,
+html[data-site-bg="black"] .qm-info-box,
+html[data-site-bg="black"] .tool-drop-zone {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border-color: #3a3a41 !important;
+  color: #f4f4f5 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .tools-cat-btn:not(.active),
+html[data-site-bg="black"] .qm-seg-btn:not(.active) {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #3a3a41 !important;
+  color: #d8d8de !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+html[data-site-bg="black"] .tools-cat-btn.active,
+html[data-site-bg="black"] .qm-seg-btn.active,
+html[data-site-bg="black"] .ml-bg-opt.is-active {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: #ffffff !important;
+  color: #111111 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .qm-segmented {
+  background: #101012 !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .qm-process-btn:not(:disabled),
+html[data-site-bg="black"] .tool-process-btn:not(:disabled),
+html[data-site-bg="black"] .ml-btn-primary {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="black"] .ml-btn-outline {
+  border-color: #f4f4f5 !important;
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .ml-bg-pick,
+html[data-site-bg="black"] .ml-bg-opt:not(.is-active) {
+  background: #1a1a1e !important;
+  border-color: #3a3a41 !important;
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .ml-bg-pick-label {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] #toolsSearch {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .tools-search-icon {
+  color: #b7bcc7 !important;
+}
+
+/* ---- 9C. BLACK MODE FIX — selektor ID agar menang dari
+   #panel-tools (pil kategori) dan RONDE 3 (ikon kartu) ---- */
+html[data-site-bg="black"] {
+  background: #101012 !important;
+}
+
+html[data-site-bg="black"] .dash-panels,
+html[data-site-bg="black"] .slide-container,
+html[data-site-bg="black"] .cube-viewport,
+html[data-site-bg="black"] .site-footer {
+  background: #101012 !important;
+  background-image: none !important;
+}
+
+html[data-site-bg="black"] .ml-lang {
+  background: #000000 !important;
+  border: 1px solid #26262b !important;
+}
+
+html[data-site-bg="black"] .lang-btn {
+  color: #d8d8de !important;
+}
+
+html[data-site-bg="black"] .lang-btn.active {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: #ffffff !important;
+  color: #111111 !important;
+  box-shadow: none !important;
+}
+
+/* Pil kategori Tools: nonaktif gelap (aktif diatur di 9D: gelap + bingkai terang) */
+html[data-site-bg="black"] #panel-tools .tools-cat-btn {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #3a3a41 !important;
+  color: #d8d8de !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+html[data-site-bg="black"] #panel-tools .tools-cat-btn:hover {
+  border-color: #55555e !important;
+  color: #ffffff !important;
+}
+
+/* Ikon + panah kartu Tools/Lainnya: glyph terang (kalahkan RONDE 3) */
+html[data-site-bg="black"] #panel-tools .tool-card-new .tool-icon-wrap .material-symbols-rounded,
+html[data-site-bg="black"] #panel-tools .tool-card-new .tool-arrow .material-symbols-rounded,
+html[data-site-bg="black"] #panel-others .tool-card-new .tool-icon-wrap .material-symbols-rounded,
+html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow .material-symbols-rounded {
+  color: #f4f4f5 !important;
+}
+
+/* ---- 9D. BLACK MODE LANJUTAN: balik variabel tema ke gelap,
+   kunci search/track/pil aktif, terangkan teks Donasi & Lainnya ---- */
+html[data-site-bg="black"] {
+  --surface: #1a1a1e;
+  --surface-2: #232328;
+  --surface-3: #1a1a1e;
+  --surface-4: #232328;
+  --text: #f4f4f5;
+  --text-2: #eceef2;
+  --text-3: #b7bcc7;
+  --text-4: #8e8e96;
+  --line: #2c2c31;
+  --line-strong: #3a3a41;
+  --ml-ink: #f4f4f5;
+  --ml-ink-soft: #d8d8de;
+  --ml-gray: #b7bcc7;
+  --ml-gray-light: #8e8e96;
+  --ml-soft: #1a1a1e;
+  --ml-line: #2c2c31;
+  --md-sys-color-primary: #f4f4f5;
+  --md-sys-color-on-primary: #111111;
+  --md-sys-color-secondary: #d8d8de;
+  --md-sys-color-on-secondary: #111111;
+  --md-sys-color-tertiary: #b7bcc7;
+  --md-sys-color-on-tertiary: #111111;
+  --md-sys-color-surface: #1a1a1e;
+  --md-sys-color-on-surface: #f4f4f5;
+  --md-sys-color-surface-variant: #232328;
+  --md-sys-color-on-surface-variant: #d8d8de;
+  --md-sys-color-surface-container-lowest: #101012;
+  --md-sys-color-surface-container-low: #1a1a1e;
+  --md-sys-color-surface-container: #232328;
+  --md-sys-color-surface-container-high: #2a2a30;
+  --md-sys-color-surface-container-highest: #33333a;
+  --md-sys-color-outline: #3a3a41;
+  --md-sys-color-outline-variant: #2c2c31;
+  --md-sys-color-inverse-surface: #ffffff;
+  --md-sys-color-inverse-primary: #111111;
+  --md-sys-color-border: #2c2c31;
+  --md-sys-color-border-strong: #3a3a41;
+  --glass-bg: rgba(16, 16, 18, 0.88);
+  --glass-border: #2c2c31;
+  --human-bg: #101012;
+  --human-surface: #232328;
+  --human-text: #f4f4f5;
+  --lime: #f4f4f5;
+  --lime-strong: #ffffff;
+  --lime-soft: rgba(255, 255, 255, 0.08);
+  --lime-glow: rgba(0, 0, 0, 0.4);
+}
+
+/* Strip putih tepi kiri = track geser */
+html[data-site-bg="black"] #velardSlideTrack,
+html[data-site-bg="black"] .slide-track {
+  background: #101012 !important;
+}
+
+/* Search jadi gelap (kalahkan #panel-tools) */
+html[data-site-bg="black"] #panel-tools .tools-search-wrap {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #3a3a41 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #panel-tools #toolsSearch {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] #panel-tools #toolsSearch::placeholder {
+  color: #8e8e96 !important;
+  opacity: 1 !important;
+}
+
+/* Pil kategori aktif: gelap + bingkai terang, tanpa putih */
+html[data-site-bg="black"] #panel-tools .tools-cat-btn.active {
+  background: #2a2a30 !important;
+  background-image: none !important;
+  border-color: #f4f4f5 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Tombol proses nonaktif: gelap */
+html[data-site-bg="black"] #toolPanel-quality .qm-process-btn:disabled,
+html[data-site-bg="black"] .tool-panel .tool-process-btn:disabled {
+  background: #2a2a30 !important;
+  color: #8e8e96 !important;
+  border-color: #3a3a41 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* Judul kartu Lainnya */
+html[data-site-bg="black"] #panel-others .tool-card-new .tool-title-new {
+  color: #f4f4f5 !important;
+}
+
+/* Teks isi Lainnya/Donasi/About/Tutorial/FAQ (di luar kotak putih QR & info) */
+html[data-site-bg="black"] .faq-a,
+html[data-site-bg="black"] .faq-sub,
+html[data-site-bg="black"] .social-desc,
+html[data-site-bg="black"] .social-foot,
+html[data-site-bg="black"] .social-name,
+html[data-site-bg="black"] .social-handle,
+html[data-site-bg="black"] .about-desc,
+html[data-site-bg="black"] .about-p,
+html[data-site-bg="black"] .about-intro-title,
+html[data-site-bg="black"] .about-hero-title,
+html[data-site-bg="black"] .tutorial-step p,
+html[data-site-bg="black"] .tutorial-step h3,
+html[data-site-bg="black"] .tut-section-title,
+html[data-site-bg="black"] .help-desc,
+html[data-site-bg="black"] .help-head-title,
+html[data-site-bg="black"] .help-head-sub,
+html[data-site-bg="black"] .help-note-text,
+html[data-site-bg="black"] .help-info-kicker,
+html[data-site-bg="black"] .help-info-item,
+html[data-site-bg="black"] .donate-hero h2,
+html[data-site-bg="black"] .donate-hero p,
+html[data-site-bg="black"] .spec-grid > div,
+html[data-site-bg="black"] .changelog-ul li,
+html[data-site-bg="black"] .changelog-h,
+html[data-site-bg="black"] .faq-head,
+html[data-site-bg="black"] .spec-head,
+html[data-site-bg="black"] .tool-tip,
+html[data-site-bg="black"] .tool-table-row,
+html[data-site-bg="black"] .tool-status,
+html[data-site-bg="black"] .tool-selected {
+  color: #eceef2 !important;
+}
+
+html[data-site-bg="black"] .tool-table-row span,
+html[data-site-bg="black"] .tool-progress-labels {
+  color: #b7bcc7 !important;
+}
+
+/* Kotak info/tabel/select/log: gelap juga (kalahkan #fafafa/#fff terang) */
+html[data-site-bg="black"] .qm-info-box,
+html[data-site-bg="black"] .qm-info-desc,
+html[data-site-bg="black"] .qm-log-area,
+html[data-site-bg="black"] .tool-fill-table,
+html[data-site-bg="black"] .tool-selected,
+html[data-site-bg="black"] .tool-detected,
+html[data-site-bg="black"] .tool-select,
+html[data-site-bg="black"] .tool-input,
+html[data-site-bg="black"] .tool-time-input {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  color: #eceef2 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] select.tool-select {
+  color-scheme: dark !important;
+}
+
+html[data-site-bg="black"] .qm-progress-track,
+html[data-site-bg="black"] .tool-progress-track {
+  background: #2a2a30 !important;
+  border-color: #3a3a41 !important;
+}
+
+html[data-site-bg="black"] .qm-progress-bar,
+html[data-site-bg="black"] .tool-progress-fill {
+  background: #f4f4f5 !important;
+}
+
+/* Wadah segmented Theme Mode ikut gelap */
+html[data-site-bg="black"] .ml-bg-options {
+  background: #101012 !important;
+  border-color: #3a3a41 !important;
+}
+
+html[data-site-bg="black"] .ml-bg-opt:not(.is-active) {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #d8d8de !important;
+  box-shadow: none !important;
+}
+
+/* Kotak donasi ikut gelap; QR tetap di atas putih biar bisa di-scan */
+html[data-site-bg="black"] .qris-box {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-site-bg="black"] .qris-image {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html[data-site-bg="black"] .official-note a.handle {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .ml-bg-opt:not(.is-active):hover {
+  color: #ffffff !important;
+}
+
+/* Panel thumbnail: kartu + select gelap */
+html[data-site-bg="black"] #toolPanel-thumbnail .vt-card {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  color: #eceef2 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-site-bg="black"] #toolPanel-thumbnail select#videow,
+html[data-site-bg="black"] #toolPanel-thumbnail select#snap_each {
+  background: #232328 !important;
+  border: 1px solid #3a3a41 !important;
+  color: #eceef2 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #toolPanel-thumbnail,
+html[data-site-bg="black"] .tool-modal-card {
+  color-scheme: dark;
+}
+
+/* Theme Mode tanpa kartu: netralkan sisa aturan kartu gelap */
+html[data-site-bg="black"] .ml-bg-pick {
+  background: none !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ---- Kunci navigasi saat modal tool terbuka: sembunyi instan
+   (tanpa opacity/animasi biar ringan) ---- */
+body.tool-modal-open .ml-nav,
+body.tool-modal-open .floating-nav-bar,
+body.tool-modal-open #floatingNav {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ============================================================
+   10. PC: perbesar modal + semua kartu di dalamnya
+   (khusus layar besar, mobile tidak tersentuh)
+   ============================================================ */
+@media (min-width: 921px) {
+  /* Modal lebih lebar (kecuali thumbnail/merge yang sudah lebar) */
+  #toolModalCard:has(#toolPanel-quality:not([hidden])) {
+    width: min(560px, calc(100vw - 32px)) !important;
+  }
+
+  #toolModalCard:has(#toolPanel-mp3:not([hidden])),
+  #toolModalCard:has(#toolPanel-convert:not([hidden])),
+  #toolModalCard:has(#toolPanel-cut:not([hidden])),
+  #toolModalCard:has(#toolPanel-rescale:not([hidden])),
+  #toolModalCard:has(#toolPanel-mute:not([hidden])) {
+    width: min(520px, calc(100vw - 32px)) !important;
+  }
+
+  /* Isi Quality: drop zone, tombol metode, info, proses */
+  #toolPanel-quality .qm-drop {
+    padding: 16px 14px !important;
+    min-height: 84px !important;
+  }
+
+  #toolPanel-quality .qm-drop-icon { font-size: 28px !important; }
+  #toolPanel-quality .qm-drop-title { font-size: 14.5px !important; }
+  #toolPanel-quality .qm-drop-sub { font-size: 12.5px !important; }
+
+  #toolPanel-quality .qm-seg-btn {
+    font-size: 13px !important;
+    padding: 10px 8px !important;
+    min-height: 40px !important;
+  }
+
+  #toolPanel-quality .qm-label { font-size: 12.5px !important; }
+  #toolPanel-quality .qm-file-info { font-size: 13.5px !important; padding: 10px 12px !important; }
+  #toolPanel-quality .qm-info-row { font-size: 13.5px !important; }
+  #toolPanel-quality .qm-info-desc { font-size: 13.5px !important; line-height: 1.65 !important; }
+  #toolPanel-quality .qm-checkbox { font-size: 12.5px !important; }
+
+  .qm-process-btn,
+  .tool-process-btn {
+    min-height: 52px !important;
+    font-size: 15px !important;
+  }
+
+  /* Isi Thumbnail/Merge */
+  #toolPanel-thumbnail .vt-card { padding: 16px !important; font-size: 14px !important; }
+  #toolPanel-thumbnail .thumb-label { font-size: 12px !important; }
+  #toolPanel-thumbnail .tbtn { font-size: 13.5px !important; padding: 11px 16px !important; }
+  #toolPanel-thumbnail .thumb-title { font-size: 16px !important; }
+
+  /* Panel tools generik */
+  .tool-drop-zone { padding: 22px 16px !important; }
+  .tool-drop-zone .material-symbols-rounded { font-size: 30px !important; }
+  .tool-drop-title { font-size: 14.5px !important; }
+  .tool-drop-sub { font-size: 12.5px !important; }
+  .tool-tip { font-size: 13.5px !important; }
+  .tool-fill-table .tool-table-row { font-size: 13px !important; padding: 10px 14px !important; }
+  .tool-select, .tool-input { font-size: 14px !important; }
+
+  /* Kartu daftar Tools di halaman ALAT */
+  #panel-tools .tool-card-new { padding: 14px 16px !important; }
+  #panel-tools .tool-icon-wrap { width: 52px !important; height: 52px !important; }
+  #panel-tools .tool-icon-wrap .material-symbols-rounded { font-size: 26px !important; }
+  #panel-tools .tool-title-new { font-size: 16px !important; }
+  #panel-tools .tool-desc-new { font-size: 13.5px !important; }
+  #panel-tools .tool-arrow { width: 36px !important; height: 36px !important; }
+}
+
+/* Cangkang modal thumbnail/merge ikut mode gelap (kalahkan :has putih) */
+html[data-site-bg="black"] #toolModalCard:has(#toolPanel-thumbnail:not([hidden])),
+html[data-site-bg="black"] #toolModalCard:has(#toolPanel-merge:not([hidden])) {
+  background: #101012 !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+}
+
+/* ============================================================
+   11. PC: modal tools melebar kesamping + isi besar + tengah
+   ============================================================ */
+@media (min-width: 921px) {
+  /* Semua modal selalu pas di tengah (tidak tergantung hitungan JS) */
+  #toolModalCard {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* Thumbnail & Merge: perpanjang kesamping */
+  #toolModalCard:has(#toolPanel-thumbnail:not([hidden])),
+  #toolModalCard:has(#toolPanel-merge:not([hidden])) {
+    width: min(1400px, calc(100vw - 48px)) !important;
+  }
+
+  /* Kolom thumbnail: grup di tengah, isi rata tengah */
+  #toolPanel-thumbnail .vt-main {
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    gap: 16px !important;
+  }
+
+  #toolPanel-thumbnail .vt-card { text-align: center !important; }
+  #toolPanel-thumbnail .thumb-label { text-align: center !important; }
+  #toolPanel-thumbnail .button-container { justify-content: center !important; }
+  #toolPanel-thumbnail .save-row { justify-content: center !important; }
+
+  /* Pratinjau + kontrol lebih besar */
+  #toolPanel-thumbnail #video {
+    min-height: 340px !important;
+    max-height: 52vh !important;
+  }
+
+  #toolPanel-thumbnail #videoControls button {
+    font-size: 13px !important;
+    padding: 8px 6px !important;
+  }
+
+  #toolPanel-thumbnail .play-controls { font-size: 22px !important; }
+
+  /* Merge: transport rata tengah */
+  #toolPanel-merge .merge-transport { justify-content: center !important; }
+  #toolPanel-merge .merge-timeline { margin-left: auto !important; margin-right: auto !important; }
+
+  /* Quality & generik: label + checkbox rata tengah */
+  #toolPanel-quality .qm-label { text-align: center !important; }
+  #toolPanel-quality .qm-checkbox { justify-content: center !important; }
+}
+
+/* ============================================================
+   12. DONATE tanpa kartu (tipografi home, PC + mobile) +
+   tombol play Merge di white mode
+   ============================================================ */
+html[data-site-bg="white"] #toolPanel-merge .merge-tbtn.play { color: #ffffff !important; }
+
+html[data-site-bg="white"] #toolPanel-merge .merge-tbtn {
+  border-color: #e8e8e8 !important;
+  background: #f4f4f5 !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] #toolPanel-merge .merge-tbtn:hover { background: #e8e8e8 !important; }
+
+#panel-donate .panel-title-large {
+  font-family: var(--ml-font);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+#panel-donate .donate-card {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: 0 !important;
+  padding: 20px 0 48px !important;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+#panel-donate .donate-hero { padding: 10px 0 6px; }
+
+#panel-donate .donate-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--ml-ink);
+  color: var(--ml-soft);
+  display: inline-grid;
+  place-items: center;
+  margin-bottom: 18px;
+}
+
+#panel-donate .donate-icon svg { width: 27px; height: 27px; }
+
+#panel-donate .donate-hero h2 {
+  font-family: var(--ml-font);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 1.6rem + 3.8vw, 3.6rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--ml-ink);
+  margin: 0 0 14px;
+}
+
+#panel-donate .donate-hero p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ml-gray);
+  max-width: 56ch;
+  margin: 0 auto;
+}
+
+#panel-donate .qris-box {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 26px 0 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+#panel-donate .qris-image {
+  width: min(380px, 72vw) !important;
+  height: min(380px, 72vw) !important;
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 24px;
+  border: 1px solid var(--ml-line);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.13);
+  margin: 0 auto;
+}
+
+#panel-donate .qris-tip {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ml-gray);
+  max-width: 56ch;
+}
+
+#panel-donate .official-note { font-size: 14px; color: var(--ml-gray); }
+
+#panel-donate .official-note a.handle { color: var(--ml-ink); font-weight: 700; }
+
+@media (max-width: 640px) {
+  #panel-donate .donate-card { padding: 8px 0 32px !important; }
+  #panel-donate .donate-hero p { font-size: 15px; }
+  #panel-donate .qris-image { width: min(250px, 76vw); height: min(250px, 76vw); }
+  #panel-donate .qris-tip { font-size: 13.5px; }
+}
+
+/* ============================================================
+   13. Header Tools besar + kartu melebar kesamping (PC)
+   ============================================================ */
+.tools-title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.tools-headline {
+  font-family: var(--ml-font);
+  font-weight: 800;
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  text-wrap: balance;
+  color: var(--ml-ink);
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.tools-title-row .hard-refresh-btn {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 50% !important;
+  display: inline-grid !important;
+  place-items: center !important;
+}
+
+.tools-title-row .hard-refresh-btn .material-symbols-rounded { font-size: 24px !important; }
+
+@media (max-width: 640px) {
+  /* Headline tools mobile: lebih kecil + wrap rapi 2 baris */
+  .tools-headline { font-size: clamp(1.5rem, 7vw, 1.9rem) !important; }
+}
+
+@media (min-width: 921px) {
+  /* Teks menu navigasi pill sedikit lebih besar khusus PC */
+  .ml-link { font-size: 15px !important; padding: 9px 18px !important; }
+
+  /* Anak langsung panel dikunci 560px oleh style.css — lepas khusus tools */
+  #panel-tools > header.panel-head,
+  #panel-tools > .tools-grid-new {
+    max-width: 920px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #panel-tools .tools-grid-new {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  #panel-tools .tool-card-new { padding: 16px 18px !important; }
+
+  #panel-tools .tool-title-new {
+    font-size: 16px !important;
+    white-space: normal !important;
+  }
+}
+
+/* ============================================================
+   14. POPUP ANALISIS VIDEO + DONATE ikut mode white / black
+   (analysisModal, donateModal, cancelConfirm, tiktokConfirm, help)
+   ============================================================ */
+
+/* ---- 14A. WHITE MODE: putih bersih, teks gelap tegas ---- */
+html[data-site-bg="white"] .modal-backdrop,
+html[data-site-bg="white"] #help-modal {
+  background: rgba(17, 17, 17, 0.45) !important;
+  backdrop-filter: blur(8px) saturate(1.05) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(1.05) !important;
+}
+
+html[data-site-bg="white"] .modal,
+html[data-site-bg="white"] .modal-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] #analysisModal .modal,
+html[data-site-bg="white"] #donateModal .modal,
+html[data-site-bg="white"] #cancelConfirmModal .modal,
+html[data-site-bg="white"] #tiktokConfirmModal .modal {
+  background: #ffffff !important;
+  border-color: #e8e8e8 !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .modal-title,
+html[data-site-bg="white"] .modal-header h2,
+html[data-site-bg="white"] .analysis-value,
+html[data-site-bg="white"] .help-label {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .modal-file,
+html[data-site-bg="white"] .donate-text,
+html[data-site-bg="white"] .modal-subtitle,
+html[data-site-bg="white"] .analysis-label,
+html[data-site-bg="white"] .analysis-note,
+html[data-site-bg="white"] .help-note {
+  color: #52525b !important;
+}
+
+html[data-site-bg="white"] .analysis-row {
+  border-bottom-color: #e8e8e8 !important;
+}
+
+html[data-site-bg="white"] .modal-icon,
+html[data-site-bg="white"] .analysis-note .material-symbols-rounded {
+  color: #111111 !important;
+  filter: none !important;
+}
+
+html[data-site-bg="white"] .modal-subtitle b,
+html[data-site-bg="white"] .help-note a.handle {
+  color: #111111 !important;
+}
+
+html[data-site-bg="white"] .btn-cancel {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #111111 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="white"] .btn-proceed {
+  background: #111111 !important;
+  background-image: none !important;
+  border: 1px solid #111111 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* ---- 14B. BLACK MODE: gelap pekat, teks terang (kalahkan putih generik) ---- */
+html[data-site-bg="black"] .modal-backdrop,
+html[data-site-bg="black"] #help-modal {
+  background: rgba(0, 0, 0, 0.72) !important;
+  backdrop-filter: blur(10px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.1) !important;
+}
+
+html[data-site-bg="black"] .modal,
+html[data-site-bg="black"] .modal-card,
+html[data-site-bg="black"] #analysisModal .modal,
+html[data-site-bg="black"] #donateModal .modal,
+html[data-site-bg="black"] #cancelConfirmModal .modal,
+html[data-site-bg="black"] #tiktokConfirmModal .modal {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .modal-title,
+html[data-site-bg="black"] .modal-header h2,
+html[data-site-bg="black"] .analysis-value,
+html[data-site-bg="black"] .help-label {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .modal-file,
+html[data-site-bg="black"] .donate-text,
+html[data-site-bg="black"] .modal-subtitle,
+html[data-site-bg="black"] .analysis-label,
+html[data-site-bg="black"] .analysis-note,
+html[data-site-bg="black"] .help-note,
+html[data-site-bg="black"] #cancelConfirmDesc {
+  color: #b7bcc7 !important;
+}
+
+html[data-site-bg="black"] .analysis-row {
+  border-bottom-color: #2c2c31 !important;
+}
+
+html[data-site-bg="black"] .modal-icon,
+html[data-site-bg="black"] .analysis-note .material-symbols-rounded {
+  color: #f4f4f5 !important;
+  filter: none !important;
+}
+
+html[data-site-bg="black"] .modal-subtitle b,
+html[data-site-bg="black"] .help-note a.handle {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .modal-close,
+html[data-site-bg="black"] .tool-modal-close {
+  background: #232328 !important;
+  border: 1px solid #2c2c31 !important;
+  color: #b7bcc7 !important;
+}
+
+html[data-site-bg="black"] .modal-close:hover,
+html[data-site-bg="black"] .tool-modal-close:hover {
+  color: #ffffff !important;
+}
+
+html[data-site-bg="black"] #help-msg {
+  background: #101012 !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  color: #eceef2 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #help-msg:focus {
+  border-color: #f4f4f5 !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-site-bg="black"] #analysisModal .btn-cancel,
+html[data-site-bg="black"] #donateModal .btn-cancel,
+html[data-site-bg="black"] #cancelConfirmModal .btn-cancel,
+html[data-site-bg="black"] #tiktokConfirmModal .btn-cancel,
+html[data-site-bg="black"] #help-modal .btn-cancel {
+  background: #232328 !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  color: #eceef2 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #analysisModal .btn-proceed,
+html[data-site-bg="black"] #donateModal .btn-proceed,
+html[data-site-bg="black"] #cancelConfirmModal .btn-proceed,
+html[data-site-bg="black"] #tiktokConfirmModal .btn-proceed,
+html[data-site-bg="black"] #help-modal .btn-proceed {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #ffffff !important;
+  color: #111111 !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   15. TOOLS PURE BLACK saat mode dark (#000)
+   Halaman + search + filter + kartu + ikon jadi hitam pekat,
+   border dipertahankan agar tiap kartu tetap tegas.
+   ============================================================ */
+html[data-site-bg="black"],
+html[data-site-bg="black"] body,
+html[data-site-bg="black"] .app-container,
+html[data-site-bg="black"] .app-main,
+html[data-site-bg="black"] .dash-panels,
+html[data-site-bg="black"] .slide-container,
+html[data-site-bg="black"] .cube-viewport,
+html[data-site-bg="black"] .slide-track,
+html[data-site-bg="black"] #velardSlideTrack,
+html[data-site-bg="black"] .slide-panel,
+html[data-site-bg="black"] .ml-hero,
+html[data-site-bg="black"] .site-footer {
+  background: #000000 !important;
+  background-image: none !important;
+}
+
+html[data-site-bg="black"] .card,
+html[data-site-bg="black"] .tool-card-new,
+html[data-site-bg="black"] #panel-tools .tool-card-new,
+html[data-site-bg="black"] #panel-others .tool-card-new,
+html[data-site-bg="black"] #othersDetail .card {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #26262b !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #panel-tools .tools-search-wrap,
+html[data-site-bg="black"] .tools-search-wrap {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #26262b !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #panel-tools .tools-cat-btn,
+html[data-site-bg="black"] .tools-cat-btn:not(.active) {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #2e2e33 !important;
+  color: #d8d8de !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #panel-tools .tools-cat-btn.active {
+  background: #000000 !important;
+  background-image: none !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .tool-icon-wrap,
+html[data-site-bg="black"] #panel-tools .tool-card-new .tool-icon-wrap,
+html[data-site-bg="black"] #panel-others .tool-card-new .tool-icon-wrap,
+html[data-site-bg="black"] .tool-arrow,
+html[data-site-bg="black"] #panel-tools .tool-card-new .tool-arrow,
+html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #2e2e33 !important;
+  box-shadow: none !important;
+  color: #f4f4f5 !important;
+}
+
+/* ============================================================
+   16. LAINNYA SATU SCROLL — semua isi tampil sekaligus,
+   tanpa klik kartu. Chip atas hanya lompat scroll.
+   ============================================================ */
+.others-stack-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+
+.others-stack-nav button {
+  font-family: var(--ml-font);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #52525b;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 999px;
+  padding: 8px 14px;
+  min-height: 36px;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+
+.others-stack-nav button:hover {
+  border-color: #111111;
+  color: #111111;
+}
+
+.others-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+  padding-bottom: 40px;
+}
+
+.others-section {
+  scroll-margin-top: 84px;
+  min-width: 0;
+}
+
+.others-section > .card {
+  width: 100%;
+}
+
+/* Grid kartu lama disembunyikan permanen setelah stack terbangun
+   (others.js masih mencoba menampilkannya saat panel aktif) */
+#panel-others:has(#othersStack[data-built]) #othersGrid {
+  display: none !important;
+}
+
+/* ============================================================
+   17. LAINNYA RAPI + FULL LAYAR PC + BACA SATU-PER-SATU
+   Kalahkan aturan padat style.css (font 10-11px) agar nyaman dibaca.
+   ============================================================ */
+
+/* ---- Lebar kolom: full layar PC, penuh mobile ---- */
+#panel-others > .panel-head-large,
+#panel-others > .others-stack-nav,
+#panel-others > .others-stack {
+  width: 100% !important;
+  max-width: 920px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#panel-others > .panel-head-large .panel-title-large {
+  font-size: 28px !important;
+  letter-spacing: -0.03em !important;
+}
+
+/* ---- Kartu section: lega dan konsisten ---- */
+#panel-others .others-stack .card {
+  padding: 32px !important;
+  gap: 20px !important;
+  border-radius: 20px !important;
+  text-align: left !important;
+}
+
+/* Judul tiap section: hierarki jelas + garis pemisah */
+#panel-others .others-stack .tut-head,
+#panel-others .others-stack .spec-head,
+#panel-others .others-stack .faq-head,
+#panel-others .others-stack .social-title {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  text-align: left !important;
+  margin: 0 0 4px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+
+#panel-others .others-stack .faq-sub,
+#panel-others .others-stack .social-desc {
+  text-align: left !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+  margin: 0 0 8px !important;
+}
+
+/* ---- Tutorial steps: angka tegas, teks lega ---- */
+#panel-others .others-stack .tutorial-card {
+  gap: 20px !important;
+}
+
+#panel-others .others-stack .tutorial-step {
+  gap: 14px !important;
+  padding: 14px 0 !important;
+  border-bottom: 1px dashed var(--line) !important;
+}
+
+#panel-others .others-stack .tutorial-step:last-child {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+#panel-others .others-stack .tutorial-step .step-num {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 13px !important;
+  flex: none !important;
+}
+
+#panel-others .others-stack .tutorial-step h3 {
+  font-size: 15px !important;
+  margin-bottom: 6px !important;
+  line-height: 1.5 !important;
+}
+
+#panel-others .others-stack .tutorial-step p {
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+}
+
+/* ---- About ---- */
+#panel-others .others-stack .about-card {
+  gap: 16px !important;
+  padding: 32px !important;
+}
+
+#panel-others .others-stack .about-hero-title {
+  font-size: 20px !important;
+}
+
+#panel-others .others-stack .about-desc {
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+}
+
+#panel-others .others-stack .about-intro-title {
+  font-size: 15px !important;
+  margin-bottom: 4px !important;
+}
+
+#panel-others .others-stack .about-p {
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+}
+
+/* ---- Spesifikasi: kartu mini 2 kolom di PC ---- */
+#panel-others .others-stack .spec-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  font-size: 13.5px !important;
+  line-height: 1.7 !important;
+}
+
+#panel-others .others-stack .spec-grid > div {
+  background: var(--surface-3) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+}
+
+#panel-others .others-stack .spec-grid > div:last-child {
+  grid-column: 1 / -1 !important;
+}
+
+/* ---- FAQ: item lega, mudah tap ---- */
+#panel-others .others-stack .faq-list {
+  gap: 10px !important;
+}
+
+#panel-others .others-stack .faq-item {
+  padding: 14px 16px !important;
+  border-radius: 12px !important;
+}
+
+#panel-others .others-stack .faq-q {
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+
+#panel-others .others-stack .faq-a {
+  font-size: 13.5px !important;
+  line-height: 1.75 !important;
+  margin-top: 10px !important;
+}
+
+/* ---- Changelog: timeline rapi ---- */
+#panel-others .others-stack .changelog-list {
+  gap: 12px !important;
+}
+
+#panel-others .others-stack .changelog-item {
+  padding: 18px !important;
+  border-radius: 14px !important;
+}
+
+#panel-others .others-stack .changelog-h {
+  font-size: 14.5px !important;
+  margin-bottom: 8px !important;
+}
+
+#panel-others .others-stack .changelog-ul {
+  font-size: 13.5px !important;
+  line-height: 1.75 !important;
+  gap: 6px !important;
+}
+
+/* ---- Social: rata kiri seperti section lain ---- */
+#panel-others .others-stack .social-card {
+  text-align: left !important;
+}
+
+#panel-others .others-stack .social-card .social-title,
+#panel-others .others-stack .social-card .social-desc {
+  text-align: left !important;
+}
+
+#panel-others .others-stack .social-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  margin-top: 8px !important;
+}
+
+#panel-others .others-stack .social-link {
+  padding: 22px 12px !important;
+}
+
+#panel-others .others-stack .social-foot {
+  font-size: 13px !important;
+  line-height: 1.7 !important;
+  max-width: 52ch !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
+}
+
+/* ---- Report/help: tombol penuh ---- */
+#panel-others .others-stack .help-card-inner {
+  padding: 28px !important;
+  gap: 16px !important;
+}
+
+#panel-others .others-stack .help-desc,
+#panel-others .others-stack .help-note-text {
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+}
+
+#panel-others .others-stack .help-info-item {
+  font-size: 13.5px !important;
+  line-height: 1.7 !important;
+}
+
+#panel-others .others-stack .help-btn-full {
+  width: 100% !important;
+  min-height: 48px !important;
+  font-size: 14px !important;
+}
+
+/* ---- Mobile: padat tapi tetap terbaca ---- */
+@media (max-width: 640px) {
+  #panel-others > .panel-head-large,
+  #panel-others > .others-stack-nav,
+  #panel-others > .others-stack {
+    max-width: 100% !important;
+  }
+
+  #panel-others > .panel-head-large .panel-title-large {
+    font-size: 22px !important;
+  }
+
+  /* Navigasi kembali seperti PC: banyak bubble wrap berderet ke bawah */
+  .others-stack-nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    overflow: visible !important;
+    padding-bottom: 0 !important;
+  }
+
+  .others-stack-nav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .others-stack-nav button {
+    flex: none !important;
+    text-align: center !important;
+    min-height: 36px !important;
+    width: auto !important;
+  }
+
+  #panel-others .others-stack .card,
+  #panel-others .others-stack .about-card,
+  #panel-others .others-stack .help-card-inner {
+    padding: 20px !important;
+    border-radius: 16px !important;
+  }
+
+  #panel-others .others-stack .tut-head,
+  #panel-others .others-stack .spec-head,
+  #panel-others .others-stack .faq-head,
+  #panel-others .others-stack .social-title {
+    font-size: 17px !important;
+  }
+
+  #panel-others .others-stack .tutorial-step h3 {
+    font-size: 14px !important;
+  }
+
+  #panel-others .others-stack .tutorial-step p,
+  #panel-others .others-stack .about-p,
+  #panel-others .others-stack .about-desc,
+  #panel-others .others-stack .faq-sub,
+  #panel-others .others-stack .social-desc,
+  #panel-others .others-stack .help-desc {
+    font-size: 13.5px !important;
+    line-height: 1.7 !important;
+  }
+
+  #panel-others .others-stack .tutorial-step .step-num {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 12px !important;
+  }
+
+  #panel-others .others-stack .spec-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  #panel-others .others-stack .faq-q {
+    font-size: 13.5px !important;
+  }
+
+  #panel-others .others-stack .faq-a,
+  #panel-others .others-stack .changelog-ul {
+    font-size: 13px !important;
+  }
+}
+
+html[data-site-bg="black"] .others-stack-nav button {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #26262b !important;
+  color: #d8d8de !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] .others-stack-nav button:hover {
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 640px) {
+  .others-stack {
+    gap: 12px;
+    padding-bottom: 32px;
+  }
+
+  .others-stack-nav {
+    gap: 6px;
+    margin-top: 12px;
+  }
+}
+
+/* ============================================================
+   18. GAYA REFERENSI AGENSI — statistik, banner CTA,
+   list bernomor hairline, grid insight. Full teks di PC.
+   ============================================================ */
+@media (min-width: 921px) {
+  #panel-others > .panel-head-large,
+  #panel-others > .others-stack-nav,
+  #panel-others > .others-stack {
+    max-width: 1000px !important;
+  }
+}
+
+/* ---- Judul tutorial ala "How we add value": besar, tanpa garis ---- */
+#panel-others .others-stack .tut-head {
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 6px !important;
+}
+
+/* ---- Steps ala referensi: kotak nomor + hairline ---- */
+#panel-others .others-stack .tutorial-step {
+  gap: 16px !important;
+  padding: 20px 2px !important;
+  border-bottom: 1px solid var(--line) !important;
+  align-items: flex-start !important;
+}
+
+#panel-others .others-stack .tutorial-step .step-num {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
+  background: #f4f4f5 !important;
+  background-image: none !important;
+  border: 1px solid #e0e0e3 !important;
+  color: #111111 !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  flex: none !important;
+}
+
+#panel-others .others-stack .tutorial-step h3 {
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+  color: #111111 !important;
+  margin-bottom: 6px !important;
+  line-height: 1.45 !important;
+}
+
+#panel-others .others-stack .tutorial-step p {
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+  color: #52525b !important;
+}
+
+#panel-others .others-stack .tutorial-step p b {
+  color: #111111 !important;
+}
+
+/* ---- Kartu statistik ala referensi: kicker + angka besar ---- */
+#panel-others .others-stack #others-spec .spec-grid > div.spec-stat {
+  background: #f4f4f5 !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 14px !important;
+  padding: 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+#panel-others .others-stack #others-spec .spec-grid > div.spec-stat strong {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #71717a !important;
+}
+
+#panel-others .others-stack #others-spec .spec-grid > div.spec-stat span {
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  color: #111111 !important;
+  line-height: 1.15 !important;
+}
+
+#panel-others .others-stack #others-spec .spec-grid > div.spec-note {
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
+  padding: 6px 2px 0 !important;
+  font-size: 13.5px !important;
+  line-height: 1.75 !important;
+  color: #52525b !important;
+  box-shadow: none !important;
+}
+
+/* ---- Banner CTA hitam ala referensi (section Report) ---- */
+#panel-others .others-stack #others-report .card {
+  background: #111111 !important;
+  background-image: none !important;
+  border: 1px solid #111111 !important;
+  color: #ffffff !important;
+}
+
+#panel-others .others-stack #others-report .help-head-title {
+  color: #ffffff !important;
+  font-size: 20px !important;
+}
+
+#panel-others .others-stack #others-report .help-head-sub,
+#panel-others .others-stack #others-report .help-desc,
+#panel-others .others-stack #others-report .help-note-text,
+#panel-others .others-stack #others-report .help-info-item,
+#panel-others .others-stack #others-report .help-alt {
+  color: #d4d4d8 !important;
+}
+
+#panel-others .others-stack #others-report .help-info-kicker {
+  color: #ffffff !important;
+}
+
+#panel-others .others-stack #others-report .help-bullet,
+#panel-others .others-stack #others-report .help-note-icon {
+  color: #ffffff !important;
+}
+
+#panel-others .others-stack #others-report .help-info-box,
+#panel-others .others-stack #others-report .help-note-box {
+  background: rgba(255, 255, 255, 0.06) !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+
+#panel-others .others-stack #others-report .help-icon--lg {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+}
+
+#panel-others .others-stack #others-report .help-btn {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #ffffff !important;
+  color: #111111 !important;
+  box-shadow: none !important;
+  border-radius: 999px !important;
+  align-self: flex-end !important;
+  width: auto !important;
+  padding-left: 26px !important;
+  padding-right: 26px !important;
+}
+
+#panel-others .others-stack #others-report .help-btn::before {
+  display: none !important;
+}
+
+#panel-others .others-stack #others-report a.handle {
+  color: #ffffff !important;
+}
+
+/* ---- Changelog ala "insights": grid 2 kolom di PC ---- */
+@media (min-width: 921px) {
+  #panel-others .others-stack #others-changelog .changelog-list {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+#panel-others .others-stack #others-changelog .changelog-badge {
+  font-size: 11px !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* ---- BLACK MODE: statistik + banner dibalik agar tetap kontras ---- */
+html[data-site-bg="black"] #panel-others .others-stack .tutorial-step .step-num {
+  background: #000000 !important;
+  border: 1px solid #2e2e33 !important;
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .tutorial-step h3,
+html[data-site-bg="black"] #panel-others .others-stack .tutorial-step p b {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .tutorial-step p {
+  color: #b7bcc7 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-stat {
+  background: #000000 !important;
+  border: 1px solid #26262b !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-stat strong {
+  color: #8e8e96 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-stat span {
+  color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-note {
+  color: #b7bcc7 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report .card {
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-head-title,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-info-kicker {
+  color: #111111 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-head-sub,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-desc,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-note-text,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-info-item,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-alt {
+  color: #52525b !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-bullet,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-note-icon {
+  color: #111111 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-info-box,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-note-box {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-icon--lg {
+  background: #f4f4f5 !important;
+  border: 1px solid #e8e8e8 !important;
+  color: #111111 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report .help-btn {
+  background: #111111 !important;
+  border: 1px solid #111111 !important;
+  color: #ffffff !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack #others-report a.handle {
+  color: #111111 !important;
+}
+
+/* ============================================================
+   19. SATU BUBBLE — seluruh isi Lainnya dalam 1 kartu,
+   section dipisah garis halus di dalamnya.
+   ============================================================ */
+#panel-others .others-stack {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 4px 32px 32px !important;
+  gap: 0 !important;
+}
+
+#panel-others .others-stack .others-section > .card,
+#panel-others .others-stack .about-card,
+#panel-others .others-stack .help-card-inner {
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: 0 !important;
+  padding: 28px 0 !important;
+}
+
+#panel-others .others-stack .others-section + .others-section {
+  border-top: 1px solid #e8e8e8 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack {
+  background: #1a1a1e !important;
+  background-image: none !important;
+  border: 1px solid #2c2c31 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .others-section + .others-section {
+  border-top-color: #2c2c31 !important;
+}
+
+@media (max-width: 640px) {
+  #panel-others .others-stack {
+    padding: 2px 20px 24px !important;
+    border-radius: 18px !important;
+  }
+
+  #panel-others .others-stack .others-section > .card,
+  #panel-others .others-stack .about-card,
+  #panel-others .others-stack .help-card-inner {
+    padding: 22px 0 !important;
+  }
+}
+
+/* ---- Mobile section 18: statistik 2 kolom kompak, steps ramping ---- */@media (max-width: 640px) {
+  #panel-others .others-stack .tut-head {
+    font-size: 22px !important;
+  }
+
+  #panel-others .others-stack .tutorial-step {
+    padding: 16px 0 !important;
+  }
+
+  #panel-others .others-stack .tutorial-step .step-num {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+  }
+
+  #panel-others .others-stack .tutorial-step h3 {
+    font-size: 14.5px !important;
+  }
+
+  #panel-others .others-stack .spec-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  #panel-others .others-stack #others-spec .spec-grid > div.spec-stat {
+    padding: 14px !important;
+  }
+
+  #panel-others .others-stack #others-spec .spec-grid > div.spec-stat span {
+    font-size: 19px !important;
+  }
+
+  #panel-others .others-stack #others-report .help-btn {
+    align-self: stretch !important;
+    width: 100% !important;
+  }
+}
+
+/* ============================================================
+   20. SUPPORT & INFO FULL SCREEN PC — wadah melebar penuh,
+   isi bubble kral majalah 2 kolom, font lebih besar.
+   Mobile tetap 1 kolom (aturan lama menang di bawah 640px).
+   ============================================================ */
+@media (min-width: 921px) {
+  /* Lepas batas 1100px hanya saat panel Support & Info aktif */
+  body:not([data-view="beranda"]) .dash-panels:has(#panel-others.active-panel) {
+    max-width: none !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+
+  #panel-others > .panel-head-large,
+  #panel-others > .others-stack-nav,
+  #panel-others > .others-stack {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Bubble raksasa: padding lega */
+  #panel-others .others-stack {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 56px !important;
+    padding: 8px 44px 44px !important;
+    border-radius: 26px !important;
+  }
+
+  #panel-others .others-stack .others-section {
+    min-width: 0 !important;
+  }
+
+  /* Baris 1: dua tutorial berdampingan */
+  #panel-others .others-stack #others-tut-upload {
+    grid-column: 1 !important;
+    border-top: none !important;
+  }
+
+  #panel-others .others-stack #others-tut-qm {
+    grid-column: 2 !important;
+    border-top: none !important;
+  }
+
+  /* Baris penuh: about, spec, faq, changelog */
+  #panel-others .others-stack #others-about,
+  #panel-others .others-stack #others-spec,
+  #panel-others .others-stack #others-faq,
+  #panel-others .others-stack #others-changelog {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Baris 2 kolom: social + banner report */
+  #panel-others .others-stack #others-social {
+    grid-column: 1 !important;
+  }
+
+  #panel-others .others-stack #others-report {
+    grid-column: 2 !important;
+  }
+
+  /* Font lebih besar agar full teks terbaca lega */
+  #panel-others .others-stack .tut-head {
+    font-size: 28px !important;
+  }
+
+  #panel-others .others-stack .tutorial-step h3 {
+    font-size: 17px !important;
+  }
+
+  #panel-others .others-stack .tutorial-step p {
+    font-size: 15px !important;
+  }
+
+  #panel-others .others-stack .about-p,
+  #panel-others .others-stack .about-desc,
+  #panel-others .others-stack .help-desc {
+    font-size: 15px !important;
+  }
+
+  #panel-others .others-stack #others-spec .spec-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+
+  #panel-others .others-stack .faq-q {
+    font-size: 15px !important;
+  }
+
+  #panel-others .others-stack .faq-a {
+    font-size: 14.5px !important;
+  }
+}
+
+/* ============================================================
+   22. DARK MODE: kartu Tools stroke putih LEMBUT (tidak menyala).
+   Ditaruh PALING AKHIR agar menang dari aturan border lama.
+   ============================================================ */
+html[data-site-bg="black"] .tool-card-new,
+html[data-site-bg="black"] #panel-tools .tool-card-new,
+html[data-site-bg="black"] #panel-others .tool-card-new,
+html[data-site-bg="black"] #othersDetail .tool-card-new,
+html[data-site-bg="black"] #othersDetail .card {
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+/* ============================================================
+   23. DARK MODE Support&Info: bubble + semua kartu stroke putih
+   lembut, samakan dengan kartu Tools.
+   ============================================================ */
+html[data-site-bg="black"] #panel-others .others-stack {
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .faq-item,
+html[data-site-bg="black"] #panel-others .others-stack .social-link,
+html[data-site-bg="black"] #panel-others .others-stack .changelog-item,
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-stat {
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+/* ============================================================
+   24. REPORT REDESIGN — banner full-width rata tengah.
+   *** UBAH WARNA DI SINI *** cukup ganti nilai --report-*
+   di bawah, tanpa ubek-ubek aturan lain.
+   ============================================================ */
+#others-report {
+  --report-bg: #ffffff;
+  --report-ink: #111111;
+  --report-muted: #52525b;
+  --report-line: #e8e8e8;
+  --report-soft: #f4f4f5;
+  --report-border: #e8e8e8;
+  --report-btn-bg: #111111;
+  --report-btn-ink: #ffffff;
+}
+
+html[data-site-bg="black"] #others-report {
+  --report-bg: #000000;
+  --report-ink: #f4f4f5;
+  --report-muted: #b7bcc7;
+  --report-line: rgba(255, 255, 255, 0.16);
+  --report-soft: rgba(255, 255, 255, 0.06);
+  --report-border: #ffffff;
+  --report-btn-bg: #ffffff;
+  --report-btn-ink: #111111;
+}
+
+/* Penempatan: banner + social jadi baris penuh */
+#panel-others .others-stack #others-social,
+#panel-others .others-stack #others-report {
+  grid-column: 1 / -1 !important;
+}
+
+#panel-others .others-stack #others-report .card {
+  background: var(--report-bg) !important;
+  background-image: none !important;
+  border: 1px solid var(--report-border) !important;
+  box-shadow: none !important;
+  border-radius: 20px !important;
+  text-align: center !important;
+  align-items: center !important;
+  padding: 44px 32px !important;
+  gap: 18px !important;
+}
+
+#panel-others .others-stack #others-report .help-card-head {
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 12px !important;
+}
+
+#panel-others .others-stack #others-report .help-icon--lg {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 18px !important;
+  background: var(--report-soft) !important;
+  border: 1px solid var(--report-line) !important;
+  color: var(--report-ink) !important;
+}
+
+#panel-others .others-stack #others-report .help-head-title {
+  color: var(--report-ink) !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+
+#panel-others .others-stack #others-report .help-head-sub {
+  color: var(--report-muted) !important;
+  font-size: 14px !important;
+}
+
+#panel-others .others-stack #others-report .help-desc {
+  color: var(--report-muted) !important;
+  font-size: 14.5px !important;
+  line-height: 1.75 !important;
+  max-width: 62ch !important;
+  margin: 0 auto !important;
+}
+
+#panel-others .others-stack #others-report .help-info-box,
+#panel-others .others-stack #others-report .help-note-box {
+  background: var(--report-soft) !important;
+  background-image: none !important;
+  border: 1px solid var(--report-line) !important;
+  border-radius: 14px !important;
+  text-align: left !important;
+  width: 100% !important;
+  max-width: 580px !important;
+  margin: 0 auto !important;
+  padding: 16px 18px !important;
+}
+
+#panel-others .others-stack #others-report .help-info-kicker {
+  color: var(--report-ink) !important;
+}
+
+#panel-others .others-stack #others-report .help-info-item,
+#panel-others .others-stack #others-report .help-note-text {
+  color: var(--report-muted) !important;
+}
+
+#panel-others .others-stack #others-report .help-bullet,
+#panel-others .others-stack #others-report .help-note-icon {
+  color: var(--report-ink) !important;
+}
+
+#panel-others .others-stack #others-report .help-btn {
+  background: var(--report-btn-bg) !important;
+  background-image: none !important;
+  border: 1px solid var(--report-btn-bg) !important;
+  color: var(--report-btn-ink) !important;
+  box-shadow: none !important;
+  border-radius: 999px !important;
+  align-self: center !important;
+  width: auto !important;
+  min-width: 240px !important;
+  min-height: 50px !important;
+  font-size: 14.5px !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+
+#panel-others .others-stack #others-report .help-btn::before {
+  display: none !important;
+}
+
+#panel-others .others-stack #others-report .help-btn:hover {
+  box-shadow: none !important;
+  transform: none !important;
+  filter: brightness(1.06) !important;
+}
+
+/* ============================================================
+   25. DARK Support&Info: murni hitam + teks putih,
+   TANPA stroke putih (menang dari section 23).
+   ============================================================ */
+html[data-site-bg="black"] #panel-others .others-stack {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #000000 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .others-section + .others-section {
+  border-top-color: #242428 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .faq-item,
+html[data-site-bg="black"] #panel-others .others-stack .social-link,
+html[data-site-bg="black"] #panel-others .others-stack .changelog-item,
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-stat {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #242428 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .social-icon {
+  background: #000000 !important;
+  border: 1px solid #242428 !important;
+  box-shadow: none !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .tutorial-step .step-num {
+  background: #000000 !important;
+  border: 1px solid #2e2e33 !important;
+}
+
+/* Teks putih */
+html[data-site-bg="black"] #panel-others .others-stack .tutorial-step h3,
+html[data-site-bg="black"] #panel-others .others-stack .faq-q,
+html[data-site-bg="black"] #panel-others .others-stack .social-name,
+html[data-site-bg="black"] #panel-others .others-stack .changelog-h,
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-stat span {
+  color: #ffffff !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .tutorial-step p,
+html[data-site-bg="black"] #panel-others .others-stack .faq-a,
+html[data-site-bg="black"] #panel-others .others-stack .social-handle,
+html[data-site-bg="black"] #panel-others .others-stack .social-desc,
+html[data-site-bg="black"] #panel-others .others-stack .social-foot,
+html[data-site-bg="black"] #panel-others .others-stack .faq-sub,
+html[data-site-bg="black"] #panel-others .others-stack .changelog-ul,
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-note {
+  color: #e8e8e8 !important;
+}
+
+html[data-site-bg="black"] #panel-others .others-stack .faq-q .material-symbols-rounded,
+html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid > div.spec-stat strong {
+  color: #d8d8de !important;
+}
+
+/* Banner report ikut hitam murni di dark mode */
+html[data-site-bg="black"] #others-report {
+  --report-bg: #000000;
+  --report-ink: #ffffff;
+  --report-muted: #d8d8de;
+  --report-line: rgba(255, 255, 255, 0.14);
+  --report-soft: rgba(255, 255, 255, 0.06);
+  --report-border: #242428;
+  --report-btn-bg: #ffffff;
+  --report-btn-ink: #000000;
+}
+
+#panel-others .others-stack #others-report .help-alt {
+  color: var(--report-muted) !important;
+  text-align: center !important;
+}
+
+#panel-others .others-stack #others-report a.handle {
+  color: var(--report-ink) !important;
+}
+
+@media (max-width: 640px) {
+  #panel-others .others-stack #others-report .card {
+    padding: 32px 20px !important;
+  }
+
+  #panel-others .others-stack #others-report .help-head-title {
+    font-size: 20px !important;
+  }
+
+  #panel-others .others-stack #others-report .help-btn {
+    align-self: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* ============================================================
+   26. REPORT SAAS v2 — Support Center profesional inline form.
+   Menggantikan banner lama (tpl-report baru pakai .report-saas).
+   Mendukung theme white/black via --report-* + data-site-bg.
+   ============================================================ */
+#panel-others .others-stack #others-report .report-saas {
+  background: var(--report-bg) !important;
+  background-image: none !important;
+  border: 1px solid var(--report-border) !important;
+  box-shadow: none !important;
+  border-radius: 22px !important;
+  text-align: left !important;
+  align-items: stretch !important;
+  padding: 34px 30px !important;
+  gap: 22px !important;
+  display: grid !important;
+}
+.report-saas-top {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  text-align: left;
+}
+.report-saas-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--report-ink) !important;
+  background: var(--report-soft) !important;
+  border: 1px solid var(--report-line) !important;
+  border-radius: 999px;
+  padding: 7px 13px;
+}
+.report-saas-badge .material-symbols-rounded { font-size: 17px; }
+.report-saas-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--report-ink) !important;
+}
+.report-saas-sub {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.7;
+  max-width: 68ch;
+  color: var(--report-muted) !important;
+}
+.report-saas-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.report-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--report-ink) !important;
+  background: var(--report-soft) !important;
+  border: 1px solid var(--report-line) !important;
+  border-radius: 999px;
+  padding: 7px 12px;
+  white-space: nowrap;
+}
+.report-chip .material-symbols-rounded { font-size: 16px; }
+.report-saas-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 18px;
+  align-items: start;
+}
+.report-form {
+  display: grid;
+  gap: 14px;
+  background: var(--report-soft) !important;
+  border: 1px solid var(--report-line) !important;
+  border-radius: 18px;
+  padding: 20px;
+}
+.report-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.report-field { display: grid; gap: 7px; min-width: 0; }
+.report-field label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--report-ink) !important;
+}
+.report-field input[type="text"],
+.report-field select,
+.report-field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  color: var(--report-ink) !important;
+  background: var(--report-bg) !important;
+  border: 1px solid var(--report-line) !important;
+  border-radius: 12px;
+  padding: 12px 13px;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.report-field textarea { resize: vertical; min-height: 132px; line-height: 1.6; }
+.report-field input:focus,
+.report-field select:focus,
+.report-field textarea:focus {
+  border-color: var(--report-ink) !important;
+  box-shadow: 0 0 0 3px var(--report-soft) !important;
+}
+.report-field input::placeholder,
+.report-field textarea::placeholder { color: var(--report-muted) !important; opacity: 0.75; }
+.report-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.report-count {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--report-muted) !important;
+}
+.report-count[data-ok="1"] { color: #16a34a !important; }
+.report-limit { font-size: 11.5px; color: var(--report-muted) !important; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.report-status {
+  margin: 0;
+  min-height: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: var(--report-muted) !important;
+}
+.report-status[data-kind="ok"] { color: #16a34a !important; }
+.report-status[data-kind="error"] { color: #dc2626 !important; }
+.report-status[data-kind="sending"] { color: var(--report-ink) !important; opacity: 0.75; }
+.report-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: stretch; }
+.report-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex: 1 1 220px;
+  min-height: 50px;
+  padding: 0 26px;
+  border-radius: 999px;
+  border: 1px solid var(--report-btn-bg) !important;
+  background: var(--report-btn-bg) !important;
+  color: var(--report-btn-ink) !important;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 160ms ease, transform 160ms ease, opacity 160ms ease;
+}
+.report-send:hover:not(:disabled) { filter: brightness(1.07); }
+.report-send:active:not(:disabled) { transform: translateY(1px); }
+.report-send:disabled { opacity: 0.6; cursor: wait; }
+.report-send-ico { font-size: 19px; }
+.report-tiktok {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid var(--report-line) !important;
+  background: transparent !important;
+  color: var(--report-ink) !important;
+  font-size: 13.5px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.report-tiktok:hover { background: var(--report-soft) !important; }
+.report-tiktok .material-symbols-rounded { font-size: 18px; }
+.report-fallback {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--report-muted) !important;
+}
+.report-fallback a.handle {
+  color: var(--report-ink) !important;
+  font-weight: 800;
+}
+.report-side { display: grid; gap: 12px; align-content: start; }
+.report-side-card {
+  background: var(--report-soft) !important;
+  border: 1px solid var(--report-line) !important;
+  border-radius: 16px;
+  padding: 16px 17px;
+  display: grid;
+  gap: 10px;
+}
+.report-side-card h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--report-ink) !important;
+}
+.report-side-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.report-side-card li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--report-muted) !important;
+}
+.report-side-card li .material-symbols-rounded { font-size: 17px; color: #16a34a !important; flex-shrink: 0; margin-top: 1px; }
+.report-auto-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.report-mini-chip {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--report-bg) !important;
+  border: 1px solid var(--report-line) !important;
+  color: var(--report-ink) !important;
+  white-space: nowrap;
+}
+.report-side-card p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--report-muted) !important;
+}
+.report-sla {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  display: grid;
+}
+.report-sla .material-symbols-rounded { color: var(--report-ink) !important; font-size: 20px; }
+
+@media (max-width: 900px) {
+  .report-saas-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  #panel-others .others-stack #others-report .report-saas { padding: 24px 18px !important; border-radius: 18px !important; }
+  .report-saas-title { font-size: 21px; }
+  .report-row2 { grid-template-columns: 1fr; }
+  .report-form { padding: 16px; }
+  .report-actions { flex-direction: column; }
+  .report-send, .report-tiktok { width: 100%; flex: 1 1 auto; }
+}
+
+/* ============================================================
+   27. REPORT BUTTON-CARD + POPUP (model tombol -> popup).
+   Kartu di menu Lainnya + popup #help-modal versi SaaS.
+   ============================================================ */
+#panel-others .others-stack #others-report .report-saas-btn {
+  text-align: center !important;
+  align-items: center !important;
+  justify-items: center !important;
+  padding: 44px 32px !important;
+  gap: 14px !important;
+}
+/* Varian rata kiri: hanya judul + tombol + alt */
+#panel-others .others-stack #others-report .report-saas-left {
+  text-align: left !important;
+  align-items: start !important;
+  justify-items: start !important;
+}
+#panel-others .others-stack #others-report .report-saas-left .report-saas-title { text-align: left; }
+#panel-others .others-stack #others-report .report-saas-left .report-open-btn { justify-self: start; }
+#panel-others .others-stack #others-report .report-saas-left .report-alt { text-align: left !important; }
+#panel-others .others-stack #others-report .report-saas-btn .report-saas-badge { justify-self: center; }
+#panel-others .others-stack #others-report .report-saas-btn .report-saas-title { text-align: center; }
+#panel-others .others-stack #others-report .report-saas-btn .report-saas-sub {
+  text-align: center;
+  margin: 0 auto !important;
+}
+#panel-others .others-stack #others-report .report-saas-btn .report-saas-chips { justify-content: center; }
+.report-tips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  justify-content: center;
+  margin-top: 6px;
+}
+.report-tips span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--report-muted) !important;
+}
+.report-tips .material-symbols-rounded { font-size: 16px; color: #16a34a !important; }
+.report-open-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  min-width: 260px;
+  padding: 0 32px;
+  margin-top: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--report-btn-bg) !important;
+  background: var(--report-btn-bg) !important;
+  color: var(--report-btn-ink) !important;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+.report-open-btn:hover { filter: brightness(1.07); }
+.report-open-btn:active { transform: translateY(1px); }
+.report-open-btn .material-symbols-rounded { font-size: 20px; }
+.report-alt {
+  margin: 4px 0 0 !important;
+  font-size: 12px !important;
+  color: var(--report-muted) !important;
+  text-align: center !important;
+}
+.report-alt a.handle { color: var(--report-ink) !important; font-weight: 800; }
+
+/* Popup SaaS */
+.help-modal-saas { z-index: 90; }
+.help-modal-saas .help-popup {
+  max-width: 560px;
+  width: calc(100% - 32px);
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+.help-popup-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+.help-popup-ico {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: var(--report-soft, #f4f4f5);
+  border: 1px solid var(--report-line, #e8e8e8);
+  color: var(--report-ink, #111);
+}
+.help-popup-ico .material-symbols-rounded { font-size: 24px; }
+.help-popup-titles { display: grid; gap: 2px; min-width: 0; }
+.help-popup-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+.help-popup-titles h2 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+.help-popup-tips {
+  display: grid;
+  gap: 6px;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(22, 163, 74, 0.07);
+  border: 1px solid rgba(22, 163, 74, 0.22);
+}
+.help-popup-tips span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.help-popup-tips .material-symbols-rounded { font-size: 17px; color: #16a34a; flex-shrink: 0; }
+.help-popup-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.help-popup-row .help-max { font-size: 11.5px; opacity: 0.65; }
+.help-popup-actions { display: flex; gap: 10px; }
+.help-popup-actions .btn-cancel,
+.help-popup-actions .btn-proceed { flex: 1; min-height: 48px; }
+html[data-site-bg="black"] .help-popup-ico {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+@media (max-width: 640px) {
+  #panel-others .others-stack #others-report .report-saas-btn { padding: 32px 20px !important; }
+  #panel-others .others-stack #others-report .report-saas-btn .report-saas-title { font-size: 20px !important; }
+  .report-open-btn { width: 100%; min-width: 0; }
+  .help-popup-actions { flex-direction: column; }
+}
+
+/* Dark mode eksplisit untuk kartu Laporkan (rata kiri): hitam murni + teks putih.
+   Ditulis eksplisit (tidak hanya via var) agar menang dari aturan generik. */
+html[data-site-bg="black"] #panel-others .others-stack #others-report .report-saas,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .report-saas-btn,
+html[data-site-bg="black"] #panel-others .others-stack #others-report .report-saas-left {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1px solid #242428 !important;
+  box-shadow: none !important;
+}
+html[data-site-bg="black"] #panel-others .others-stack #others-report .report-saas-title {
+  color: #ffffff !important;
+}
+html[data-site-bg="black"] #panel-others .others-stack #others-report .report-open-btn {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+}
+html[data-site-bg="black"] #panel-others .others-stack #others-report .report-alt {
+  color: #d8d8de !important;
+}
+html[data-site-bg="black"] #panel-others .others-stack #others-report .report-alt a.handle {
+  color: #ffffff !important;
+}
+
+/* ============================================================
+   28. SIMBOL "+" tersebar tiap menu kecuali Home.
+   Elemen .ml-plus-field (absolute, di belakang konten).
+   Glif memakai Material Symbols Rounded ("add") agar smooth.
+   Monokrom via --ml-ink (otomatis ikut white/black mode).
+   Posisi (--px/--py), rotasi (--pr), ukuran (--ps) & opacity
+   (--po) TETAP sesuai HTML (tidak diacak).
+   pointer-events none + konten di z-index 1: tidak ganggu
+   klik/baca teks.
+   ============================================================ */
+#panel-tools,
+#panel-donate,
+#panel-others {
+  position: relative !important;
+}
+
+.ml-plus-field {
+  position: absolute !important;
+  inset: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Konten panel selalu di atas simbol plus */
+#panel-tools > *:not(.ml-plus-field),
+#panel-donate > *:not(.ml-plus-field),
+#panel-others > *:not(.ml-plus-field) {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.ml-plus-field span {
+  position: absolute !important;
+  left: var(--px, 50%) !important;
+  top: var(--py, 50%) !important;
+  font-family: "Material Symbols Rounded" !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  font-size: var(--ps, 20px) !important;
+  line-height: 1 !important;
+  color: #000000 !important;
+  opacity: var(--po, 1) !important;
+  transform: rotate(var(--pr, 0deg)) !important;
+  user-select: none !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+html[data-site-bg="black"] .ml-plus-field span {
+  color: #ffffff !important;
+}
+
+/* ============================================================
+   30. HOME ABOUT — judul raksasa rata tengah (font ala Home:
+   Inter 800, rapat -0.05em) + bio + tombol kontak.
+   ============================================================ */
+.home-about {
+  max-width: 920px !important;
+  margin: 0 auto !important;
+  padding: 96px 24px 48px !important;
+  text-align: center !important;
+  /* About satu layar penuh: judul lebih turun & MY VIDEOS
+     tersembunyi di bawah fold saat tombol About diklik */
+  min-height: calc(100vh - 84px) !important;
+  min-height: calc(100svh - 84px) !important;
+  box-sizing: border-box !important;
+  scroll-margin-top: 84px !important;
+}
+.home-about-title {
+  font-family: var(--ml-font) !important;
+  font-weight: 800 !important;
+  font-size: clamp(2.4rem, 1.5rem + 4.5vw, 4rem) !important;
+  letter-spacing: -0.05em !important;
+  line-height: 1.02 !important;
+  color: var(--ml-ink) !important;
+  margin: 0 0 22px !important;
+  text-wrap: balance !important;
+}
+.home-about-body {
+  max-width: 70ch !important;
+  margin: 0 auto 16px !important;
+  font-size: 15.5px !important;
+  line-height: 1.85 !important;
+  color: var(--ml-gray) !important;
+}
+/* White mode: bio lebih gelap agar jelas terbaca */
+html[data-site-bg="white"] .home-about-body {
+  color: #3f3f46 !important;
+}
+.home-about-cta {
+  display: flex !important;
+  gap: 10px !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  margin: 26px 0 0 !important;
+}
+.home-about-cta .ml-btn {
+  text-decoration: none !important;
+}
+@media (max-width: 640px) {
+  .home-about { padding: 64px 18px 32px !important; }
+  .home-about-body { font-size: 14.5px !important; }
+}
+
+/* ============================================================
+   29. JUDUL BESAR seragam ala Home (Inter 800, rapat, tegas).
+   Home (.ml-title) = Inter 800 / -0.05em / tinta solid.
+   - Headline Alat, hero Donate, judul Laporkan: samakan gaya.
+   - Judul section Lainnya (tutorial/spec/faq/social): yang di
+     screenshot tampak pudar → paksa tinta solid + ukuran besar.
+   29B. MOBILE: simbol + disembunyikan di menu Tools & Donate
+   (tetap ada di Lainnya + semua tampilan PC).
+   ============================================================ */
+.tools-headline,
+#panel-donate .donate-hero h2,
+.report-saas-title,
+#panel-others > .panel-head-large .panel-title-large {
+  font-family: var(--ml-font) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.05em !important;
+  color: var(--ml-ink) !important;
+}
+
+#panel-others .others-stack .tut-head,
+#panel-others .others-stack .spec-head,
+#panel-others .others-stack .faq-head,
+#panel-others .others-stack .social-title {
+  font-family: var(--ml-font) !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.45rem, 1.1rem + 1.8vw, 1.9rem) !important;
+  letter-spacing: -0.05em !important;
+  line-height: 1.1 !important;
+  color: var(--ml-ink) !important;
+  opacity: 1 !important;
+}
+
+/* Judul besar lain di panel Lainnya: samakan dengan font hero home
+   (Inter 800, -0.05em) */
+#panel-others .others-stack .about-hero-title,
+#panel-others .others-stack .about-intro-title,
+#panel-others .others-stack .changelog-h,
+#panel-others .others-stack .report-saas-title,
+#panel-others .others-stack .help-head-title {
+  font-family: var(--ml-font) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.05em !important;
+}
+
+@media (max-width: 640px) {
+  #panel-tools .ml-plus-field,
+  #panel-donate .ml-plus-field {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   31. MY VIDEOS & TIKTOK CARDS (Home)
+   - Tampil di PC dan mobile saat berada di panel Beranda
+   - Font judul sama persis dengan ABOUT VELARDTOOLS (Inter 800, -0.05em)
+   - 4 kartu tertata rapi di desktop (4 kolom) dan mobile (2 kolom)
+   - Otomatis beradaptasi dengan mode White dan Black
+   ============================================================ */
+#panel-beranda.active-panel .tiktok-section,
+#panel-beranda .tiktok-section {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+  max-width: 960px !important;
+  width: 100% !important;
+  margin: 36px auto 80px !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+}
+
+#panel-beranda:not(.active-panel) .tiktok-section {
+  display: none !important;
+}
+
+.tiktok-title {
+  font-family: var(--ml-font) !important;
+  font-weight: 800 !important;
+  font-size: clamp(2.4rem, 1.5rem + 4.5vw, 4rem) !important;
+  letter-spacing: -0.05em !important;
+  line-height: 1.02 !important;
+  color: var(--ml-ink) !important;
+  margin: 0 0 28px !important;
+  text-align: center !important;
+  text-shadow: none !important;
+  text-wrap: balance !important;
+}
+
+.tiktok-grid {
+  width: 100% !important;
+  max-width: 960px !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 16px !important;
+  justify-items: stretch !important;
+  margin: 0 auto !important;
+}
+
+.tiktok-card {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  cursor: pointer !important;
+  width: 100% !important;
+  text-align: left !important;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease !important;
+}
+
+.tiktok-card:hover {
+  transform: translateY(-4px) !important;
+}
+
+/* White mode */
+html[data-site-bg="white"] .tiktok-card {
+  background: #ffffff !important;
+  border: 1px solid #e4e4e7 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+html[data-site-bg="white"] .tiktok-card:hover {
+  border-color: #d4d4d8 !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1) !important;
+}
+html[data-site-bg="white"] .tiktok-like {
+  background: #fbfbfb !important;
+  border-top: 1px solid #f0f0f2 !important;
+  color: #71717a !important;
+}
+html[data-site-bg="white"] .tiktok-stat:nth-child(1) .material-symbols-rounded {
+  color: #71717a !important;
+}
+
+/* Black mode */
+html[data-site-bg="black"] .tiktok-card {
+  background: #000000 !important;
+  border: 1px solid #242428 !important;
+  box-shadow: none !important;
+}
+html[data-site-bg="black"] .tiktok-card:hover {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+html[data-site-bg="black"] .tiktok-like {
+  background: #09090b !important;
+  border-top: 1px solid #242428 !important;
+  color: #a1a1aa !important;
+}
+
+@media (max-width: 860px) {
+  .tiktok-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #panel-beranda .tiktok-section {
+    margin: 24px auto 48px !important;
+    padding: 0 16px !important;
+  }
+  .tiktok-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+/* ============================================================
+   33. TOMBOL KEMBALI-KE-ATAS + CHIP AKTIF PANEL LAINNYA
+   ============================================================ */
+.to-top-btn {
+  position: fixed;
+  right: 16px;
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  z-index: 120;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #111111;
+  border: 1px solid #111111;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 220ms var(--ml-ease), transform 220ms var(--ml-ease),
+    visibility 220ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.to-top-btn .material-symbols-rounded {
+  font-size: 22px !important;
+  line-height: 1 !important;
+}
+
+.to-top-btn.is-show {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+body.tool-modal-open .to-top-btn {
+  display: none !important;
+}
+
+html[data-site-bg="black"] .to-top-btn {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+}
+
+/* Chip navigasi Lainnya yang sedang dibaca: menyala seperti menu aktif */
+.others-stack-nav button.active {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+}
+
+html[data-site-bg="black"] .others-stack-nav button.active {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top-btn { transition: none; }
+}
+
+/* ============================================================
+   32. LAINNYA FULL-BLEED MOBILE — semua isi mentok ke tepi
+   layar kiri/kanan, tidak ada ruang tersisa.
+   ============================================================ */
+@media (max-width: 640px) {
+  /* Lepas padding 24px wadah konten saat panel Lainnya aktif */
+  body:not([data-view="beranda"]) .dash-panels:has(#panel-others.active-panel) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: none !important;
+  }
+
+  #panel-others > .panel-head-large,
+  #panel-others > .others-stack-nav,
+  #panel-others > .others-stack {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Header mentok tepi */
+  #panel-others > .panel-head-large {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Chip navigasi seperti PC: bubble rounded wrap berderet */
+  #panel-others > .others-stack-nav {
+    gap: 8px !important;
+  }
+
+  #panel-others > .others-stack-nav button {
+    border-radius: 999px !important;
+  }
+
+  /* Kartu-kartu: rapat tanpa jeda, sudut siku, sisi mentok layar */
+  #panel-others > .others-stack {
+    gap: 0 !important;
+  }
+
+  #panel-others .others-stack .card,
+  #panel-others .others-stack .about-card,
+  #panel-others .others-stack .help-card-inner {
+    border-radius: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+  }
+
+  #panel-others .others-stack .others-section + .others-section {
+    margin-top: -1px !important;
+  }
+}
+
