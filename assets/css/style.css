@@ -1593,6 +1593,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   #toolPanel-quality .qm-info-desc .tiktok-rec{ display:inline !important; white-space:normal !important; }
   /* Tombol Proses nempel di bawah kartu — tetap kelihatan walau konten mepet */
   #toolPanel-quality .qm-process-btn{ position:sticky !important; bottom:0 !important; z-index:5 !important; min-height:37px !important; font-size:12px !important; margin:2px 0 0 !important; }
+  #toolPanel-quality .qm-log-area{ max-height:40px !important; min-height:0 !important; overflow-y:auto !important; }
 }
 
 #panel-tools > *{ opacity:1 !important; transform:none !important; transition:none !important; }
