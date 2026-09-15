@@ -1597,8 +1597,10 @@ body.is-encoding #toolPanel-quality .qm-drop, body.is-encoding #toolPanel-qualit
   #toolPanel-quality .qm-process-btn{ position:sticky !important; bottom:0 !important; z-index:5 !important; min-height:37px !important; font-size:12px !important; margin:2px 0 0 !important; }
   #toolPanel-mp3:not([hidden]){ display:flex !important; flex-direction:column !important; min-height:100% !important; }
   #toolPanel-mp3 .tool-modal-footer{ margin-top:auto !important; position:sticky !important; bottom:0 !important; z-index:5 !important; padding-top:8px !important; }
-  #toolPanel-quality .qm-log-area{ max-height:62px !important; min-height:0 !important; overflow-y:auto !important; }
 }
+
+#toolPanel-mp3:not([hidden]){ display:flex; flex-direction:column; min-height:100%; }
+#toolPanel-mp3 .tool-modal-footer{ margin-top:auto; position:sticky; bottom:0; z-index:5; padding-top:8px; }
 
 #panel-tools > *{ opacity:1 !important; transform:none !important; transition:none !important; }
 #panel-tools .tools-grid-new{ opacity:1 !important; transform:none !important; }

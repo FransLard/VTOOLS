@@ -2792,7 +2792,7 @@
       els.toolMp3File.addEventListener("change", function () {
         const f = els.toolMp3File.files[0] || null;
         if (els.toolMp3Selected) els.toolMp3Selected.textContent = f ? f.name + " (" + formatBytes(f.size) + ")" : "";
-        if (els.toolMp3Run) els.toolMp3Run.disabled = !f;
+        if (els.toolMp3Run){ els.toolMp3Run.disabled = !f; els.toolMp3Run.hidden = !f; }
         if (els.toolMp3Status) toolStatus(els.toolMp3Status, "", "");
       });
       if (els.toolMp3Run) els.toolMp3Run.addEventListener("click", async function () {
