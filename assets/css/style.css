@@ -1556,7 +1556,10 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 #toolPanel-quality .qm-progress-wrap { gap: 3px !important; margin: 2px 0 !important; }
 #toolPanel-quality .qm-progress-label { font-size: 9px !important; }
 #toolPanel-quality .qm-log-head { padding: 3px 0 !important; margin: 2px 0 !important; }
-#toolPanel-quality .qm-log-area { font-size: 8.5px !important; max-height: 48px !important; line-height: 1.25 !important; padding: 4px !important; }
+#toolPanel-quality .qm-log-area { font-size: 8.5px !important; max-height: 112px !important; min-height: 64px !important; overflow-y: auto !important; line-height: 1.25 !important; padding: 4px !important; scrollbar-width: thin !important; }
+#toolPanel-quality .qm-log-area::-webkit-scrollbar { width: 8px !important; height: 8px !important; }
+#toolPanel-quality .qm-log-area::-webkit-scrollbar-thumb { background: rgba(128,128,128,.45) !important; border-radius: 999px !important; }
+#toolPanel-quality .qm-log-area::-webkit-scrollbar-track { background: transparent !important; }
 
 /* PC: muat 1 kartu tanpa scroll — hemat vertikal + tombol Proses selalu terlihat */
 @media(min-width:641px){
@@ -2577,7 +2580,7 @@ body.is-encoding .bg-silk-sway,body.is-preview .bg-silk-sway{animation-play-stat
 body.is-encoding .bg-static::before,body.is-preview .bg-static::before{animation-play-state:paused !important}
 .slide-panel:not(.active-panel){content-visibility:hidden !important}
 .slide-panel:not(.active-panel) video,.slide-panel:not(.active-panel) canvas{content-visibility:hidden !important}
-#logArea{content-visibility:auto !important}
+#logArea{content-visibility:visible !important}
 
 
 @media (max-width: 640px) {
