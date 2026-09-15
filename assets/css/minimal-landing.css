@@ -1255,9 +1255,15 @@ select.tool-select { color-scheme: light !important; }
 
 .tool-progress-fill { background: #111 !important; }
 
-.qm-icon-btn, .qm-copy-btn {
+html[data-site-bg="white"] .qm-icon-btn, html[data-site-bg="white"] .qm-copy-btn {
   background: #f4f4f5 !important;
   border-color: #e8e8e8 !important;
+  color: #111111 !important;
+}
+html[data-site-bg="black"] .qm-icon-btn, html[data-site-bg="black"] .qm-copy-btn {
+  background: #1e1e24 !important;
+  border-color: #3a3a41 !important;
+  color: #f4f4f5 !important;
 }
 
 .tiktok-rec { color: #e11d48 !important; }

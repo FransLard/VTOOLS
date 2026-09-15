@@ -1565,7 +1565,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 
 /* PC: muat 1 kartu tanpa scroll — hemat vertikal + tombol Proses selalu terlihat */
 @media(min-width:641px){
-  .tool-modal-card.is-quality{ width:min(500px,94vw) !important; max-height:min(92dvh,740px) !important; }
+  .tool-modal-card.is-quality{ width:min(500px,94vw) !important; max-height:min(92vh,740px) !important; max-height:min(92dvh,740px) !important; }
   .tool-modal-card.is-quality .tool-modal-header{ padding:8px 12px !important; }
   .tool-modal-card.is-quality .tool-modal-body{ padding:8px 12px 10px !important; gap:6px !important; overflow-y:auto !important; }
   #toolPanel-quality .qm-card{ gap:6px !important; padding:2px !important; }
@@ -1686,7 +1686,7 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
   display: flex; flex-direction: column; overflow: hidden; box-sizing: border-box; z-index: 151; opacity: 0; visibility: hidden; pointer-events: none;
   contain: content; will-change: left, top, width, height, border-radius; box-shadow: 0 16px 40px rgba(0,0,0,0.42), 0 8px 20px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05);
   backdrop-filter: blur(20px) saturate(1.25); -webkit-backdrop-filter: blur(20px) saturate(1.25);
-  max-height: min(90dvh, 760px); height: auto; overflow: hidden;
+  max-height: min(90vh, 760px); max-height: min(90dvh, 760px); height: auto; overflow: hidden;
 }
 .tool-modal-card[hidden] { display: none !important; }
 .tool-modal-card.expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
