@@ -1816,10 +1816,10 @@ html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .pause-control {
 }
 
 
-#toolPanel-thumbnail #videoControls .button-container { flex-wrap: wrap !important; }
+#toolPanel-thumbnail #videoControls .button-container { flex-wrap: nowrap !important; overflow-x: auto !important; scrollbar-width: thin !important; }
 
 #toolPanel-thumbnail #videoControls button {
-  flex: 1 1 0 !important;
+  flex: 0 0 auto !important;
   min-width: 52px !important;
 }
 
