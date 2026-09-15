@@ -1558,6 +1558,8 @@ body[data-view="tutorial"] #panel-tutorial{ overflow:visible !important; }
 #toolPanel-quality .qm-log-head { padding: 3px 0 !important; margin: 2px 0 !important; flex-wrap: nowrap !important; }
 #toolPanel-quality .qm-log-actions { flex-shrink: 0 !important; margin-left: auto !important; flex-wrap: nowrap !important; }
 #toolPanel-quality .qm-log-actions .qm-icon-btn, #toolPanel-quality .qm-log-actions .qm-copy-btn { flex-shrink: 0 !important; white-space: nowrap !important; }
+body.is-encoding #toolPanel-quality .qm-drop, body.is-encoding #toolPanel-quality .qm-file-info { display: none !important; }
+#toolPanel-quality .qm-log-area { overscroll-behavior: contain !important; touch-action: pan-y !important; pointer-events: auto !important; }
 #toolPanel-quality .qm-log-area { font-size: 8.5px !important; max-height: 112px !important; min-height: 64px !important; overflow-y: auto !important; line-height: 1.25 !important; padding: 4px !important; scrollbar-width: thin !important; }
 #toolPanel-quality .qm-log-area::-webkit-scrollbar { width: 8px !important; height: 8px !important; }
 #toolPanel-quality .qm-log-area::-webkit-scrollbar-thumb { background: rgba(128,128,128,.45) !important; border-radius: 999px !important; }
