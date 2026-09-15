@@ -1595,8 +1595,8 @@ body.is-encoding #toolPanel-quality .qm-drop, body.is-encoding #toolPanel-qualit
   #toolPanel-quality .qm-info-desc .tiktok-rec{ display:inline !important; white-space:normal !important; }
   /* Tombol Proses nempel di bawah kartu — tetap kelihatan walau konten mepet */
   #toolPanel-quality .qm-process-btn{ position:sticky !important; bottom:0 !important; z-index:5 !important; min-height:37px !important; font-size:12px !important; margin:2px 0 0 !important; }
-  #toolPanel-mp3, #toolPanel-convert, #toolPanel-cut, #toolPanel-rescale, #toolPanel-mute{ display:flex !important; flex-direction:column !important; min-height:100% !important; }
-  #toolPanel-mp3 .tool-modal-footer, #toolPanel-convert .tool-modal-footer, #toolPanel-cut .tool-modal-footer, #toolPanel-rescale .tool-modal-footer, #toolPanel-mute .tool-modal-footer{ margin-top:auto !important; position:sticky !important; bottom:0 !important; z-index:5 !important; padding-top:8px !important; }
+  #toolPanel-mp3{ display:flex !important; flex-direction:column !important; min-height:100% !important; }
+  #toolPanel-mp3 .tool-modal-footer{ margin-top:auto !important; position:sticky !important; bottom:0 !important; z-index:5 !important; padding-top:8px !important; }
   #toolPanel-quality .qm-log-area{ max-height:62px !important; min-height:0 !important; overflow-y:auto !important; }
 }
 
