@@ -1,17 +1,4 @@
-/* ============================================================
-   VelardTools — Minimal Landing Experiment (full-bleed)
-   Theme: putih bersih #FFFFFF, teks near-black, aksen hitam.
-   Style: Minimalism & Swiss Style (ui-ux-pro-max) + Inter
-   (Minimal Swiss single-family). Full-bleed 2 kolom dengan
-   divider vertikal ala referensi. File terpisah agar mudah
-   revert: hapus <link> minimal-landing.css dari index.html.
-   Catatan kompatibilitas:
-   - Class .lang-btn + data-lang dipertahankan (i18n.js).
-   - Class .nav-item + data-panel di navbar atas diikat
-     otomatis oleh i18n.js (klik + status active).
-   - ID panel-beranda / velardSlideTrack / kineticHero kept.
-   - .tiktok-section disembunyikan visual saja (DOM/JS aman).
-   ============================================================ */
+
 
 :root {
   --ml-bg: #ffffff;
@@ -25,7 +12,7 @@
   --ml-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ---- Base: paksa kanvas putih bersih ---- */
+
 html, body {
   background: var(--ml-bg) !important;
   color: var(--ml-ink);
@@ -49,10 +36,7 @@ body .bg-static { display: none !important; }
 
 .top-header { display: none !important; }
 
-/* ============================================================
-   0. ICON BASE — Material Symbols wajib punya font-family
-   (tanpa ini icon tampil sebagai teks polos / kosong)
-   ============================================================ */
+
 .material-symbols-rounded {
   font-family: "Material Symbols Rounded" !important;
   font-weight: normal !important;
@@ -71,7 +55,7 @@ body .bg-static { display: none !important; }
   user-select: none !important;
 }
 
-/* Semua kartu: ikon selalu di tengah, tidak kepotong, kontras jelas */
+
 .tool-card-new {
   align-items: center !important;
 }
@@ -117,9 +101,7 @@ body .bg-static { display: none !important; }
   flex-shrink: 0 !important;
 }
 
-/* ============================================================
-   1. NAVBAR — full width, menu dalam pill abu-abu
-   ============================================================ */
+
 .ml-nav {
   position: sticky;
   top: 0;
@@ -133,9 +115,7 @@ body .bg-static { display: none !important; }
   transform: translateZ(0);
 }
 
-/* PC: navbar fixed — velard tools, beranda, tools, donate,
-   lainnya + ID/EN selalu kelihatan walau scroll ke bawah.
-   Mobile tetap sticky (tinggi nav berubah karena menu wrap). */
+
 @media (min-width: 921px) {
   .ml-nav {
     position: fixed !important;
@@ -146,7 +126,7 @@ body .bg-static { display: none !important; }
     box-shadow: 0 1px 0 var(--ml-line), 0 8px 24px rgba(0, 0, 0, 0.06) !important;
   }
 
-  /* Kompensasi tinggi nav 72px agar konten tidak ketutup */
+  
   body[data-view="beranda"] .app-main,
   body:not([data-view]) .app-main,
   body:not([data-view="beranda"]) .app-main {
@@ -175,7 +155,7 @@ body .bg-static { display: none !important; }
   white-space: nowrap;
 }
 
-/* Menu navigasi pill — solid, tanpa blur agar scroll ringan */
+
 .ml-links {
   display: flex;
   align-items: center;
@@ -209,7 +189,7 @@ body .bg-static { display: none !important; }
 
 .ml-link:hover { color: #111111; background: #e8e8e8; box-shadow: none; }
 
-/* Status active disinkron otomatis oleh i18n.js */
+
 .ml-link.active {
   background: #111111;
   color: #ffffff;
@@ -217,7 +197,7 @@ body .bg-static { display: none !important; }
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
-/* Language switch — pill minimal, class .lang-btn dipertahankan */
+
 .ml-lang {
   display: flex;
   align-items: center;
@@ -251,9 +231,7 @@ body .bg-static { display: none !important; }
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
-/* ============================================================
-   2. HERO — full-bleed 2 kolom + divider vertikal
-   ============================================================ */
+
 #panel-beranda {
   padding: 0 !important;
   max-width: none !important;
@@ -261,9 +239,7 @@ body .bg-static { display: none !important; }
 
 .ml-hero { padding: 0 !important; position: relative; overflow: clip; }
 
-/* Garis diagonal latar: kanan-atas ke kiri-bawah, di belakang konten.
-   Premium: garis utama tipis + gradient fade di ujung,
-   didampingi hairline abu sebagai bayangan, + aksen dot. */
+
 .ml-diagonal {
   position: absolute;
   inset: 0;
@@ -292,7 +268,7 @@ body .bg-static { display: none !important; }
   to { stroke-dashoffset: 0; }
 }
 
-/* Aksen dot di ujung garis — HTML span (tidak ikut stretch SVG) */
+
 .ml-dot {
   position: absolute;
   z-index: 0;
@@ -358,40 +334,34 @@ body .bg-static { display: none !important; }
   letter-spacing: -0.05em;
   color: var(--ml-ink);
   margin: 0 0 40px;
-  /* Jangan pakai balance: tiap ganti kata browser menata ulang
-     baris sehingga kata "for" terlihat bergeser */
+  
   text-wrap: pretty;
 }
 
-/* PC (awal): 2 baris — "velard tools" / "for + kata".
-   Kata statis inline, "for" tidak bergeser karena rata kiri */
+
 .ml-w1,
 .ml-w2,
 .ml-w3 {
   display: inline;
 }
 
-/* Kata bergantian: inline-block + lebar auto (= kata aktif),
-   jadi underline selalu pas sepanjang kata */
+
 .ml-rotate {
   display: inline-block;
   text-align: left;
   position: relative;
   overflow: hidden;
   overflow: clip;
-  /* Biarkan ekor huruf (y, g, j) tampil penuh: area klip diperluas
-     tanpa mengubah layout & posisi underline */
+  
   overflow-clip-margin: 0.35em;
   vertical-align: bottom;
   padding-bottom: 0.12em;
   margin-bottom: -0.12em;
-  /* Lebar dikunci via JS per kata + transisi halus */
+  
   transition: width 320ms var(--ml-ease);
 }
 
-/* Underline milik WADAH (bukan kata) sehingga tetap tampil penuh
-   selama kata berganti — hanya panjangnya yang menyusut/melebar
-   halus mengikuti kata. currentColor agar ikut tema putih/hitam */
+
 .ml-rotate::after {
   content: "";
   position: absolute;
@@ -411,8 +381,7 @@ body .bg-static { display: none !important; }
   will-change: opacity, transform;
 }
 
-/* Mobile saja: 4 baris bertumpuk — velard / tools / for / kata.
-   Semua block + rata TENGAH dan sejajar */
+
 @media (max-width: 640px) {
   .ml-title {
     text-align: center;
@@ -435,7 +404,7 @@ body .bg-static { display: none !important; }
   }
 }
 
-/* Font disamakan semua — tidak ada pengecilan untuk kata panjang */
+
 .ml-rotate-word.is-mid,
 .ml-rotate-word.is-long {
   font-size: 1em;
@@ -489,7 +458,7 @@ body .bg-static { display: none !important; }
 
 .ml-btn:active { transform: translateY(1px) scale(0.99); }
 
-/* Tombol 1 — primary hitam */
+
 .ml-btn-primary {
   background: var(--ml-ink);
   color: #fff;
@@ -504,7 +473,7 @@ body .bg-static { display: none !important; }
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Tombol 2 — outline + panah */
+
 .ml-btn-outline {
   background: transparent;
   color: var(--ml-ink);
@@ -524,7 +493,7 @@ body .bg-static { display: none !important; }
 
 .ml-btn-outline:hover svg { transform: translateX(3px); }
 
-/* ---- Kolom kanan: gambar proporsional, tidak kebesaran ---- */
+
 .ml-hero-media {
   min-width: 0;
   border-left: 0 !important;
@@ -550,8 +519,7 @@ body .bg-static { display: none !important; }
   background: transparent;
 }
 
-/* ---- Theme Mode tanpa kartu: label sebesar judul hero,
-   posisi kanan-atas (jauh dari gambar) ---- */
+
 .ml-hero-media {
   gap: clamp(24px, 3vw, 48px);
 }
@@ -591,7 +559,7 @@ body .bg-static { display: none !important; }
   border-radius: 999px;
   padding: 4px;
   max-width: 100%;
-  /* Pil aktif tidak boleh mengecat keluar track dalam kondisi apa pun */
+  
   overflow: hidden;
 }
 
@@ -646,8 +614,7 @@ body .bg-static { display: none !important; }
   .ml-bg-options {
     flex-direction: row;
     width: 100%;
-    /* Track dibuat sedikit lebih tegas agar terbaca sebagai
-       satu bubble utuh di layar putih */
+    
     background: #ececee;
     border-color: #d4d4d8;
   }
@@ -661,12 +628,10 @@ body .bg-static { display: none !important; }
   }
 }
 
-/* Section TikTok: tampil di semua ukuran layar */
-/* (visibility diatur oleh JS / kelas .active-panel) */
 
-/* ============================================================
-   3. Footer terang
-   ============================================================ */
+
+
+
 .site-footer {
   background: transparent !important;
   border-top: 0 !important;
@@ -674,7 +639,7 @@ body .bg-static { display: none !important; }
 
 .site-footer-copy { color: var(--ml-gray-light) !important; }
 
-/* Fokus keyboard selalu terlihat (aksesibilitas) */
+
 .ml-nav button:focus-visible,
 .ml-btn:focus-visible,
 .ml-lang .lang-btn:focus-visible {
@@ -682,10 +647,7 @@ body .bg-static { display: none !important; }
   outline-offset: 3px;
 }
 
-/* ============================================================
-   4. RESPONSIVE — tetap bersebelahan seperti PC
-   (gambar + teks side-by-side di semua ukuran)
-   ============================================================ */
+
 @media (max-width: 920px) {
   .ml-hero-grid {
     grid-template-columns: 1fr 1fr;
@@ -787,8 +749,7 @@ body .bg-static { display: none !important; }
     outline: none;
   }
 
-  /* Hero tetap 2 kolom seperti PC (kolom teks sedikit dilebarkan
-     agar kata terpanjang muat) */
+  
   .ml-hero-grid {
     grid-template-columns: 1.12fr 0.88fr;
     align-items: center;
@@ -801,7 +762,7 @@ body .bg-static { display: none !important; }
     margin-bottom: 18px;
   }
 
-  /* Font tetap sama di layar sempit */
+  
   .ml-rotate-word.is-mid,
   .ml-rotate-word.is-long { font-size: 1em; }
 
@@ -831,9 +792,7 @@ body .bg-static { display: none !important; }
   .ml-diagonal { opacity: 0.9; }
 }
 
-/* ============================================================
-   5. BERANDA FULL-BLEED — lepas batas 920px/560px style.css
-   ============================================================ */
+
 body[data-view="beranda"] .app-container {
   max-width: none !important;
   margin: 0 !important;
@@ -861,8 +820,7 @@ body[data-view="beranda"] .slide-container.cube-viewport {
 
 body[data-view="beranda"] .slide-panel.cube-face { padding: 0 !important; }
 
-/* Kata rotasi kini pendek (maks "creator") jadi tidak nabrak kolom gambar;
-   overflow visible agar bayangan tombol tidak kepotong */
+
 .ml-hero-copy { min-width: 0; overflow: visible; }
 
 .ml-title {
@@ -870,14 +828,14 @@ body[data-view="beranda"] .slide-panel.cube-face { padding: 0 !important; }
   overflow-wrap: break-word;
 }
 
-/* HP: judul 4 baris di tengah kolom teks — ukuran dibesarkan */
+
 @media (max-width: 640px) {
   .ml-title {
     font-size: clamp(1.7rem, 9vw, 2.3rem);
   }
 }
 
-/* Pill bahasa menang dari override pink (!important) style.css */
+
 .ml-nav .ml-lang .lang-btn {
   background: transparent !important;
   color: #6b7280 !important;
@@ -890,10 +848,7 @@ body[data-view="beranda"] .slide-panel.cube-face { padding: 0 !important; }
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
 }
 
-/* ============================================================
-   6. TEMA MONOKROM TERANG — samakan Tools/Donate/Others
-   dengan Beranda (putih · hitam · abu-abu)
-   ============================================================ */
+
 :root {
   --surface: #ffffff;
   --surface-2: #f4f4f5;
@@ -940,7 +895,7 @@ body[data-view="beranda"] .slide-panel.cube-face { padding: 0 !important; }
   --lime-glow: rgba(0, 0, 0, 0.08);
 }
 
-/* Panel non-beranda: lega tapi tetap premium */
+
 body:not([data-view="beranda"]) .app-container {
   max-width: none !important;
   margin: 0 !important;
@@ -954,8 +909,7 @@ body:not([data-view="beranda"]) .app-main {
   max-width: none !important;
 }
 
-/* Navbar full-width di SEMUA panel (tidak ikut menyempit),
-   yang dibatasi hanya kolom konten */
+
 body:not([data-view="beranda"]) .dash-panels {
   max-width: 1100px !important;
   margin: 0 auto !important;
@@ -973,7 +927,7 @@ body:not([data-view="beranda"]) .site-footer {
   padding-right: 24px !important;
 }
 
-/* Judul panel (Tools/Donate/Lainnya): hitam, tanpa glow */
+
 .panel-head-large .panel-title-large {
   color: #111 !important;
   text-shadow: none !important;
@@ -984,10 +938,10 @@ body:not([data-view="beranda"]) .site-footer {
 
 #panel-tools .panel-head-large .head-sub { color: #52525b !important; }
 
-/* Matikan text-shadow gelap global */
+
 .app-main, .tool-modal-card { text-shadow: none !important; }
 
-/* ---- Kartu generik ---- */
+
 .card {
   background: #fff !important;
   border: 1px solid #e8e8e8 !important;
@@ -1004,7 +958,7 @@ body:not([data-view="beranda"]) .site-footer {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* ---- Kartu Tools ---- */
+
 .tool-card-new {
   background: #fff !important;
   border: 1px solid #e8e8e8 !important;
@@ -1045,8 +999,7 @@ body:not([data-view="beranda"]) .site-footer {
   color: #fff !important;
 }
 
-/* RONDE 3 — kalahkan style.css:2400 maroon: ikon Tools harus kelihatan
-   (kotak terang + ikon hitam pekat, hover jadi hitam + ikon putih) */
+
 #panel-tools .tool-card-new .tool-icon-wrap,
 #panel-tools .tool-card-new .tool-arrow {
   background: #f4f4f5 !important;
@@ -1085,7 +1038,7 @@ body:not([data-view="beranda"]) .site-footer {
   color: #52525b !important;
 }
 
-/* Status proses (background gelap + teks gelap = perbaiki) */
+
 .tool-card-new:active .tool-icon-wrap,
 .tool-card-new.is-processing .tool-icon-wrap,
 .tool-card-new.is-processing .tool-arrow,
@@ -1099,7 +1052,7 @@ body:not([data-view="beranda"]) .site-footer {
   border-color: transparent !important;
 }
 
-/* ---- Search + kategori Tools (menang dari !important pink) ---- */
+
 #panel-tools .tools-search-wrap,
 .tools-search-wrap {
   background: #f4f4f5 !important;
@@ -1144,7 +1097,7 @@ body:not([data-view="beranda"]) .site-footer {
   color: #fff !important;
 }
 
-/* ---- Modal ---- */
+
 .modal, .modal-card {
   background: #fff !important;
   border: 1px solid #e8e8e8 !important;
@@ -1211,7 +1164,7 @@ body:not([data-view="beranda"]) .site-footer {
   -webkit-backdrop-filter: none !important;
 }
 
-/* ---- Zona tools: dropzone, tabel, input, log, segmen ---- */
+
 .tool-drop-zone {
   background: #fafafa !important;
   border-color: #d4d4d8 !important;
@@ -1307,14 +1260,14 @@ select.tool-select { color-scheme: light !important; }
   border-color: #e8e8e8 !important;
 }
 
-.tiktok-rec { color: #111 !important; }
+.tiktok-rec { color: #e11d48 !important; }
 
-/* Dark mode: rekomendasi TikTok harus putih terang agar terbaca */
-html[data-site-bg="black"] .tiktok-rec { color: #ffffff !important; }
+
+html[data-site-bg="black"] .tiktok-rec { color: #e11d48 !important; }
 
 .tool-merge-list { background: #fafafa !important; }
 
-/* ---- Donate / Others ---- */
+
 .donate-icon {
   background: #111 !important;
   border-color: #111 !important;
@@ -1419,7 +1372,7 @@ html[data-site-bg="black"] .faq-a {
   color: #b7bcc7 !important;
 }
 
-/* ---- Toast ---- */
+
 .toast {
   background: #111 !important;
   color: #fff !important;
@@ -1428,11 +1381,7 @@ html[data-site-bg="black"] .faq-a {
   -webkit-backdrop-filter: none !important;
 }
 
-/* ============================================================
-   8. RONDE 2 — kalahkan !important maroon style.css:2433-2463
-   (kartu Others, isi detail Others, select thumbnail,
-   tombol hard-refresh)
-   ============================================================ */
+
 #panel-others .tool-card-new {
   background: #fff !important;
   background-image: none !important;
@@ -1523,7 +1472,7 @@ html[data-site-bg="black"] .faq-a {
   -webkit-backdrop-filter: none !important;
 }
 
-/* Hormati pengurangan gerak */
+
 @media (prefers-reduced-motion: reduce) {
   .ml-link,
   .ml-btn,
@@ -1545,12 +1494,7 @@ html[data-site-bg="black"] .faq-a {
   .ml-dot { animation: none !important; opacity: 1 !important; }
 }
 
-/* ============================================================
-   7. FRESH-LOAD FIX — saat baru dibuka, JS belum sempat
-   mengeset data-view (default HTML = beranda). Ulangi
-   rule full-bleed untuk body tanpa atribut. Blok ini di
-   akhir file supaya menang dari rule panel lain.
-   ============================================================ */
+
 body:not([data-view]) .app-container {
   max-width: none !important;
   margin: 0 !important;
@@ -1576,8 +1520,7 @@ body:not([data-view]) .slide-container.cube-viewport {
 
 body:not([data-view]) .slide-panel.cube-face { padding: 0 !important; }
 
-/* Anak langsung panel dibatasi 560px oleh style.css
-   (.slide-panel.cube-face > *) — lepas khusus hero */
+
 .slide-panel.cube-face > .ml-hero,
 #panel-beranda > .ml-hero {
   max-width: none !important;
@@ -1585,11 +1528,7 @@ body:not([data-view]) .slide-panel.cube-face { padding: 0 !important; }
   align-self: stretch !important;
 }
 
-/* ============================================================
-   8. PC FIXED-NAV KOMPENSASI (paling akhir — menang dari
-   padding:0 section 5/6/7). Tanpa ini judul panel seperti
-   ALAT ketutup navbar fixed saat scroll.
-   ============================================================ */
+
 @media (min-width: 921px) {
   body[data-view="beranda"] .app-main,
   body:not([data-view]) .app-main,
@@ -1598,12 +1537,9 @@ body:not([data-view]) .slide-panel.cube-face { padding: 0 !important; }
   }
 }
 
-/* ============================================================
-   9. SITE BACKGROUND MODE — putih / hitam untuk SELURUH situs
-   Dikontrol dari pemilih di home. Default: white.
-   ============================================================ */
 
-/* ---- 9A. MODE PUTIH: halaman + semua kartu + isi modal terang ---- */
+
+
 html[data-site-bg="white"] body,
 html[data-site-bg="white"] .app-container,
 html[data-site-bg="white"] .app-main,
@@ -1613,7 +1549,7 @@ html[data-site-bg="white"] .ml-hero {
   background-image: none !important;
 }
 
-/* Isi modal Quality Method: kartu terang, teks gelap jelas */
+
 html[data-site-bg="white"] .tool-modal-card,
 html[data-site-bg="white"] .tool-modal-header,
 html[data-site-bg="white"] .tool-modal-body,
@@ -1748,7 +1684,7 @@ html[data-site-bg="white"] .qm-log-area {
   color: #111111 !important;
 }
 
-/* Ikon di atas kotak hitam harus putih (logo modal, badge, proses) */
+
 html[data-site-bg="white"] .tool-modal-hero .tool-icon-wrap,
 html[data-site-bg="white"] .tool-card-new:active .tool-icon-wrap,
 html[data-site-bg="white"] .tool-card-new.is-processing .tool-icon-wrap,
@@ -1763,7 +1699,7 @@ html[data-site-bg="white"] #toolPanel-thumbnail .tbtn-ghost {
   border-color: #d4d4d8 !important;
 }
 
-/* Header thumbnail ikut terang */
+
 html[data-site-bg="white"] #toolPanel-thumbnail .vt-header {
   background: #ffffff !important;
   border-bottom: 1px solid #e8e8e8 !important;
@@ -1789,7 +1725,7 @@ html[data-site-bg="white"] #toolPanel-thumbnail .thumb-close:hover {
 
 html[data-site-bg="white"] #toolPanel-thumbnail .thumb-icon-btn { border-color: #e8e8e8 !important; }
 
-/* Strip kontrol video ikut terang + ikon gelap jelas */
+
 html[data-site-bg="white"] #toolPanel-thumbnail #videoControls .button-container {
   background: #f4f4f5 !important;
   border: 1px solid #e8e8e8 !important;
@@ -1810,7 +1746,7 @@ html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button:hover {
 
 html[data-site-bg="white"] #toolPanel-thumbnail .play-controls { color: #111111 !important; }
 
-/* Tombol putar: lingkaran hitam + ikon putih besar yang eksplisit */
+
 html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay {
   background: #111111 !important;
   border-radius: 50% !important;
@@ -1840,9 +1776,7 @@ html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay span
   display: none !important;
 }
 
-/* ============================================================
-   14. Strip kontrol thumbnail: tombol lega + play tegas
-   ============================================================ */
+
 #toolPanel-thumbnail #videoControls .button-container {
   gap: 2px !important;
   padding: 5px !important;
@@ -1875,10 +1809,7 @@ html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .pause-control {
   #toolPanel-thumbnail .play-controls { font-size: 24px !important; }
 }
 
-/* ============================================================
-   15. Transport muat SEMUA tombol (melipat, tanpa scroll) +
-   tombol play hanya tampilkan ikon
-   ============================================================ */
+
 #toolPanel-thumbnail #videoControls .button-container { flex-wrap: wrap !important; }
 
 #toolPanel-thumbnail #videoControls button {
@@ -1892,7 +1823,7 @@ html[data-site-bg="white"] #toolPanel-thumbnail button.tplay .pause-control {
   display: inline-block !important;
 }
 
-/* ---- 9B. MODE HITAM: halaman + semua kartu gelap, teks terang ---- */
+
 html[data-site-bg="black"] body,
 html[data-site-bg="black"] .app-container,
 html[data-site-bg="black"] .app-main,
@@ -2058,8 +1989,7 @@ html[data-site-bg="black"] .tools-search-icon {
   color: #b7bcc7 !important;
 }
 
-/* ---- 9C. BLACK MODE FIX — selektor ID agar menang dari
-   #panel-tools (pil kategori) dan RONDE 3 (ikon kartu) ---- */
+
 html[data-site-bg="black"] {
   background: #101012 !important;
 }
@@ -2089,7 +2019,7 @@ html[data-site-bg="black"] .lang-btn.active {
   box-shadow: none !important;
 }
 
-/* Pil kategori Tools: nonaktif gelap (aktif diatur di 9D: gelap + bingkai terang) */
+
 html[data-site-bg="black"] #panel-tools .tools-cat-btn {
   background: #1a1a1e !important;
   background-image: none !important;
@@ -2104,7 +2034,7 @@ html[data-site-bg="black"] #panel-tools .tools-cat-btn:hover {
   color: #ffffff !important;
 }
 
-/* Ikon + panah kartu Tools/Lainnya: glyph terang (kalahkan RONDE 3) */
+
 html[data-site-bg="black"] #panel-tools .tool-card-new .tool-icon-wrap .material-symbols-rounded,
 html[data-site-bg="black"] #panel-tools .tool-card-new .tool-arrow .material-symbols-rounded,
 html[data-site-bg="black"] #panel-others .tool-card-new .tool-icon-wrap .material-symbols-rounded,
@@ -2112,8 +2042,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow .material-sy
   color: #f4f4f5 !important;
 }
 
-/* ---- 9D. BLACK MODE LANJUTAN: balik variabel tema ke gelap,
-   kunci search/track/pil aktif, terangkan teks Donasi & Lainnya ---- */
+
 html[data-site-bg="black"] {
   --surface: #1a1a1e;
   --surface-2: #232328;
@@ -2163,13 +2092,13 @@ html[data-site-bg="black"] {
   --lime-glow: rgba(0, 0, 0, 0.4);
 }
 
-/* Strip putih tepi kiri = track geser */
+
 html[data-site-bg="black"] #velardSlideTrack,
 html[data-site-bg="black"] .slide-track {
   background: #101012 !important;
 }
 
-/* Search jadi gelap (kalahkan #panel-tools) */
+
 html[data-site-bg="black"] #panel-tools .tools-search-wrap {
   background: #1a1a1e !important;
   background-image: none !important;
@@ -2186,7 +2115,7 @@ html[data-site-bg="black"] #panel-tools #toolsSearch::placeholder {
   opacity: 1 !important;
 }
 
-/* Pil kategori aktif: gelap + bingkai terang, tanpa putih */
+
 html[data-site-bg="black"] #panel-tools .tools-cat-btn.active {
   background: #2a2a30 !important;
   background-image: none !important;
@@ -2195,7 +2124,7 @@ html[data-site-bg="black"] #panel-tools .tools-cat-btn.active {
   box-shadow: none !important;
 }
 
-/* Tombol proses nonaktif: gelap */
+
 html[data-site-bg="black"] #toolPanel-quality .qm-process-btn:disabled,
 html[data-site-bg="black"] .tool-panel .tool-process-btn:disabled {
   background: #2a2a30 !important;
@@ -2205,12 +2134,12 @@ html[data-site-bg="black"] .tool-panel .tool-process-btn:disabled {
   opacity: 1 !important;
 }
 
-/* Judul kartu Lainnya */
+
 html[data-site-bg="black"] #panel-others .tool-card-new .tool-title-new {
   color: #f4f4f5 !important;
 }
 
-/* Teks isi Lainnya/Donasi/About/Tutorial/FAQ (di luar kotak putih QR & info) */
+
 html[data-site-bg="black"] .faq-a,
 html[data-site-bg="black"] .faq-sub,
 html[data-site-bg="black"] .social-desc,
@@ -2249,7 +2178,7 @@ html[data-site-bg="black"] .tool-progress-labels {
   color: #b7bcc7 !important;
 }
 
-/* Kotak info/tabel/select/log: gelap juga (kalahkan #fafafa/#fff terang) */
+
 html[data-site-bg="black"] .qm-info-box,
 html[data-site-bg="black"] .qm-info-desc,
 html[data-site-bg="black"] .qm-log-area,
@@ -2281,7 +2210,7 @@ html[data-site-bg="black"] .tool-progress-fill {
   background: #f4f4f5 !important;
 }
 
-/* Wadah segmented Theme Mode ikut gelap */
+
 html[data-site-bg="black"] .ml-bg-options {
   background: #101012 !important;
   border-color: #3a3a41 !important;
@@ -2294,7 +2223,7 @@ html[data-site-bg="black"] .ml-bg-opt:not(.is-active) {
   box-shadow: none !important;
 }
 
-/* Kotak donasi ikut gelap; QR tetap di atas putih biar bisa di-scan */
+
 html[data-site-bg="black"] .qris-box {
   background: #1a1a1e !important;
   background-image: none !important;
@@ -2317,7 +2246,7 @@ html[data-site-bg="black"] .ml-bg-opt:not(.is-active):hover {
   color: #ffffff !important;
 }
 
-/* Panel thumbnail: kartu + select gelap */
+
 html[data-site-bg="black"] #toolPanel-thumbnail .vt-card {
   background: #1a1a1e !important;
   background-image: none !important;
@@ -2341,7 +2270,7 @@ html[data-site-bg="black"] .tool-modal-card {
   color-scheme: dark;
 }
 
-/* Theme Mode tanpa kartu: netralkan sisa aturan kartu gelap */
+
 html[data-site-bg="black"] .ml-bg-pick {
   background: none !important;
   background-image: none !important;
@@ -2349,8 +2278,7 @@ html[data-site-bg="black"] .ml-bg-pick {
   box-shadow: none !important;
 }
 
-/* ---- Kunci navigasi saat modal tool terbuka: sembunyi instan
-   (tanpa opacity/animasi biar ringan) ---- */
+
 body.tool-modal-open .ml-nav,
 body.tool-modal-open .floating-nav-bar,
 body.tool-modal-open #floatingNav {
@@ -2358,12 +2286,9 @@ body.tool-modal-open #floatingNav {
   pointer-events: none !important;
 }
 
-/* ============================================================
-   10. PC: perbesar modal + semua kartu di dalamnya
-   (khusus layar besar, mobile tidak tersentuh)
-   ============================================================ */
+
 @media (min-width: 921px) {
-  /* Modal lebih lebar (kecuali thumbnail/merge yang sudah lebar) */
+  
   #toolModalCard:has(#toolPanel-quality:not([hidden])) {
     width: min(560px, calc(100vw - 32px)) !important;
   }
@@ -2376,7 +2301,7 @@ body.tool-modal-open #floatingNav {
     width: min(520px, calc(100vw - 32px)) !important;
   }
 
-  /* Isi Quality: drop zone, tombol metode, info, proses */
+  
   #toolPanel-quality .qm-drop {
     padding: 16px 14px !important;
     min-height: 84px !important;
@@ -2404,13 +2329,13 @@ body.tool-modal-open #floatingNav {
     font-size: 15px !important;
   }
 
-  /* Isi Thumbnail/Merge */
+  
   #toolPanel-thumbnail .vt-card { padding: 16px !important; font-size: 14px !important; }
   #toolPanel-thumbnail .thumb-label { font-size: 12px !important; }
   #toolPanel-thumbnail .tbtn { font-size: 13.5px !important; padding: 11px 16px !important; }
   #toolPanel-thumbnail .thumb-title { font-size: 16px !important; }
 
-  /* Panel tools generik */
+  
   .tool-drop-zone { padding: 22px 16px !important; }
   .tool-drop-zone .material-symbols-rounded { font-size: 30px !important; }
   .tool-drop-title { font-size: 14.5px !important; }
@@ -2419,7 +2344,7 @@ body.tool-modal-open #floatingNav {
   .tool-fill-table .tool-table-row { font-size: 13px !important; padding: 10px 14px !important; }
   .tool-select, .tool-input { font-size: 14px !important; }
 
-  /* Kartu daftar Tools di halaman ALAT */
+  
   #panel-tools .tool-card-new { padding: 14px 16px !important; }
   #panel-tools .tool-icon-wrap { width: 52px !important; height: 52px !important; }
   #panel-tools .tool-icon-wrap .material-symbols-rounded { font-size: 26px !important; }
@@ -2428,7 +2353,7 @@ body.tool-modal-open #floatingNav {
   #panel-tools .tool-arrow { width: 36px !important; height: 36px !important; }
 }
 
-/* Cangkang modal thumbnail/merge ikut mode gelap (kalahkan :has putih) */
+
 html[data-site-bg="black"] #toolModalCard:has(#toolPanel-thumbnail:not([hidden])),
 html[data-site-bg="black"] #toolModalCard:has(#toolPanel-merge:not([hidden])) {
   background: #101012 !important;
@@ -2436,23 +2361,21 @@ html[data-site-bg="black"] #toolModalCard:has(#toolPanel-merge:not([hidden])) {
   border: 1px solid #2c2c31 !important;
 }
 
-/* ============================================================
-   11. PC: modal tools melebar kesamping + isi besar + tengah
-   ============================================================ */
+
 @media (min-width: 921px) {
-  /* Semua modal selalu pas di tengah (tidak tergantung hitungan JS) */
+  
   #toolModalCard {
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
 
-  /* Thumbnail & Merge: perpanjang kesamping */
+  
   #toolModalCard:has(#toolPanel-thumbnail:not([hidden])),
   #toolModalCard:has(#toolPanel-merge:not([hidden])) {
     width: min(1400px, calc(100vw - 48px)) !important;
   }
 
-  /* Kolom thumbnail: grup di tengah, isi rata tengah */
+  
   #toolPanel-thumbnail .vt-main {
     justify-content: center !important;
     width: 100% !important;
@@ -2466,7 +2389,7 @@ html[data-site-bg="black"] #toolModalCard:has(#toolPanel-merge:not([hidden])) {
   #toolPanel-thumbnail .button-container { justify-content: center !important; }
   #toolPanel-thumbnail .save-row { justify-content: center !important; }
 
-  /* Pratinjau + kontrol lebih besar */
+  
   #toolPanel-thumbnail #video {
     min-height: 340px !important;
     max-height: 52vh !important;
@@ -2479,20 +2402,25 @@ html[data-site-bg="black"] #toolModalCard:has(#toolPanel-merge:not([hidden])) {
 
   #toolPanel-thumbnail .play-controls { font-size: 22px !important; }
 
-  /* Merge: transport rata tengah */
+  
   #toolPanel-merge .merge-transport { justify-content: center !important; }
   #toolPanel-merge .merge-timeline { margin-left: auto !important; margin-right: auto !important; }
 
-  /* Quality & generik: label + checkbox rata tengah */
+  
   #toolPanel-quality .qm-label { text-align: center !important; }
   #toolPanel-quality .qm-checkbox { justify-content: center !important; }
 }
 
-/* ============================================================
-   12. DONATE tanpa kartu (tipografi home, PC + mobile) +
-   tombol play Merge di white mode
-   ============================================================ */
-html[data-site-bg="white"] #toolPanel-merge .merge-tbtn.play { color: #ffffff !important; }
+
+html[data-site-bg="white"] #toolPanel-merge .merge-tbtn.play {
+  background: #111111 !important;
+  border-color: #111111 !important;
+  color: #ffffff !important;
+}
+html[data-site-bg="white"] #toolPanel-merge .merge-tbtn.play:hover {
+  background: #000000 !important;
+  border-color: #000000 !important;
+}
 
 html[data-site-bg="white"] #toolPanel-merge .merge-tbtn {
   border-color: #e8e8e8 !important;
@@ -2598,9 +2526,7 @@ html[data-site-bg="white"] #toolPanel-merge .merge-tbtn:hover { background: #e8e
   #panel-donate .qris-tip { font-size: 13.5px; }
 }
 
-/* ============================================================
-   13. Header Tools besar + kartu melebar kesamping (PC)
-   ============================================================ */
+
 .tools-title-row {
   display: flex;
   align-items: flex-end;
@@ -2634,15 +2560,15 @@ html[data-site-bg="white"] #toolPanel-merge .merge-tbtn:hover { background: #e8e
 .tools-title-row .hard-refresh-btn .material-symbols-rounded { font-size: 24px !important; }
 
 @media (max-width: 640px) {
-  /* Headline tools mobile: lebih kecil + wrap rapi 2 baris */
+  
   .tools-headline { font-size: clamp(1.5rem, 7vw, 1.9rem) !important; }
 }
 
 @media (min-width: 921px) {
-  /* Teks menu navigasi pill sedikit lebih besar khusus PC */
+  
   .ml-link { font-size: 15px !important; padding: 9px 18px !important; }
 
-  /* Anak langsung panel dikunci 560px oleh style.css — lepas khusus tools */
+  
   #panel-tools > header.panel-head,
   #panel-tools > .tools-grid-new {
     max-width: 920px !important;
@@ -2663,12 +2589,9 @@ html[data-site-bg="white"] #toolPanel-merge .merge-tbtn:hover { background: #e8e
   }
 }
 
-/* ============================================================
-   14. POPUP ANALISIS VIDEO + DONATE ikut mode white / black
-   (analysisModal, donateModal, cancelConfirm, tiktokConfirm, help)
-   ============================================================ */
 
-/* ---- 14A. WHITE MODE: putih bersih, teks gelap tegas ---- */
+
+
 html[data-site-bg="white"] .modal-backdrop,
 html[data-site-bg="white"] #help-modal {
   background: rgba(17, 17, 17, 0.45) !important;
@@ -2742,7 +2665,7 @@ html[data-site-bg="white"] .btn-proceed {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22) !important;
 }
 
-/* ---- 14B. BLACK MODE: gelap pekat, teks terang (kalahkan putih generik) ---- */
+
 html[data-site-bg="black"] .modal-backdrop,
 html[data-site-bg="black"] #help-modal {
   background: rgba(0, 0, 0, 0.72) !important;
@@ -2846,11 +2769,7 @@ html[data-site-bg="black"] #help-modal .btn-proceed {
   box-shadow: none !important;
 }
 
-/* ============================================================
-   15. TOOLS PURE BLACK saat mode dark (#000)
-   Halaman + search + filter + kartu + ikon jadi hitam pekat,
-   border dipertahankan agar tiap kartu tetap tegas.
-   ============================================================ */
+
 html[data-site-bg="black"],
 html[data-site-bg="black"] body,
 html[data-site-bg="black"] .app-container,
@@ -2916,10 +2835,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   color: #f4f4f5 !important;
 }
 
-/* ============================================================
-   16. LAINNYA SATU SCROLL — semua isi tampil sekaligus,
-   tanpa klik kartu. Chip atas hanya lompat scroll.
-   ============================================================ */
+
 .others-stack-nav {
   display: flex;
   flex-wrap: wrap;
@@ -2963,18 +2879,14 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   width: 100%;
 }
 
-/* Grid kartu lama disembunyikan permanen setelah stack terbangun
-   (others.js masih mencoba menampilkannya saat panel aktif) */
+
 #panel-others:has(#othersStack[data-built]) #othersGrid {
   display: none !important;
 }
 
-/* ============================================================
-   17. LAINNYA RAPI + FULL LAYAR PC + BACA SATU-PER-SATU
-   Kalahkan aturan padat style.css (font 10-11px) agar nyaman dibaca.
-   ============================================================ */
 
-/* ---- Lebar kolom: full layar PC, penuh mobile ---- */
+
+
 #panel-others > .panel-head-large,
 #panel-others > .others-stack-nav,
 #panel-others > .others-stack {
@@ -2989,7 +2901,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   letter-spacing: -0.03em !important;
 }
 
-/* ---- Kartu section: lega dan konsisten ---- */
+
 #panel-others .others-stack .card {
   padding: 32px !important;
   gap: 20px !important;
@@ -2997,7 +2909,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   text-align: left !important;
 }
 
-/* Judul tiap section: hierarki jelas + garis pemisah */
+
 #panel-others .others-stack .tut-head,
 #panel-others .others-stack .spec-head,
 #panel-others .others-stack .faq-head,
@@ -3019,7 +2931,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   margin: 0 0 8px !important;
 }
 
-/* ---- Tutorial steps: angka tegas, teks lega ---- */
+
 #panel-others .others-stack .tutorial-card {
   gap: 20px !important;
 }
@@ -3053,7 +2965,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   line-height: 1.75 !important;
 }
 
-/* ---- About ---- */
+
 #panel-others .others-stack .about-card {
   gap: 16px !important;
   padding: 32px !important;
@@ -3078,7 +2990,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   line-height: 1.8 !important;
 }
 
-/* ---- Spesifikasi: kartu mini 2 kolom di PC ---- */
+
 #panel-others .others-stack .spec-grid {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
@@ -3098,7 +3010,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   grid-column: 1 / -1 !important;
 }
 
-/* ---- FAQ: item lega, mudah tap ---- */
+
 #panel-others .others-stack .faq-list {
   gap: 10px !important;
 }
@@ -3119,7 +3031,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   margin-top: 10px !important;
 }
 
-/* ---- Changelog: timeline rapi ---- */
+
 #panel-others .others-stack .changelog-list {
   gap: 12px !important;
 }
@@ -3140,7 +3052,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   gap: 6px !important;
 }
 
-/* ---- Social: rata kiri seperti section lain ---- */
+
 #panel-others .others-stack .social-card {
   text-align: left !important;
 }
@@ -3169,7 +3081,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   text-align: left !important;
 }
 
-/* ---- Report/help: tombol penuh ---- */
+
 #panel-others .others-stack .help-card-inner {
   padding: 28px !important;
   gap: 16px !important;
@@ -3192,7 +3104,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   font-size: 14px !important;
 }
 
-/* ---- Mobile: padat tapi tetap terbaca ---- */
+
 @media (max-width: 640px) {
   #panel-others > .panel-head-large,
   #panel-others > .others-stack-nav,
@@ -3204,7 +3116,7 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
     font-size: 22px !important;
   }
 
-  /* Navigasi kembali seperti PC: banyak bubble wrap berderet ke bawah */
+  
   .others-stack-nav {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -3297,10 +3209,7 @@ html[data-site-bg="black"] .others-stack-nav button:hover {
   }
 }
 
-/* ============================================================
-   18. GAYA REFERENSI AGENSI — statistik, banner CTA,
-   list bernomor hairline, grid insight. Full teks di PC.
-   ============================================================ */
+
 @media (min-width: 921px) {
   #panel-others > .panel-head-large,
   #panel-others > .others-stack-nav,
@@ -3309,17 +3218,18 @@ html[data-site-bg="black"] .others-stack-nav button:hover {
   }
 }
 
-/* ---- Judul tutorial ala "How we add value": besar, tanpa garis ---- */
+
 #panel-others .others-stack .tut-head {
   font-size: 26px !important;
   font-weight: 800 !important;
   letter-spacing: -0.03em !important;
+  text-transform: none !important;
   border-bottom: none !important;
   padding-bottom: 0 !important;
   margin-bottom: 6px !important;
 }
 
-/* ---- Steps ala referensi: kotak nomor + hairline ---- */
+
 #panel-others .others-stack .tutorial-step {
   gap: 16px !important;
   padding: 20px 2px !important;
@@ -3361,7 +3271,7 @@ html[data-site-bg="black"] .others-stack-nav button:hover {
   color: #111111 !important;
 }
 
-/* ---- Kartu statistik ala referensi: kicker + angka besar ---- */
+
 #panel-others .others-stack #others-spec .spec-grid > div.spec-stat {
   background: #f4f4f5 !important;
   background-image: none !important;
@@ -3400,7 +3310,7 @@ html[data-site-bg="black"] .others-stack-nav button:hover {
   box-shadow: none !important;
 }
 
-/* ---- Banner CTA hitam ala referensi (section Report) ---- */
+
 #panel-others .others-stack #others-report .card {
   background: #111111 !important;
   background-image: none !important;
@@ -3464,7 +3374,7 @@ html[data-site-bg="black"] .others-stack-nav button:hover {
   color: #ffffff !important;
 }
 
-/* ---- Changelog ala "insights": grid 2 kolom di PC ---- */
+
 @media (min-width: 921px) {
   #panel-others .others-stack #others-changelog .changelog-list {
     grid-template-columns: 1fr 1fr !important;
@@ -3476,7 +3386,7 @@ html[data-site-bg="black"] .others-stack-nav button:hover {
   letter-spacing: 0.04em !important;
 }
 
-/* ---- BLACK MODE: statistik + banner dibalik agar tetap kontras ---- */
+
 html[data-site-bg="black"] #panel-others .others-stack .tutorial-step .step-num {
   background: #000000 !important;
   border: 1px solid #2e2e33 !important;
@@ -3555,10 +3465,7 @@ html[data-site-bg="black"] #panel-others .others-stack #others-report a.handle {
   color: #111111 !important;
 }
 
-/* ============================================================
-   19. SATU BUBBLE — seluruh isi Lainnya dalam 1 kartu,
-   section dipisah garis halus di dalamnya.
-   ============================================================ */
+
 #panel-others .others-stack {
   background: #ffffff !important;
   background-image: none !important;
@@ -3612,7 +3519,7 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
   }
 }
 
-/* ---- Mobile section 18: statistik 2 kolom kompak, steps ramping ---- */@media (max-width: 640px) {
+@media (max-width: 640px) {
   #panel-others .others-stack .tut-head {
     font-size: 22px !important;
   }
@@ -3650,13 +3557,9 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
   }
 }
 
-/* ============================================================
-   20. SUPPORT & INFO FULL SCREEN PC — wadah melebar penuh,
-   isi bubble kral majalah 2 kolom, font lebih besar.
-   Mobile tetap 1 kolom (aturan lama menang di bawah 640px).
-   ============================================================ */
+
 @media (min-width: 921px) {
-  /* Lepas batas 1100px hanya saat panel Support & Info aktif */
+  
   body:not([data-view="beranda"]) .dash-panels:has(#panel-others.active-panel) {
     max-width: none !important;
     padding-left: 32px !important;
@@ -3671,7 +3574,7 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
     margin-right: 0 !important;
   }
 
-  /* Bubble raksasa: padding lega */
+  
   #panel-others .others-stack {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
@@ -3684,7 +3587,7 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
     min-width: 0 !important;
   }
 
-  /* Baris 1: dua tutorial berdampingan */
+  
   #panel-others .others-stack #others-tut-upload {
     grid-column: 1 !important;
     border-top: none !important;
@@ -3695,7 +3598,7 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
     border-top: none !important;
   }
 
-  /* Baris penuh: about, spec, faq, changelog */
+  
   #panel-others .others-stack #others-about,
   #panel-others .others-stack #others-spec,
   #panel-others .others-stack #others-faq,
@@ -3703,7 +3606,7 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
     grid-column: 1 / -1 !important;
   }
 
-  /* Baris 2 kolom: social + banner report */
+  
   #panel-others .others-stack #others-social {
     grid-column: 1 !important;
   }
@@ -3712,7 +3615,7 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
     grid-column: 2 !important;
   }
 
-  /* Font lebih besar agar full teks terbaca lega */
+  
   #panel-others .others-stack .tut-head {
     font-size: 28px !important;
   }
@@ -3744,10 +3647,7 @@ html[data-site-bg="black"] #panel-others .others-stack .others-section + .others
   }
 }
 
-/* ============================================================
-   22. DARK MODE: kartu Tools stroke putih LEMBUT (tidak menyala).
-   Ditaruh PALING AKHIR agar menang dari aturan border lama.
-   ============================================================ */
+
 html[data-site-bg="black"] .tool-card-new,
 html[data-site-bg="black"] #panel-tools .tool-card-new,
 html[data-site-bg="black"] #panel-others .tool-card-new,
@@ -3756,10 +3656,7 @@ html[data-site-bg="black"] #othersDetail .card {
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
 }
 
-/* ============================================================
-   23. DARK MODE Support&Info: bubble + semua kartu stroke putih
-   lembut, samakan dengan kartu Tools.
-   ============================================================ */
+
 html[data-site-bg="black"] #panel-others .others-stack {
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
 }
@@ -3771,11 +3668,7 @@ html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid >
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
 }
 
-/* ============================================================
-   24. REPORT REDESIGN — banner full-width rata tengah.
-   *** UBAH WARNA DI SINI *** cukup ganti nilai --report-*
-   di bawah, tanpa ubek-ubek aturan lain.
-   ============================================================ */
+
 #others-report {
   --report-bg: #ffffff;
   --report-ink: #111111;
@@ -3798,7 +3691,7 @@ html[data-site-bg="black"] #others-report {
   --report-btn-ink: #111111;
 }
 
-/* Penempatan: banner + social jadi baris penuh */
+
 #panel-others .others-stack #others-social,
 #panel-others .others-stack #others-report {
   grid-column: 1 / -1 !important;
@@ -3905,10 +3798,7 @@ html[data-site-bg="black"] #others-report {
   filter: brightness(1.06) !important;
 }
 
-/* ============================================================
-   25. DARK Support&Info: murni hitam + teks putih,
-   TANPA stroke putih (menang dari section 23).
-   ============================================================ */
+
 html[data-site-bg="black"] #panel-others .others-stack {
   background: #000000 !important;
   background-image: none !important;
@@ -3941,7 +3831,7 @@ html[data-site-bg="black"] #panel-others .others-stack .tutorial-step .step-num 
   border: 1px solid #2e2e33 !important;
 }
 
-/* Teks putih */
+
 html[data-site-bg="black"] #panel-others .others-stack .tutorial-step h3,
 html[data-site-bg="black"] #panel-others .others-stack .faq-q,
 html[data-site-bg="black"] #panel-others .others-stack .social-name,
@@ -3966,7 +3856,7 @@ html[data-site-bg="black"] #panel-others .others-stack #others-spec .spec-grid >
   color: #d8d8de !important;
 }
 
-/* Banner report ikut hitam murni di dark mode */
+
 html[data-site-bg="black"] #others-report {
   --report-bg: #000000;
   --report-ink: #ffffff;
@@ -4003,11 +3893,7 @@ html[data-site-bg="black"] #others-report {
   }
 }
 
-/* ============================================================
-   26. REPORT SAAS v2 — Support Center profesional inline form.
-   Menggantikan banner lama (tpl-report baru pakai .report-saas).
-   Mendukung theme white/black via --report-* + data-site-bg.
-   ============================================================ */
+
 #panel-others .others-stack #others-report .report-saas {
   background: var(--report-bg) !important;
   background-image: none !important;
@@ -4271,10 +4157,7 @@ html[data-site-bg="black"] #others-report {
   .report-send, .report-tiktok { width: 100%; flex: 1 1 auto; }
 }
 
-/* ============================================================
-   27. REPORT BUTTON-CARD + POPUP (model tombol -> popup).
-   Kartu di menu Lainnya + popup #help-modal versi SaaS.
-   ============================================================ */
+
 #panel-others .others-stack #others-report .report-saas-btn {
   text-align: center !important;
   align-items: center !important;
@@ -4282,7 +4165,7 @@ html[data-site-bg="black"] #others-report {
   padding: 44px 32px !important;
   gap: 14px !important;
 }
-/* Varian rata kiri: hanya judul + tombol + alt */
+
 #panel-others .others-stack #others-report .report-saas-left {
   text-align: left !important;
   align-items: start !important;
@@ -4343,7 +4226,7 @@ html[data-site-bg="black"] #others-report {
 }
 .report-alt a.handle { color: var(--report-ink) !important; font-weight: 800; }
 
-/* Popup SaaS */
+
 .help-modal-saas { z-index: 90; }
 .help-modal-saas .help-popup {
   max-width: 560px;
@@ -4419,8 +4302,7 @@ html[data-site-bg="black"] .help-popup-ico {
   .help-popup-actions { flex-direction: column; }
 }
 
-/* Dark mode eksplisit untuk kartu Laporkan (rata kiri): hitam murni + teks putih.
-   Ditulis eksplisit (tidak hanya via var) agar menang dari aturan generik. */
+
 html[data-site-bg="black"] #panel-others .others-stack #others-report .report-saas,
 html[data-site-bg="black"] #panel-others .others-stack #others-report .report-saas-btn,
 html[data-site-bg="black"] #panel-others .others-stack #others-report .report-saas-left {
@@ -4444,16 +4326,7 @@ html[data-site-bg="black"] #panel-others .others-stack #others-report .report-al
   color: #ffffff !important;
 }
 
-/* ============================================================
-   28. SIMBOL "+" tersebar tiap menu kecuali Home.
-   Elemen .ml-plus-field (absolute, di belakang konten).
-   Glif memakai Material Symbols Rounded ("add") agar smooth.
-   Monokrom via --ml-ink (otomatis ikut white/black mode).
-   Posisi (--px/--py), rotasi (--pr), ukuran (--ps) & opacity
-   (--po) TETAP sesuai HTML (tidak diacak).
-   pointer-events none + konten di z-index 1: tidak ganggu
-   klik/baca teks.
-   ============================================================ */
+
 #panel-tools,
 #panel-donate,
 #panel-others {
@@ -4470,7 +4343,7 @@ html[data-site-bg="black"] #panel-others .others-stack #others-report .report-al
   z-index: 0 !important;
 }
 
-/* Konten panel selalu di atas simbol plus */
+
 #panel-tools > *:not(.ml-plus-field),
 #panel-donate > *:not(.ml-plus-field),
 #panel-others > *:not(.ml-plus-field) {
@@ -4498,17 +4371,13 @@ html[data-site-bg="black"] .ml-plus-field span {
   color: #ffffff !important;
 }
 
-/* ============================================================
-   30. HOME ABOUT — judul raksasa rata tengah (font ala Home:
-   Inter 800, rapat -0.05em) + bio + tombol kontak.
-   ============================================================ */
+
 .home-about {
   max-width: 920px !important;
   margin: 0 auto !important;
   padding: 96px 24px 48px !important;
   text-align: center !important;
-  /* About satu layar penuh: judul lebih turun & MY VIDEOS
-     tersembunyi di bawah fold saat tombol About diklik */
+  
   min-height: calc(100vh - 84px) !important;
   min-height: calc(100svh - 84px) !important;
   box-sizing: border-box !important;
@@ -4531,7 +4400,7 @@ html[data-site-bg="black"] .ml-plus-field span {
   line-height: 1.85 !important;
   color: var(--ml-gray) !important;
 }
-/* White mode: bio lebih gelap agar jelas terbaca */
+
 html[data-site-bg="white"] .home-about-body {
   color: #3f3f46 !important;
 }
@@ -4550,15 +4419,7 @@ html[data-site-bg="white"] .home-about-body {
   .home-about-body { font-size: 14.5px !important; }
 }
 
-/* ============================================================
-   29. JUDUL BESAR seragam ala Home (Inter 800, rapat, tegas).
-   Home (.ml-title) = Inter 800 / -0.05em / tinta solid.
-   - Headline Alat, hero Donate, judul Laporkan: samakan gaya.
-   - Judul section Lainnya (tutorial/spec/faq/social): yang di
-     screenshot tampak pudar → paksa tinta solid + ukuran besar.
-   29B. MOBILE: simbol + disembunyikan di menu Tools & Donate
-   (tetap ada di Lainnya + semua tampilan PC).
-   ============================================================ */
+
 .tools-headline,
 #panel-donate .donate-hero h2,
 .report-saas-title,
@@ -4582,8 +4443,7 @@ html[data-site-bg="white"] .home-about-body {
   opacity: 1 !important;
 }
 
-/* Judul besar lain di panel Lainnya: samakan dengan font hero home
-   (Inter 800, -0.05em) */
+
 #panel-others .others-stack .about-hero-title,
 #panel-others .others-stack .about-intro-title,
 #panel-others .others-stack .changelog-h,
@@ -4596,18 +4456,13 @@ html[data-site-bg="white"] .home-about-body {
 
 @media (max-width: 640px) {
   #panel-tools .ml-plus-field,
-  #panel-donate .ml-plus-field {
+  #panel-donate .ml-plus-field,
+  #panel-others .ml-plus-field {
     display: none !important;
   }
 }
 
-/* ============================================================
-   31. MY VIDEOS & TIKTOK CARDS (Home)
-   - Tampil di PC dan mobile saat berada di panel Beranda
-   - Font judul sama persis dengan ABOUT VELARDTOOLS (Inter 800, -0.05em)
-   - 4 kartu tertata rapi di desktop (4 kolom) dan mobile (2 kolom)
-   - Otomatis beradaptasi dengan mode White dan Black
-   ============================================================ */
+
 #panel-beranda.active-panel .tiktok-section,
 #panel-beranda .tiktok-section {
   display: flex !important;
@@ -4668,7 +4523,7 @@ html[data-site-bg="white"] .home-about-body {
   transform: translateY(-4px) !important;
 }
 
-/* White mode */
+
 html[data-site-bg="white"] .tiktok-card {
   background: #ffffff !important;
   border: 1px solid #e4e4e7 !important;
@@ -4687,7 +4542,7 @@ html[data-site-bg="white"] .tiktok-stat:nth-child(1) .material-symbols-rounded {
   color: #71717a !important;
 }
 
-/* Black mode */
+
 html[data-site-bg="black"] .tiktok-card {
   background: #000000 !important;
   border: 1px solid #242428 !important;
@@ -4721,9 +4576,7 @@ html[data-site-bg="black"] .tiktok-like {
   }
 }
 
-/* ============================================================
-   33. TOMBOL KEMBALI-KE-ATAS + CHIP AKTIF PANEL LAINNYA
-   ============================================================ */
+
 .to-top-btn {
   position: fixed;
   right: 16px;
@@ -4768,7 +4621,7 @@ html[data-site-bg="black"] .to-top-btn {
   color: #000000;
 }
 
-/* Chip navigasi Lainnya yang sedang dibaca: menyala seperti menu aktif */
+
 .others-stack-nav button.active {
   background: #111111;
   border-color: #111111;
@@ -4785,12 +4638,9 @@ html[data-site-bg="black"] .others-stack-nav button.active {
   .to-top-btn { transition: none; }
 }
 
-/* ============================================================
-   32. LAINNYA FULL-BLEED MOBILE — semua isi mentok ke tepi
-   layar kiri/kanan, tidak ada ruang tersisa.
-   ============================================================ */
+
 @media (max-width: 640px) {
-  /* Lepas padding 24px wadah konten saat panel Lainnya aktif */
+  
   body:not([data-view="beranda"]) .dash-panels:has(#panel-others.active-panel) {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -4805,13 +4655,13 @@ html[data-site-bg="black"] .others-stack-nav button.active {
     margin-right: 0 !important;
   }
 
-  /* Header mentok tepi */
+  
   #panel-others > .panel-head-large {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 
-  /* Chip navigasi seperti PC: bubble rounded wrap berderet */
+  
   #panel-others > .others-stack-nav {
     gap: 8px !important;
   }
@@ -4820,7 +4670,7 @@ html[data-site-bg="black"] .others-stack-nav button.active {
     border-radius: 999px !important;
   }
 
-  /* Kartu-kartu: rapat tanpa jeda, sudut siku, sisi mentok layar */
+  
   #panel-others > .others-stack {
     gap: 0 !important;
   }
@@ -4837,4 +4687,561 @@ html[data-site-bg="black"] .others-stack-nav button.active {
     margin-top: -1px !important;
   }
 }
+
+.how-section { margin: 40px auto 12px !important; text-align: center; width: 100% !important; max-width: 1240px !important; padding: 0 clamp(20px, 4vw, 64px) !important; box-sizing: border-box; }
+.how-title { font-family: var(--ml-font) !important; font-weight: 800 !important; font-size: clamp(2.4rem, 1.5rem + 4.5vw, 4rem) !important; letter-spacing: -0.05em !important; line-height: 1.02 !important; color: var(--ml-ink) !important; margin-bottom: 16px; text-wrap: balance !important; }
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 48px); margin: 28px 0 18px; text-align: left; }
+.how-card { display: flex; gap: 16px; align-items: flex-start; background: none; border: none; border-radius: 0; padding: 0; box-shadow: none; }
+.how-num { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%; background: #111; color: #fff; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+.how-card h3 { font-family: var(--ml-font); font-weight: 800; font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px; }
+.how-card p { font-size: clamp(1rem, 0.9rem + 0.4vw, 1.15rem); color: var(--ml-gray); line-height: 1.6; }
+@media (max-width: 720px) {
+  .how-grid { grid-template-columns: 1fr; }
+}
+
+/* Garis diagonal di dasar hero: konten solid menutupinya, garis terus ke bawah */
+
+/* MINIMAL CLEAN STATIC BACKGROUND — seluruh web, CSS only, 0 JS.
+   Prinsip: backdrop (base + titik) hanya di layer DIAM (.cube-viewport,
+   .app-main, .app-container). Layer BERGERAK (.slide-track, .slide-panel,
+   .ml-hero) dibuat transparan supaya tidak repaint → tidak flash hitam saat
+   transisi translateX. Titik pakai SVG tile (murah di-composite).
+   Backup: backup_full/manual-20260914-152949 */
+html[data-site-bg="white"] .app-container,
+html[data-site-bg="white"] .app-main,
+html[data-site-bg="white"] .dash-panels {
+  background-color: #ffffff !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%23111111' fill-opacity='0.10'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+}
+html[data-site-bg="white"] .slide-container.cube-viewport,
+html[data-site-bg="white"] .cube-viewport {
+  background-color: #ffffff !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%23111111' fill-opacity='0.10'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+}
+html[data-site-bg="white"] .slide-track.cube-3d-box,
+html[data-site-bg="white"] #velardSlideTrack,
+html[data-site-bg="white"] .slide-panel.cube-face,
+html[data-site-bg="white"] .ml-hero {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+html[data-site-bg="black"] .app-container,
+html[data-site-bg="black"] .app-main,
+html[data-site-bg="black"] .dash-panels {
+  background-color: #000000 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+}
+html[data-site-bg="black"] .slide-container.cube-viewport,
+html[data-site-bg="black"] .cube-viewport {
+  background-color: #000000 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+}
+html[data-site-bg="black"] .slide-track.cube-3d-box,
+html[data-site-bg="black"] #velardSlideTrack,
+html[data-site-bg="black"] .slide-panel.cube-face,
+html[data-site-bg="black"] .ml-hero {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+/* Nav + kartu tetap solid agar teks kontras */
+html[data-site-bg="white"] .ml-nav,
+html[data-site-bg="black"] .ml-nav,
+html[data-site-bg="white"] .card,
+html[data-site-bg="white"] .tool-card-new,
+html[data-site-bg="white"] .tool-modal-card,
+html[data-site-bg="white"] .qm-card,
+html[data-site-bg="black"] .card,
+html[data-site-bg="black"] .tool-card-new,
+html[data-site-bg="black"] .tool-modal-card,
+html[data-site-bg="black"] .qm-card { background-image: none !important; }
+
+/* ============================================================
+   CLARITY PATCH: Capture Thumbnail + Merge — white/black mode
+   Masalah di screenshot: file input abu solid, tombol "Auto tiap"
+   pink pucat, tombol disabled nyaris tak terlihat, label samar,
+   border kartu menyatu dengan background.
+   Patch ini menaikkan kontras tanpa ubah struktur HTML.
+   ============================================================ */
+
+/* ---------- THUMBNAIL: WHITE (mode Putih) ---------- */
+html[data-site-bg="white"] #toolPanel-thumbnail .vt-card {
+  background: #ffffff !important;
+  border: 1px solid #d4d4d8 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.07) !important;
+  color: #111111 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail .thumb-label {
+  color: #52525b !important;
+  font-weight: 800 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail .crow-label { color: #111111 !important; font-weight: 700 !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail #videofile {
+  background: #f4f4f5 !important;
+  border: 1.5px dashed #a1a1aa !important;
+  color: #3f3f46 !important;
+  font-weight: 600 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #videofile::file-selector-button {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #111111 !important;
+  border-radius: 8px !important;
+  padding: 7px 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail .thumb-warn {
+  color: #b91c1c !important;
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail select#videow,
+html[data-site-bg="white"] #toolPanel-thumbnail select#snap_each {
+  background: #ffffff !important;
+  border: 1px solid #a1a1aa !important;
+  color: #111111 !important;
+  font-weight: 700 !important;
+  color-scheme: light !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail select#videow:focus,
+html[data-site-bg="white"] #toolPanel-thumbnail select#snap_each:focus {
+  border-color: #111111 !important;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.10) !important;
+}
+/* Tombol utama: hitam solid agar jelas di atas putih */
+html[data-site-bg="white"] #toolPanel-thumbnail .tbtn-primary,
+html[data-site-bg="white"] #toolPanel-thumbnail #snap {
+  background: #111111 !important;
+  border-color: #111111 !important;
+  color: #ffffff !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail .tbtn-primary:hover:not(:disabled),
+html[data-site-bg="white"] #toolPanel-thumbnail #snap:hover:not(:disabled) { background: #2a2a2a !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail #snap2 {
+  background: #111111 !important;
+  border: 1px solid #111111 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #snap2:hover:not(:disabled) { background: #2a2a2a !important; }
+/* Disabled: JELAS tapi tetap terlihat nonaktif (abu + teks gelap, bukan pudar) */
+html[data-site-bg="white"] #toolPanel-thumbnail .tbtn:disabled,
+html[data-site-bg="white"] #toolPanel-thumbnail #snap:disabled,
+html[data-site-bg="white"] #toolPanel-thumbnail #snap2:disabled {
+  opacity: 1 !important;
+  background: #e4e4e7 !important;
+  border-color: #d4d4d8 !important;
+  color: #52525b !important;
+  cursor: not-allowed !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #save {
+  background: #111111 !important;
+  border-color: #111111 !important;
+  color: #ffffff !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #save:disabled {
+  background: #e4e4e7 !important;
+  border-color: #d4d4d8 !important;
+  color: #52525b !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #saveall {
+  background: #ffffff !important;
+  border: 1px solid #a1a1aa !important;
+  color: #111111 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #saveall:disabled {
+  background: #f4f4f5 !important;
+  border-color: #d4d4d8 !important;
+  color: #71717a !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #clear { color: #3f3f46 !important; font-weight: 700 !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail #clear:hover:not(:disabled) { color: #dc2626 !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail #clear:disabled { color: #a1a1aa !important; opacity: 1 !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail #thumbResultLabel {
+  display: block !important;
+  text-align: center !important;
+  background: #f4f4f5 !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 8px !important;
+  padding: 7px 10px !important;
+  color: #52525b !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #video {
+  border: 1px solid #d4d4d8 !important;
+  background: #000000 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail #slider { accent-color: #111111 !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail #snapsize { color: #71717a !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail .output-container {
+  border: 1px solid #d4d4d8 !important;
+  background: #000000 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail .output.selected { border-color: #111111 !important; box-shadow: 0 0 0 2px #111111 !important; }
+html[data-site-bg="white"] #toolPanel-thumbnail #thumbViewer {
+  background: #f4f4f5 !important;
+  border: 1px solid #d4d4d8 !important;
+}
+html[data-site-bg="white"] #toolPanel-thumbnail .output-remove {
+  background: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* ---------- MERGE: WHITE (mode Putih) ---------- */
+html[data-site-bg="white"] #toolPanel-merge .tool-drop-zone .material-symbols-rounded { color: #111111 !important; }
+html[data-site-bg="white"] #toolPanel-merge .tool-drop-title { color: #111111 !important; }
+html[data-site-bg="white"] #toolPanel-merge .tool-drop-sub { color: #52525b !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-warn {
+  color: #b91c1c !important;
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+}
+html[data-site-bg="white"] #toolPanel-merge #toolMergePreview { border: 1px solid #d4d4d8 !important; background: #000000 !important; }
+html[data-site-bg="white"] #toolPanel-merge #toolMergePreviewName,
+html[data-site-bg="white"] #toolPanel-merge #toolMergeTime { color: #52525b !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-timeline {
+  background: #ffffff !important;
+  border: 1px solid #d4d4d8 !important;
+}
+html[data-site-bg="white"] #toolPanel-merge .merge-ruler { border-bottom: 1px solid #e4e4e7 !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-tick { color: #71717a !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-clip {
+  background: #f4f4f5 !important;
+  border: 2px solid #d4d4d8 !important;
+  color: #111111 !important;
+}
+html[data-site-bg="white"] #toolPanel-merge .merge-clip:hover { border-color: #71717a !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-clip.active { border-color: #111111 !important; box-shadow: 0 0 0 2px #111111 !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-playhead { background: #111111 !important; box-shadow: none !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-playhead::before { border-top-color: #111111 !important; }
+html[data-site-bg="white"] #toolPanel-merge .merge-total { color: #111111 !important; }
+html[data-site-bg="white"] #toolPanel-merge #toolMergeClear {
+  background: #ffffff !important;
+  border: 1px solid #a1a1aa !important;
+  color: #111111 !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="white"] #toolPanel-merge #toolMergeClear:hover:not(:disabled) { background: #f4f4f5 !important; }
+html[data-site-bg="white"] #toolPanel-merge #toolMergeClear:disabled {
+  background: #f4f4f5 !important;
+  border-color: #d4d4d8 !important;
+  color: #71717a !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="white"] #toolPanel-merge #toolMergeEmpty {
+  background: #fafafa !important;
+  border: 1px dashed #a1a1aa !important;
+  color: #52525b !important;
+}
+html[data-site-bg="white"] #toolPanel-merge .tool-status { color: #52525b !important; }
+
+/* ---------- THUMBNAIL: BLACK (mode Hitam) ---------- */
+html[data-site-bg="black"] #toolPanel-thumbnail .vt-card {
+  background: #000000 !important;
+  border: 1px solid #3a3a41 !important;
+  box-shadow: none !important;
+  color: #f4f4f5 !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .vt-header {
+  background: #000000 !important;
+  border-bottom: 1px solid #26262b !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-title { color: #f4f4f5 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-badge {
+  background: #1a1a1e !important;
+  border: 1px solid #3a3a41 !important;
+  color: #f4f4f5 !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-close,
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-icon-btn {
+  border: 1px solid #3a3a41 !important;
+  color: #b7bcc7 !important;
+  background: transparent !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-close:hover,
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-icon-btn:hover:not(#thumbCacheClear) {
+  background: #1a1a1e !important;
+  color: #ffffff !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-label { color: #d8d8de !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail .crow-label { color: #f4f4f5 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #videofile {
+  background: #000000 !important;
+  border: 1.5px dashed #55555e !important;
+  color: #d8d8de !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail #videofile::file-selector-button {
+  background: #f4f4f5 !important;
+  color: #111111 !important;
+  border: 1px solid #f4f4f5 !important;
+  border-radius: 8px !important;
+  padding: 7px 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .thumb-warn {
+  color: #fca5a5 !important;
+  background: rgba(220,38,38,.12) !important;
+  border: 1px solid rgba(220,38,38,.4) !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail select#videow,
+html[data-site-bg="black"] #toolPanel-thumbnail select#snap_each {
+  background: #1a1a1e !important;
+  border: 1px solid #55555e !important;
+  color: #f4f4f5 !important;
+  color-scheme: dark !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail select#videow:focus,
+html[data-site-bg="black"] #toolPanel-thumbnail select#snap_each:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.14) !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .tbtn-primary,
+html[data-site-bg="black"] #toolPanel-thumbnail #snap,
+html[data-site-bg="black"] #toolPanel-thumbnail #snap2,
+html[data-site-bg="black"] #toolPanel-thumbnail #save {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #111111 !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail .tbtn-primary:hover:not(:disabled),
+html[data-site-bg="black"] #toolPanel-thumbnail #snap:hover:not(:disabled),
+html[data-site-bg="black"] #toolPanel-thumbnail #snap2:hover:not(:disabled),
+html[data-site-bg="black"] #toolPanel-thumbnail #save:hover:not(:disabled) { background: #e4e4e7 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail .tbtn:disabled,
+html[data-site-bg="black"] #toolPanel-thumbnail #snap:disabled,
+html[data-site-bg="black"] #toolPanel-thumbnail #snap2:disabled,
+html[data-site-bg="black"] #toolPanel-thumbnail #save:disabled {
+  opacity: 1 !important;
+  background: #232328 !important;
+  border-color: #3a3a41 !important;
+  color: #8e8e96 !important;
+  cursor: not-allowed !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail #saveall {
+  background: transparent !important;
+  border: 1px solid #55555e !important;
+  color: #f4f4f5 !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail #saveall:disabled {
+  background: #1a1a1e !important;
+  border-color: #2c2c31 !important;
+  color: #71717a !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail #clear { color: #d8d8de !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #clear:hover:not(:disabled) { color: #ffffff !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #clear:disabled { color: #5b5b64 !important; opacity: 1 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #thumbResultLabel {
+  display: block !important;
+  text-align: center !important;
+  background: #1a1a1e !important;
+  border: 1px solid #2c2c31 !important;
+  border-radius: 8px !important;
+  padding: 7px 10px !important;
+  color: #d8d8de !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail #video { border: 1px solid #3a3a41 !important; background: #000000 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #videoControls .button-container {
+  background: #000000 !important;
+  border: 1px solid #2c2c31 !important;
+}
+html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button { color: #f4f4f5 !important; border-left-color: #2c2c31 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button span:last-child { color: #b7bcc7 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button:hover { background: #1a1a1e !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button.tplay { background: #ffffff !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button.tplay .play-controls { color: #111111 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #slider { accent-color: #ffffff !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #snapsize { color: #8e8e96 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail .output-container { border: 1px solid #3a3a41 !important; background: #000000 !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail .output.selected { border-color: #ffffff !important; box-shadow: 0 0 0 2px #ffffff !important; }
+html[data-site-bg="black"] #toolPanel-thumbnail #thumbViewer { background: #000000 !important; border: 1px solid #2c2c31 !important; }
+
+/* ---------- MERGE: BLACK (mode Hitam) ---------- */
+html[data-site-bg="black"] #toolPanel-merge .tool-drop-zone {
+  background: #000000 !important;
+  border: 1.5px dashed #55555e !important;
+  color: #f4f4f5 !important;
+}
+html[data-site-bg="black"] #toolPanel-merge .tool-drop-zone .material-symbols-rounded { color: #ffffff !important; }
+html[data-site-bg="black"] #toolPanel-merge .tool-drop-title { color: #f4f4f5 !important; }
+html[data-site-bg="black"] #toolPanel-merge .tool-drop-sub { color: #b7bcc7 !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-warn {
+  color: #fca5a5 !important;
+  background: rgba(220,38,38,.12) !important;
+  border: 1px solid rgba(220,38,38,.4) !important;
+}
+html[data-site-bg="black"] #toolPanel-merge #toolMergePreview { border: 1px solid #3a3a41 !important; background: #000000 !important; }
+html[data-site-bg="black"] #toolPanel-merge #toolMergePreviewName,
+html[data-site-bg="black"] #toolPanel-merge #toolMergeTime { color: #b7bcc7 !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-tbtn {
+  background: #1a1a1e !important;
+  border: 1px solid #3a3a41 !important;
+  color: #f4f4f5 !important;
+}
+html[data-site-bg="black"] #toolPanel-merge .merge-tbtn:hover { background: #232328 !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-tbtn.play {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #111111 !important;
+}
+html[data-site-bg="black"] #toolPanel-merge .merge-timeline { background: #000000 !important; border: 1px solid #2c2c31 !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-ruler { border-bottom: 1px solid #2c2c31 !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-tick { color: #8e8e96 !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-clip {
+  background: #1a1a1e !important;
+  border: 2px solid #3a3a41 !important;
+  color: #f4f4f5 !important;
+}
+html[data-site-bg="black"] #toolPanel-merge .merge-clip:hover { border-color: #71717a !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-clip.active { border-color: #ffffff !important; box-shadow: 0 0 0 2px #ffffff !important; }
+html[data-site-bg="black"] #toolPanel-merge .merge-total { color: #f4f4f5 !important; }
+html[data-site-bg="black"] #toolPanel-merge #toolMergeClear {
+  background: #1a1a1e !important;
+  border: 1px solid #3a3a41 !important;
+  color: #f4f4f5 !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="black"] #toolPanel-merge #toolMergeClear:hover:not(:disabled) { background: #232328 !important; }
+html[data-site-bg="black"] #toolPanel-merge #toolMergeClear:disabled {
+  background: #1a1a1e !important;
+  border-color: #2c2c31 !important;
+  color: #5b5b64 !important;
+  opacity: 1 !important;
+}
+html[data-site-bg="black"] #toolPanel-merge #toolMergeEmpty {
+  background: #000000 !important;
+  border: 1px dashed #3a3a41 !important;
+  color: #b7bcc7 !important;
+}
+html[data-site-bg="black"] #toolPanel-merge .tool-status { color: #b7bcc7 !important; }
+
+/* ============================================================
+   MOBILE: tombol Play pas di tengah (3x3 grid, Play = sel tengah)
+   9 tombol -> baris 2 kolom 2 otomatis = posisi tengah.
+   Berlaku white/black, override aturan lingkaran tplay desktop.
+   ============================================================ */
+@media (max-width: 640px) {
+  #toolPanel-thumbnail #videoControls .button-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    padding: 8px !important;
+    overflow: visible !important;
+    border-radius: 12px !important;
+  }
+  #toolPanel-thumbnail #videoControls button {
+    flex: none !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 54px !important;
+    margin: 0 !important;
+    padding: 8px 4px !important;
+    border-radius: 10px !important;
+    border-left: none !important;
+  }
+  /* tplay = anak ke-5 -> otomatis di tengah (baris 2, kolom 2) */
+  #toolPanel-thumbnail #videoControls button.tplay {
+    grid-row: 2 !important;
+    grid-column: 2 !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 54px !important;
+    margin: 0 !important;
+    padding: 8px 4px !important;
+    border-radius: 10px !important;
+    border-left: none !important;
+    align-self: stretch !important;
+  }
+  #toolPanel-thumbnail #videoControls button.tplay .play-controls,
+  #toolPanel-thumbnail #videoControls button.tplay .play-control,
+  #toolPanel-thumbnail #videoControls button.tplay .pause-control {
+    font-size: 28px !important;
+  }
+  /* White: tiap sel putih, Play hitam */
+  html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button {
+    background: #ffffff !important;
+    border: 1px solid #e4e4e7 !important;
+  }
+  html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay {
+    background: #111111 !important;
+    border-color: #111111 !important;
+  }
+  html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay .play-controls,
+  html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay .play-control,
+  html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button.tplay .pause-control {
+    color: #ffffff !important;
+  }
+  /* Black: tiap sel gelap, Play putih */
+  html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button {
+    background: #1a1a1e !important;
+    border: 1px solid #2c2c31 !important;
+  }
+  html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button.tplay {
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+  }
+  html[data-site-bg="black"] #toolPanel-thumbnail #videoControls button.tplay .play-controls {
+    color: #111111 !important;
+  }
+}
+
+/* LOCK hero mobile ala PC: grid full-width, gambar + bubble white/dark fix.
+   Tanpa ini grid shrink-to-fit (flex item, align-items:center) sehingga
+   kolom mengikuti panjang teks -> gambar & bubble geser tiap ganti bahasa. */
+@media (max-width: 920px) {
+  .ml-hero-grid {
+    align-self: stretch !important;
+    width: 100% !important;
+  }
+  .ml-hero-media {
+    min-height: 430px;
+  }
+  .ml-hero-img {
+    width: auto !important;
+    height: 300px !important;
+    max-height: 36vh !important;
+    max-width: 100%;
+    flex: none !important;
+    margin: 0 auto;
+  }
+  .ml-bg-pick {
+    align-self: center !important;
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+    flex: none !important;
+    margin: 12px auto 0 !important;
+  }
+  .ml-bg-pick-label {
+    text-align: center;
+    white-space: nowrap;
+    min-height: 1.2em;
+  }
+  .ml-bg-options {
+    width: 100% !important;
+    min-height: 41px;
+  }
+  .ml-bg-opt {
+    min-height: 33px;
+  }
+}
+@media (max-width: 640px) {
+  .ml-hero-media {
+    align-items: center;
+  }
+  .ml-hero-img {
+    height: 260px !important;
+    max-height: 34vh !important;
+  }
+}
+
 

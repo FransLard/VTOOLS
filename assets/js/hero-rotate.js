@@ -1,4 +1,3 @@
-/* VelardTools — hero rotating word: creator > video > viral > reels > shorts */
 (function () {
   "use strict";
   var WORDS = ["creator", "video", "viral", "reels", "shorts"];
@@ -9,19 +8,15 @@
     var el = document.getElementById("mlRotateWord");
     if (!el) return;
     if (WORDS.indexOf(el.textContent.trim().toLowerCase()) === -1) {
-      // biarkan kata awal dari HTML apa adanya sebagai kata pertama
       WORDS = [el.textContent.trim()].concat(WORDS.filter(function (w) {
         return w !== el.textContent.trim();
       }));
     }
   function fitSize() {
-    // font disamakan semua — tidak ada pengecilan otomatis
     el.classList.remove("is-long");
     el.classList.remove("is-mid");
   }
-  // Lebar wadah dikunci per kata agar underline (milik wadah) tetap
-  // tampil selama kata berganti — hanya menyusut/melebar halus
-  var box = el.parentElement; // .ml-rotate
+  var box = el.parentElement;
   var meas = null;
   function measure(text) {
     try {
@@ -52,23 +47,22 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { syncWidth(el.textContent.trim()); });
     } catch (e) {}
     window.addEventListener("resize", function () { syncWidth(el.textContent.trim()); });
+    window.addEventListener("qm:langchange", function () { setTimeout(function () { syncWidth(el.textContent.trim()); }, 60); });
     var reduce = false;
     try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
     if (reduce) return;
     var timer = null;
     function next() {
-      // bekukan lebar lama dulu agar transisi ke lebar baru mulus
       try { if (box) box.style.width = el.offsetWidth + "px"; } catch (e) {}
-      void el.offsetWidth; // paksa reflow
+      void el.offsetWidth;
       el.classList.add("is-out");
       setTimeout(function () {
         i = (i + 1) % WORDS.length;
         el.textContent = WORDS[i];
         fitSize();
-        syncWidth(WORDS[i]); // wadah + underline menyusut/melebar halus
+        syncWidth(WORDS[i]);
         el.classList.remove("is-out");
         el.classList.add("is-in");
-        // paksa reflow agar transisi masuk jalan
         void el.offsetWidth;
         requestAnimationFrame(function () {
           el.classList.remove("is-in");
@@ -76,13 +70,11 @@
       }, OUT_MS);
     }
     timer = setInterval(function () {
-      // jeda saat tab tidak terlihat / hero tidak aktif
       if (document.hidden) return;
       var panel = document.getElementById("panel-beranda");
       if (panel && !panel.classList.contains("active-panel")) return;
       next();
     }, INTERVAL);
-    // bersihkan saat unload (aman, tidak wajib)
     window.addEventListener("beforeunload", function () { if (timer) clearInterval(timer); });
   }
 
