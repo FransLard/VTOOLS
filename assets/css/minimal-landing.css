@@ -475,13 +475,15 @@ body .bg-static { display: none !important; }
 
 
 .ml-btn-outline {
-  background: transparent;
+  background: #fff;
+  background-image: none;
   color: var(--ml-ink);
   border: 1.5px solid var(--ml-ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .ml-btn-outline:hover {
-  background: var(--ml-soft);
+  background: #f4f4f5;
   transform: translateY(-1px);
 }
 
@@ -1972,8 +1974,16 @@ html[data-site-bg="black"] .ml-btn-primary {
 }
 
 html[data-site-bg="black"] .ml-btn-outline {
+  background: #17171c !important;
+  background-image: none !important;
   border-color: #f4f4f5 !important;
   color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] .ml-btn-outline:hover {
+  background: #232329 !important;
+  background-image: none !important;
+  border-color: #ffffff !important;
 }
 
 html[data-site-bg="black"] .ml-bg-pick,
@@ -2839,6 +2849,24 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   border: 1px solid #2e2e33 !important;
   box-shadow: none !important;
   color: #f4f4f5 !important;
+}
+
+html[data-site-bg="black"] #panel-tools .tool-card-new,
+html[data-site-bg="black"] #panel-others .tool-card-new {
+  background: #000000 !important;
+  background-image: none !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-site-bg="black"] #panel-tools .tool-card-new:hover,
+html[data-site-bg="black"] #panel-others .tool-card-new:hover {
+  background: #0d0d10 !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
 }
 
 
@@ -3809,7 +3837,7 @@ html[data-site-bg="black"] #panel-tools .tool-card-new,
 html[data-site-bg="black"] #panel-others .tool-card-new,
 html[data-site-bg="black"] #othersDetail .tool-card-new,
 html[data-site-bg="black"] #othersDetail .card {
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
 }
 
 
