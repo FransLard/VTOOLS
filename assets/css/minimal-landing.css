@@ -5138,40 +5138,40 @@ html[data-site-bg="black"] #toolPanel-merge .tool-status { color: #b7bcc7 !impor
     display: flex !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
-    gap: 4px !important;
-    padding: 6px !important;
+    gap: 2px !important;
+    padding: 4px !important;
     border-radius: 12px !important;
     scrollbar-width: thin !important;
   }
   #toolPanel-thumbnail #videoControls button {
-    flex: 0 0 auto !important;
-    min-width: 38px !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
     width: auto !important;
     height: auto !important;
-    min-height: 46px !important;
+    min-height: 40px !important;
     margin: 0 !important;
-    padding: 4px 3px !important;
-    border-radius: 10px !important;
+    padding: 3px 1px !important;
+    border-radius: 8px !important;
     border-left: none !important;
   }
-  #toolPanel-thumbnail #videoControls .play-controls { font-size: 18px !important; }
-  #toolPanel-thumbnail #videoControls button span:last-child { font-size: 8px !important; }
+  #toolPanel-thumbnail #videoControls .play-controls { font-size: 16px !important; }
+  #toolPanel-thumbnail #videoControls button span:last-child { font-size: 7px !important; }
   #toolPanel-thumbnail #videoControls button.tplay {
     grid-row: auto !important;
     grid-column: auto !important;
     width: auto !important;
     height: auto !important;
-    min-height: 46px !important;
+    min-height: 40px !important;
     margin: 0 !important;
-    padding: 4px 3px !important;
-    border-radius: 10px !important;
+    padding: 3px 1px !important;
+    border-radius: 8px !important;
     border-left: none !important;
     align-self: auto !important;
   }
   #toolPanel-thumbnail #videoControls button.tplay .play-controls,
   #toolPanel-thumbnail #videoControls button.tplay .play-control,
   #toolPanel-thumbnail #videoControls button.tplay .pause-control {
-    font-size: 22px !important;
+    font-size: 20px !important;
   }
   /* White: tiap sel putih, Play hitam */
   html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button {
