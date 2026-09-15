@@ -1135,7 +1135,6 @@
       const localBaseURL = getLocalFFmpegBaseURL();
       const cdnBaseMT = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.6/dist/umd';
       const cdnBaseST = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
-      addLog("[FFmpeg] Multi-threading: " + (isMultiThread ? "Enabled" : "Disabled"));
       const attempts=[];
       if(isMultiThread){
         attempts.push({label:'local assets (MT)', base:localBaseURL, core:'ffmpeg-core', mt:true, timeout:15000});
@@ -1144,10 +1143,11 @@
       attempts.push({label:'local assets (ST)', base:localBaseURL, core:'ffmpeg-core-st', mt:false, timeout:20000});
       attempts.push({label:'CDN (ST)', base:cdnBaseST, core:'ffmpeg-core', mt:false, timeout:35000});
       let lastErr=null;
+      addLog(tr("logFfmpegPrep","Menyiapkan mesin..."));
       for(const attempt of attempts){
         let instance=null;
         try{
-          addLog("  Loading FFmpeg Core WASM (" + (attempt.mt?"Multi-Thread":"Single-Thread")+", "+attempt.label+")...");
+          try{ console.debug("[FFmpeg] try "+attempt.label); }catch(e){}
           const classWorkerURL = await buildInlineWorkerURL();
           const coreURL = await withTimeout(toBlobURL(attempt.base+'/'+attempt.core+'.js','text/javascript'), attempt.timeout, attempt.label+' core download');
           const wasmURL = await withTimeout(toBlobURL(attempt.base+'/'+attempt.core+'.wasm','application/wasm'), attempt.timeout, attempt.label+' wasm download');
@@ -1194,13 +1194,13 @@
           });
           await withTimeout(instance.load(config), attempt.timeout, attempt.label+' engine init');
           try{ URL.revokeObjectURL(classWorkerURL); }catch(e){ console.warn(e); }
-          addLog("  FFmpeg Core WASM loaded from "+attempt.label+".");
+          addLog(tr("logFfmpegReady","Mesin siap."));
           ffmpegInstance=instance;
           return instance;
         }catch(err){
           lastErr=err;
           if(instance){ try{instance.terminate();}catch(e){ console.warn(e); } }
-          addLog("  "+attempt.label+" failed: "+getErrorMessage(err));
+          try{ console.debug("[FFmpeg] "+attempt.label+" unavailable: "+getErrorMessage(err)); }catch(e){}
         }
       }
       try{
