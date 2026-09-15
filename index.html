@@ -1059,7 +1059,7 @@
       <p class="donate-text" data-i18n-html="donatePopupText">Bantu donasi untuk pengembangan aplikasi ini agar terus gratis dan makin bagus. Terima kasih! :))</p>
       <div class="modal-actions">
         <button class="btn-cancel" id="donateLaterBtn" type="button" data-i18n="donateLater">Nanti saja</button>
-        <button class="btn-proceed" id="donateCoffeeBtn" type="button" data-i18n="donateCoffee">Belikan saya kopi</button>
+        <button class="btn-proceed" id="donateCoffeeBtn" type="button" data-i18n="donateCoffee" onclick="if(window.velardGoDonate)window.velardGoDonate()">Belikan saya kopi</button>
       </div>
     </div>
   </div>
@@ -1098,6 +1098,22 @@
   <script src="assets/js/offline.js?v=1"></script>
   <script src="assets/js/errlog.js?v=2"></script>
   <script src="assets/js/sample.js?v=1"></script>
+  <script>
+  window.velardGoDonate=function(){
+    try{var m=document.getElementById("donateModal");if(m)m.hidden=true;}catch(e){}
+    try{document.body.style.overflow="";}catch(e){}
+    try{
+      var tb=document.getElementById("toolModalBackdrop");
+      if(tb){tb.hidden=true;tb.classList.remove("active");}
+      var tc=document.getElementById("toolModalCard");
+      if(tc&&!tc.hidden){tc.hidden=true;tc.classList.remove("expanded","is-morphing");document.body.classList.remove("tool-modal-open");}
+    }catch(e){}
+    try{if(window.velardActivatePanel){window.velardActivatePanel("donate",true);return;}}catch(e){}
+    try{var f=document.querySelector('.floating-nav-item[data-panel="donate"]');if(f){f.click();return;}}catch(e){}
+    try{var n=document.querySelector('.nav-item[data-panel="donate"]');if(n){n.click();return;}}catch(e){}
+    try{location.hash="#donate";}catch(e){}
+  };
+  </script>
   <script>window.addEventListener('load',function(){var n=0;var t=setInterval(function(){try{window.dispatchEvent(new Event('resize'))}catch(e){}if(++n>=4)clearInterval(t)},700)});</script>
 
 </body>
