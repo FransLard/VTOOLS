@@ -5130,47 +5130,48 @@ html[data-site-bg="black"] #toolPanel-merge #toolMergeEmpty {
 html[data-site-bg="black"] #toolPanel-merge .tool-status { color: #b7bcc7 !important; }
 
 /* ============================================================
-   MOBILE: tombol Play pas di tengah (3x3 grid, Play = sel tengah)
-   9 tombol -> baris 2 kolom 2 otomatis = posisi tengah.
-   Berlaku white/black, override aturan lingkaran tplay desktop.
+   MOBILE: kontrol thumbnail sejajar 1 baris (tombol padat).
+   Berlaku white/black.
    ============================================================ */
 @media (max-width: 640px) {
   #toolPanel-thumbnail #videoControls .button-container {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 6px !important;
-    padding: 8px !important;
-    overflow: visible !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 4px !important;
+    padding: 6px !important;
     border-radius: 12px !important;
+    scrollbar-width: thin !important;
   }
   #toolPanel-thumbnail #videoControls button {
-    flex: none !important;
-    min-width: 0 !important;
+    flex: 0 0 auto !important;
+    min-width: 38px !important;
     width: auto !important;
     height: auto !important;
-    min-height: 54px !important;
+    min-height: 46px !important;
     margin: 0 !important;
-    padding: 8px 4px !important;
+    padding: 4px 3px !important;
     border-radius: 10px !important;
     border-left: none !important;
   }
-  /* tplay = anak ke-5 -> otomatis di tengah (baris 2, kolom 2) */
+  #toolPanel-thumbnail #videoControls .play-controls { font-size: 18px !important; }
+  #toolPanel-thumbnail #videoControls button span:last-child { font-size: 8px !important; }
   #toolPanel-thumbnail #videoControls button.tplay {
-    grid-row: 2 !important;
-    grid-column: 2 !important;
+    grid-row: auto !important;
+    grid-column: auto !important;
     width: auto !important;
     height: auto !important;
-    min-height: 54px !important;
+    min-height: 46px !important;
     margin: 0 !important;
-    padding: 8px 4px !important;
+    padding: 4px 3px !important;
     border-radius: 10px !important;
     border-left: none !important;
-    align-self: stretch !important;
+    align-self: auto !important;
   }
   #toolPanel-thumbnail #videoControls button.tplay .play-controls,
   #toolPanel-thumbnail #videoControls button.tplay .play-control,
   #toolPanel-thumbnail #videoControls button.tplay .pause-control {
-    font-size: 28px !important;
+    font-size: 22px !important;
   }
   /* White: tiap sel putih, Play hitam */
   html[data-site-bg="white"] #toolPanel-thumbnail #videoControls button {
