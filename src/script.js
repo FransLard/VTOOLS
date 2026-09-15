@@ -245,7 +245,12 @@
       while (els.logArea.children.length > 150) els.logArea.removeChild(els.logArea.firstChild);
     } catch (e) {}
     els.logArea.scrollTop = els.logArea.scrollHeight;
-    try{ if(!els.logArea.hidden) els.logArea.scrollIntoView({ behavior: "smooth", block: "nearest" }); }catch(e){}
+    try{
+      if(!els.logArea.hidden){
+        const body = els.logArea.closest(".tool-modal-body");
+        if(body && (body.scrollHeight - body.scrollTop - body.clientHeight) < 160) body.scrollTop = body.scrollHeight;
+      }
+    }catch(e){}
   }
 
   let _lastProgTime = 0;
