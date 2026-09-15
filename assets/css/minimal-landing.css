@@ -3220,6 +3220,17 @@ html[data-site-bg="black"] #panel-others .tool-card-new .tool-arrow {
   #panel-others .others-stack .tutorial-step p,
   #panel-others .others-stack .about-p,
   #panel-others .others-stack .about-desc,
+  #panel-others .others-stack .faq-sub,
+  #panel-others .others-stack .social-desc,
+  #panel-others .others-stack .help-desc {
+    font-size: 13.5px !important;
+    line-height: 1.7 !important;
+    text-align: left !important;
+  }
+  #panel-others .others-stack .tutorial-step h3,
+  #panel-others .others-stack .tutorial-step div {
+    text-align: left !important;
+  }
 .home-stats {
   display: flex !important;
   flex-direction: column !important;
@@ -3308,12 +3319,6 @@ html[data-site-bg="white"] .home-stat-label { color: #71717a !important; }
 @media (max-width: 640px) {
   .home-stats { gap: 22px !important; padding: 20px 18px 4px !important; }
 }
-#panel-others .others-stack .faq-sub,
-  #panel-others .others-stack .social-desc,
-  #panel-others .others-stack .help-desc {
-    font-size: 13.5px !important;
-    line-height: 1.7 !important;
-  }
 
   #panel-others .others-stack .tutorial-step .step-num {
     width: 26px !important;
