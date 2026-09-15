@@ -5429,4 +5429,34 @@ html[data-site-bg="black"] #toolPanel-merge .tool-status { color: #b7bcc7 !impor
   }
 }
 
+/* HOME SCROLL REVEAL — efek ringan: teks/section bawah fade + naik dikit saat scroll.
+   Class .reveal ditambah via JS (progressive enhancement: tanpa JS tetap terlihat).
+   Override aturan opacity:1/transform:none di atas khusus saat belum .is-visible. */
+#panel-beranda .reveal {
+  will-change: opacity, transform;
+  transition: opacity 0.6s ease, transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+#panel-beranda .reveal:not(.is-visible) {
+  opacity: 0 !important;
+  transform: translateY(26px) !important;
+}
+#panel-beranda .reveal.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+/* Stagger ringan antar kartu */
+#panel-beranda .how-grid .how-card.reveal.is-visible:nth-child(2) { transition-delay: 90ms; }
+#panel-beranda .how-grid .how-card.reveal.is-visible:nth-child(3) { transition-delay: 180ms; }
+#panel-beranda .tiktok-grid .tiktok-card.reveal.is-visible:nth-child(2) { transition-delay: 80ms; }
+#panel-beranda .tiktok-grid .tiktok-card.reveal.is-visible:nth-child(3) { transition-delay: 160ms; }
+#panel-beranda .tiktok-grid .tiktok-card.reveal.is-visible:nth-child(4) { transition-delay: 240ms; }
+#panel-beranda .home-stats-row .home-stat.reveal.is-visible:nth-child(3) { transition-delay: 120ms; }
+@media (prefers-reduced-motion: reduce) {
+  #panel-beranda .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 
