@@ -122,6 +122,30 @@
         el.hidden = true;
     }
     window.vtVideo = video || null;
+    function safePlay(v) {
+        var vv = v || video;
+        if (!vv) return;
+        try {
+            var p = vv.play();
+            if (p && typeof p.catch === "function") p.catch(function () {});
+        } catch (e) {}
+    }
+    function safePause(v) {
+        var vv = v || video;
+        if (!vv) return;
+        try { vv.pause(); } catch (e) {}
+    }
+    function togglePlay(v) {
+        var vv = v || video;
+        if (!vv) return;
+        try {
+            if (vv.paused) safePlay(vv);
+            else safePause(vv);
+        } catch (e) {}
+    }
+    window.vtToggle = function () { togglePlay(video); };
+    window.vtPlay = function () { safePlay(video); };
+    window.vtPause = function () { safePause(video); };
     var _lastThumbInfo = 0;
     function timeUpdate(force) {
         if (!video) return;
@@ -133,7 +157,6 @@
             slider.value = video.currentTime;
         }
         if (!videoInfo) return;
-        // PERF-OPT aman: info teks max 2x/detik, hasil sama persis
         if (!force) {
             try {
                 var _nt = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
@@ -169,9 +192,8 @@
     if (video) {
         video.addEventListener("timeupdate", function(){ timeUpdate(false); });
         video.addEventListener("click", function() {
-            try { if (video.paused) video.play(); else video.pause(); } catch (e) {}
+            togglePlay(video);
         });
-        // PERF-OPT aman: tandai body saat preview jalan agar background pause (tidak ubah logika)
         try {
             video.addEventListener("play", function(){ try { document.body.classList.add("is-preview"); } catch (e) {} });
             video.addEventListener("pause", function(){ try { document.body.classList.remove("is-preview"); } catch (e) {} });
@@ -180,7 +202,6 @@
         var _thumbPlayBtn = null, _thumbPauseBtn = null;
         setInterval(function() {
             if (!video) return;
-            // PERF-OPT aman: cache tombol, hasil visual sama
             if (!_thumbPlayBtn) _thumbPlayBtn = document.querySelector("#toolPanel-thumbnail .play-control");
             if (!_thumbPauseBtn) _thumbPauseBtn = document.querySelector("#toolPanel-thumbnail .pause-control");
             var play = _thumbPlayBtn, pause = _thumbPauseBtn;
@@ -209,8 +230,10 @@
             }
             video.objectURL = false;
             try {
-                video.play();
                 video.pause();
+                if (video.currentTime === 0) {
+                    try { video.currentTime = 0.1; } catch (e2) {}
+                }
             } catch (e) {}
             resize();
         }, false);
@@ -269,12 +292,13 @@
         cont.style.cssText = "display:inline-block;flex:0 0 128px;width:128px;max-width:128px;min-width:128px;";
         cont.appendChild(img);
         var label = document.createElement("label");
-        label.innerHTML = time.toFixed(2) + "s " + w + "x" + h;
+        label.textContent = time.toFixed(2) + "s " + w + "x" + h;
         cont.appendChild(label);
-        var close = document.createElement("a");
+        var close = document.createElement("button");
+        close.type = "button";
         close.className = "output-remove";
-        close.innerHTML = "x";
-        close.href = "javascript:void(0)";
+        close.textContent = "x";
+        close.setAttribute("aria-label", "Hapus gambar");
         close.addEventListener("click", function() {
             var wasSelected = cont.querySelector("img.selected") ? true : false;
             container.removeChild(cont);
@@ -456,8 +480,7 @@
         }
         hideWarn();
         if (fileInput) {
-            // PERF-OPT aman: pause + buang blob lama agar decoder tidak numpuk (hasil sama)
-            try { video.pause(); } catch (e) {}
+            safePause(video);
             if (video.objectURL && video.src) {
                 try {
                     URL.revokeObjectURL(video.src);
@@ -479,8 +502,8 @@
     window.loadVideoFile = loadVideoFile;
     function loadVideoURL(url) {
         if (!video || !url) return;
-        // PERF-OPT aman: bersihkan blob lama sebelum ganti sumber (tidak ubah logika)
-        try { video.pause(); } catch (e) {}
+        if (!/^https?:\/\//i.test(String(url).trim())) { showWarn("URL harus diawali http:// atau https://"); return; }
+        safePause(video);
         try {
             if (video.objectURL && video.src && video.src.indexOf("blob:") === 0) URL.revokeObjectURL(video.src);
         } catch (e) {}
@@ -544,9 +567,7 @@
     });
     function thumbClearCache() {
         clearInterval(snapProc);
-        try {
-            if (video) video.pause();
-        } catch (e) {}
+        safePause(video);
         try {
             if (video && video.objectURL && video.src) URL.revokeObjectURL(video.src);
         } catch (e) {}

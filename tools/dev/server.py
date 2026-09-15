@@ -59,6 +59,12 @@ class ThreadingServer(socketserver.ThreadingTCPServer):
     allow_reuse_address = True
 
 
-with ThreadingServer(("127.0.0.1", PORT), Handler) as httpd:
+with ThreadingServer(("0.0.0.0", PORT), Handler) as httpd:
     print(f"Serving http://127.0.0.1:{PORT} with COOP/COEP enabled.")
+    try:
+        import socket as _s
+        _lan = _s.gethostbyname(_s.gethostname())
+        print(f"LAN (buka di HP satu WiFi): http://{_lan}:{PORT}")
+    except Exception as e:
+        print(e)
     httpd.serve_forever()

@@ -1,9 +1,3 @@
-/* VelardTools — Report popup helper (panel Lainnya -> tombol Laporkan/Bantuan)
-   Model: kartu tombol -> buka popup #help-modal (seperti dulu).
-   Pengiriman utama tetap milik i18n.js (EmailJS). File ini memastikan:
-   1) tombol [data-open-help] selalu membuka popup (termasuk hasil build others-stack.js),
-   2) popup bisa ditutup via X / Batal / klik backdrop / Escape,
-   3) EmailJS ter-init + fallback kirim kalau handler utama tidak jalan. */
 (function () {
   "use strict";
 
@@ -65,8 +59,6 @@
     try { localStorage.setItem(RL_KEY, JSON.stringify(v)); } catch (e) {}
   }
 
-  /* Fallback sender: hanya jalan kalau handler utama (i18n.js) tidak merespons
-     dalam 600ms setelah klik (tombol tidak disabled + status masih kosong). */
   function fallbackSend() {
     var ta = msgEl(), st = statusEl(), btn = sendBtn();
     if (!ta || !st || !btn) return;
@@ -123,7 +115,6 @@
     }, 600);
   }
 
-  // 1) Tombol buka (delegasi: tahan terhadap build dinamis others-stack)
   document.addEventListener("click", function (e) {
     var b = e && e.target && e.target.closest ? e.target.closest("[data-open-help]") : null;
     if (b) { e.preventDefault(); ensureEmailJs(); openHelp(); return; }
@@ -135,7 +126,6 @@
     if ((e.key === "Escape" || e.key === "Esc") && modal() && !modal().hidden) closeHelp();
   });
 
-  // 3) Fallback kirim (tidak mengganggu handler utama)
   document.addEventListener("click", function (e) {
     var b = e && e.target && e.target.closest ? e.target.closest("#help-send") : null;
     if (b) { ensureEmailJs(); fallbackSend(); }

@@ -1,5 +1,3 @@
-/* VelardTools — panel Lainnya satu scroll: gabungkan semua template inline,
-   tanpa klik kartu. Urutan: Tutorial Upload -> ... -> Riwayat Pembaruan. */
 (function () {
   "use strict";
   var ORDER = ["tut-upload", "tut-qm", "spec", "faq", "social", "report", "changelog"];
@@ -18,8 +16,6 @@
     stack.setAttribute("data-built", "1");
   }
 
-  /* Ubah 4 info spesifikasi pertama jadi kartu statistik ala referensi:
-     label sebagai kicker, nilai singkat sebagai angka besar. */
   var SPEC_VALS = ["FFmpeg WASM + Patch JavaScript", "1500 MB", "MP4 · MKV · MP3", "360p–1080p FULL HD"];
 
   function specStats() {

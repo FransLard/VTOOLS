@@ -4,6 +4,13 @@
     function q(sel) {
         return document.querySelector("#toolPanel-merge " + sel) || document.querySelector(sel);
     }
+    function safeMediaPlay(v) {
+        if (!v) return;
+        try {
+            var p = v.play();
+            if (p && typeof p.catch === "function") p.catch(function () {});
+        } catch (e) {}
+    }
     function mergeLang() {
         try {
             return (window.i18n && window.i18n.getLang ? window.i18n.getLang() : null) || localStorage.getItem("lang") || "id";
@@ -48,7 +55,6 @@
     function setBusy(v) {
         busy = v;
         window.__mergeBusy = v;
-        // PERF-OPT aman: tandai body agar background pause saat encode (tidak ubah logika)
         try { document.body.classList.toggle("is-encoding", !!v); } catch (e) {}
     }
     var fileInput = q("#toolMergeFile");
@@ -454,13 +460,11 @@
         }
         var p = Math.max(0, Math.min(1, virtualNow() / total));
         ph.hidden = false;
-        // PERF-OPT aman: tulis DOM hanya jika berubah >=0.2% (hasil visual sama)
         var key = Math.round(p * 500);
         if (ph._vk !== key) {
             ph._vk = key;
             ph.style.left = "calc(10px + (100% - 20px) * " + p.toFixed(4) + ")";
         }
-        // PERF-OPT aman: aria hanya update per detik (tidak ubah logika)
         var secNow = Math.round(virtualNow());
         if (rulerEl && rulerEl._vs !== secNow) {
             rulerEl._vs = secNow;
@@ -473,7 +477,6 @@
         rafId = null;
         try {
             if (!preview || preview.paused) { try { document.body.classList.remove("is-preview"); } catch (e) {} return; }
-            // PERF-OPT aman: batasi ~15fps, cukup untuk playhead halus (logika sama)
             var _nt = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
             if (_nt - _lastTick >= 66) {
                 _lastTick = _nt;
@@ -917,7 +920,7 @@
         if (!preview || busy) return;
         try {
             if (preview.paused) {
-                preview.play();
+                safeMediaPlay(preview);
             } else {
                 preview.pause();
             }
@@ -928,7 +931,7 @@
             if (busy) return;
             try {
                 if (preview.paused) {
-                    preview.play();
+                    safeMediaPlay(preview);
                 } else {
                     preview.pause();
                 }
@@ -955,9 +958,7 @@
             }
             if (i >= 0 && i < files.length - 1) {
                 previewFile(files[i + 1]);
-                try {
-                    preview.play();
-                } catch (e) {}
+                safeMediaPlay(preview);
             } else {
                 setPlayIco(false);
             }

@@ -1,4 +1,3 @@
-/* VelardTools — tombol kembali-ke-atas + penanda chip aktif panel Lainnya */
 (function () {
   "use strict";
   var SHOW_AFTER = 600;
@@ -49,7 +48,6 @@
       Array.prototype.forEach.call(secs, function (s) { obs.observe(s); });
     }
     watch();
-    // ulangi sebentar untuk jaga-jaga pembangunan async
     var n = 0;
     var t = setInterval(function () { watch(); if (++n >= 5) clearInterval(t); }, 800);
   }

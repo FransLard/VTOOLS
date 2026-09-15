@@ -1,4 +1,3 @@
-/* VelardTools — site background mode: white / black (seluruh situs, bukan gambar) */
 (function () {
   "use strict";
   var KEY = "mlSiteBg";
@@ -25,7 +24,6 @@
   function init() {
     var saved = null;
     try { saved = localStorage.getItem(KEY); } catch (e) {}
-    // default putih; kalau ada simpanan, pakai itu
     apply(saved === "black" ? "black" : "white", false);
     var opts = document.querySelectorAll(".ml-bg-opt");
     Array.prototype.forEach.call(opts, function (b) {
