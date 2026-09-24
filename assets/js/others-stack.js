@@ -53,10 +53,10 @@
   function privacyCount() {
     var el = document.getElementById("privacyUsersNum");
     if (!el || el.getAttribute("data-done")) return;
-    function fmt(n) { return n >= 1000 ? "1K+" : String(n); }
+    function fmt(n) { return n >= 1500 ? "1.5K+" : n >= 1000 ? "1K+" : String(n); }
     function run() {
       el.setAttribute("data-done", "1");
-      var target = parseInt(el.getAttribute("data-count") || "1000", 10) || 1000;
+      var target = parseInt(el.getAttribute("data-count") || "1500", 10) || 1500;
       var reduce = false;
       try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
       if (reduce) { el.textContent = fmt(target); return; }
