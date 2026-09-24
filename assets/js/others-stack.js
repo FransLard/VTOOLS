@@ -53,20 +53,22 @@
   function privacyCount() {
     var el = document.getElementById("privacyUsersNum");
     if (!el || el.getAttribute("data-done")) return;
-    function fmt(n) { return n >= 1500 ? "1.5K+" : n >= 1000 ? "1K+" : String(n); }
+    function fmtLive(n) { try { return n.toLocaleString("id-ID"); } catch (e) { return String(n); } }
     function run() {
       el.setAttribute("data-done", "1");
       var target = parseInt(el.getAttribute("data-count") || "1500", 10) || 1500;
       var reduce = false;
       try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
-      if (reduce) { el.textContent = fmt(target); return; }
-      var t0 = null, dur = 1000;
+      if (reduce) { el.textContent = "1.5K+"; return; }
+      var t0 = null, dur = 2200, start = 1;
+      el.textContent = "1";
       function step(ts) {
         if (!t0) t0 = ts;
         var p = Math.min(1, (ts - t0) / dur);
-        var eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = fmt(Math.round(eased * target));
-        if (p < 1) requestAnimationFrame(step);
+        if (p >= 1) { el.textContent = "1.5K+"; return; }
+        var val = Math.round(start + p * (target - start));
+        el.textContent = fmtLive(val);
+        requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
     }
